@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsthm,amsmath,amsfonts}
+\usepackage{units}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\bibliographystyle{plain}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{makeidx}
+\usepackage{gloss}
+\usepackage{xcolor}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\def\glossname{Glossaire}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theoreme}
+\theoremstyle{definition} 
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition} 
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{definition} 
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition} 
+\newtheorem{defi}[thm]{Definition}
+\theoremstyle{remark} 
+\newtheorem{rem}[thm]{Remark}
+\theoremstyle{remark} 
+\newtheorem{exe}[thm]{Example}
+\author{Luca DeFeo,Cyril Hugounenq,}
+
+\begin{document}
+\section{Reminder on Couveignes's algorithm}
+
+\input{Reminder_Couveignes}
+\section{Reminder on isogeny volcano}
+\input{Reminder_Volcano}
+\section{Computing a canonical basis}
+\input{Computing_Tate_Module}
+\section{Interpolating the two basis}
+\input{Interpolation}
+
+
+\end{document}
