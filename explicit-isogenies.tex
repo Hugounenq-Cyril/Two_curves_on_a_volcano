@@ -25,7 +25,7 @@
 \begin{document}
 
 \begin{abstract}
-Un résumé qui parle d interpolation et de restrictions de choix pour ces interpolations a l aide d un invariant pour les isogenies que l on calcule a l aide des volcans d isogenies. 
+The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ opertations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
 \end{abstract}
 
 \section*{Proposed notation}
@@ -44,8 +44,12 @@ stabilized.
 \item $K$ is the notation for the imaginary quadratic field in which $\mathcal{O}$ is defined
 \item $d_K$ is the negative integer such that $K=\mathbb{Z}[d_K]$  
 \end{itemize}
-\section{Reminder on Couveignes's algorithm}
+\section{Couveignes's algorithm}
 Rappel sur l'algorithme de Couveignes, dire que basiquement il interpole un groupe de points sur un autre, puis fait de la reconstruction rationnelle et teste alors si son résultat est correct, si ce n'est pas le cas il change les groupes et recommence. 
+
+Couveignes's algorithm \cite{couveignes96} is an algorithm which computes an isogeny using the $p$-torsion. This algorithm takes advantage of the cyclic group structure of the $p$ torsion to in interpolate $p^k$ torsion points of one curve on another, with $k$ chosen such that $p^k>4r$. Couveignes's algorithm also take into account that if an isogeny send a point on an other then it also must respect the same property for the multiple points. With the interpolation polynomial Couveignes do a rational reconstruction of the isogeny, if the rational reconstruction don't work he tried with another couple of generators to do another interpolation. 
+\newline
+We try to adapt his method here to the case of the $2$ torsion for ordinary elliptic curves and more generally to the $\ell$ torsion with $2 \wedge r ( \ell \wedge r)$.
 
 
 \section{Reminder on isogeny volcanoes}
