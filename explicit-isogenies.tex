@@ -53,10 +53,23 @@ We try to adapt his method here to the case of the $2$ torsion for ordinary elli
 
 Our goal is to reduce the number of points to interpolate with operations which are not so much costly. Thus we consider the Frobenius endomorphism to give us knowledge on the points we want to interpolate. We have considered the graph of isogeny (called volcano) which is linked to the group structure (see \cite{MiretMRV05}, \cite{IonicaJ10} ) of the curve for our study. First we have to determined which knowledge we obtain thanks to the Frobenius. The Frobenius allow us to determine horizontal isogenies according to the "notations" from \cite{Kohel} and \cite{volcano}, and thus we can associate to those horizontal isogenies their kernel and then one generator of their kernel. It will be those generators that we will use for the interpolation. To speed up the interpolation computation we will use techniques such as one used in \cite{enge+morain03} where we take into account the action of the Frobenius. In the end we will obtain a computational complexity of $O(r^2)$.
 
-\section{Implantation}
+%\section{Implantation}
 %Il faut aborder le fait que l on travaille sur des constructions de tours 2 adique de la meme maniere que le papier de Javad et Eric mais cela ne devrait peut etre pas etre precise lors d une section
 
 \section{Study of the Frobenius on the crater}
+If we want to be able to distinguish two different horizontal paths on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues which is only possible on the cyclic crater of a volcano of $2$-isogeny ($\ell$).
+
+\begin{prop}
+For $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius and $k>v_2(\lambda_1-\lambda_2)$, the matrix of the Frobenius action on the $\ell^k$ torsion is only diagonalisable on a cyclic crater of a volcano of $\ell$ isogeny.
+\end{prop}
+
+\begin{proof}
+We remind that with the notation from \cite{Fouquet01} \cite{Kohel96} we have $d_{\pi}=g^2d_K$, with $d_K$ squarefree.
+\newline
+If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{2}$. If $\left( \frac{d_K}{\ell} \right)=0$ thus we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
+\newline
+We will thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$  because the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ since $\sqrt{d_K}$ is not.
+\end{proof}
 %Dans cette section on montre les résultats que nous permettent d'obtenir le frobenius sur le cratère
 \subsection{Horizontal basis}
 %Dans cette section on montre comment on construit une base horizontale de la 2(\ell) torsion
