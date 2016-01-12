@@ -7,6 +7,8 @@
 \usepackage{algorithm}
 \usepackage{tikz}
 \usepackage{nicefrac}
+ 
+\newcommand{\todo}[1]{{\color{red}TODO: #1}}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}
@@ -23,6 +25,8 @@
 \author{Cyril Hugounenq}
 
 \begin{document}
+
+\maketitle
 
 \begin{abstract}
 The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ operations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
@@ -44,7 +48,62 @@ stabilized.
 \item $K$ is the notation for the imaginary quadratic field in which $\mathcal{O}$ is defined
 \item $d_K$ is the negative integer such that $K=\mathbb{Z}[d_K]$  
 \end{itemize}
+
+%%%%%%%%%%%%%%%
+
 \section{Introduction}
+\label{sec:introduction}
+
+\todo{Isogenies of elliptic curves over finite fields are
+  important. Isogenies are used in SEA. Isogenies are used in
+  cryptography.  The \emph{explicit isogeny problem} is defined as
+  follows\dots It is a fundamental subproblem in SEA. The best
+  algorithms for it are\dots We present a quasi-quadratic-time
+  algorithm working for finite fields of any characteristic, it is an
+  alternative to the Lercier-Sirvent approach and compares favorably
+  to it.}
+
+% From a mail by Luca
+
+% - Dans SEA, pour compter le nombre de points sur GF(p^n), on doit
+% calculer des isogénies de degre ℓ~log(p^n).
+
+% - Les algos classiques de calcul d'isogénies (CCR et BMSS) ratent dès
+% que p >> ℓ.
+
+% - Pour p fixé, on n'utilise pas SEA, mais plutôt les algos p-adiques.
+% Ces algos sont exponentiels en log p.
+
+% - Du coup, pour p pas fixé et n >> p/log(p) (carac moyenne), il y
+% encore un intérêt à chercher des algos de calcul d'isogénies
+% polynômiaux en log p.
+
+% - Le seul algo de calcul d'isogénies qui marche pour tout p et qui
+% n'est pas exponentiel en log p est Lercier-Sirvent. Il est quadratique
+% en ℓ (plus le coût du polynôme modulaire, qui de toutes façons est
+% déjà inclus dans SEA).
+
+% Du coup, même si la carac moyenne n'est pas vraiment utilisée en
+% crypto, ça reste intéressant de chercher des algos de calcul
+% d'isogénie pour concurrencer Lercier-Sirvent.
+
+The paper is organized as follows. In Section~\ref{sec:couv-algor} we
+review Couveignes' strategy for the explicit isogeny problem, and
+sketch our generalization of it. In
+Section~\ref{sec:isogeny-volcanoes} we recall the fundamental
+properties of isogenies and endomorphism
+rings. Sections~\ref{sec:acti-frob-endm} and~\ref{sec:interpolation}
+treat the two main phases of our new algorithm; both phases are used
+together in Section~\ref{sec:complete-algorithm} to give the full
+algorithm. Finally, Section~\ref{sec:implem} describes our
+implementation of the algorithm and discusses its performances.
+
+
+%%%%%%%%%%%%%%%
+
+\section{Couveignes' algorithm}
+\label{sec:couv-algor}
+
 %Rappel sur l'algorithme de Couveignes, dire que basiquement il interpole un groupe de points sur un autre, puis fait de la reconstruction rationnelle et teste alors si son résultat est correct, si ce n'est pas le cas il change les groupes et recommence. 
 
 Couveignes's algorithm \cite{couveignes96} is an algorithm which computes an isogeny using the $p$-torsion. This algorithm takes advantage of the cyclic group structure of the $p$ torsion to interpolate $p^k$ torsion points of one curve on another, with $k$ chosen such that $p^k>4r$. Couveignes's algorithm also take into account that if an isogeny send a point on an other then it also must respect the same property for the multiple points. With the interpolation polynomial Couveignes do a rational reconstruction of the isogeny, if the rational reconstruction don't work he tried with another couple of generators to do another interpolation. The complexity of this algorithm is of $O(r^2)$
@@ -53,21 +112,44 @@ We try to adapt his method here to the case of the $2$ torsion for ordinary elli
 
 Our goal is to reduce the number of points to interpolate with operations which are not so much costly. Thus we consider the Frobenius endomorphism to give us knowledge on the points we want to interpolate. We have considered the graph of isogeny (called volcano) which is linked to the group structure (see \cite{MiretMRV05}, \cite{IonicaJ10} ) of the curve for our study. First we have to determined which knowledge we obtain thanks to the Frobenius. The Frobenius allow us to determine horizontal isogenies according to the "notations" from \cite{Kohel} and \cite{volcano}, and thus we can associate to those horizontal isogenies their kernel and then one generator of their kernel. It will be those generators that we will use for the interpolation. To speed up the interpolation computation we will use techniques such as one used in \cite{enge+morain03} where we take into account the action of the Frobenius. In the end we will obtain a computational complexity of $O(r^2)$.
 
-\section{Implantation}
-%Il faut aborder le fait que l on travaille sur des constructions de tours 2 adique de la meme maniere que le papier de Javad et Eric mais cela ne devrait peut etre pas etre precise lors d une section
+%%%%%%%%%%%%%%%
 
-\section{Study of the Frobenius on the crater}
-%Dans cette section on montre les résultats que nous permettent d'obtenir le frobenius sur le cratère
+\section{Isogeny volcanoes}
+\label{sec:isogeny-volcanoes}
+
+\todo{Notions de base sur les isogenies et les volcans.}
+
+%%%%%%%%%%%%%%%
+
+\section{The action of the Frobenius endmorphism}
+\label{sec:acti-frob-endm}
+\todo{Dans cette section on montre les résultats que nous permettent d'obtenir le frobenius sur le cratère}
 \subsection{Horizontal basis}
-%Dans cette section on montre comment on construit une base horizontale de la 2(\ell) torsion
+\todo{Dans cette section on montre comment on construit une base horizontale de la $2(\ell)$ torsion}
 \subsection{Proof of the algorithm}
-%Dans cette section on montre que une base horizontale est envoyee sur une base horizontale
+\todo{Dans cette section on montre que une base horizontale est envoyee sur une base horizontale}
 
-\section{Interpolation}
-%Dans cette section on montre les outils employes pour diminuer le cout de l interpolation 
+%%%%%%%%%%%%%%%
 
-\section{Reduction to the crater}
-%Dans cette section on montre que l on peut reduire le probleme a l etude de deux courbes sur le cratere
+\section{Interpolation step}
+\label{sec:interpolation}
+\todo{Dans cette section on montre les outils employes pour diminuer le cout de l interpolation}
+
+%%%%%%%%%%%%%%%
+
+\section{Complete algorithm}
+\label{sec:complete-algorithm}
+\todo{Put pieces together: explain the strategy for the case where the
+  curves are not on the crater, characterize cases where the algorithm
+  works/doesn't work, state overall complexity.}
+
+%%%%%%%%%%%%%%%
+
+\section{Experimental results}
+\label{sec:implem}
+
+\todo{Describe implementation and show benchmarks. Possibly compare
+  with Lercier-Sirvent (Luca has an implementation somewhere).}
 
 \bibliographystyle{plain}
 \bibliography{refs}
