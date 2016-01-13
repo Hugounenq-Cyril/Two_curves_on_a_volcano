@@ -142,6 +142,32 @@ We will thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to wo
 
 From this point we study the $\ell$ torsion points who are eigenvector for the Frobenius, thus we will work with curves who are on the crater of a volcano. We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ order who are also eigenvector for the $2$ eigenvalues. We use then the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k$.
 %First we have to tell how we obtain such a basis and the eigenvalues
+\begin{algorithm}
+\caption{\label{Diagnoalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
+\begin{algorithmic}[5]
+\REQUIRE $\langle P,Q \rangle$ a basis of the $\ell$-torsion.
+\ENSURE $\langle P,Q \rangle$ a basis of the $\ell^k$-torsion, $\lambda_1, \lambda_2$ defined modulo $\ell^k$ such that $\pi(P)=\lambda_1P$, $ \pi(Q)=\lambda_2Q$
+\STATE $h:=1, k_0:=1$
+\FOR {$i=1$  to  $k-1$}
+\STATE $P \leftarrow P/\ell$
+\STATE $Q \leftarrow Q/\ell$ 
+\STATE compute $\pi(P,Q)=\left( \begin{array}{cc}
+\lambda_1 + a\ell^{i} & b\ell^{i}\\
+c\ell^{i} & \lambda_2 + d\ell^{i}
+\end{array} \right) \bmod \ell^{i+1}$ with $\{a,b,c,d\} \in \mathbb{Z}/\ell\mathbb{Z}$
+\IF {$\lambda_1 \neq \lambda_2$}
+\STATE $k0 \leftarrow \frac{\lambda_1-\lambda_2}{\ell^h}$
+\ENDIF
+\STATE $\lambda_1, \lambda_2  \gets \lambda_1 + a\ell^i, \lambda_2 + d\ell^i$
+\STATE $r_1,r_2 \gets \frac{-b }{k_0}, \frac{c }{k_0}$  
+\STATE $\{P,Q\} \gets \{P+\ell^{i-1-h}r_1Q,Q+\ell^{i-1-h}r_2P\}$
+\IF {$\lambda_1 = \lambda_2$}
+\STATE $h \leftarrow h+1$
+\ENDIF
+\ENDFOR
+\RETURN $\{P,Q,\lambda_1,\lambda_2\}$
+\end{algorithmic}
+\end{algorithm}
 
 
 To distinguish the two eigenvalues of the Frobenius we are forced to consider the $\ell^k$ torsion for $k>\nu_{\ell}(\lambda_1-\lambda_2)$. We obtain the following result who link the $\ell$ isogenies and the $\ell^k$ torsion points.
