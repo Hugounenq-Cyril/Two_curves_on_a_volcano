@@ -137,10 +137,10 @@ We remind that with the notation from \cite{Fouquet01} \cite{Kohel96} we have $d
 \newline
 If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ thus we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
 \newline
-We will thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  because the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ since $\sqrt{d_K}$ is not.
+We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  because the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ since $\sqrt{d_K}$ is not.
 \end{proof}
 
-From this point we study the $\ell$ torsion points who are eigenvector for the Frobenius, thus we will work with curves who are on the crater of a volcano. We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ order who are also eigenvector for the $2$ eigenvalues. We use then the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k$.
+From this point we study the $\ell$ torsion points who are eigenvector for the Frobenius, thus we work with curves who are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ order who are also eigenvector for the $2$ eigenvalues. We use the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k$.
 %First we have to tell how we obtain such a basis and the eigenvalues
 \begin{algorithm}
 \caption{\label{Diagnoalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
@@ -189,6 +189,79 @@ We consider the notations from the complex multiplication theory with $K$ the qu
 
 \subsection{Horizontal basis}
 \todo{Dans cette section on montre comment on construit une base horizontale de la $2(\ell)$ torsion}
+Our aim now is to compute  a basis of the $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ torsion with each generator who is also a generator of a $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ horizontal isogeny, but first we have to define them:
+
+\begin{defi}%peut etre que le choix du r est malheureux dans cette definition...
+Let $\phi$ be a $\ell^r$-isogeny with $r>0$, we say that $\phi$ is horizontal  if there exists a decomposition $\phi = \psi_1 \circ … \circ \psi_r$, where all $\ell$-isogenies $\psi_i$ are horizontal.
+\end{defi}
+
+To compute such a basis we start from a basis of the $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ torsion of a curve on a cyclic crater of the $\ell$ isogeny volcano and then we push this basis along the crater thanks to the knowledge from the Frobenius.
+
+\begin{prop}\label{propcentrale}
+Let $E^i$ be an elliptic curve over a cyclic crater of a volcano of $\ell$-isogenies, we consider a primitive $\ell^j$ torsion point $Q^i \in E^i$ such that $\varphi: E^i \rightarrow \nicefrac{E^i}{\langle Q^i \rangle }$ is a horizontal isogeny, we denote $V$ a division point of $Q_i$ of order $\ell^{j+h}$ such that $\pi(V)=\lambda_2V$  , $P$ a primitive $\ell$-torsion point associated to $\lambda_1$, $\phi$ the isogeny: $E^{i}\rightarrow E^{i+1}=\nicefrac{E^i}{\langle P \rangle}$. For $R$ a $\ell$ division point of $Q^i$ we have $\phi(R)$ such that $E^{i+1} \rightarrow \nicefrac{E^{i+1}}{\langle \phi(R) \rangle}$ is a horizontal isogeny and there exists a division point $W$ of $\phi(R)$ of order $\ell^{j+h+1}$ such that $\pi(W)=\lambda_2W$.  
+\end{prop}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\coordinate (A) at (245:10);
+\coordinate (B) at (255:10);
+\coordinate (B') at (255:11);
+\coordinate (B1) at (256:10.3);
+\coordinate (C) at (265:10);
+\coordinate (C') at (265:11);
+\coordinate (D) at (275:10);
+\coordinate (D') at (275:11);
+\coordinate (E) at (285:10);
+\coordinate (E') at (285:11);
+\coordinate (F) at (295:10);
+\coordinate (F') at (295:11);
+\coordinate (G) at (305:10);
+\coordinate (B2) at (258:9.7);
+\coordinate (C1) at (266:10.3);
+\coordinate (C2) at (267:9.7);
+\coordinate (encre) at (273:10.5);
+\draw (A) arc(245:255:10)[dashed];
+\draw (B) arc(255:275:10);
+\draw (D) arc(275:285:10)[dashed];
+\draw (E) arc(285:295:10)[dashed];
+\draw (B) node[above] {$E^{i+1}$} node{$\bullet$};
+\draw (C) node[above] {$E^{i}$} node{$\bullet$};
+\draw (D) node[above] {$E^{i-1}$} node{$\bullet$};
+\draw (E) node[above] {$\nicefrac{E^i}{\langle Q^i \rangle }$} node{$\bullet$};
+\draw (encre) node {$\varphi$};
+\draw (B)--(B');
+\draw (C)--(C');
+\draw (D)--(D');
+\draw (E)--(E');
+\draw (B1) arc(256:264:10.3) [->] node[below,midway] {$\psi$}; %flèche représentant \psi
+\draw (B2) arc(258:263:9.7) [<-] node[above,midway] {$\lambda_1, \phi$}; %flèche représentant 
+\draw (C2) arc(267:272:9.7) [->] node[above,midway] {$\lambda_2$}; %flèche représentant 
+\draw (C1) arc(266:284:10.3) [->];% node[below,midway,fill=white] {$\varphi $};
+
+%\draw (260:10.75) node{}
+%\draw (0,0) arc (245:255:10)[dashed] node[above] {$C$} node{$\bullet$} --(0:1.5);
+%\draw (0,0) arc (245:255:10)[dashed] arc (255:265:10) node[above] {$E^i$} node{$\bullet$} --(0:1.5);
+%\draw (-1,0) arc (245:255:10) node[above] {$C2$} node{$\bullet$} --(90:1)[color=yellow];
+%\draw (-1,0) arc (245:255:10) node[above] {$C$} node{$\bullet$} --(310:1.5)[color=red];
+%\draw (0,0) arc (245:255:10)[color=white] node[above] {$C$} node{$\bullet$} arc (255:265:10) node[above] {$E^i$} node{$\bullet$} arc (265:275:10) node[above] {$E$} node{$\bullet$} arc (275:285:10) node[above] {$F$} node{$\bullet$} arc (285:295:10) node[above] {$G$} node{$\bullet$} ; 
+\end{tikzpicture}
+\end{center}
+\caption{ Example for the case $\ell=2$ } 
+\end{figure}
+
+\begin{proof}
+We will first prove that the isogeny $E^{i+1} \rightarrow \nicefrac{E^{i+1}}{\phi(R)}$ is horizontal and associated to $\lambda_2$.
+\newline
+Since $\ell^j\phi(R)=\phi(\ell^{j-1}Q^i)$ and $Q^i$ is associated to $\lambda_2$ then the $\ell$-isogeny $\psi$ with kernel $\ell^{j}\phi(R)$ is the dual isogeny of $\phi$ because it is the one who anhiliates the $\ell$-torsion (here $\langle P, \ell^{j-1}Q^i \rangle$) together with $\phi$ on $E^i$. Thus we have proved that $\psi$ is associated to $\lambda_2$ and horizontal. 
+\newline
+Since we have $\psi(\phi(R))=Q^i$, this tells us that the isogeny $\Upsilon$ with kernel $\phi(R)$ is the composition of $\psi$ with the isogeny $\varphi$ of kernel $\langle Q^i \rangle$. Thus the isogeny $\Upsilon$ is horizontal of degree $\ell^{j+1}$ and associated to $\lambda_2$.
+\newline
+Let $W$ a point of order $\ell^{h+j+1}$ such that $\ell^hW=\phi(R)$, let $T$ a point such that $\phi(T)=W$. From $\ell^h\phi(T)=\phi(R)$ we deduce that $\ell^{h+1}T=Q^i$ and that $T$ is of order $\ell^{j+h+1}$. Let denote $\widehat{\phi}$ the dual isogeny of $\phi$, since $W$ is a division point of $\phi(Q^i)$, $\widehat{\phi}$ is the $\ell$ isogeny generated by $\ell^{h+j}W=\ell^j\phi(R)=\ell^{j-1}\phi(Q)$. As $\ell^{h}\widehat{\phi(W)}=\ell^h\widehat{\phi}(\phi(T))=\ell^{h+1}T=Q^i$, thus by hypothesis we have $\pi(\widehat{\phi}(W))=\lambda_2\widehat{\phi}(W)$. Moreover we have $\widehat{\phi} (\phi(T))=\widehat{\phi}(W)$ this implies that $\pi(\ell T)=\pi(\widehat{\phi}(W))=\lambda_2\widehat{\phi}(W)=\lambda_2(\ell T)$. Thus we have for $T$: $\pi(T)=\lambda_\ell T + P$ with a $\ell$ torsion point $P$ associated to the "eigenspace" of $\lambda_1$. Then with the action of $\phi$ associated to $\lambda_1$ we have $\pi(\phi(T))=\pi(W)=\lambda_2\phi(T)=\lambda_2W$. 
+\end{proof}
+
+%Algorithme necessaire, surement pour enfoncer le clou...
+
 \subsection{Proof of the algorithm}
 \todo{Dans cette section on montre que une base horizontale est envoyee sur une base horizontale}
 
