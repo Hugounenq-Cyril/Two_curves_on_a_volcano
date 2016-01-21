@@ -120,6 +120,27 @@ Our goal is to reduce the number of points to interpolate with operations which 
 \todo{Notions de base sur les isogenies et les volcans.}
 
 %Dire que le volcan ne possède des isogenies
+\subsection{ordres sur les corps quadratiques}%titre a supprimer eventuellement
+We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote it's discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order in $K$ we have the following result : $\mathcal{O}= \mathbb{Z}+ f \mathbb{O}_K$ with $f=[\mathcal{O}:\mathcal{O}_K]$. For more detailed informations we refer the reader to \cite{Cox89}.
+
+\subsection{Isogenies montantes- descendantes}
+We remind a result from Kohel \cite{kohel} for the endomorphism rings of ordinary elliptic curves:
+\begin{prop}
+Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then $[\mathcal{O}:\mathcal{O'}]=\ell$ or $[\mathcal{O}:\mathcal{O'}]=1$ or $[\mathcal{O'}:\mathcal{O}]=\ell$
+\end{prop}
+We remind the vocabulary associated to the different cases (with the same notation as the previous proposition):
+\begin{itemize}
+\item $\phi$ is an ascending isogeny if we have $[\mathcal{O}:\mathcal{O'}]=\ell$,
+\item $\phi$ is a descending isogeny if we have $[\mathcal{O'}:\mathcal{O}]=\ell$,
+\item $\phi$ is an horizontal isogeny if we have $[\mathcal{O'}:\mathcal{O}]=1$.
+\end{itemize}
+We call an isogeny of degree $\ell$ a $\ell$ isogeny.
+
+We consider the Frobenius and his action on the $\ell$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
+\begin{equation}
+X^2 - tX +q = 0
+\end{equation}
+with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial, and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
 
 %%%%%%%%%%%%%%%
 
