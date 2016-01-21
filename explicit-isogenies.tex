@@ -121,10 +121,10 @@ Our goal is to reduce the number of points to interpolate with operations which 
 
 %Dire que le volcan ne possède des isogenies
 \subsection{ordres sur les corps quadratiques}%titre a supprimer eventuellement
-We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote it's discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order in $K$ we have the following result : $\mathcal{O}= \mathbb{Z}+ f \mathbb{O}_K$ with $f=[\mathcal{O}:\mathcal{O}_K]$. For more detailed informations we refer the reader to \cite{Cox89}.
+We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote it's discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathbb{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and The discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}.
 
 \subsection{Isogenies montantes- descendantes}
-We remind a result from Kohel \cite{kohel} for the endomorphism rings of ordinary elliptic curves:
+We remind a result from Kohel \cite{Kohel} for the endomorphism rings of ordinary elliptic curves:
 \begin{prop}
 Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then $[\mathcal{O}:\mathcal{O'}]=\ell$ or $[\mathcal{O}:\mathcal{O'}]=1$ or $[\mathcal{O'}:\mathcal{O}]=\ell$
 \end{prop}
@@ -136,11 +136,107 @@ We remind the vocabulary associated to the different cases (with the same notati
 \end{itemize}
 We call an isogeny of degree $\ell$ a $\ell$ isogeny.
 
+We denote by $\pi$ the Frobenius morphism, it is an endomorphism as like the scalar multiplications, thus we always have for an elliptic curve $E$:
+$\mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K$.
 We consider the Frobenius and his action on the $\ell$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
 \begin{equation}
 X^2 - tX +q = 0
 \end{equation}
-with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial, and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial, , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+
+\subsection{Volcan}
+We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano.According to the value of $\left( \frac{d_{K}}{\ell} \right)$ (with $\left( \frac{\cdot}{\cdot} \right)$ the Legendre symbol) there are $3$ types of volcano.
+\begin{prop} %prop 23 de la these de Kohel
+Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
+\begin{itemize}
+\item if $\mathcal{O}$ is maximal (i.e. equals to $\mathcal{O}_K$) then there are $\left( \frac{D}{\ell} \right) +1 $ horizontal $\ell$ isogenies,
+\item if $\mathcal{O}$ is non maximal then there are no horizontal $\ell$ isogenies,
+\item if there exists more than $\left( \frac{D}{\ell} \right) +1 $  $\ell$isogenies, up to isomorphism, then all the isogenies are defined over $\mathbb{F}_q$ and there is only $1$ ascending isogeny. 
+\end{itemize}
+\end{prop} 
+
+
+		\begin{figure}
+		\begin{center}
+		
+        \begin{tikzpicture}[scale=0.5]
+        \coordinate (A) at (0,0);
+		\coordinate (B) at (230:5);
+		\coordinate (C) at (270:4);
+		\coordinate (D) at (310:5);
+		\draw (A) node{$\bullet$};
+		\draw (B) node{$\bullet$};
+		\draw (C) node{$\bullet$};
+		\draw (D) node{$\bullet$};
+		\draw (A)--(B);
+		\draw (A)--(C);
+		\draw (A)--(D);
+		
+		\begin{scope}[xshift=7cm]
+		\coordinate (A) at (0,0);
+		\coordinate (B) at (5.5,0);
+		\coordinate (C) at (240:4.2);
+		\coordinate (D) at (300:4.2);
+		\draw (A) node{$\bullet$};
+		\draw (B) node{$\bullet$};
+		\draw (C) node{$\bullet$};
+		\draw (D) node{$\bullet$};
+		\draw (A)--(B);
+		\draw (A)--(C);
+		\draw (A)--(D);
+		\end{scope}
+		
+		\begin{scope}[xshift=12.5cm]
+		\coordinate (A) at (0,0);
+		\coordinate (C) at (240:4.2);
+		\coordinate (D) at (300:4.2);
+		\draw (A) node{$\bullet$};
+		\draw (C) node{$\bullet$};
+		\draw (D) node{$\bullet$};
+		\draw (A)--(C);
+		\draw (A)--(D);
+		\end{scope}
+		
+		\begin{scope}[xshift=23cm]
+		\node (A) at (-3,0) {$\bullet$};
+		\node (B) at (3,0) {$\bullet$};
+		\node (C) at (270:1.2) {$\bullet$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[-] (A.center) to[bend right=40] (B.center);
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\draw (A) node{$\bullet$};
+			\draw (C) node{$\bullet$};
+			\draw (A)--(C);
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\draw (A) node{$\bullet$};
+			\draw (C) node{$\bullet$};
+			\draw (A)--(C);
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\draw (A) node{$\bullet$};
+			\draw (C) node{$\bullet$};
+			\draw (A)--(C);
+			\end{scope}
+		\end{scope}
+		\end{tikzpicture}
+		%\end{center}
+		\caption{ $3$ kind of volcanos of $2$ isogenies }
+		
+		\end{center} 
+		\end{figure}
+	
+During the rest of this paper we consider only volcano with cyclic crater.
 
 %%%%%%%%%%%%%%%
 
@@ -154,7 +250,7 @@ For $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius and $k>\nu_2(\l
 \end{prop}
 
 \begin{proof}
-We remind that with the notation from \cite{Fouquet01} \cite{Kohel96} we have $d_{\pi}=g^2d_K$, with $d_K$ squarefree.
+We remind that we have $d_{\pi}=g^2d_K$, with $d_K$ squarefree.
 \newline
 If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ thus we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
 \newline
