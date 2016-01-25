@@ -244,22 +244,22 @@ During the rest of this paper we consider only volcano with cyclic crater.
 To be able to distinguish two different horizontal isogenies and the descending ones on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues which is only possible on the cyclic crater of a volcano of $\ell$-isogeny.
 
 \begin{prop}
-For $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius and $k>\nu_{\ell}(\lambda_1-\lambda_2)$, the matrix of the Frobenius action on the $\ell^k$ torsion is only diagonalisable on a cyclic crater of a volcano of $\ell$ isogeny.
-\end{prop}
-
-\begin{prop} %EN COURS DE REFORMULATION DE LA PROP PRECEDENTE
-For $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius, those values are defined in the endomorphism rings who are located at the top of a cyclic volcano of $\ell$ isogeny.
+For $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius, those values are only defined on the $\ell$ torsion of a curve that is located at the top of a cyclic volcano of $\ell$ isogeny.
 \end{prop}
 
 \begin{proof}
-We remind that we have $d_{\pi}=g^2d_K$, with $d_K$ squarefree.
+We remind that we have $D=g^2d_K$, with $d_K$ squarefree.
 \newline
-If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ thus we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
+If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ then we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
 \newline
-We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  because the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ since $\sqrt{d_K}$ is not.
+We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ modulo the $\ell$ torsion because the discrimant is $D=\ell^2 d_K$ and thus $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
 \end{proof}
 
-From this point we study the $\ell$ torsion points who are eigenvector for the Frobenius, thus we work with curves who are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ order who are also eigenvector for the $2$ eigenvalues. We use the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k$.
+\begin{defi}
+For $\lambda_1$, $\lambda_2$ the $2$ eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
+\end{defi}
+
+From this point we study the $\ell$ torsion points that are eigenvector for the Frobenius, thus we work with curves that are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{h+1}$ order who are also eigenvector for the $2$ eigenvalues. We use the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k>h$.
 %First we have to tell how we obtain such a basis and the eigenvalues
 \begin{algorithm}
 \caption{\label{Diagnoalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
@@ -292,7 +292,7 @@ c\ell^{i} & \lambda_2 + d\ell^{i}
 To distinguish the two eigenvalues of the Frobenius we are forced to consider the $\ell^k$ torsion for $k>\nu_{\ell}(\lambda_1-\lambda_2)$. We obtain the following result who link the $\ell$ isogenies and the $\ell^k$ torsion points.
 
 \begin{prop} \label{conjecture}
-For $P$ a point of order $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
+For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
 \begin{itemize}
 \item Either $\pi(P)=\lambda_1P$ then the $\ell$-isogeny with kernel $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)} P$ is horizontal,
 \item Either $\pi(P)=\lambda_2P$ then the $\ell$-isogeny with kernel $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)} P$ is horizontal,
@@ -301,8 +301,8 @@ For $P$ a point of order $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ on $E$ which
 \end{prop}
 
 \begin{proof}
-We denote by $h$ the value $\nu_{\ell}(\lambda_1-\lambda_2)$ and  $Es_1=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_1P\}$, $Es_2=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $Es_1$ (resp. $Es_2$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
-We consider the notations from the complex multiplication theory with $K$ the quadratic imaginary field which contains the endomorphism ring of $E$: $\mathcal{O}$. In particular, with the notation of $\mathcal{O}_K$ for the algebraic integers of $K$ we have $[\mathcal{O}:\mathcal{O}_K]\wedge \ell =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $p\mathcal{O}_K=\mathfrak{p}_1\mathfrak{p}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{p}_1'=\mathfrak{p}_2$ (by theorem 5.9 of \cite{Cox89}). Since $Es_1$ and $Es_2$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{p}_1\mathcal{O}_K$ (resp. $\mathfrak{p}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{p}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{p}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{p}_1\mathfrak{p}_2=p$ then $\mathfrak{p}_1^{-1}=\left( \frac{\mathfrak{p}_2}{p} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{p}_2}{p} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{p}_1 + \mathfrak{p}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $Es_1$ and $Es_2$
+We denote by $E_{\lambda_1}=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
+We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=p$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{l} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
 \end{proof}
 
 
