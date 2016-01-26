@@ -311,7 +311,7 @@ x^3+Ax+B
 \]
 Since we consider the input curves has a two torsion of rank $2$ on $\mathbb{F}_q$ we can do the root computation with Cantor Zassenhauss algorithm in a complexity of $O( \log(q))$ operations in $\mathbb{F}_q$. 
 The computation of a square root is done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$ according to \cite{DBLP:journals/dcc/DoliskaniS15}, thus we have a computational complexity of $O(M(\sqrt{r})(\log(r)+\log(q)))$
-\item[$\ell \neq 2$]Computation of the different abscissas of points in the kernel of the isogeny takes $O(\ell )$ operations on $\mathbb{F}_q$. The cost of the computation of the $\ell$ isogeny is then $O(M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_{q}$, the main cost comes from the inverse computation which is done ine this complexity according to "citer defeo schost doliskani". Then we have to find roots of a polynomial of degree $\ell$ (and $2$) in $\mathbb{F}_{q^{\ell^k}}$ which can be done in in $O(\log(q^{\ell^k})\ell^3)$ (and $O(\log(q^{\ell^k}))$) operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss algorithm thus $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_q$. Thus the overall complexity for this case is $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
+\item[$\ell \neq 2$]The computation of a basis of $E[\ell]$ takes $O(\log(q)\ell^6 )$ operations on $\mathbb{F}_q$ using first Cantor-Zassenhauss algorithm to find the points of order $\ell$ and then the Miller algorithm to find  the two generators. Computation of the different abscissas of points in the kernel of the isogeny takes $O(\ell )$ operations on $\mathbb{F}_q$. The cost of the computation of the $\ell$ isogeny is then $O(M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_{q}$, the main cost comes from the inverse computation which is done ine this complexity according to "citer defeo schost doliskani". Then we have to find roots of a polynomial of degree $\ell$ (and $2$) in $\mathbb{F}_{q^{\ell^k}}$ which can be done in in $O(\log(q^{\ell^k})\ell^3)$ (and $O(\log(q^{\ell^k}))$) operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss algorithm thus $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_q$. Thus the overall complexity for this case is $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
 \end{enumerate}
 \end{proof}
 
@@ -392,19 +392,19 @@ To compute such a basis we start from a basis of the $\ell^{\nu_{\ell}(\lambda_1
 
 \begin{algorithm}
 \caption{\label{1step}Straightening $Q$ following the $\lambda_1$ direction}
-\begin{algorithmic}
-\REQUIRE $\langle P,Q \rangle = E^0[2^k]$ such that $\pi(P)=\lambda_1P \pi(Q)=\lambda_2Q$
-\ENSURE $P$ a point of $2^k$ torsion of $E^{k-1}$ associated to $\lambda_1$ and $L$ a list of $k-1$ horizontal $2$-isogenies associated to $\lambda_2$ which goes from $E^{k-1}$ to $E^0$.
+\begin{algorithmic}[5]
+\REQUIRE $\langle P,Q \rangle = E^0[\ell^k]$ such that $\pi(P)=\lambda_1P \pi(Q)=\lambda_2Q$
+\ENSURE $P$ a point of $\ell^k$ torsion of $E^{k-1}$ associated to $\lambda_1$ and $L$ a list of $k-1$ horizontal $\ell$-isogenies associated to $\lambda_2$ which goes from $E^{k-1}$ to $E^0$.
 \STATE $L \gets \emptyset$
-\STATE $Q2= 2^{k-1}Q$
+\STATE $Q2= \ell^{k-1}Q$
 \FOR{$i=1$ to $k-1$}
 \IF {$\pi(P[0]) \neq \lambda_1P[0] $}
-\STATE $P \gets P+2^{k-1-h}Q$
+\STATE $P \gets P+\ell^{k-1-h}r_1Q$
 \ENDIF
-\STATE $\phi \leftarrow \{ E \rightarrow E/ \langle 2^{k-1}P \rangle \}$
+\STATE $\phi \leftarrow \{ E \rightarrow E/ \langle \ell^{k-1}P \rangle \}$
 \STATE $Q \leftarrow \phi(Q)$
-\STATE $P \leftarrow \phi(P)/2$
-\STATE $E \leftarrow E/ \langle 2^{k-1}P \rangle$
+\STATE $P \leftarrow \phi(P)/ \ell$
+\STATE $E \leftarrow E/ \langle \ell^{k-1}P \rangle$
 \STATE $\psi \leftarrow \{ E \rightarrow E/ \langle \phi(Q2) \rangle \}$
 \STATE $Q2 \gets \phi(Q2)$
 \STATE $L \gets L \bigcup \psi$
@@ -414,11 +414,20 @@ To compute such a basis we start from a basis of the $\ell^{\nu_{\ell}(\lambda_1
 \end{algorithm}
 
 \begin{prop}
-The algorithm \ref{1step} has a computational complexity of $O(k^2M(2^k))$operations in $\mathbb{F}_q$. This computational complexity could be expressed as $O(\log(l)^2M(\sqrt{l}))$.
+The algorithm \ref{1step} has a computational complexity for
+\begin{enumerate}
+\item[$\ell =2$]
+ of $O(\log(r)^2M(\sqrt{r}))$ operations in $\mathbb{F}_q$,
+ \item[$\ell \neq 2$] of $O(\sqrt{r}\log(q)M(\sqrt{r})\log(r)+F(q,\ell^k))$ operations in $\mathbb{F}_q$.
+ 
+\end{enumerate}
 \end{prop}
 
 \begin{proof}
-The computations of $\lambda_1P$ takes us $O(M(2^k))$ operations in $\mathbb{F}_q$ whereas the computation of $2^{k-1}P$ takes $O(M(2^k)k)$ . So the costly part of algorithm \ref{1step} is this operation repeated $k$ times. 
+\begin{enumerate}
+\item[$\ell=2$] The computations of $\lambda_1P$ takes us $O(M(2^k))$ operations in $\mathbb{F}_q$ whereas the computation of $2^{k-1}P$ takes $O(M(2^k)k)$ . So the costly part of algorithm \ref{1step} is this operation repeated $k$ times. 
+\item[$\ell \neq 2$] Computation of line $2$ has a complexity of $O(kM(\sqrt{r})\log(r))$. The complexity computation of line $4$ is of $O(M(\sqrt{r})\log(r)^2+ F(q,\ell^k))$. Since the $\ell$ isogeny of line $7$ is generated by a rational point it's complexity is of $O(kM(\sqrt{r})\log(r))$. The complexity of line $9$ is of $O(\sqrt{r}\log(q)M(\sqrt{r})\log(r))$ majorated by the cost of computing an $\ell$ division point.
+\end{enumerate} 
 \end{proof}
 
 \begin{prop}\label{propcentrale}
