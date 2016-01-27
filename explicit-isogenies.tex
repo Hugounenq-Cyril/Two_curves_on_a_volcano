@@ -147,7 +147,7 @@ We define the cost of computing the Frobenius on a finite field of size $q^n$ wi
 \end{defi}
 
 \subsection{Volcan}
-We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of $\left( \frac{d_{K}}{\ell} \right)$ (with $\left( \frac{\cdot}{\cdot} \right)$ the Legendre symbol) there are $3$ types of volcano.
+We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of $\left( \frac{d_{K}}{\ell} \right)$ (with $\left( \frac{\cdot}{\cdot} \right)$ the Legendre symbol) there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
 \begin{prop} %prop 23 de la these de Kohel
 Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
 \begin{itemize}
@@ -238,7 +238,7 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 		\end{center} 
 		\end{figure}
 	
-During the rest of this paper we consider only volcano with cyclic crater.
+During the rest of this paper we consider only volcano with cyclic crater (i.e. when $\left( \frac{d_K}{\ell} \right) =1$).
 
 %%%%%%%%%%%%%%%
 
@@ -256,11 +256,11 @@ We remind that we have $D=g^2d_K$, with $d_K$ squarefree.
 \newline
 If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ who has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ who has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ then we have $x^2 = d_K \bmod \ell$ who has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
 \newline
-We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell \mathcal{O}_K$ modulo the $\ell$ torsion because the discrimant is $D=\ell^2 d_K$ and thus $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
+We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell^i \mathcal{O}_K$ modulo the $\ell$ torsion for $i>0$ because the discrimant is $D=\ell^2i d_K$ and thus $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
 \end{proof}
 
 \begin{defi}
-For $\lambda_1$, $\lambda_2$ the $2$ eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
+For $\lambda_1$, $\lambda_2$ the $2$ distinct eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
 \end{defi}
 
 From this point we study the $\ell$ torsion points that are eigenvector for the Frobenius, thus we work with curves that are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{h+1}$ order who are also eigenvector for the $2$ eigenvalues. We use the following algorithm to do so. This algorithm computes a diagonalized basis of the $\ell^{s+1}$ torsion for the Frobenius from the knowledge of $\lambda_1, \lambda_2 \bmod \ell^s$ and a diagonalized basis of the $\ell^s$ torsion for the Frobenius. We do this for $s=1$ to $s=k>h$.
@@ -272,7 +272,7 @@ From this point we study the $\ell$ torsion points that are eigenvector for the 
 \REQUIRE  $E: y^2=h(x)$ such that $E[\ell] \subset E(\mathbb{F}_q)$ % a reformuler
 \STATE $Q$ a point on $E$
 \ENSURE $Q/\ell$ such that $\ell(Q/\ell)=Q$
-\STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E[\ell] $
+\STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E $
 \STATE $\phi_1  \gets \lbrace E\rightarrow \nicefrac{E}{P_1}=E_1 \rbrace $
 \STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
 %\STATE $f(x) \gets \phi_2(x)[0]$
@@ -283,7 +283,7 @@ From this point we study the $\ell$ torsion points that are eigenvector for the 
 \STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
 %\STATE $h(x)  \gets E $
 %\STATE $y_2 \gets y_2^2=h(x_2) $
-\RETURN $Q/2=(x_2,\sqrt{h(x_2)})$
+\RETURN $Q/\ell=(x_2,\sqrt{h(x_2)})$
 \end{algorithmic}
 \end{algorithm}
 
@@ -299,21 +299,17 @@ Algorithm $\ref{ldivision}$ has a complexity for
 \begin{proof}
 \begin{enumerate}
 \item[$\ell = 2$]
-The $2$-isogeny generated by $Q=E(x_Q,y_Q)$ is given by the following rational functions according to Velu's formulas:
-\[
-I(x,y)=(\frac{x^2-x_Qx+3x_Q^2+A}{x-x_Q},\frac{y((x-x_Q)^2-y(3x_Q^2+A))}{(x-x_Q)^2})
-\]
-The computation of a $2$ isogeny from its kernel is done in $O(M(2^k))$ operations in $\mathbb{F}_q$, the bottle neck is the inversion which is done with this complexity using Newton-Raphson's algorithm. The computational complexity could also be expressed as $O(M(2^k))=O(M(\sqrt{\ell}))$.
+The $2$ isogeny generated by a $2$ torsion point is computed according to Velu's formula.
+The computation of a $2$ isogeny from its kernel is done in $O(M(2^k))=O(M(\sqrt{r}))$ operations in $\mathbb{F}_q$, the bottle neck is the inversion which is done with this complexity using Newton-Raphson's algorithm.
 \newline
-Computing the $2$ torsion points of $E$ is done through the calculation of roots of 
-\[
-x^3+Ax+B
-\]
-Since we consider the input curves has a two torsion of rank $2$ on $\mathbb{F}_q$ we can do the root computation with Cantor Zassenhauss algorithm in a complexity of $O( \log(q))$ operations in $\mathbb{F}_q$. 
+Computing the $2$ torsion points of $E$ is done through the calculation of roots of $h(x)$.
+Since we consider the input curves has a two torsion of rank $2$ on $\mathbb{F}_q$ we can do the root computation with Cantor-Zassenhauss' algorithm in a complexity of $O( \log(q))$ operations in $\mathbb{F}_q$. 
 The computation of a square root is done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$ according to \cite{DBLP:journals/dcc/DoliskaniS15}, thus we have a computational complexity of $O(M(\sqrt{r})(\log(r)+\log(q)))$
-\item[$\ell \neq 2$]The computation of a basis of $E[\ell]$ takes $O(\log(q)\ell^6 )$ operations on $\mathbb{F}_q$ using first Cantor-Zassenhauss algorithm to find the points of order $\ell$ and then the Miller algorithm to find  the two generators. Computation of the different abscissas of points in the kernel of the isogeny takes $O(\ell )$ operations on $\mathbb{F}_q$. The cost of the computation of the $\ell$ isogeny is then $O(M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_{q}$, the main cost comes from the inverse computation which is done ine this complexity according to "citer defeo schost doliskani". Then we have to find roots of a polynomial of degree $\ell$ (and $2$) in $\mathbb{F}_{q^{\ell^k}}$ which can be done in in $O(\log(q^{\ell^k})\ell^3)$ (and $O(\log(q^{\ell^k}))$) operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss algorithm thus $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_q$. Thus the overall complexity for this case is $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
+\item[$\ell \neq 2$]The computation of a basis of $E[\ell]$ takes $O(\log(q)\ell^6 )$ operations on $\mathbb{F}_q$ using first Cantor-Zassenhauss algorithm to find the points of order $\ell$ and then the Miller algorithm to find  the two generators. Computation of the different abscissas of points in the kernel of the isogeny takes $O(\ell )$ operations on $\mathbb{F}_q$. The cost of the computation of the $\ell$ isogeny is then $O(M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_{q}$, the main cost comes from the inverse computation of this complexity according to "\cite{DeDoSc13}". Then we have to find roots of a polynomial of degree $\ell$ (and $2$) in $\mathbb{F}_{q^{\ell^k}}$ which can be done in $O(\log(q^{\ell^k})\ell^3)$ operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss' algorithm thus $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))$ operations on $\mathbb{F}_q$. Thus the overall complexity is $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
 \end{enumerate}
 \end{proof}
+
+We can restrict ourselves to the case where $E[\ell] \subset E(\mathbb{F}_q)$, because we just have to work in $\mathbb{F}_{q^{\ell-1}}$ to have this hypothesis true.
 
 \begin{algorithm}
 \caption{\label{Diagnoalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
@@ -371,14 +367,14 @@ For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $
 \end{prop}
 
 \begin{proof}
-We denote by $E_{\lambda_1}=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^h], \ell^{h-1}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
+We denote by $E_{\lambda_1}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
 We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=p$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{l} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
 \end{proof}
 
 
 \subsection{Horizontal basis}
 \todo{Dans cette section on montre comment on construit une base horizontale de la $2(\ell)$ torsion}
-Our aim now is to compute  a basis of the $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ torsion with each generator who is also a generator of a $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ horizontal isogeny, but first we have to define them:
+Our aim now is to compute  a basis of the $\ell^k$ torsion for $k>h$ with each generator who is also a generator of a $\ell^{k}$ horizontal isogeny, but first we have to define them:
 
 \begin{defi}%peut etre que le choix du r est malheureux dans cette definition...
 Let $\phi$ be a $\ell^r$-isogeny with $r>0$, we say that $\phi$ is horizontal  if there exists a decomposition $\phi = \psi_1 \circ … \circ \psi_r$, where all $\ell$-isogenies $\psi_i$ are horizontal.
@@ -388,12 +384,12 @@ Let $\phi$ be a $\ell^r$-isogeny with $r>0$, we say that $\phi$ is horizontal  i
 Let $P$ be a point on an elliptic curve on a cyclic crater of order $\ell^{h+j}$ with $j>0$ such that $\pi(P)=\lambda_1P$ (resp. $\pi(P)=\lambda_2P$). Then we consider the $\ell^j$ horizontal isogeny $\phi$ generated by $\langle \ell^{j}P \rangle$ and we say that this isogeny $\phi$ has the direction $\lambda_1$.
 \end{defi}
 
-To compute such a basis we start from a basis of the $\ell^{\nu_{\ell}(\lambda_1-\lambda_2)+1}$ torsion of a curve on a cyclic crater of the $\ell$ isogeny volcano and then we push this basis along the crater thanks to the knowledge from the Frobenius.
+To compute such a basis we start from a basis of the $\ell^{k}$ torsion (for $k > h$) of a curve on a cyclic crater of the $\ell$ isogeny volcano and then we push this basis along the crater thanks to the knowledge from the Frobenius.
 
 \begin{algorithm}
 \caption{\label{1step}Straightening $Q$ following the $\lambda_1$ direction}
 \begin{algorithmic}[5]
-\REQUIRE $\langle P,Q \rangle = E^0[\ell^k]$ such that $\pi(P)=\lambda_1P \pi(Q)=\lambda_2Q$
+\REQUIRE $\langle P,Q \rangle = E[\ell^k]$ such that $\pi(P)=\lambda_1P$ $ \pi(Q)=\lambda_2Q$
 \ENSURE $P$ a point of $\ell^k$ torsion of $E^{k-1}$ associated to $\lambda_1$ and $L$ a list of $k-1$ horizontal $\ell$-isogenies associated to $\lambda_2$ which goes from $E^{k-1}$ to $E^0$.
 \STATE $L \gets \emptyset$
 \STATE $Q2= \ell^{k-1}Q$
@@ -484,12 +480,14 @@ Let $E$ be an elliptic curve over a cyclic crater of a volcano of $\ell$-isogeni
 \end{figure}
 
 \begin{proof}
-We will first prove that the isogeny $E^* \rightarrow \nicefrac{E^*}{\phi(R)}$ is horizontal and associated to $\lambda_2$.
-\newline
-The $\ell$ adic valuation of the order of $Q$ is denoted by $d_Q$. Since $\ell \pi(R)=\pi(Q)=\lambda_2Q$ then the $\ell$-isogeny $\psi$ with kernel $\ell^{d_Q}\phi(R)$ is the dual isogeny of $\phi$ because it is the one who anhiliates the $\ell$-torsion on $E$ (here $\langle P, \ell^{d_Q-1}Q \rangle$) together with $\phi$. Thus we have proved that $\psi$ is associated to $\lambda_2$ and horizontal. 
+%We will first prove that the isogeny $E^* \rightarrow \nicefrac{E^*}{\phi(R)}$ is horizontal and associated to $\lambda_2$.
+%\newline
+The order of $Q$ is denoted by $\ell^{d_Q}$. Since $\ell \pi(R)=\pi(Q)=\lambda_2Q$ then the $\ell$-isogeny $\psi$ with kernel $\ell^{d_Q}\phi(R)$ is the dual isogeny of $\phi$ because it is the one who anhiliates the $\ell$-torsion on $E$ (here $\langle P, \ell^{d_Q-1}Q \rangle$) together with $\phi$. Thus we have proved that $\psi$ is associated to $\lambda_2$ and horizontal. 
 \newline
 Since we have $\psi(\phi(R))=Q$, this tells us that the isogeny $\Upsilon$ with kernel $\phi(R)$ is the composition of $\psi$ with the isogeny $\varphi$ of kernel $\langle Q \rangle$. Thus the isogeny $\Upsilon$ is horizontal of degree $\ell^{d_Q+1}$ and associated to $\lambda_2$. 
 \end{proof}
+
+After the application of algorithm \ref{Diagnoalizedbasis}, we use the horizontal path we have created by applying it on the point associated to the isogeny of other direction to have a generator of an horizontal isogeny on the input curve.%mal formule mais a reformuler...
 
 %Algorithme necessaire, surement pour enfoncer le clou...
 
@@ -536,6 +534,58 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \todo{Put pieces together: explain the strategy for the case where the
   curves are not on the crater, characterize cases where the algorithm
   works/doesn't work, state overall complexity.}
+  
+  \subsection{Curves which are not on the cyclic crater}
+
+If the input curves of the algorithm are not on a cyclic crater of a volcano of $\ell$-isogeny, but at some level below in the volcano then we can reduce our problem to that case. First we prove that they are located at the same level in the volcano, then we prove that the isogenous curve on the crater are still $r$ isogenous. Then we reduce our problem by determining the shortest path of $\ell$-isogenies that go to the crater of the volcano. For this we can use methods like in \cite{DBLP:journals/amc/MiretMSTV06} or methods that take advantage of the $\ell$-torsion structure if the volcano is regular from \cite{DBLP:journals/moc/MiretMRV05}.
+  
+\begin{prop}
+Let $E_1$ and $E_2$ two elliptic curves $r$-isogenous, with $r$ a prime different from $\ell$. Then they are at the same level in the volcano of $\ell$ isogeny.
+\end{prop}
+
+\begin{proof}
+We denote by $\mathcal{O}_1$ (resp. $\mathcal{O}_2$) the endomorphism ring associated up to isomorphism to the elliptic curve $E_1$ (resp. $E_2$). Since $E_1$ and $E_2$ are $r$ isogenous we have $[\mathcal{O}_1:\mathcal{O}_2]=f$ with $f \in \{r^1,r^0,r^{-1}\}$ (see Kohel). Moreover we have $[\mathcal{O}_K:\mathcal{O}_2]=[\mathcal{O}_K:\mathcal{O}_1][\mathcal{O}_1:\mathcal{O}_2]$ thus we have $\mathcal{O}_1$ and $\mathcal{O}_2$ at the same level in the volcano of $\ell$ isogeny.
+\end{proof}  
+
+For the following results we need to work with elliptic curves defined on $\mathbb{C}$ we use then Deuring theorem to apply those results on elliptic curves defined over finite fields.
+We consider $E$ an elliptic curve defined on $\mathbb{C}$ and the $\mathbb{Z}$ lattice associated to $E$ through the Weierstrass $\mathfrak{p}$-function $L=[1,\tau]$ with $\tau$ such that $Im(\tau)>0$(i.e. $\tau \in \mathbb{H}$). We can restrict ourselves to this case up to isomorphism because the $j$-function : $\mathbb{H} \rightarrow \mathbb{C}$ is surjective. Let $\ell$ a prime we denote by
+$C(\ell)=\{\left(\begin{array}{cc}
+a & b\\
+0 & d
+\end{array}\right): ad= \ell,0\leqslant b <d, gcd(a,b,d)=1\}$
+ For $\sigma \in C(\ell)$, $d[1,\sigma \tau_1]$ is the lattice associated to an $\ell$ isogenous curve of $E_1$ (see Theorem 11.23 and Lemma 11.24 \cite{Cox89}). Thus we can associate $\sigma \in C(r)$ to $r$ isogeny.
+
+
+
+\begin{lem} 
+Let $E$ be an elliptic curve with the $\mathbb{Z} $ lattice $[1,\tau ]$ associated to $E$ such that $E$ is not on the crater of a volcano of $\ell$ isogeny, then the elliptic curve associated to the $\mathbb{Z}$ lattice $ [ 1, \ell \tau_1 ] $ is the codomain of the $\ell$ ascending isogeny starting from $E$. 
+\end{lem}
+
+\begin{proof}
+%We consider a $\mathbb{Z}$-basis of the endomorphism ring $[1,\omega_1]$ associated to the elliptic curve $[1,\tau_1]$ since the curve is not on the crater of the volcano we know that $\ell | \omega_1$. 
+%\newline
+The $\ell$-isogenous curves of $E$ are associated to the lattices $\ell[1,\frac{\tau_1+k}{\ell}]$ with $k \in [0..\ell-1]$ and the lattice $[1,\ell \tau_1]$. Now we consider $\alpha \in \mathrm{End}([1,\tau_1])$ such that $\mathrm{End}([1,\tau_1])= \mathbb{Z} + [\mathcal{O}_K:\mathcal{O}]\mathcal{O}_K=\mathbb{Z}[\alpha]$, by hypothesis we have $\ell | [\mathcal{O}_K:\mathcal{O}]$, we can express $\alpha = a + b \tau_1$ with $a,b \in \mathbb{Z}, a \wedge b =1$, we thus have $\ell \mid \alpha$ and $\ell \mid b$. From the work of Kohel \cite{Kohel} we know that $\alpha$ will be included in only one of the $\ell$ isogenous curve. Since $\alpha \in \mathrm{End}([1,\ell\tau_1]) $ is equivalent to $\ell | b$, we can conclude.
+\end{proof}
+
+\begin{prop}
+Let consider $\phi : E_1 \rightarrow E_2$ be an isogeny of degree $r$ between the elliptic curves $E_1$ and $E_2$ with $r$ prime different from $\ell$, we denote by $E_{1u}$ (resp. $E_{2u}$) the elliptic curve which is $\ell$ isogenous to $E_1$(resp. $E_2$) and $1$ level above in the volcano(i.e. codomain of an ascending isogenies of degree $\ell$ starting from $E_1$ (resp. $E_2$)). Then $E_{1u}$ and $E_{2u}$ are also $r$-isogenous.
+\end{prop}
+
+\begin{proof}
+Let consider $\tau_1$ (resp. $\tau_2$)  such that $[1,\tau_1]$ (resp. $d[1,\tau_2]$) is associated to $E_1$ (resp. $E_2$), with $\tau_2=\sigma \tau_1 =\frac{a\tau_1+b}{d}$ and $\sigma =\left(\begin{array}{cc}
+a & b\\
+0 & d
+\end{array}\right) \in C(r)$. 
+\newline
+By the previous lemma we have the curve $E_{1\mathrm{u}}$ associated to $[1,\ell \tau_1]$ and the curve $E_{2\mathrm{u}}$ associated to $d[1,\ell \tau_2]$.
+\newline
+We have $\ell \tau_2=\frac{\ell a\tau_1+\ell b}{d}$, since $\forall k \in \mathbb{N}$ $[1,\frac{\ell a\tau_1+\ell b}{d}]=[1,\frac{\ell a\tau_1+\ell b-kd}{d}]$ we can consider that we have $0 \leqslant \ell b<d$.
+We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(\ell \tau_1)=\frac{a'\ell \tau_1+ b'}{d'}=\frac{\ell a\tau_1+\ell b}{d}=\ell \sigma(\tau_1)$. By Theorem 11.23 and Lemma 11.24 of \cite{Cox89} we can then conclude that the curve $E_{1u}$ associated to $[1,\ell \tau_1]$ is $r$ isogenous to the curve $E_{2\mathrm{u}}$ associated to $d[1,\ell \tau_2]$. The case where $E_2$ is associated to $[1,r\tau_1]$ is left to the reader. %easy
+\end{proof}
+ We can then conclude recursively to obtain the result for curves on the crater.
+
+
+
 
 %%%%%%%%%%%%%%%
 
