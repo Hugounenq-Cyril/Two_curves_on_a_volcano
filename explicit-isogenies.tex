@@ -121,7 +121,8 @@ Our goal is to reduce the number of points to interpolate with operations which 
 
 %Dire que le volcan ne possède des isogenies
 \subsection{ordres sur les corps quadratiques}%titre a supprimer eventuellement
-We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}.
+We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to reminde that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
+
 
 \subsection{Isogenies montantes- descendantes}
 We remind a result from Kohel \cite{Kohel} for the endomorphism rings of ordinary elliptic curves:
@@ -527,6 +528,43 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 \todo{Dans cette section on montre les outils employes pour diminuer le cout de l interpolation}
+Since we consider for the interpolation points on which the Frobenius does not act trivially, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
+
+\begin{defi}
+We will denote by $o_A=max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. 
+\end{defi}
+
+Now we will define polynomials: $\mathcal{T}_i$ that vanish on generator of the orbits of order $o_A$ $o_B$ and the orders $o_A < o_j=\frac{o_A}{\ell^j} < o_B$. Then with the action of the Frobenius we will get the interpolation polynomials defined on all the orbit. We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial, we take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$.
+\newline
+Since at each step we obtain a new interpolation polynomial $\mathcal{A}_j$ from the CRT of two other polynomials, and that the modulus do not change at each interpolation try of the algorithm we pre compute the inverse coefficients to fasten the next CRT computation.
+
+\begin{algorithm}
+\caption{\label{computingT2ir}Computing $A,T$ other occurrence}
+\begin{algorithmic}[5]
+\REQUIRE $Lc$ the list with the pre computed inverse for the CRT. All the polynomials $\mathcal{T}_i$.
+\ENSURE $T$
+\STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \pi^{o_A/2}(\mathcal{T}_A),\pi^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
+\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRTs \left( \pi^{o_A/\ell}(\mathcal{A}_A) \bmod  \pi^{o_A/\ell}(\mathcal{T}_A),\mathcal{A}_A \bmod \mathcal{T}_A,Lc(0)(0),Lc(0)(1) \right)$
+\FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\pi(R)^{o_A/2^{1+r}} T_2=\pi(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
+\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRTs \left( \pi(R)^{o_A/\ell^{1+r}} \bmod \pi(T)^{o_A/\ell^{1+r}}, R \bmod T,Lc[r][0][0],Lc[r][0][1] \right) $
+\STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \pi^{o_A/2^{1+r}}(\mathcal{T}_r), \pi^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$ 
+\STATE $\left( B,TB \right)\in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x]  \gets CRTs \left( \pi^{o_A/\ell^{1+r}}(\mathcal{A}_r) \bmod \pi^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{A}_r \bmod \mathcal{T}_r,Lc[r][1][0],Lc[r][1][1] \right)$
+\STATE $\left( R,T \right) \gets CRTs \left(B \bmod TB, R \bmod T, Lc[r][2][0],Lc[r][2][1] \right) $
+\ENDFOR
+\FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\pi(R)^{o_B/2^{1+r}}, T2=\pi(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
+\STATE $\left( R , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{r+1})}} \gets CRTs \left( R \bmod T ,\pi(R)^{o_B/\ell^{1+r}} \bmod \pi(T)^{o_B/\ell^{1+r}}, Lc[\nu_2(o_B)+r][0][0],Lc[\nu_\ell(o_B)+r][0][1] \right)$
+\ENDFOR
+\RETURN $R,T$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Working with generators}
+
+\begin{defi}
+\[
+T_{A}(x)= \prod_{x_j \in P(x_j,y_j) \textit{of order } o_A, \pi^{o_A}(P)=P,\pi^{o_A/2}(P) \neq P}(X-x_j)
+\]
+\end{defi}
 
 %%%%%%%%%%%%%%%
 
