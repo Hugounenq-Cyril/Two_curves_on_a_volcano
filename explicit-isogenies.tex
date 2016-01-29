@@ -528,15 +528,17 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 \todo{Dans cette section on montre les outils employes pour diminuer le cout de l interpolation}
-Since we consider for the interpolation points on which the Frobenius does not act trivially, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
+Since we consider for the interpolation points on which the Frobenius does not act trivially and we want a rational isogeny, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
 
 \begin{defi}
-We will denote by $o_A=max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. 
+We will denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. 
 \end{defi}
 
-Now we will define polynomials: $\mathcal{T}_i$ that vanish on generator of the orbits of order $o_A$ $o_B$ and the orders $o_A < o_j=\frac{o_A}{\ell^j} < o_B$. Then with the action of the Frobenius we will get the interpolation polynomials defined on all the orbit. We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial, we take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$.
+We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (resp. interpolates) on generators of the orbits of order $o_A$, $o_B$ and the orders $o_A < o_j=\frac{o_A}{\ell^j} < o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
 \newline
-Since at each step we obtain a new interpolation polynomial $\mathcal{A}_j$ from the CRT of two other polynomials, and that the modulus do not change at each interpolation try of the algorithm we pre compute the inverse coefficients to fasten the next CRT computation.
+We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial (both $\mathcal{T}_A$ and $\mathcal{A}_A$) then with the CRT then a new interpolation polynomial that take into account the frobenius action. We take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$.
+\newline
+At each step we obtain a new interpolation polynomial $\mathcal{A}_j$ from the CRT of two other polynomials, since the modulus do not change at each interpolation try of the algorithm we do some pre-computation to fasten the next CRT computation.
 
 \begin{algorithm}
 \caption{\label{computingT2ir}Computing $A,T$ other occurrence}
