@@ -11,6 +11,10 @@
  
 \newcommand{\todo}[1]{{\color{red}TODO: #1}}
 
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
 %\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
@@ -20,6 +24,7 @@
 \newnumbered{defi}{Definition}
 \newnumbered{rem}{Remark}
 \newnumbered{exe}{Example}
+\newnumbered{prob}{Problem}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
 \author{Cyril Hugounenq}
@@ -58,38 +63,99 @@ The problem we will consider here is the computation of an isogeny between two e
 \section{Introduction}
 \label{sec:introduction}
 
-\todo{Isogenies of elliptic curves over finite fields are
-  important. Isogenies are used in SEA. Isogenies are used in
-  cryptography.  The \emph{explicit isogeny problem} is defined as
-  follows\dots It is a fundamental subproblem in SEA. The best
-  algorithms for it are\dots We present a quasi-quadratic-time
-  algorithm working for finite fields of any characteristic, it is an
-  alternative to the Lercier-Sirvent approach and compares favorably
-  to it.}
+Isogenies are non-zero morphisms of elliptic curves, that is,
+non-constant rational maps preserving the point at infinity. They are
+also algebraic group morphisms. Isogeny computations play a central
+role in the algorithmic theory of elliptic curves. They are notably
+used to speed up Schoof's point counting
+algorithm\cite{schoof85,atkin88,elkies92,schoof95,elkies98}. They are
+also widely applied in cryptography, where they are used to speed up
+point multiplication~\cite{gallant+lambert+vanstone01,birkner+sica11},
+to perform cryptanalysis~\cite{mauer+menezes+teske01}, and to
+construct new
+cryptosystems~\cite{teske06,charles+lauter+goren09,Stol,defeo+jao+plut12,jao+soukharev2014-signatures}.
 
-% From a mail by Luca
+The \emph{degree} of an isogeny is its degree as a rational map. If an
+isogeny has degree $n$, we call it an $n$-isogeny, and we say that two
+elliptic curves are $n$-isogenous if there exists an $n$-isogeny
+relating them. Accordingly, we say that two field elements $j_1$ and
+$j_2$ are $r$-isogenous if there exist $r$-isogenous elliptic curves
+$E_1$ and $E_2$ such that $j(E_1)=j_1$ and $j(E_2)=j_2$.
 
-% - Dans SEA, pour compter le nombre de points sur GF(p^n), on doit
-% calculer des isogénies de degre ℓ~log(p^n).
+An $n$-isogeny is said to be \emph{separable} if it is
+separable as a rational map, in this case its kernel has order exactly
+$n$. In characteristic zero, every isogeny is separable, while in
+positive characteristic $p$ all non-separable isogenies arise as
+powers of the $p$-power map. Hence, most explicit isogeny computations
+are concerned exclusively with separable isogenies.  The
+\emph{explicit isogeny} problem has many incarnations. In this paper,
+we are interested in the variant defined below.
 
-% - Les algos classiques de calcul d'isogénies (CCR et BMSS) ratent dès
-% que p >> ℓ.
+\begin{prob}[Explicit isogeny problem]
+  Given two $j$-invariants $j_1$ and $j_2$, and a positive integer
+  $r$, determine if they are $r$-isogenous. In that case, compute
+  curves $E_1$, $E_2$ with $j(E_1)=j_1$ and $j(E_2)=j_2$, and the
+  kernel of an $r$-isogeny $E_1\to E_2$.
+\end{prob}
 
-% - Pour p fixé, on n'utilise pas SEA, mais plutôt les algos p-adiques.
-% Ces algos sont exponentiels en log p.
+Once the kernel of the isogeny is computed, the rational maps
+associated to it can be computed in optimal time using Velu's
+formulas\cite{velu71}.
 
-% - Du coup, pour p pas fixé et n >> p/log(p) (carac moyenne), il y
-% encore un intérêt à chercher des algos de calcul d'isogénies
-% polynômiaux en log p.
+This paper focuses on the explicit isogeny problem for finite
+fields. A famous theorem by Tate states that two curves are isogenous
+over a finite field if and only if they have the same cardinality over
+that field. The explicit isogeny problem stated here appears naturally
+in the Schoof-Elkies-Atkin point count algorithm (SEA). There, $E_1$
+is the curve of which we want to compute the cardinality, and $E_2$ is
+an $r$-isogenous curve, with $r$ a prime of size approximately
+$\log\#E_1$. For this reason, the explicit isogeny problem is
+customarily solved without prior knowledge of the cardinality of
+$E_1$. We will abide by this convention here.
 
-% - Le seul algo de calcul d'isogénies qui marche pour tout p et qui
-% n'est pas exponentiel en log p est Lercier-Sirvent. Il est quadratique
-% en ℓ (plus le coût du polynôme modulaire, qui de toutes façons est
-% déjà inclus dans SEA).
+A good measure of the computational difficulty of the problem is given
+by the isogeny degree $r$. Indeed the output is represented by exactly
+$r$ base field elements, hence an asymptotically optimal algorithm
+would solve the problem using $O(r)$ field operations. Many algorithms
+have been suggested over the years to solve the explicit isogeny
+problem. Early algorithms were due to Atkin~\cite{atkin91} and
+Charlap, Coley and
+Robbins~\cite{charlap1991enumeration}. Elkies'~\cite{elkies92,elkies98,Bostan}
+was the first algorithm targeted to finite fields (of large enough
+characteristic). Assuming $r$ is prime, its complexity is dominated by
+the computation of the modular polynomial $\Phi_r$, which is an object
+of (binary) size $O(r^3\log r)$. Later Bröker, Lauter and
+Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
+computation in the context of the SEA
+algorithm. Finally Lercier and Sirvent\cite{lercier+sirvent08}
+generalized Elkies' algorithm to work in any characteristic. Despite
+these progresses, the overall cost of Elkies' algorithm and its
+variants is still at least cubic in $r$.
 
-% Du coup, même si la carac moyenne n'est pas vraiment utilisée en
-% crypto, ça reste intéressant de chercher des algos de calcul
-% d'isogénie pour concurrencer Lercier-Sirvent.
+Another line of work to solve the explicit isogeny problem was
+initiated by Couveignes~\cite{couveignes94,couveignes96,couveignes00},
+and later improved by De Feo and Schost~\cite{df10,df+schost12}. These
+algorithms use an interpolation approach combined with ad-hoc
+constructions for towers of finite fields of characteristic $p$. Their
+complexity is quasi-quadratic in $r$, but exponential in $\log p$,
+hence they are only practical for very small characteristic.
+
+In this paper we present a variant of Couveignes' algorithm with
+complexity polynomial in $\log p$ and quasi-quadratic in $r$. Together
+with the Lercier-Sirvent algorithm, they are the only polynomial-time
+isogeny computation algorithms working in any characteristic, hence
+they are especially relevant for counting point in \emph{medium}
+characteristic (i.e., counting points over $\F_{p^n}$, when
+$n\gg p/\log p$).
+
+Note that, although Couveignes-type algorithms do not make use of the
+modular polynomial $\Phi_r$, its computation is still necessary in the
+context of the SEA algorithm. Thus our new algorithm does not improve
+the state of the art on point counting \todo{but maybe benchmarks are
+  going to show that, at least in practice, we sometimes beat
+  Lercier-Sirvent?}. It gives, however, an effective algorithm for
+solving the explicit isogeny problem, with potential applications in
+other contexts, e.g., cryptography.
 
 The paper is organized as follows. In Section~\ref{sec:couv-algor} we
 review Couveignes' strategy for the explicit isogeny problem, and
@@ -691,7 +757,10 @@ We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(
   We thank many people.
 \end{acknowledgements}
 
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 \bibliography{refs}
 
 \end{document}
+
+%  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
+%  LocalWords:  cardinality
