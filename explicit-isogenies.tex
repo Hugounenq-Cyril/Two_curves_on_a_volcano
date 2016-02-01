@@ -1,53 +1,57 @@
-\documentclass{article}
+\documentclass{lms}
 \usepackage[utf8]{inputenc}
 \usepackage[american]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{amssymb,amsthm,amsmath,amsfonts}
+\usepackage{amssymb,amsmath,amsfonts}
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{tikz}
 \usepackage{nicefrac}
+\usepackage{hyperref}
  
 \newcommand{\todo}[1]{{\color{red}TODO: #1}}
 
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}
+%\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{prop}[thm]{Proposition}
-\theoremstyle{definition}
-\newtheorem{defi}[thm]{Definition}
-\theoremstyle{remark}
-\newtheorem{rem}[thm]{Remark}
-\newtheorem{exe}[thm]{Example}
 
-\title{Explicit isogenies in quadratic time in any characteristic}
+\newnumbered{defi}{Definition}
+\newnumbered{rem}{Remark}
+\newnumbered{exe}{Example}
+
+\title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
 \author{Cyril Hugounenq}
 
-\begin{document}
+\classno{11Y40 (primary), 11G20, 14H52 (secondary)}
 
+\extraline{This work was partially supported by the
+  \href{http://www.digiteo.fr/}{DIGITEO} grant 2013-0531D (ARGC).}
+
+\begin{document}
 \maketitle
 
 \begin{abstract}
 The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ operations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
 \end{abstract}
 
-\section*{Proposed notation}
+% \section*{Proposed notation}
 
-This section is for internal reference only: erase after the paper has
-stabilized.
+% This section is for internal reference only: erase after the paper has
+% stabilized.
 
-\begin{itemize}
-\item $\mathbb{F}_q$ is the field we are working on
-\item $\ell$ is for the $\ell$ torsion we are working on
-\item $r$ is the degree of the isogeny we want to compute
-\item $k$ is the integer such that $\ell^{2k}>4r+1$
-\item we thus work with a tower which has for top level $F_{q^{\ell^k}}$
-\item $E$ is for ordinary elliptic curves defined over the finite field $\mathbb{F}_q$
-\item $\mathcal{O}$ (resp. $\mathcal{O}_x$) is the notation for the endomorphism ring associated (up to isomorphism) to $E$ (resp. $E_x$)
-\item $K$ is the notation for the imaginary quadratic field in which $\mathcal{O}$ is defined
-\item $d_K$ is the negative integer such that $K=\mathbb{Z}[d_K]$  
-\end{itemize}
+% \begin{itemize}
+% \item $\mathbb{F}_q$ is the field we are working on
+% \item $\ell$ is for the $\ell$ torsion we are working on
+% \item $r$ is the degree of the isogeny we want to compute
+% \item $k$ is the integer such that $\ell^{2k}>4r+1$
+% \item we thus work with a tower which has for top level $F_{q^{\ell^k}}$
+% \item $E$ is for ordinary elliptic curves defined over the finite field $\mathbb{F}_q$
+% \item $\mathcal{O}$ (resp. $\mathcal{O}_x$) is the notation for the endomorphism ring associated (up to isomorphism) to $E$ (resp. $E_x$)
+% \item $K$ is the notation for the imaginary quadratic field in which $\mathcal{O}$ is defined
+% \item $d_K$ is the negative integer such that $K=\mathbb{Z}[d_K]$  
+% \end{itemize}
 
 %%%%%%%%%%%%%%%
 
@@ -627,6 +631,10 @@ We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(
 
 \todo{Describe implementation and show benchmarks. Possibly compare
   with Lercier-Sirvent (Luca has an implementation somewhere).}
+
+\begin{acknowledgements}
+  We thank many people.
+\end{acknowledgements}
 
 \bibliographystyle{plain}
 \bibliography{refs}
