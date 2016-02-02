@@ -692,7 +692,7 @@ We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (
 \newline
 We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial (both $\mathcal{T}_A$ and $\mathcal{A}_A$) then with the CRT we have a new interpolation polynomial that take into account the frobenius action. We take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$. After this we only make act the Frobenius until we have every element of the orbits.
 \newline
-At each step we obtain a new interpolation polynomial $\mathcal{A}_j$ from the CRT of two other polynomials, we do some pre-computation to fasten the next CRT computation since the modulus do not change at each interpolation try of the algorithm.
+At each step we obtain a new interpolation polynomial $A_j$ from the CRT of two other polynomials, we do some pre-computation to fasten the next CRT computation since the modulus do not change at each interpolation try of the algorithm.
 
 \begin{algorithm}
 \caption{\label{computingT2ir}Computing $A,T$ other occurrence}
@@ -750,7 +750,7 @@ For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal
 We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrence, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
 
 \begin{prop} %cout total de l'algorithme
-The computational cost of the computation of pre commputation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ with $  \min(o_{\lambda_1 },o_{\lambda_2 }) \leqslant j \leqslant \max(o_{\lambda_1},o_{\lambda_2})$  is of:
+The computational cost of the computation of pre commputation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  \min(o_{\lambda_1 },o_{\lambda_2 }) \leqslant j \leqslant \max(o_{\lambda_1},o_{\lambda_2})$  is of:
 \begin{enumerate}
 \item[$\ell=2$]$
 O(M(2^{2k})k^2+ 2^{2k}\log(q))
@@ -769,7 +769,7 @@ operations in $\mathbb{F}_q$
 \begin{enumerate}
 \item[$\ell=2$]
 \begin{enumerate}
-\item  For the first occurrence at each step we compute a C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k})\log(\frac{2^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ since we have a cost for the Frobenius of $O(2^k+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying by the degree of the polynomials considered gave us the result.
+\item  For the first occurrence at each step we compute a C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k})\log(\frac{2^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying by the degree of the polynomials considered gave us the result.
 \item For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k}))$ in $\mathbb{F}_q$.
 \end{enumerate}
 \item[$\ell \neq 2$] The differences are in the Frobenius computation
