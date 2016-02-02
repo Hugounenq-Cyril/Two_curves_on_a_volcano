@@ -437,20 +437,20 @@ If this is not the case, we may always replace~$q$ by~$q^{\ell-1}$.
 % \STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
 %\STATE $f(x) \gets \phi_2(x)[0]$
 %\STATE $P_1(x)=ax^2+bx+c=0 \gets \phi_2(x)[0]=Q[0]$
-\STATE \todo{que se passe-t-il ci-dessous ?}
+\STATE \todo{que se passe-t-il ci-dessous ?}
 \STATE $x_1 \gets \phi_2(x_1)[0]=Q[0] $
 %\STATE $g(x) \gets \phi_1(x)[0]$
 %\STATE $P_2(x)=a_2x^2+b_2x+c_2=0 \gets \phi_1(x)[0]=x_1$
 \STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
 %\STATE $h(x)  \gets E $
 %\STATE $y_2 \gets y_2^2=h(x_2) $
-\todo{qui est $h$ ci-dessous ? sur quoi le point $Q_1$ est-il défini ?}
+\todo{qui est $h$ ci-dessous ? sur quoi le point $Q_1$ est-il défini ?}
 \RETURN $Q_1 =(x_2,\sqrt{h(x_2)})$
 \end{algorithmic}
 \end{algorithm}
 
-\todo{Qui est $r$ dans la prop. ci-dessous ? on travaille sur $\mathbb
-F_{q^r}$ ?}
+\todo{Qui est $r$ dans la prop. ci-dessous ? on travaille sur $\mathbb
+F_{q^r}$ ?}
 \begin{prop}
 Algorithm $\ref{ldivision}$ computes a preimage of~$Q$ with a complexity
 (in operations in~$\mathbb{F}_q$) of
@@ -721,7 +721,7 @@ The cost of multiplying two polynomials of degree $n$ of $\mathbb{F}_{q^{2^k}}[X
 \end{prop}
 
 \begin{proof}
-See Lemma 2.2 of \cite{DBLP:journals/cc/GathenS92}
+See Lemma 2.2 of \cite{vzgathen+shoup92}
 \end{proof}
 
 \begin{prop}
@@ -729,7 +729,7 @@ The cost of the Chinese Remainder Theorem for two polynomials of degree $n$ of $
 \end{prop}
 
 \begin{proof}
-We obtain this result by adapting the proof of the Theorem $11.5$ of \cite{DBLP:books/daglib/0010544}.
+We obtain this result by adapting the proof of the Theorem $11.5$ of \cite{vzGG}.
 \end{proof}
 
 Since we can do some pre computation for the C.R.T. we have his cost that changes. 
