@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage{nicefrac}
 \usepackage{hyperref}
+\usepackage{unicode}
  
 \newcommand{\todo}[1]{{\color{red}TODO: #1}}
 
@@ -25,6 +26,9 @@
 \newnumbered{rem}{Remark}
 \newnumbered{exe}{Example}
 \newnumbered{prob}{Problem}
+
+\def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
+\def\pa#1{\left(#1\right)}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
 \author{Cyril Hugounenq}
@@ -194,7 +198,7 @@ Our goal is to reduce the number of points to interpolate with operations which 
 We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to reminde that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
 
 
-\subsection{Isogenies montantes- descendantes}
+\subsection{Ascending and descending isogenies}
 We remind a result from Kohel \cite{Kohel} for the endomorphism rings of ordinary elliptic curves:
 \begin{prop}
 Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then 
@@ -218,7 +222,7 @@ We define the cost of computing the Frobenius on a finite field of size $q^n$ wi
 \end{defi}
 
 \subsection{Volcan}
-We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of $\left( \frac{d_{K}}{\ell} \right)$ (with $\left( \frac{\cdot}{\cdot} \right)$ the Legendre symbol) there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
+We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
 \begin{prop} %prop 23 de la these de Kohel
 Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
 \begin{itemize}
@@ -311,66 +315,162 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 	
 During the rest of this paper we consider only volcano with cyclic crater (i.e. when $\left( \frac{d_K}{\ell} \right) =1$).
 
+\subsection{The Frobenius and the volcano}
+
+We recall that the Tate module~$T_ℓ(E)$ is defined as
+the projective limit of all $ℓ^n$-torsion groups of points of~$E$.
+Since $E$~is ordinary, $T_ℓ(E)$~is a free module of rank~two over~$ℤ_ℓ$.
+The action of~$π$ on~$E$ provides a semi-linear endomorphism of~$T_ℓ(E)$,
+which we again write~$π$.
+
+The following proposition is a consequence of
+Tate's theorem about the $ℓ$-adic representation attached to
+elliptic curves over finite fields~\cite[Isogeny theorem 7.7]{Sil}.
+
+\begin{prop}
+Let~$E$ be an ordinary elliptic curve with Frobenius endomorphism~$π$.
+Assume that the characteristic polynomial of~$π$
+has two distinct roots~$λ_1, λ_2$ in~$ℤ_ℓ$,
+so that the $ℓ$-isogeny volcano has a cyclic crater.
+Let~$h = v_{ℓ} (λ_1 - λ_2)$.
+Then there exists a basis of~$T_ℓ(E)$ in which $π$~has the matrix
+${\def\arraystretch{.7}\mat{λ_1 & a\\ 0 & λ_2}}$,
+where $a = 0$ if~$E$ lies on the crater,
+and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
+\end{prop}
+
+To distinguish the two eigenvalues of the Frobenius we have to consider the $\ell^k$ torsion for $k>\nu_{\ell}(\lambda_1-\lambda_2)$. The following result links the $\ell$ isogenies and the $\ell^k$ torsion points.
+
+\begin{prop} \label{conjecture}
+For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
+\begin{itemize}
+\item Either $\pi(P)=\lambda_1P$ or $\pi(P)=\lambda_2P$ then the $\ell$-isogeny with kernel $\ell^{h} P$ is horizontal,
+\item or $\pi(P) \neq \lambda_2P$ and $\pi(P) \neq \lambda_1P$ then the $\ell$-isogeny with kernel $\ell^{h} P$ is descending.
+\end{itemize} 
+\end{prop}
+
+\todo{telle quelle, elle est fausse: si $P_1$, $P_2$ sont une base
+propre de la $ℓ^{h+1}$-torsion, alors $Q = P_1 + ℓ P_2$ n'est pas un
+vecteur propre, et pourtant $ℓ^h Q = ℓ^h P_1$ est bien horizontal.
+Pour avoir une version correcte, on peut par exemple l'écrire directement
+dans la $ℓ$-torsion.
+
+suggestion de modification:
+
+Therefore, for~$P ∈ E[ℓ]$, there are two possibilities:
+\begin{itemize}
+\item either~$π(P) = λ_i P$, in which case
+the isogeny~$ϕ_P$ with kernel~$P$ is horizontal;
+moreover, if $P = ℓ^{h} P_1$ with~$π(P_1) = λ P_1$,
+then we say that \emph{$ϕ_P$ has direction~$λ$};
+\item or $P$~is not an eigenvector of~$π$,
+in which case $ϕ_P$ is descending.
+\end{itemize}
+The two horizontal isogenies have direction~$λ_1$ and~$λ_2$.
+The precaution~$P = ℓ^h P_1$ is needed because
+we may have~$λ_1 ≡ λ_2 \pmod{ℓ}$, in which case $π(P)$~does not contain
+enough information to identify the direction of~$ϕ_P$.
+}
+
+\begin{proof}
+$E_{\lambda_1}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_1\frac{P}{\ell^h}\}$, $E_{\lambda_2}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_2\frac{P}{\ell^h}\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$).
+since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}).
+On veut faire pareil en disant que $E_{\lambda_1}=(\ell, \frac{\pi - \lambda_1}{\ell^h})$ idem pour $\lambda_2$, tel que $\ell=(\ell, \frac{\pi - \lambda_1}{\ell^h})(\ell, \frac{\pi - \lambda_2}{\ell^h})$, par un résultat dans Advanced Topics de Silverman, il ne reste plus qu'à prouver que cette décomposition de l'idéal $\ell$ est une décomposition en idéaux premiers. 
+%%%%Ancienne preuve avec de très nombreux défauts
+%We denote by $E_{\lambda_1}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
+%We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=\ell$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{\ell} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
+\end{proof}
+
+
+
 %%%%%%%%%%%%%%%
 
 \section{The action of the Frobenius endmorphism}
 \label{sec:acti-frob-endm}
 \todo{Dans cette section on montre les résultats que nous permettent d'obtenir le frobenius sur le cratère}
-To be able to distinguish two different horizontal isogenies and the descending ones on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues defined on the $\ell$ torsion which is only possible on the cyclic crater of a volcano of $\ell$-isogeny.
 
-\begin{prop}
-$\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius are only defined on the $\ell$ torsion of a curve that is located at the top of a cyclic volcano of $\ell$ isogeny.
-\end{prop}
 
-\begin{proof}
-We remind that $D=g^2d_K$, with $d_K$ squarefree.
-\newline
-If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ that has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ that has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ then we have $x^2 = d_K \bmod \ell$ that has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
-\newline
-We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell^i \mathcal{O}_K$ modulo the $\ell$ torsion for $i>0$ because the discrimant is $D=\ell^2i d_K$ and $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
-\end{proof}
+% To be able to distinguish two different horizontal isogenies and the descending ones on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues defined on the $\ell$ torsion which is only possible on the cyclic crater of a volcano of $\ell$-isogeny.
+% 
+% \begin{prop}%<<<
+% $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius are only defined on the $\ell$ torsion of a curve that is located at the top of a cyclic volcano of $\ell$ isogeny.
+% \end{prop}%>>>
+% 
+% \begin{proof}%<<<
+% We remind that $D=g^2d_K$, with $d_K$ squarefree.
+% \newline
+% If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ that has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ that has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ then we have $x^2 = d_K \bmod \ell$ that has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
+% \newline
+% We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell^i \mathcal{O}_K$ modulo the $\ell$ torsion for $i>0$ because the discrimant is $D=\ell^2i d_K$ and $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
+% \end{proof}%>>>
+% 
+% \begin{defi}
+% For $\lambda_1$, $\lambda_2$ the $2$ distinct eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
+% \end{defi}
 
-\begin{defi}
-For $\lambda_1$, $\lambda_2$ the $2$ distinct eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
-\end{defi}
+\subsection{Diagonalizing the Frobenius}
 
-From this point we study the $\ell$ torsion points that are eigenvector for the Frobenius, thus we work in this section only with curves that are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{h+1}$ order who are also eigenvector for the $2$ eigenvalues. First we describe an algorithm to compute the pre image of a point by the multiplication by $\ell$. Then we present an algorithm that computes recursively for $s=1$ to $s=k$ with $k>h$ a basis of the $\ell^s$ torsion with each generator a different eigenvector for the value $\lambda_1, \lambda_2 \bmod \ell^s$.
+In this part we work with a curve~$E$ situated on a cyclic volcano crater.
+Our goal is to explicitly diagonalize the Frobenius endomorphism
+modulo~$ℓ^{h+1}$, where~$h = v_{ℓ} (λ_1-λ_2)$ as in the previous section.
+
+We first give an algorithm computing a preimage of a rational point of~$E$
+by multiplication by~$ℓ$, when such a preimage exists.
+For convenience we assume that~$E[\ell]$ is rational over~$\mathbb{F}_q$.
+If this is not the case, we may always replace~$q$ by~$q^{\ell-1}$.
+% We restrict ourselves to the case where $E[\ell] \subset E(\mathbb{F}_q)$, because we just have to work in $\mathbb{F}_{q^{\ell-1}}$ to have this hypothesis true.
+% 
+% From this point we study the $\ell$ torsion points that are eigenvector for the Frobenius, thus we work in this section only with curves that are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{h+1}$ order who are also eigenvector for the $2$ eigenvalues. First we describe an algorithm to compute the pre image of a point by the multiplication by $\ell$. Then we present an algorithm that computes recursively for $s=1$ to $s=k$ with $k>h$ a basis of the $\ell^s$ torsion with each generator a different eigenvector for the value $\lambda_1, \lambda_2 \bmod \ell^s$.
 %First we have to tell how we obtain such a basis and the eigenvalues
 
 \begin{algorithm}
 \caption{\label{ldivision}Compute the pre image of $Q$ by the multiplication by $\ell$.}
 \begin{algorithmic}[5]
 \REQUIRE  $E: y^2=h(x)$ such that $E[\ell] \subset E(\mathbb{F}_q)$ % a reformuler
-\STATE $Q$ a point on $E$
-\ENSURE $Q/\ell$ such that $\ell(Q/\ell)=Q$
+\STATE $Q$: a \todo{rational?} point on $E$.
+\ENSURE $Q_1$: a point such that $\ell Q_1 = Q$.
+\todo{j'ai rebaptisé $Q/ℓ$ en $Q_1$ car il n'est pas unique.}
 \STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E $
-\STATE $\phi_1  \gets \lbrace E\rightarrow \nicefrac{E}{P_1}=E_1 \rbrace $
-\STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
+\STATE Let $\phi_1: E → E_1$ be the isogeny with kernel~$P_1$.
+\STATE Let~$\phi_2: E_1 → E$ be the isogeny with kernel~$\phi_1(P_2)$.
+% \STATE $\phi_1  \gets \lbrace E\rightarrow \nicefrac{E}{P_1}=E_1 \rbrace $
+% \STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
 %\STATE $f(x) \gets \phi_2(x)[0]$
 %\STATE $P_1(x)=ax^2+bx+c=0 \gets \phi_2(x)[0]=Q[0]$
+\STATE \todo{que se passe-t-il ci-dessous ?}
 \STATE $x_1 \gets \phi_2(x_1)[0]=Q[0] $
 %\STATE $g(x) \gets \phi_1(x)[0]$
 %\STATE $P_2(x)=a_2x^2+b_2x+c_2=0 \gets \phi_1(x)[0]=x_1$
 \STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
 %\STATE $h(x)  \gets E $
 %\STATE $y_2 \gets y_2^2=h(x_2) $
-\RETURN $Q/\ell=(x_2,\sqrt{h(x_2)})$
+\todo{qui est $h$ ci-dessous ? sur quoi le point $Q_1$ est-il défini ?}
+\RETURN $Q_1 =(x_2,\sqrt{h(x_2)})$
 \end{algorithmic}
 \end{algorithm}
 
+\todo{Qui est $r$ dans la prop. ci-dessous ? on travaille sur $\mathbb
+F_{q^r}$ ?}
 \begin{prop}
-Algorithm $\ref{ldivision}$ has a complexity for
-\begin{enumerate}
-\item[$\ell = 2$] of $O(M(\sqrt{r})(\log(r)+\log(q)))$ operations in $\mathbb{F}_q$ ,
-\item[$\ell \neq 2$]of $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations in $\mathbb{F}_q$.
-\end{enumerate}
+Algorithm $\ref{ldivision}$ computes a preimage of~$Q$ with a complexity
+(in operations in~$\mathbb{F}_q$) of
+\[
+O \pa{M(√r) \,· \,\left\lbrace\begin{array}{ll}
+ (\log r + \log q) & \text{if $ℓ = 2$,} \\
+ (\log q \,·\, √{r} \log r) & \text{if $ℓ ≠ 2$.}
+\end{array}\right\rbrace}.
+\]
+% \begin{enumerate}
+% \item[$\ell = 2$] of $O(M(\sqrt{r})(\log(r)+\log(q)))$ operations in $\mathbb{F}_q$ ,
+% \item[$\ell \neq 2$]of $O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations in $\mathbb{F}_q$.
+% \end{enumerate}
  
 \end{prop}
 
 \begin{proof}
 \begin{enumerate}
 \item[$\ell = 2$]
-The $2$ isogeny generated by a $2$ torsion point is computed according to Velu's formula.
+The $2$ isogeny generated by a $2$ torsion point is computed according to Vélu's formula.
 The computation of a $2$ isogeny from its kernel is done in $O(M(2^k))=O(M(\sqrt{r}))$ operations in $\mathbb{F}_q$, the bottle neck is the inversion which is done with this complexity using Newton-Raphson's algorithm.
 \newline
 Computing the $2$ torsion points of $E$ is done through the calculation of roots of $h(x)$.
@@ -380,13 +480,16 @@ The computation of a square root is done in $O(M(2^k)\log(2^kq))$ operations in 
 \end{enumerate}
 \end{proof}
 
-We restrict ourselves to the case where $E[\ell] \subset E(\mathbb{F}_q)$, because we just have to work in $\mathbb{F}_{q^{\ell-1}}$ to have this hypothesis true. Now we can descirbe the algorithm that computes eigenvalues of the Frobenius $\bmod \ell^k$ and a  basis of the $\ell^{k}$ torsion with each generator an eigenvector for the Frobenius.
+% We restrict ourselves to the case where $E[\ell] \subset E(\mathbb{F}_q)$, because we just have to work in $\mathbb{F}_{q^{\ell-1}}$ to have this hypothesis true.
+We now give an algorithm that computes eigenvalues of
+the Frobenius $\bmod \ell^k$ and
+the corresponding eigenvectors in the $\ell^{k}$-torsion subgroup.
 
 \begin{algorithm}
-\caption{\label{Diagnoalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
+\caption{\label{Diagonalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
 \begin{algorithmic}[5]
 \REQUIRE $\langle P,Q \rangle$ a basis of the $\ell$-torsion defined on a curve $E$ such that $E[\ell] \subset E(\mathbb{F}_q)$ .
-\ENSURE $\langle P,Q \rangle$ a basis of the $\ell^k$-torsion, $\lambda_1, \lambda_2$ defined modulo $\ell^k$ such that $\pi(P)=\lambda_1P$, $ \pi(Q)=\lambda_2Q$
+\ENSURE $\langle P,Q \rangle$ a basis of the $\ell^k$-torsion; $\lambda_1, \lambda_2$ defined modulo $\ell^k$ such that $\pi(P)=\lambda_1P$, $ \pi(Q)=\lambda_2Q$
 \STATE $h:=1, k_0:=1$
 \FOR {$i=1$  to  $k-1$}
 \STATE $P \leftarrow P/\ell$
@@ -410,7 +513,7 @@ c\ell^{i} & \lambda_2 + d\ell^{i}
 \end{algorithm}
 
 \begin{prop}
-The computation complexity of algorithm \ref{Diagnoalizedbasis} for 
+The computation complexity of algorithm \ref{Diagonalizedbasis} for 
 \begin{enumerate}
 \item[$\ell=2$] is of $O((\log(r)^2+\log(q)) M(\sqrt{r}) $ operations in $\mathbb{F}_q$, 
 \item[$\ell \neq 2$] is of $O(\sqrt{r} \log(q) M(\sqrt{r})\log^2(r)\log^{-1}(\ell)+ \log(r)\log^{-1}(\ell) F(q,\ell^k))$ operations in $\mathbb{F}_q$.
@@ -425,25 +528,6 @@ Since the complexity of computing the Frobenius is $O(2^k+\log(q))$ operations i
 \end{enumerate}
 \end{proof}
 
-
-To distinguish the two eigenvalues of the Frobenius we have to consider the $\ell^k$ torsion for $k>\nu_{\ell}(\lambda_1-\lambda_2)$. The following result links the $\ell$ isogenies and the $\ell^k$ torsion points.
-
-\begin{prop} \label{conjecture}
-For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
-\begin{itemize}
-\item Either $\pi(P)=\lambda_1P$ or $\pi(P)=\lambda_2P$ then the $\ell$-isogeny with kernel $\ell^{h} P$ is horizontal,
-\item or $\pi(P) \neq \lambda_2P$ and $\pi(P) \neq \lambda_1P$ then the $\ell$-isogeny with kernel $\ell^{h} P$ is descending.
-\end{itemize} 
-\end{prop}
-
-\begin{proof}
-$E_{\lambda_1}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_1\frac{P}{\ell^h}\}$, $E_{\lambda_2}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_2\frac{P}{\ell^h}\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$).
-since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}).
-On veut faire pareil en disant que $E_{\lambda_1}=(\ell, \frac{\pi - \lambda_1}{\ell^h})$ idem pour $\lambda_2$, tel que $\ell=(\ell, \frac{\pi - \lambda_1}{\ell^h})(\ell, \frac{\pi - \lambda_2}{\ell^h})$, par un résultat dans Advanced Topics de Silverman, il ne reste plus qu'à prouver que cette décomposition de l'idéal $\ell$ est une décomposition en idéaux premiers. 
-%%%%Ancienne preuve avec de très nombreux défauts
-%We denote by $E_{\lambda_1}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
-%We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=\ell$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{\ell} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
-\end{proof}
 
 
 \subsection{Horizontal basis}
@@ -560,7 +644,7 @@ The order of $Q$ is denoted by $\ell^{d_Q}$. Since $\ell \pi(R)=\pi(Q)=\lambda_2
 Since we have $\psi(\phi(R))=Q$, this tells us that the isogeny $\Upsilon$ with kernel $\phi(R)$ is the composition of $\psi$ with the isogeny $\varphi$ of kernel $\langle Q \rangle$. Thus the isogeny $\Upsilon$ is horizontal of degree $\ell^{d_Q+1}$ and associated to $\lambda_2$. 
 \end{proof}
 
-After the application of algorithm \ref{Diagnoalizedbasis}, we use the horizontal path of direction $\lambda_2$ we have created by applying it on the point associated to the isogeny of direction $\lambda_1$ to have a generator of an horizontal isogeny of direction $\lambda_1$ on the input curve.%mal formule mais a reformuler...
+After the application of algorithm \ref{Diagonalizedbasis}, we use the horizontal path of direction $\lambda_2$ we have created by applying it on the point associated to the isogeny of direction $\lambda_1$ to have a generator of an horizontal isogeny of direction $\lambda_1$ on the input curve.%mal formule mais a reformuler...
 
 %Algorithme necessaire, surement pour enfoncer le clou...
 
