@@ -739,7 +739,11 @@ For $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{j}}[x]$ of degree inferior to $n$ such
 \end{prop}
 
 \begin{prop}
-For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{2^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{2^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. 
+For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{2^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{\ell^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. 
+\begin{enumerate}
+\item[$\ell=2$] The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. 
+\item[$\ell \neq 2$]The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{\ell^{2k}}{o_{A}})\log(\frac{\ell^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{\ell^{2k}}{o_{A}})M(\ell^{o_j} \log(\ell^{o_j}))\log(\frac{\ell^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
+\end{enumerate}
 \end{prop}
 
 
@@ -747,7 +751,8 @@ We remind that we have two different cost for the C.R.T. one for the pre computa
 
 \begin{prop} %cout total de l'algorithme
 The computational cost of the computation of pre commputation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ with $  \min(o_{\lambda_1 },o_{\lambda_2 }) \leqslant j \leqslant \max(o_{\lambda_1},o_{\lambda_2})$  is of:
-$
+\begin{enumerate}
+\item[$\ell=2$]$
 O(M(2^{2k})k^2+ 2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$ for the first occurrence (algorithm \ref{computingT2i1}). For the next occurrences (algorithm \ref{computingT2ir}) we have a complexity of:
@@ -755,12 +760,19 @@ $
 O(M(2^{2k})k+2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$
+\item[$\ell \neq 2$]
+\end{enumerate}
+
 \end{prop}
 
 \begin{proof}
 \begin{enumerate}
-\item  For the first occurrence at each step we compute a C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k})\log(\frac{2^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{2k}+2^{2k}\log(q))$ operations in $\mathbb{F}_q$.
+\item[$\ell=2$]
+\begin{enumerate}
+\item  For the first occurrence at each step we compute a C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k})\log(\frac{2^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ since we have a cost for the Frobenius of $O(2^k+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying by the degree of the polynomials considered gave us the result.
 \item For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k}))$ in $\mathbb{F}_q$.
+\end{enumerate}
+\item[$\ell \neq 2$] The differences are in the Frobenius computation
 \end{enumerate}
 Since we have to repeat those steps up to $k$ times we got the result.
 \end{proof}
