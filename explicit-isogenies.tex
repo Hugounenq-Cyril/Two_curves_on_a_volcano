@@ -195,7 +195,7 @@ Our goal is to reduce the number of points to interpolate with operations which 
 
 %Dire que le volcan ne possède des isogenies
 \subsection{ordres sur les corps quadratiques}%titre a supprimer eventuellement
-We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to reminde that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
+We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to remind that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
 
 
 \subsection{Ascending and descending isogenies}
@@ -208,19 +208,27 @@ Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then
 \item $\phi$ is an horizontal isogeny if we have $[\mathcal{O'}:\mathcal{O}]=1$.
 \end{itemize}
 \end{prop}
-We call an isogeny of degree $\ell$ a $\ell$ isogeny.
+%We call an isogeny of degree $\ell$ a $\ell$ isogeny. Redondant avec la partie de Luca
 We denote by $\pi$ the Frobenius morphism, it is an endomorphism as like the scalar multiplications, thus we always have for an elliptic curve $E$:
 $\mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K$.
-We consider the Frobenius and his action on the $\ell$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
+We consider the Frobenius and his action on the $\ell^{\infty}$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
 \begin{equation}
 X^2 - tX +q = 0
 \end{equation}
-with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial, , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+
+\begin{defi}
+When the eigenvalues of the Frobenius are different we denote by $h=\nu_{\ell}(\lambda_1-\lambda_2)$.
+\end{defi}
 
 
 
 \subsection{Volcan}
-We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
+We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. 
+We call crater the top level in the graph with respect to the vocabulary of ascending and descending isogeny, we denote by $\mathcal{O}_K$ is the endomorphism ring associated to the crater. There are three types of volcano according to the shape of their crater it depends of the value od the Legendre symbol  $\left( \frac{d_{K}}{\ell} \right)$. The following results of \cite{kohel} exhibits this link and the structure of the volcano.
+
+
+%There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
 \begin{prop} %prop 23 de la these de Kohel
 Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
 \begin{itemize}
@@ -337,7 +345,7 @@ where $a = 0$ if~$E$ lies on the crater,
 and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
 \end{prop}
 
-To distinguish the two eigenvalues of the Frobenius we have to consider the $\ell^k$ torsion for $k>h$. The following result links the $\ell$ isogenies and the $\ell^k$ torsion points.
+To distinguish the two eigenvalues of the Frobenius we have to consider the $\ell^k$ torsion for $k>h$. The following result links the $\ell$ isogenies and the points of order $\ell^{h+1}$.
 
 \begin{prop} \label{conjecture}
 For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
@@ -447,8 +455,6 @@ If this is not the case, we may always replace~$q$ by~$q^{\ell-1}$.
 \end{algorithmic}
 \end{algorithm}
 
-\todo{Qui est $r$ dans la prop. ci-dessous ? on travaille sur $\mathbb
-F_{q^r}$ ?}
 \begin{prop}
 Algorithm $\ref{ldivision}$ computes a preimage of~$Q$ with a complexity
 (in operations in~$\mathbb{F}_q$) of
@@ -685,14 +691,14 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 Since we consider for the interpolation points on which the Frobenius does not act trivially and we want a rational isogeny, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
 
 \begin{defi}
-We will denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. We got $o_A=O(k)$
+We will denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. We got $o_A=O(\ell^k)$.
 \end{defi}
 
 \begin{defi}
 We define the cost of computing the Frobenius on a finite field of size $q^{n}$ with the complexity expressed in terms of operations on $\mathbb{F}_q$ by the following function: $F(q,n)$.
 \end{defi}
 
-We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (resp. interpolates) on points that are of order $\ell^k$ and generators of the orbits of order  $o_A \leqslant o_j=\frac{o_A}{\ell^j} \leqslant o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
+We define the polynomials: $\mathcal{T}_j$ (resp. $\mathcal{A}_j$) that vanish (resp. interpolates) on points that are of order $\ell^k$ and generators of the orbits of order  $o_A \leqslant o_j=\frac{o_A}{\ell^j} \leqslant o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
 \newline
 We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial (both $\mathcal{T}_A$ and $\mathcal{A}_A$) then with the CRT we have a new interpolation polynomial that take into account the frobenius action. We take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$. After this we only make act the Frobenius until we have every element of the orbits.
 \newline
@@ -725,7 +731,7 @@ The cost of multiplying two polynomials of degree $n$ of $\mathbb{F}_{q^{\ell^k}
 \end{prop}
 
 \begin{proof}
-Since we have by \cite{DoSc12}  that the cost of multiplying two elements of $\mathbb{F}_{q^{2^k}}$ is of $M(2^k)$ and we have the similar result for $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)$ from \cite{DeDoSc13} then we can conclude by Lemma 2.2 of \cite{vzgathen+shoup92}
+The cost of multiplying two elements of $\mathbb{F}_{q^{2^k}}$ is of $M(2^k)$ by \cite{DoSc12}. We have a similar result for $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)$ by \cite{DeDoSc13}, we can conclude by Lemma 2.2 of \cite{vzgathen+shoup92}
 \end{proof}
 
 \begin{prop}
@@ -743,51 +749,48 @@ For $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{j}}[x]$ of degree inferior to $n$ such
 \end{prop}
 
 \begin{prop}
-For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{2^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{\ell^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. 
-\begin{enumerate}
-\item[$\ell=2$] The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. 
-\item[$\ell \neq 2$]The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{\ell^{2k}}{o_{A}})\log(\frac{\ell^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{\ell^{2k}}{o_{A}})M(\ell^{o_j}) \log(\ell^{o_j}))\log(\frac{\ell^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
-\end{enumerate}
+For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{\ell^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{\ell^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. 
+\newline
+For $\ell=2$ the cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$.
+\newline 
+For $\ell \neq 2$ the cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{\ell^{2k}}{o_{A}})\log(\frac{\ell^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{\ell^{2k}}{o_{A}})M(\ell^{o_j}) \log(\ell^{o_j})\log(\frac{\ell^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
 \end{prop}
 
 \begin{proof}
-When $\ell=2$ by \cite{DoSc12} we got the cost of an inversion of elements in $\mathbb{F}_{q^{2^k}}$ of $M(2^k)$ so we got the result. When $\ell \neq 2$ by \cite{DeDoSc13} we got the cost of an inversion of elements in $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)\log(\ell^k)$ so we got the result.
+When $\ell=2$ by \cite{DoSc12} the cost of an inversion of elements in $\mathbb{F}_{q^{2^k}}$ of $M(2^k)$ so we got the result. When $\ell \neq 2$ by \cite{DeDoSc13} the cost of an inversion of elements in $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)\log(\ell^k)$ so we got the result.
 \end{proof}
 
 
-We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrence, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
+We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrences, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
 
 \begin{prop} %cout total de l'algorithme
-The computational cost of the computation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant j \leqslant o_B$  is of:
-\begin{enumerate}
-\item[$\ell=2$]$
-O(M(2^{2k})k^2+ 2^{2k}\log(q))
+The computational cost of algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant o_j \leqslant o_A$  is of:
+$O(M(2^{2k})k^2+ 2^{2k}\log(q))
 $
-operations in $\mathbb{F}_q$ for the first occurrence (algorithm \ref{computingT2i1}). For the next occurrences (algorithm \ref{computingT2ir}) we have a complexity of:
+operations in $\mathbb{F}_q$ for the first occurrence for $\ell=2$. For the next occurrences we have a complexity of:
 $
 O(M(2^{2k})k+2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$
-\item[$\ell \neq 2$] is of $
+\newline For $\ell \neq 2$ the complexity is of $
 O(M(\ell^{2k})k^2+ \ell^{2k}F(q,\ell^k))
 $
-operations in $\mathbb{F}_q$ for the first occurrence (algorithm \ref{computingT2i1}). For the next occurrences (algorithm \ref{computingT2ir}) we have a complexity of:
+operations in $\mathbb{F}_q$ for the first occurrence. For the next occurrences we have a complexity of:
 $
 O(M(\ell^{2k})k+\ell^{2k}F(q,\ell^k))
 $
 operations in $\mathbb{F}_q$
-\end{enumerate}
 
 \end{prop}
 
 \begin{proof}
-For the first occurrence of algorithm \ref{computingT2ir} at each step we compute a C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k})\log(\frac{\ell^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ for $\ell=2$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying this by the degree of the polynomials considered gave us the result. For $\ell \neq 2$ the Frobenius cost us at each step $O(\frac{\ell^{2k}}{o_j}F(q,\ell^k)$ operations in $\mathbb{F}_q$
+For the first occurrence of algorithm \ref{computingT2ir} at each step we compute a C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_{q^{o_j}}$ with a complexity of $O(M(\ell^{2k})\log(\frac{\ell^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{2k}+\frac{2^{2k}}{o_A}\log(q))$ operations in $\mathbb{F}_q$ for $\ell=2$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{o_{j}}}$ according to \cite{DoSc12} multiplying this by the degree of the polynomials considered gave us the result. For $\ell \neq 2$ the Frobenius cost us at each step $O(\frac{\ell^{2k}}{o_A}F(q,\ell^k))$ operations in $\mathbb{F}_q$.
  For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k}))$ in $\mathbb{F}_q$.
 Since we have to repeat those steps up to $k$ times we got the result.
 \end{proof}
 
 
-The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since the cost of the precomputations are of $O(M(r)\log(r)^2)$ and we got to repeat this step $O(r)$ times until we find the good interpolation.
+The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since the cost of the precomputations are of $O(M(r)\log(r)^2)$ and we got to repeat the interpolation try $O(r)$ times until we find the good interpolation.
 
 %%%%%%%%%%%%%%%
 
