@@ -217,9 +217,7 @@ X^2 - tX +q = 0
 \end{equation}
 with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial, , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
 
-\begin{defi}
-We define the cost of computing the Frobenius on a finite field of size $q^n$ with the complexity expressed in terms of operations on $\mathbb{F}_q$ by the following function: $F(q,n)$.
-\end{defi}
+
 
 \subsection{Volcan}
 We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
@@ -430,9 +428,8 @@ If this is not the case, we may always replace~$q$ by~$q^{\ell-1}$.
 \caption{\label{ldivision}Compute the pre image of $Q$ by the multiplication by $\ell$.}
 \begin{algorithmic}[5]
 \REQUIRE  $E: y^2=h(x)$ such that $E[\ell] \subset E(\mathbb{F}_q)$ % a reformuler
-\STATE $Q$: a \todo{rational?} point on $E$.
-\ENSURE $Q_1$: a point such that $\ell Q_1 = Q$.
-\todo{j'ai rebaptisé $Q/ℓ$ en $Q_1$ car il n'est pas unique.}
+\STATE $Q$: a point on $E$.
+\ENSURE $Q_1$: a point on $E$ such that $\ell Q_1 = Q$.
 \STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E $
 \STATE Let $\phi_1: E → E_1$ be the isogeny with kernel~$P_1$.
 \STATE Let~$\phi_2: E_1 → E$ be the isogeny with kernel~$\phi_1(P_2)$.
@@ -440,14 +437,12 @@ If this is not the case, we may always replace~$q$ by~$q^{\ell-1}$.
 % \STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
 %\STATE $f(x) \gets \phi_2(x)[0]$
 %\STATE $P_1(x)=ax^2+bx+c=0 \gets \phi_2(x)[0]=Q[0]$
-\STATE \todo{que se passe-t-il ci-dessous ?}
 \STATE $x_1 \gets \phi_2(x_1)[0]=Q[0] $
 %\STATE $g(x) \gets \phi_1(x)[0]$
 %\STATE $P_2(x)=a_2x^2+b_2x+c_2=0 \gets \phi_1(x)[0]=x_1$
 \STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
 %\STATE $h(x)  \gets E $
 %\STATE $y_2 \gets y_2^2=h(x_2) $
-\todo{qui est $h$ ci-dessous ? sur quoi le point $Q_1$ est-il défini ?}
 \RETURN $Q_1 =(x_2,\sqrt{h(x_2)})$
 \end{algorithmic}
 \end{algorithm}
@@ -691,6 +686,10 @@ Since we consider for the interpolation points on which the Frobenius does not a
 We will denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. We got $o_A=O(k)$
 \end{defi}
 
+\begin{defi}
+We define the cost of computing the Frobenius on a finite field of size $q^{n}$ with the complexity expressed in terms of operations on $\mathbb{F}_q$ by the following function: $F(q,n)$.
+\end{defi}
+
 We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (resp. interpolates) on points that are of order $\ell^k$ and generators of the orbits of order  $o_A \leqslant o_j=\frac{o_A}{\ell^j} \leqslant o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
 \newline
 We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial (both $\mathcal{T}_A$ and $\mathcal{A}_A$) then with the CRT we have a new interpolation polynomial that take into account the frobenius action. We take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$. After this we only make act the Frobenius until we have every element of the orbits.
@@ -703,15 +702,15 @@ At each step we obtain a new interpolation polynomial $A_j$ from the CRT of two 
 \REQUIRE $Lc$ the list with the pre computed inverse for the CRT. All the polynomials $\mathcal{T}_i$.
 \ENSURE $T$
 \STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \pi^{o_A/2}(\mathcal{T}_A),\pi^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
-\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRTs \left( \pi^{o_A/\ell}(\mathcal{A}_A) \bmod  \pi^{o_A/\ell}(\mathcal{T}_A),\mathcal{A}_A \bmod \mathcal{T}_A,Lc(0)(0),Lc(0)(1) \right)$
+\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRTs \left( \pi^{o_A/\ell}(\mathcal{A}_A) \bmod  \pi^{o_A/\ell}(\mathcal{T}_A),\mathcal{A}_A \bmod \mathcal{T}_A \right)$
 \FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\pi(R)^{o_A/2^{1+r}} T_2=\pi(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
-\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRTs \left( \pi(R)^{o_A/\ell^{1+r}} \bmod \pi(T)^{o_A/\ell^{1+r}}, R \bmod T,Lc[r][0][0],Lc[r][0][1] \right) $
+\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRTs \left( \pi(R)^{o_A/\ell^{1+r}} \bmod \pi(T)^{o_A/\ell^{1+r}}, R \bmod T \right) $
 \STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \pi^{o_A/2^{1+r}}(\mathcal{T}_r), \pi^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$ 
-\STATE $\left( B,TB \right)\in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x]  \gets CRTs \left( \pi^{o_A/\ell^{1+r}}(\mathcal{A}_r) \bmod \pi^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{A}_r \bmod \mathcal{T}_r,Lc[r][1][0],Lc[r][1][1] \right)$
-\STATE $\left( R,T \right) \gets CRTs \left(B \bmod TB, R \bmod T, Lc[r][2][0],Lc[r][2][1] \right) $
+\STATE $\left( B,TB \right)\in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x]  \gets CRTs \left( \pi^{o_A/\ell^{1+r}}(\mathcal{A}_r) \bmod \pi^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{A}_r \bmod \mathcal{T}_r, \right)$
+\STATE $\left( R,T \right) \gets CRTs \left(B \bmod TB, R \bmod T \right) $
 \ENDFOR
 \FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\pi(R)^{o_B/2^{1+r}}, T2=\pi(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
-\STATE $\left( R , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{r+1})}} \gets CRTs \left( R \bmod T ,\pi(R)^{o_B/\ell^{1+r}} \bmod \pi(T)^{o_B/\ell^{1+r}}, Lc[\nu_2(o_B)+r][0][0],Lc[\nu_\ell(o_B)+r][0][1] \right)$
+\STATE $\left( R , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{r+1})}} \gets CRTs \left( R \bmod T ,\pi(R)^{o_B/\ell^{1+r}} \bmod \pi(T)^{o_B/\ell^{1+r}} \right)$
 \ENDFOR
 \RETURN $R,T$
 \end{algorithmic}
@@ -753,7 +752,7 @@ For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal
 We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrence, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
 
 \begin{prop} %cout total de l'algorithme
-The computational cost of the computation of pre commputation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  \min(o_{\lambda_1 },o_{\lambda_2 }) \leqslant j \leqslant \max(o_{\lambda_1},o_{\lambda_2})$  is of:
+The computational cost of the computation of pre computation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant j \leqslant o_B$  is of:
 \begin{enumerate}
 \item[$\ell=2$]$
 O(M(2^{2k})k^2+ 2^{2k}\log(q))
