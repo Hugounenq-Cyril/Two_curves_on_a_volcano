@@ -723,7 +723,7 @@ The cost of multiplying two polynomials of degree $n$ of $\mathbb{F}_{q^{\ell^k}
 \end{prop}
 
 \begin{proof}
-See Lemma 2.2 of \cite{vzgathen+shoup92}
+Since we have by \cite{DoSc12}  that the cost of multiplying two elements of $\mathbb{F}_{q^{2^k}}$ is of $M(2^k)$ and we have the similar result for $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)$ from \cite{DeDoSc13} then we can conclude by Lemma 2.2 of \cite{vzgathen+shoup92}
 \end{proof}
 
 \begin{prop}
@@ -748,11 +748,15 @@ For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal
 \end{enumerate}
 \end{prop}
 
+\begin{proof}
+When $\ell=2$ by \cite{DoSc12} we got the cost of an inversion of elements in $\mathbb{F}_{q^{2^k}}$ of $M(2^k)$ so we got the result. When $\ell \neq 2$ by \cite{DeDoSc13} we got the cost of an inversion of elements in $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)\log(\ell^k)$ so we got the result.
+\end{proof}
+
 
 We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrence, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
 
 \begin{prop} %cout total de l'algorithme
-The computational cost of the computation of pre computation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant j \leqslant o_B$  is of:
+The computational cost of the computation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant j \leqslant o_B$  is of:
 \begin{enumerate}
 \item[$\ell=2$]$
 O(M(2^{2k})k^2+ 2^{2k}\log(q))
@@ -762,20 +766,21 @@ $
 O(M(2^{2k})k+2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$
-\item[$\ell \neq 2$]
+\item[$\ell \neq 2$] is of $
+O(M(\ell^{2k})k^2+ \ell^{2k}F(q,\ell^k))
+$
+operations in $\mathbb{F}_q$ for the first occurrence (algorithm \ref{computingT2i1}). For the next occurrences (algorithm \ref{computingT2ir}) we have a complexity of:
+$
+O(M(\ell^{2k})k+\ell^{2k}F(q,\ell^k))
+$
+operations in $\mathbb{F}_q$
 \end{enumerate}
 
 \end{prop}
 
 \begin{proof}
-\begin{enumerate}
-\item[$\ell=2$]
-\begin{enumerate}
-\item  For the first occurrence at each step we compute a C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k})\log(\frac{2^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying by the degree of the polynomials considered gave us the result.
-\item For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{2^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(2^{2k}))$ in $\mathbb{F}_q$.
-\end{enumerate}
-\item[$\ell \neq 2$] The differences are in the Frobenius computation
-\end{enumerate}
+For the first occurrence of algorithm \ref{computingT2ir} at each step we compute a C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k})\log(\frac{\ell^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{j}+\frac{2^{2k}}{o_j}\log(q))$ operations in $\mathbb{F}_q$ for $\ell=2$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{2^{j}}}$ according to \cite{DoSc12} multiplying this by the degree of the polynomials considered gave us the result. For $\ell \neq 2$ the Frobenius cost us at each step $O(\frac{\ell^{2k}}{o_j}F(q,\ell^k)$ operations in $\mathbb{F}_q$
+ For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k}))$ in $\mathbb{F}_q$.
 Since we have to repeat those steps up to $k$ times we got the result.
 \end{proof}
 
