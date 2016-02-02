@@ -717,7 +717,7 @@ At each step we obtain a new interpolation polynomial $\mathcal{A}_j$ from the C
 Before giving a complexity analysis of this algorithm we need to describe the cost of some operations used in this algorithm.
 
 \begin{prop}
-The cost of multiplying two polynomials of degree $n$ of $\mathbb{F}_{q^{2^k}}[X] $ is of $O(M(2^kn))$ operations in $\mathbb{F}_q$
+The cost of multiplying two polynomials of degree $n$ of $\mathbb{F}_{q^{\ell^k}}[X] $ is of $O(M(\ell^kn))$ operations in $\mathbb{F}_q$
 \end{prop}
 
 \begin{proof}
@@ -725,7 +725,7 @@ See Lemma 2.2 of \cite{vzgathen+shoup92}
 \end{proof}
 
 \begin{prop}
-The cost of the Chinese Remainder Theorem for two polynomials of degree $n$ of $\mathbb{F}_{q^{2^k}}[X] $ is of $O(M(2^kn)\log(n)$ operations in $\mathbb{F}_q$
+The cost of the Chinese Remainder Theorem for two polynomials of degree $n$ of $\mathbb{F}_{q^{\ell^k}}[X] $ is of $O(M(\ell^kn)\log(n))$ operations in $\mathbb{F}_q$.
 \end{prop}
 
 \begin{proof}
