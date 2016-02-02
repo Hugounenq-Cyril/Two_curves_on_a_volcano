@@ -604,7 +604,7 @@ Since we consider for the interpolation points on which the Frobenius does not a
 We will denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$ with $o_{\lambda_i}$ the order of the eigenvalue $\lambda_i$ in $\mathbb{Z}/\ell^k\mathbb{Z}$. We got $o_A=O(k)$
 \end{defi}
 
-We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (resp. interpolates) on points of order $\ell^k$ which are of order $\ell^k$ and generators of the orbits of order $o_A$, $o_B$ and the orders $o_A < o_j=\frac{o_A}{\ell^j} < o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
+We define the polynomials: $\mathcal{T}_i$ (resp. $\mathcal{A}_i$) that vanish (resp. interpolates) on points that are of order $\ell^k$ and generators of the orbits of order  $o_A \leqslant o_j=\frac{o_A}{\ell^j} \leqslant o_B$. Then with the action of the Frobenius we will get the vanishing (resp. interpolation) polynomials defined on all the orbit. To avoid any redundant Frobenius action we have to add a different order after a Frobenius action. %mal dit mais dit 
 \newline
 We start by taking into account the greatest orbit of order $o_A$ and then we make act the frobenius on this polynomial (both $\mathcal{T}_A$ and $\mathcal{A}_A$) then with the CRT we have a new interpolation polynomial that take into account the frobenius action. We take then into account the next greater order together with the previous polynomial obtained and we repeat this until we get to the order $o_B$. After this we only make act the Frobenius until we have every element of the orbits.
 \newline
@@ -641,39 +641,35 @@ See Lemma 2.2 of \cite{DBLP:journals/cc/GathenS92}
 \end{proof}
 
 \begin{prop}
-The cost of the Chinese Remainder Theorem for two polynomials of degree $n$ of $\mathbb{F}_{q^{2^k}}[X] $ is of $O(M(2^kn))\log(n)$ operations in $\mathbb{F}_q$
+The cost of the Chinese Remainder Theorem for two polynomials of degree $n$ of $\mathbb{F}_{q^{2^k}}[X] $ is of $O(M(2^kn)\log(n)$ operations in $\mathbb{F}_q$
 \end{prop}
 
 \begin{proof}
 We obtain this result by adapting the proof of the Theorem $11.5$ of \cite{DBLP:books/daglib/0010544}.
 \end{proof}
 
-Since we can do some pre computation for the C.R.T. we have his cost that change. 
+Since we can do some pre computation for the C.R.T. we have his cost that changes. 
 
 \begin{prop}
 For $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{j}}[x]$ of degree inferior to $n$ such that $U=0 \bmod T_A$, $U=1 \bmod T_B$ $V=1 \bmod T_A$, $V=0 \bmod T_B$ . The cost of $CRTs(A \bmod T_A,B\bmod T_B)$ is of $M(nj)$ on $\mathbb{F}_q$.
 \end{prop}
 
 \begin{prop}
-For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_r$ and $\mathcal{A}_j$ of degree $d: \frac{2^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{2^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. The cost of computing the different $\mathcal{T}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. The cost of computing the different $\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ operations in $\mathbb{F}_q$.
+For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{2^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{2^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. The cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. 
 \end{prop}
 
-
-\begin{prop}
-The cost of computing an interpolation polynomial $\mathcal{A}_{A}$  on the roots of $\mathcal{T_{A}}$  is of $O(M(2^{2k})\log(\frac{2^{2k}}{o_{A}}))$ on $\mathbb{F}_q$.
-\end{prop}
 
 We remind that we have two different cost for the C.R.T. one for the pre computation, one for the next occurrence, thus we have two complexity analysis for algorithm \ref{computingT2ir}.
 
 \begin{prop} %cout total de l'algorithme
 The computational cost of the computation of pre commputation of the algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ with $  \min(o_{\lambda_1 },o_{\lambda_2 }) \leqslant j \leqslant \max(o_{\lambda_1},o_{\lambda_2})$  is of:
-\[
+$
 O(M(2^{2k})k^2+ 2^{2k}\log(q))
-\]
+$
 operations in $\mathbb{F}_q$ for the first occurrence (algorithm \ref{computingT2i1}). For the next occurrences (algorithm \ref{computingT2ir}) we have a complexity of:
-\[
+$
 O(M(2^{2k})k+2^{2k}\log(q))
-\]
+$
 operations in $\mathbb{F}_q$
 \end{prop}
 
