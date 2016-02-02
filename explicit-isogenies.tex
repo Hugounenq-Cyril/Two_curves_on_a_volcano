@@ -675,6 +675,8 @@ We just have to prove that there exists a $\ell^{h+i}$ primitive torsion point $
 Since $P$ is a point that generates a horizontal isogeny then there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. Since $\phi$ is a $r$ isogeny then $\phi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\phi$ (because this one is defined on $\mathbb{F}_q$) then we have $\pi(\phi(R))=\lambda_1\phi(R)$ which proves the assertion.
 \end{proof}
 
+
+
 %%%%%%%%%%%%%%%
 
 \section{Interpolation step}
@@ -783,6 +785,9 @@ For the first occurrence of algorithm \ref{computingT2ir} at each step we comput
  For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k}))$ in $\mathbb{F}_q$.
 Since we have to repeat those steps up to $k$ times we got the result.
 \end{proof}
+
+
+The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since the cost of the precomputations are of $O(M(r)\log(r)^2)$ and we got to repeat this step $O(r)$ times until we find the good interpolation.
 
 %%%%%%%%%%%%%%%
 
