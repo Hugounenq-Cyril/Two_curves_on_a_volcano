@@ -35,6 +35,8 @@
 \def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
 \def\smat#1{{\def\arraystretch{.7}\mat{#1}}}
 \def\pa#1{\left(#1\right)}
+% pour les coûts des opérations M, F etc. (?)
+\def\cout#1{\mathsf{#1}}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
 \author{Cyril Hugounenq}
@@ -514,11 +516,20 @@ and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
 \subsection{Diagonalizing the Frobenius}
 
 In this part we work with a curve~$E$ situated on a cyclic volcano crater.
-Our goal is to explicitly diagonalize the Frobenius endomorphism
-modulo~$ℓ^{k}$, where~$k>h = v_{ℓ} (λ_1-λ_2)$ as in the previous section.
+By Proposition~\ref{prop:degree-l-torsion}~(i),
+replacing~$\mathbb F_q$ with an extension of degree up to~$ℓ - 1$,
+we also assume that all points of~$E[ℓ]$ are rational over~$\mathbb F_q$.
 
-The complexities of all algorithms are given as a number of
+Our goal here is to explicitly diagonalize the Frobenius endomorphism
+in~$E[ℓ^k]$, where $k ≥ h+1$,
+in order to identify the directions of the two horizontal isogenies.
+By Proposition~\ref{prop:degree-l-torsion}~(ii),
+we know that all points of~$E[ℓ^k]$ are rational over~$\mathbb F_{q^{ℓ^k}}$.
+Therefore, all our algorithms work in~$\mathbb F_{q^{ℓ^k}}$.
+All the complexities of are given as a number of
 operations in the base field~$\mathbb F_q$.
+\todo{référer à la partie qui explique les complexités du calcul dans les
+extensions, quand elle sera écrite}
 
 %We first give an algorithm computing a preimage of a rational point of~$E$
 %by multiplication by~$ℓ$, when such a preimage exists.
@@ -587,25 +598,37 @@ operations in the base field~$\mathbb F_q$.
 In the following algorithm we describe how to compute eigenvalues of
 the Frobenius $\bmod \ell^k$ and
 corresponding eigenvectors in the $\ell^{k}$-torsion subgroup.
-For a point $P \in E$ we will denote by $P \leftarrow P/\ell$ 
-the computation of a preimage of multiplication by $\ell$ of 
-a point, when such a preimage exists.
+For a point $P \in E$ we will denote by $P \leftarrow P/\ell$ the computation of a preimage of multiplication by $\ell$ of a point, when such a preimage exists.
+\todo{peut-être donner l'algorithme en appendice ?}
+
+The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
+However, this polynomial has a degree~$O(ℓ^2)$.
+Instead, we factor the multiplication-by-$ℓ$ map
+as a product~$ψ \widehat{ψ}$ of an $ℓ$-isogeny and its dual.
+This brings the polynomial degree down to~$O(ℓ)$.
+The cost of the $P/ℓ$ operation is therefore
+\begin{equation}\label{eq:div-by-l}
+O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
+(k + \log q) & \text{if $ℓ = 2$,} \\
+(ℓ^k · k · \log ℓ · \log q) & \text{if $ℓ ≠ 2$.}
+\end{array}\right\rbrace}.
+\end{equation}
 
 \begin{algorithm}
 \caption{\label{Diagonalizedbasis}Diagonalizing and computing the basis $\langle P,Q \rangle $ of the $\ell^k$ torsion.}
-\begin{algorithmic}[5]
+\begin{algorithmic}[1]
 \REQUIRE $\langle P,Q \rangle$ a basis of the $\ell$-torsion defined on a curve $E$ such that $E[\ell] \subset E(\mathbb{F}_q)$ .
 \ENSURE $\langle P,Q \rangle$ a basis of the $\ell^k$-torsion; $\lambda_1, \lambda_2$ defined modulo $\ell^k$ such that $\pi(P)=\lambda_1P$, $ \pi(Q)=\lambda_2Q$
 \STATE $h:=1, k_0:=1$
 \FOR {$i=1$  to  $k-1$}
-\STATE $P \leftarrow P/\ell$
-\STATE $Q \leftarrow Q/\ell$ 
+\STATE $P \leftarrow P/\ell$; $Q \leftarrow Q/\ell$.
 \STATE compute $\pi(P,Q)=\left( \begin{array}{cc}
 \lambda_1 + a\ell^{i} & b\ell^{i}\\
 c\ell^{i} & \lambda_2 + d\ell^{i}
 \end{array} \right) \bmod \ell^{i+1}$ with $\{a,b,c,d\} \in \mathbb{Z}/\ell\mathbb{Z}$
 \IF {$\lambda_1 \neq \lambda_2$}
 \STATE $k0 \leftarrow \frac{\lambda_1-\lambda_2}{\ell^h}$
+\todo{$k_0$ est-il toujours entier ? et que vaut-il si~$λ_1 = λ_2$ ? (1?)}
 \ENDIF
 \STATE $\lambda_1, \lambda_2  \gets \lambda_1 + a\ell^i, \lambda_2 + d\ell^i$
 \STATE $r_1,r_2 \gets \frac{-b }{k_0}, \frac{c }{k_0}$  
@@ -619,20 +642,39 @@ c\ell^{i} & \lambda_2 + d\ell^{i}
 \end{algorithm}
 
 \begin{prop}
-The computation complexity of algorithm \ref{Diagonalizedbasis} for 
-\begin{enumerate}
-\item[$\ell=2$] is of $O((\log(r)^2+\log(q)) M(\sqrt{r}) $ operations in $\mathbb{F}_q$, 
-\item[$\ell \neq 2$] is of $O(\sqrt{r} \log(q) M(\sqrt{r})\log^2(r)\log^{-1}(\ell)+ \log(r)\log^{-1}(\ell) F(q,\ell^k))$ operations in $\mathbb{F}_q$.
-\end{enumerate}
+Algorithm~\ref{Diagonalizedbasis} computes a diagonal basis of the
+Frobenius endomorphism with a complexity of at most
+% The computation complexity of algorithm \ref{Diagonalizedbasis} is
+\begin{equation*}
+\begin{array}{ll}
+O\pa{\cout{M}(ℓ^k) · k · (k + \log q)}, &\text{if $ℓ = 2$;}\\
+O\pa{\cout{M}(ℓ^k) · (ℓ^k · k^2 · \log ℓ · \log q)
+  + k · \cout{F}(q, ℓ^k)}, &\text{if $ℓ ≠ 2$.}
+\end{array}
+\end{equation*}
 \end{prop}
-
 \begin{proof}
-\begin{enumerate}
-The computation of a pre image of multiplication by $\ell$ of a point is done through the decomposition of the multiplication by $\ell$ in two $\ell$ isogenies. The costly part is the computation of roots of an $\ell$ degree polynomial. When $\ell=2$ this could be done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$ according to \cite{DoSc12}. When $\ell \neq 2$ this could be done in $O(\log(q^{\ell^k})\ell^3)$ operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss. Since the inverse computation in $\mathbb{F}_{q^{\ell^k}}$ is of complexity $O(M(\ell^k)\log(\ell^k))$ on $\mathbb{F}_q$ by \cite{DeDoSc13} we have a total complexity of $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))=O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
-\newline
-When $\ell=2$ the complexity of computing the Frobenius is $O(2^k+\log(q))$ operations in $\mathbb{F}_q$ by \cite{DoSc12}, the root computation remains the most costly operation.
-When $\ell \neq 2$ the cost of the Frobenius is of $F(q,\ell^k)$. The overall complexity of the rest of the algorithm is dominated by $\ell$ multiplication preimage computation, this gave us the following complexity: $O(\sqrt{r} \log(q) M(\sqrt{r})\log^2(r)\log^{-1}(\ell)+ \log(r)\log^{-1}(\ell) F(q,\ell^k)$ on $\mathbb{F}_q$
-\end{enumerate}
+\todo{preuve de correction}
+
+\todo{attention numéros des étapes, je n'ai pas mis de \textbackslash
+label...}
+The cost of Algorithm~\ref{Diagonalizedbasis} is dominated
+by $k$~times the cost of the last execution of the loop in step~2.
+Inside this loop, computing the preimages in step~3 has a cost given in
+Equation~\ref{eq:div-by-l} above.
+Computing the Frobenius~$π(P)$ in step~4 has a cost of~$\cout{F}(q, ℓ^k)$;
+if $ℓ = 2$ then this is bounded~\cite[2.3]{DoSc12}
+by~$O(ℓ^k + \log q)$, and therefore dominated by the cost of step~3.
+Writing~$π(P)$ as a linear combination~$α P + β Q$
+needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \cout{M}(ℓ^k)$.
+This is again negligible compared to step~3.
+Finally, all steps after step~5 only involve field arithmetic.
+
+% 
+% The computation of a pre image of multiplication by $\ell$ of a point is done through the decomposition of the multiplication by $\ell$ in two $\ell$ isogenies. The costly part is the computation of roots of an $\ell$ degree polynomial. When $\ell=2$ this could be done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$ according to \cite{DoSc12}. When $\ell \neq 2$ this could be done in $O(\log(q^{\ell^k})\ell^3)$ operations on $\mathbb{F}_{q^{\ell^k}}$ using Cantor-Zassenhauss. Since the inverse computation in $\mathbb{F}_{q^{\ell^k}}$ is of complexity $O(M(\ell^k)\log(\ell^k))$ on $\mathbb{F}_q$ by \cite{DeDoSc13} we have a total complexity of $O(\log(q^{\ell^k})\ell^3 M(\ell^k)\log(\ell^k))=O(\sqrt{r} \log(q) M(\sqrt{r})\log(r))$ operations on $\mathbb{F}_q$.
+% \newline
+% When $\ell=2$ the complexity of computing the Frobenius is $O(2^k+\log(q))$ operations in $\mathbb{F}_q$ by \cite{DoSc12}, the root computation remains the most costly operation.
+% When $\ell \neq 2$ the cost of the Frobenius is of $F(q,\ell^k)$. The overall complexity of the rest of the algorithm is dominated by $\ell$ multiplication preimage computation, this gave us the following complexity: $O(\sqrt{r} \log(q) M(\sqrt{r})\log^2(r)\log^{-1}(\ell)+ \log(r)\log^{-1}(\ell) F(q,\ell^k)$ on $\mathbb{F}_q$
 \end{proof}
 
 
