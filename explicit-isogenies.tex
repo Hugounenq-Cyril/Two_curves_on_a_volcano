@@ -263,6 +263,10 @@ De Feo and Schost~\cite{DeDoSc13}. In Section~\ref{sec:interpolation}
 we present an interpolation algorithm adapted to the setting of
 $ℓ$-adic towers.
 
+All the complexity will be expressed in terms of operations in $\mathbb{F}_q$ except when it is stated otherwise.
+For $\ell=2$ according to \cite{DoSc12} we have the computation for the Frobenius of an element of $\mathbb{F}_{q^{2^k}}$ done in $O(2^k \log(q))$ operations, the multiplication is done in $M(2^k)$ and the inversion in $O(M(2^k))$ operations in $\mathbb{F}_q$. The square root computation is done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$.
+For $\ell \neq 2$  according to \cite{DeDoSc13} the multiplication of an element of $\mathbb{F}_{q^{\ell^k}}$ is done in $M(\ell^k)$ and the inversion in $O(M(\ell^k)\log(\ell^k))$ operations in $\mathbb{F}_q$. For the Frobenius computation we will denote its cost by $F(q,\ell^k)$ operations in $\mathbb{F}_q$.
+
 \subsection*{Notations}
 
 Throughout this paper: $p$~is a prime power, $q$~a power of $p$,
