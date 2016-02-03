@@ -265,7 +265,7 @@ $ℓ$-adic towers.
 
 \subsection*{Notations}
 
-Throughout this paper: $p$~is a prime number, $q$~a power of $p$,
+Throughout this paper: $p$~is a prime power, $q$~a power of $p$,
 and $\mathbb F_q$ is the finite field with $q$~elements;
 $π$~is the $q$-Frobenius automorphism;
 $E$~is an ordinary elliptic curve over~$\mathbb F_q$;
@@ -277,8 +277,8 @@ $d_K$~is the discriminant of~$\mathcal O_K$;
 $ℓ$~is a prime number different from~$p$;
 $T_ℓ(E) = \varprojlim E[ℓ^n]$~is the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$ since $E$~is ordinary.
-The factorization over~$ℤ_ℓ$ of the characteristic polynomial of~$π$
-is determined by the Kronecker symbol~$(d_K/ℓ)$.
+The factorization of the characteristic polynomial of~$π$
+in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
 If $(d_K/ℓ) = +1$ then we also define
 $λ_1, λ_2$ as the eigenvalues of~$π$ in~$ℤ_ℓ$
 and write~$h = v_ℓ(λ_1 - λ_2)$.
@@ -309,7 +309,6 @@ $ℓ$-isogenies between ordinary elliptic curves.
 Let~$ϕ: E → E'$ be an $ℓ$-isogeny between ordinary elliptic curves
 and~$\mathcal O, \mathcal O'$ be their endomorphism rings.
 Then one of the three following cases is true:
-\snote{il me semble que ascendantes et descendantes étaient inversées}
 \begin{enumerate}
 \item $[\mathcal O':\mathcal O] = ℓ$,
 in which case we call $ϕ$ \emph{ascending};
@@ -535,8 +534,6 @@ and then the isogeny $ϕ_{ℓ^h P}$ is descending.
 
 \section{The action of the Frobenius endmorphism}
 \label{sec:acti-frob-endm}
-\todo{Dans cette section on montre les résultats que nous permettent d'obtenir le frobenius sur le cratère}
-
 
 % To be able to distinguish two different horizontal isogenies and the descending ones on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues defined on the $\ell$ torsion which is only possible on the cyclic crater of a volcano of $\ell$-isogeny.
 % 
@@ -681,7 +678,6 @@ When $\ell \neq 2$ the cost of the Frobenius is of $F(q,\ell^k)$. The overall co
 
 
 \subsection{Horizontal basis}
-\todo{Dans cette section on montre comment on construit une base horizontale de la $2(\ell)$ torsion}
 Our aim now is to compute  a basis of the $\ell^k$ torsion for $k>h$ with each generator who is also a generator of a $\ell^{k}$ horizontal isogeny, but first we have to define them:
 
 \begin{defi}%peut etre que le choix du r est malheureux dans cette definition...
@@ -805,7 +801,6 @@ After the application of algorithm \ref{Diagonalizedbasis}, we use the horizonta
 %Algorithme necessaire, surement pour enfoncer le clou...
 
 \subsection{Proof of the algorithm}
-\todo{Dans cette section on montre que une base horizontale est envoyee sur une base horizontale}
 Now that we have seen a way to determine a set of $\ell^{k}$ torsion points that generates horizontal $\ell^k$ isogenies, we have to show that this set is invariant under isogenies of degree prime to $\ell$.
 
 \begin{prop}
@@ -836,7 +831,7 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 
 \section{Interpolation step}
 \label{sec:interpolation}
-\todo{Dans cette section on montre les outils employes pour diminuer le cout de l interpolation}
+
 Since we consider for the interpolation points on which the Frobenius does not act trivially and we want a rational isogeny, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
 
 \begin{defi}
