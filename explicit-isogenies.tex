@@ -152,6 +152,8 @@ constructions for towers of finite fields of characteristic $p$. Their
 complexity is quasi-quadratic in $r$, but exponential in $\log p$,
 hence they are only practical for very small characteristic.
 
+
+
 In this paper we present a variant of Couveignes' algorithm with
 complexity polynomial in $\log p$ and quasi-quadratic in $r$. Together
 with the Lercier-Sirvent algorithm, they are the only polynomial-time
@@ -599,7 +601,7 @@ In the following algorithm we describe how to compute eigenvalues of
 the Frobenius $\bmod \ell^k$ and
 corresponding eigenvectors in the $\ell^{k}$-torsion subgroup.
 For a point $P \in E$ we will denote by $P \leftarrow P/\ell$ the computation of a preimage of multiplication by $\ell$ of a point, when such a preimage exists.
-\todo{peut-être donner l'algorithme en appendice ?}
+\todo{peut-être donner l'algorithme en appendice ?}
 
 The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
@@ -628,7 +630,7 @@ c\ell^{i} & \lambda_2 + d\ell^{i}
 \end{array} \right) \bmod \ell^{i+1}$ with $\{a,b,c,d\} \in \mathbb{Z}/\ell\mathbb{Z}$
 \IF {$\lambda_1 \neq \lambda_2$}
 \STATE $k0 \leftarrow \frac{\lambda_1-\lambda_2}{\ell^h}$
-\todo{$k_0$ est-il toujours entier ? et que vaut-il si~$λ_1 = λ_2$ ? (1?)}
+\todo{$k_0$ est-il toujours entier ? et que vaut-il si~$λ_1 = λ_2$ ? (1?)}
 \ENDIF
 \STATE $\lambda_1, \lambda_2  \gets \lambda_1 + a\ell^i, \lambda_2 + d\ell^i$
 \STATE $r_1,r_2 \gets \frac{-b }{k_0}, \frac{c }{k_0}$  
