@@ -298,11 +298,6 @@ and write~$h = v_ℓ(λ_1 - λ_2)$.
 For an extensive introduction to isogeny volcanoes we address the
 reader to~\cite{sutherland2013isogeny}.
 
-% %Dire que le volcan ne possède des isogenies
-% \subsection{The ring of endomorphism of an elliptic curves}%titre a supprimer eventuellement
-% We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to remind that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
-% 
-
 \subsection{The graph of $ℓ$-isogenies}
 
 We write~{$ℓ$-isogeny} for an isogeny of degree~$ℓ$.
@@ -322,7 +317,6 @@ in which case we call $ϕ$ \emph{descending};
 in which case we call $ϕ$ \emph{horizontal}.
 \end{enumerate}
 \end{prop}
-
 \begin{prop}[{\cite[Proposition~23]{Kohel}; \cite[Lemma~6]{sutherland2013isogeny}}] \label{prop:isogeny-count}
 Let~$E$ be an ordinary elliptic curve with endomorphism ring~$\mathcal O$.
 \begin{enumerate}
@@ -334,31 +328,6 @@ there are no horizontal $ℓ$-isogenies from~$E$,
 and one ascending $ℓ$-isogeny.
 \end{enumerate}
 \end{prop}
-% \begin{prop}
-% Let~$ℓ ≠ q$
-% Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then 
-% \begin{itemize}
-% \item $\phi$ is an ascending isogeny if we have $[\mathcal{O}:\mathcal{O'}]=\ell$,
-% \item $\phi$ is a descending isogeny if we have $[\mathcal{O'}:\mathcal{O}]=\ell$,
-% \item $\phi$ is an horizontal isogeny if we have $[\mathcal{O'}:\mathcal{O}]=1$.
-% \end{itemize}
-% \end{prop}
-%We call an isogeny of degree $\ell$ a $\ell$ isogeny. Redondant avec la partie de Luca
-% We denote by $\pi$ the Frobenius morphism, it is an endomorphism as like the scalar multiplications, thus we always have for an elliptic curve $E$:
-% $\mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K$.
-% We consider the Frobenius and his action on the $\ell^{\infty}$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
-% \begin{equation}
-% X^2 - tX +q = 0
-% \end{equation}
-% with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
-% 
-% \begin{defi}
-% When the eigenvalues of the Frobenius are different we denote by $h=\nu_{\ell}(\lambda_1-\lambda_2)$.
-% \end{defi}
-% 
-% 
-% 
-% \subsection{Volcan}
 
 A \emph{volcano of $ℓ$-isogenies} is a connected component
 of the graph of $ℓ$-isogenies between curves defined on~$\mathbb F_q$.
@@ -369,21 +338,6 @@ as per Proposition~\ref{prop:isogeny-count}.
 The \emph{depth} of a curve is its distance from the crater.
 It is also the $ℓ$-adic valuation of the conductor
 of~$\mathcal O = \mathrm{End}(E)$.
-% 
-% We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. 
-% We call crater the top level in the graph with respect to the vocabulary of ascending and descending isogeny, we denote by $\mathcal{O}_K$ is the endomorphism ring associated to the crater. There are three types of volcano according to the shape of their crater it depends of the value od the Legendre symbol  $\left( \frac{d_{K}}{\ell} \right)$. The following results of \cite{kohel} exhibits this link and the structure of the volcano.
-% 
-% 
-%There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
-% \begin{prop} %prop 23 de la these de Kohel
-% Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
-% \begin{itemize}
-% \item if $\mathcal{O}$ is maximal (i.e. equals to $\mathcal{O}_K$) then there are $\left( \frac{D}{\ell} \right) +1 $ horizontal $\ell$ isogenies,
-% \item if $\mathcal{O}$ is non maximal then there are no horizontal $\ell$ isogenies,
-% \item if there exists more than $\left( \frac{D}{\ell} \right) +1 $  $\ell$isogenies, up to isomorphism, then all the isogenies are defined over $\mathbb{F}_q$ and there is only $1$ ascending isogeny. 
-% \end{itemize}
-% \end{prop} 
-
 
 		\begin{figure}[h]
 		\begin{center}
@@ -467,8 +421,6 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		
 		\end{center} 
 		\end{figure}
-	
-
 \subsection{The Frobenius and the volcano}
 
 During the rest of this paper we consider only a volcano with a cyclic crater
@@ -485,6 +437,7 @@ Then there exists a basis of~$T_ℓ(E)$ in which $π$~has the matrix
 $π_ℓ = \smat{λ_1 & a\\ 0 & λ_2}$,
 where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
 with $a = 0$ if~$E$ lies on the crater,
+\snote{~~~$a$ est unique, est-ce utile?}
 and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
 \end{prop}
 \begin{proof}
@@ -509,16 +462,35 @@ of the fact that isogenies act on the Frobenius by matrix conjugation.
 
 \begin{prop} \label{prop:isogenies-eigenvalues}
 Let~$P$ be a point of order~$ℓ^{h+1}$ in~$E$.
-Then one of the following cases happen:
 \begin{enumerate}
-\item either~$π(P) = λ_i P$ for~$i = 1$ or~$2$, and then
-the isogeny~$ϕ_{ℓ^h P}$ with kernel generated by~$ℓ^h P$ is horizontal;
-we say that $ϕ_{ℓ^h P}$ has \emph{direction} $λ_i$;
-\item or $P$~is not an eigenvector for~$π$,
-and then the isogeny $ϕ_{ℓ^h P}$ is descending.
+\item If~$π(P) = λ P$ for~$λ ∈ ℤ_ℓ$,
+then the isogeny~$ϕ_{ℓ^h P}$ with kernel generated by~$ℓ^h P$ is horizontal.
+In this case, we say that $ϕ_{ℓ^h P}$ has \emph{direction} $λ_i$.
+\item If $P$~is not an eigenvector for~$π$,
+then the isogeny $ϕ_{ℓ^h P}$ is descending.
 \end{enumerate}
 \end{prop}
 
+As another simple consequence of Proposition~\ref{prop:matrice-frobenius},
+we may bound the degree of extensions containing points of $ℓ^n$-torsion.
+\begin{prop}\label{prop:degree-l-torsion}
+For any~$n$, let~$d(n)$ be the smallest integer
+such that all points of~$E[ℓ^n]$ are rational over~$\mathbb F_{q^{d(n)}}$.
+Then:
+\begin{enumerate}
+\item $d(1)$ divides~$(ℓ-1)$.
+\item There exists a constant~$c ≥ 0$ such that, for all~$n ≥ c$,
+$d(n) = d(1) · ℓ^{n-c}$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+The degree~$d(n)$ is exactly the order of the matrix~$π|E[ℓ^n]$.
+It is therefore the least common multiple of the multiplicative orders
+of~$λ_1, λ_2$ modulo~$ℓ^n$.
+To conclude we use the canonical decomposition:
+$(ℤ/ℓ^nℤ)^× = (ℤ/ℓℤ)^× × (ℤ/ℓ^{n-1} ℤ)$ for~$ℓ ≠ 2$,
+and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
+\end{proof}
 
 
 
@@ -536,33 +508,17 @@ and then the isogeny $ϕ_{ℓ^h P}$ is descending.
 %%%%%%%%%%%%%%%
 
 
-\section{The action of the Frobenius endmorphism}
+\section{The action of the Frobenius endomorphism}
 \label{sec:acti-frob-endm}
-
-% To be able to distinguish two different horizontal isogenies and the descending ones on the crater of the volcano, we need the Frobenius to have two distincts eigenvalues defined on the $\ell$ torsion which is only possible on the cyclic crater of a volcano of $\ell$-isogeny.
-% 
-% \begin{prop}%<<<
-% $\lambda_1 , \lambda_2$ the $2$ eigenvalues of the Frobenius are only defined on the $\ell$ torsion of a curve that is located at the top of a cyclic volcano of $\ell$ isogeny.
-% \end{prop}%>>>
-% 
-% \begin{proof}%<<<
-% We remind that $D=g^2d_K$, with $d_K$ squarefree.
-%,with g conductor of $\mathbb{Z}[\pi]$ 
-% \newline
-% If we have $\left( \frac{d_K}{\ell} \right)=1$ then we have $x^2 = d_K \bmod \ell$ that has a solution so the characteristic polynomial of the Frobenius has two roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=-1$ then we have $x^2 = d_K \bmod \ell$ that has no solution so the characteristic polynomial of the Frobenius has no roots in $\mathbb{Z}_{\ell}$. If $\left( \frac{d_K}{\ell} \right)=0$ then we have $x^2 = d_K \bmod \ell$ that has the trivial solution so the characteristic polynomial of the Frobenius has a unique root in $\mathbb{Z}_{\ell}$.
-% \newline
-% We thus work with $\left( \frac{d_K}{\ell} \right)=1$. We are obliged to work in $\mathcal{O}_K$ (crater)  since the eigenvalues of the Frobenius are not defined in $\ell^i \mathcal{O}_K$ modulo the $\ell$ torsion for $i>0$ because the discrimant is $D=\ell^2i d_K$ and $\left( \frac{\ell^2 d_K}{\ell} \right)=0$.
-% \end{proof}%>>>
-% 
-% \begin{defi}
-% For $\lambda_1$, $\lambda_2$ the $2$ distinct eigenvalues of the Frobenius, we define $h=\nu_{\ell} \left( \lambda_1 - \lambda_2 \right)$
-% \end{defi}
 
 \subsection{Diagonalizing the Frobenius}
 
 In this part we work with a curve~$E$ situated on a cyclic volcano crater.
 Our goal is to explicitly diagonalize the Frobenius endomorphism
 modulo~$ℓ^{k}$, where~$k>h = v_{ℓ} (λ_1-λ_2)$ as in the previous section.
+
+The complexities of all algorithms are given as a number of
+operations in the base field~$\mathbb F_q$.
 
 %We first give an algorithm computing a preimage of a rational point of~$E$
 %by multiplication by~$ℓ$, when such a preimage exists.
