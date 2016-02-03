@@ -101,7 +101,7 @@ are concerned exclusively with separable isogenies.  The
 \emph{explicit isogeny} problem has many incarnations. In this paper,
 we are interested in the variant defined below.
 
-\begin{prob}[(Explicit isogeny problem)]
+\begin{prob}[(Explicit isogeny problem)] \label{prob:isogeny-problem}
   Given two $j$-invariants $j_1$ and $j_2$, and a positive integer
   $r$, determine if they are $r$-isogenous. In that case, compute
   curves $E_1$, $E_2$ with $j(E_1)=j_1$ and $j(E_2)=j_2$, and the
@@ -940,9 +940,34 @@ The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since t
 
 \section{Complete algorithm}
 \label{sec:complete-algorithm}
-\todo{Put pieces together: explain the strategy for the case where the
-  curves are not on the crater, characterize cases where the algorithm
-  works/doesn't work, state overall complexity.}
+\todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
+  For the input curves we have to determine if we are on a cyclic crater or a path to an elliptic curve on the crater, to do this we can use methods like in \cite{volcano}. To detect the crater we have a complexity of $O(H^2 \mathcal{F}(\ell) )$, with $H$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a modular polynomial. Then we can know the shape of the crater by computing $\ell+1$ descending paths with a complexity of $O(H \mathcal{F}(\ell) \ell)$. %c est exactement ce qui est fait dans ce papier...
+  
+ \subsection{Curves which are on the cyclic crater}
+  The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
+ \begin{enumerate}
+\item Compute horizontal basis $P₁,Q_1$ and $P_2,Q_2$ of
+  $E_1[\ell^k]$ and $E₂[\ell^k]$ respectively, for $k > 4r$ \todo{preciser cette borne} ;
+\item\label{alg:modif-couveignes:interp} Compute the interpolation
+  polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
+    with Sec.5)} sending $x(P₁)$ to $x(P₂)$ and $x(Q₁)$ to $x(Q₂)$, and the abscissas of
+  their scalar multiples accordingly;
+\item\label{alg:modif-couveignes:rational} Deduce a rational fraction
+  congruent to $\mathcal{A}$ modulo $E₁[\ell^k]$, and verify that it
+  defines an isogeny of degree $r$. If it does, return it, otherwise
+  replace $P₂,Q_2$ with an other horizontal basis of $E_2[\ell^k]$ and go back to
+  Step~\ref{alg:orig-couveignes:interp}.
+\end{enumerate} 
+
+\begin{prop}
+The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$ isogeny is for $\ell=2$ of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
+\end{prop}
+
+\begin{proof}
+The cost of computing horizontal basis is for $\ell=2$ of $O((\log(r)^2+\log(r)\log(q))M(\sqrt{r}))$ in $\mathbb{F}_q$, for $\ell \neq 2$ it is of $O(\sqrt{r}\log(q)M(\sqrt{r})\log(r)^2 \log(\ell)^{-1}+kF(q,\ell^k))$ in $\mathbb{F}_q$.
+The cost of computing an interpolation polynomial is for $\ell=2$ of $O(M(r)\log(r))$, for $\ell \neq 2$ it is of $O(M(r)\log(r)+rF(q,\ell^k))$ . The rational reconstruction is done in $O(M(r)\log(r))$ operations in $\mathbb{F}_q$. In average we have to repeat this step $O(\ell^{2k})=O(r)$ times. 
+Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
+\end{proof}
   
   \subsection{Curves which are not on the cyclic crater}
 
@@ -993,7 +1018,9 @@ We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(
 \end{proof}
  We can then conclude recursively to obtain the result for curves on the crater.
 
-
+  \subsection{Curves which are not on a cyclic volcano}
+  %We take another \ell and we cross our fingers.
+  For curves which are not on an Elkies volcano we change $\ell$ and we take another prime number and we test if this new one is an Elkies prime. For every prime we have a probability of $\frac{1}{2}$ to be an Elkies prime. 
 
 
 %%%%%%%%%%%%%%%
