@@ -470,11 +470,14 @@ then the isogeny $ϕ_{ℓ^h P}$ is descending.
 As another simple consequence of Proposition~\ref{prop:matrice-frobenius},
 we may bound the degree of extensions containing points of $ℓ^n$-torsion.
 \begin{prop}\label{prop:degree-l-torsion}
-For any~$n$, write~$d(n)$ for the smallest integer
+For any~$n$, let~$d(n)$ be the smallest integer
 such that all points of~$E[ℓ^n]$ are rational over~$\mathbb F_{q^{d(n)}}$.
-
-There exists a constant~$c$ such that, for all~$n ≥ c$,
+Then:
+\begin{enumerate}
+\item $d(1)$ divides~$(ℓ-1)$.
+\item There exists a constant~$c$ such that, for all~$n ≥ c$,
 $d(n) = d(1) · ℓ^{n-c}$.
+\end{enumerate}
 \end{prop}
 \begin{proof}
 The degree~$d(n)$ is exactly the order of the matrix~$π|E[ℓ^n]$.
@@ -509,6 +512,9 @@ and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
 In this part we work with a curve~$E$ situated on a cyclic volcano crater.
 Our goal is to explicitly diagonalize the Frobenius endomorphism
 modulo~$ℓ^{k}$, where~$k>h = v_{ℓ} (λ_1-λ_2)$ as in the previous section.
+
+The complexities of all algorithms are given as a number of
+operations in the base field~$\mathbb F_q$.
 
 %We first give an algorithm computing a preimage of a rational point of~$E$
 %by multiplication by~$ℓ$, when such a preimage exists.
