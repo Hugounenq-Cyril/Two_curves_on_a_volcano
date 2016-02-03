@@ -11,6 +11,10 @@
 \usepackage{unicode}
  
 \newcommand{\todo}[1]{{\color{red}TODO: #1}}
+\def\snote#1{\marginpar{{\color{blue}%
+%   \rlap{\hskip 50pt \vrule height 1pt width 20pt}%
+%   \leavevmode\kern 7pt \vbox{\hsize 56pt\kern -8pt
+  \fontsize{7pt}{8pt}\selectfont #1\par}}}
 
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -29,6 +33,7 @@
 \newnumbered{prob}{Problem}
 
 \def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
+\def\smat#1{{\def\arraystretch{.7}\mat{#1}}}
 \def\pa#1{\left(#1\right)}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
@@ -258,6 +263,26 @@ De Feo and Schost~\cite{DeDoSc13}. In Section~\ref{sec:interpolation}
 we present an interpolation algorithm adapted to the setting of
 $ℓ$-adic towers.
 
+\subsection*{Notations}
+
+Throughout this paper: $p$~is a prime power, $q$~a power of $p$,
+and $\mathbb F_q$ is the finite field with $q$~elements;
+$π$~is the $q$-Frobenius automorphism;
+$E$~is an ordinary elliptic curve over~$\mathbb F_q$;
+$\mathcal O$~is the endomorphism ring of~$E$,
+$K = \mathcal O ⊗ ℚ$~is the corresponding number field,
+and $\mathcal O_K$ is its maximal order;
+$d_K$~is the discriminant of~$\mathcal O_K$;
+\snote{je ne crois pas qu'on ait besoin de $d_π$}
+$ℓ$~is a prime number different from~$p$;
+$T_ℓ(E) = \varprojlim E[ℓ^n]$~is the $ℓ$-adic Tate module~\cite[III.7]{Sil},
+which is free of rank~two over~$ℤ_ℓ$ since $E$~is ordinary.
+The factorization of the characteristic polynomial of~$π$
+in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
+If $(d_K/ℓ) = +1$ then we also define
+$λ_1, λ_2$ as the eigenvalues of~$π$ in~$ℤ_ℓ$
+and write~$h = v_ℓ(λ_1 - λ_2)$.
+
 
 %%%%%%%%%%%%%%%
 
@@ -269,56 +294,98 @@ $ℓ$-adic towers.
 For an extensive introduction to isogeny volcanoes we address the
 reader to~\cite{sutherland2013isogeny}.
 
-%Dire que le volcan ne possède des isogenies
-\subsection{ordres sur les corps quadratiques}%titre a supprimer eventuellement
-We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to remind that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
+% %Dire que le volcan ne possède des isogenies
+% \subsection{The ring of endomorphism of an elliptic curves}%titre a supprimer eventuellement
+% We will denote by $\mathcal{O}$ (resp. $\mathcal{O}_i$) the endomorphism ring associated up to isomorphism to the elliptic curve $E$ (resp. $E_i$). As we work only with ordinary elliptic curves, we recall that $\mathcal{O}$ is an order in a quadratic imaginary field usually denoted by $K$. The maximal order (and algebraic integers of $K$) is denoted by $\mathcal{O}_K$ and we denote its discriminant by $d_K$, we remind that $\mathcal{O}_K=\mathbb{Z}[\frac{d_K+\sqrt{d_K}}{2}]$. For every order $\mathcal{O}$ in $K$ we have the following results : $\mathcal{O}= \mathbb{Z}+ f \mathcal{O}_K$ with the conductor $f=[\mathcal{O}:\mathcal{O}_K]$ and the discriminant $D=f^2d_K$. For more detailed informations we refer the reader to \cite{Cox89}. We need also to remind that for an odd prime $\ell$ we have the Legendre symbol $\left( \frac{d_K}{\ell} \right)=$ and for $\ell=2$ we have the Kronecker symbol $\left( \frac{d_K}{2} \right)= 1$ if $d_K = 1 \bmod 8$, $\left( \frac{d_K}{2} \right)= -1$ if $d_K = 5 \bmod 8$ and $\left( \frac{d_K}{2} \right)= 0$ if $2 \mid d_K$ %derniere ligne a mieux remettre en forme
+% 
 
+\subsection{The graph of $ℓ$-isogenies}
 
-\subsection{Ascending and descending isogenies}
-We remind a result from Kohel \cite{Kohel} for the endomorphism rings of ordinary elliptic curves:
-\begin{prop}
-Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then 
-\begin{itemize}
-\item $\phi$ is an ascending isogeny if we have $[\mathcal{O}:\mathcal{O'}]=\ell$,
-\item $\phi$ is a descending isogeny if we have $[\mathcal{O'}:\mathcal{O}]=\ell$,
-\item $\phi$ is an horizontal isogeny if we have $[\mathcal{O'}:\mathcal{O}]=1$.
-\end{itemize}
+We write~{$ℓ$-isogeny} for an isogeny of degree~$ℓ$.
+We recall without their proof two results about
+$ℓ$-isogenies between ordinary elliptic curves.
+
+\begin{prop}[{\cite[Proposition~21]{Kohel}}] \label{prop:isogeny-asc-desc}
+Let~$ϕ: E → E'$ be an $ℓ$-isogeny between ordinary elliptic curves
+and~$\mathcal O, \mathcal O'$ be their endomorphism rings.
+Then one of the three following cases is true:
+\snote{il me semble que ascendantes et descendantes étaient inversées}
+\begin{enumerate}
+\item $[\mathcal O':\mathcal O] = ℓ$,
+in which case we call $ϕ$ \emph{ascending};
+\item $[\mathcal O:\mathcal O'] = ℓ$,
+in which case we call $ϕ$ \emph{descending};
+\item $\mathcal O' = \mathcal O$,
+in which case we call $ϕ$ \emph{horizontal}.
+\end{enumerate}
 \end{prop}
+
+\begin{prop}[{\cite[Proposition~23]{Kohel}; \cite[Lemma~6]{sutherland2013isogeny}}] \label{prop:isogeny-count}
+Let~$E$ be an ordinary elliptic curve with endomorphism ring~$\mathcal O$.
+\begin{enumerate}
+\item if $\mathcal O$~is maximal then
+there are $(d_K/ℓ)+1$~horizontal $ℓ$-isogenies from~$E$
+(and no ascending $ℓ$-isogenies).
+\item if $\mathcal O$~is not maximal then
+there are no horizontal $ℓ$-isogenies from~$E$,
+and one ascending $ℓ$-isogeny.
+\end{enumerate}
+\end{prop}
+% \begin{prop}
+% Let~$ℓ ≠ q$
+% Let $\phi:E \rightarrow E'$ be an isogeny of degree $\ell$. Then 
+% \begin{itemize}
+% \item $\phi$ is an ascending isogeny if we have $[\mathcal{O}:\mathcal{O'}]=\ell$,
+% \item $\phi$ is a descending isogeny if we have $[\mathcal{O'}:\mathcal{O}]=\ell$,
+% \item $\phi$ is an horizontal isogeny if we have $[\mathcal{O'}:\mathcal{O}]=1$.
+% \end{itemize}
+% \end{prop}
 %We call an isogeny of degree $\ell$ a $\ell$ isogeny. Redondant avec la partie de Luca
-We denote by $\pi$ the Frobenius morphism, it is an endomorphism as like the scalar multiplications, thus we always have for an elliptic curve $E$:
-$\mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K$.
-We consider the Frobenius and his action on the $\ell^{\infty}$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
-\begin{equation}
-X^2 - tX +q = 0
-\end{equation}
-with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+% We denote by $\pi$ the Frobenius morphism, it is an endomorphism as like the scalar multiplications, thus we always have for an elliptic curve $E$:
+% $\mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K$.
+% We consider the Frobenius and his action on the $\ell^{\infty}$ torsion on an elliptic curve $E$, thus it is relevant to consider it's characteristic polynomial on $\mathbb{F}_q$:
+% \begin{equation}
+% X^2 - tX +q = 0
+% \end{equation}
+% with $t$ the Frobenius trace of the elliptic curve $E$. We denote by $d_{\pi}$ the discriminant of this polynomial it also corresponds to the discriminant associated to the order $\mathbb{Z}[\pi]$. We denote by $\lambda_1$ and $\lambda_2$ when they exist the roots of this polynomial , and in the next section we  determine "eigenspaces" in the $\ell$ torsion for those "eigenvalues".
+% 
+% \begin{defi}
+% When the eigenvalues of the Frobenius are different we denote by $h=\nu_{\ell}(\lambda_1-\lambda_2)$.
+% \end{defi}
+% 
+% 
+% 
+% \subsection{Volcan}
 
-\begin{defi}
-When the eigenvalues of the Frobenius are different we denote by $h=\nu_{\ell}(\lambda_1-\lambda_2)$.
-\end{defi}
-
-
-
-\subsection{Volcan}
-We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. 
-We call crater the top level in the graph with respect to the vocabulary of ascending and descending isogeny, we denote by $\mathcal{O}_K$ is the endomorphism ring associated to the crater. There are three types of volcano according to the shape of their crater it depends of the value od the Legendre symbol  $\left( \frac{d_{K}}{\ell} \right)$. The following results of \cite{kohel} exhibits this link and the structure of the volcano.
-
-
+A \emph{volcano of $ℓ$-isogenies} is a connected component
+of the graph of $ℓ$-isogenies between curves defined on~$\mathbb F_q$.
+The \emph{crater} is the subgraph corresponding to curves
+having the maximal endomorphism ring~$\mathcal O_K$.
+The shape of the crater is given by the Kronecker symbol~$(d_K/ℓ)$,
+as per Proposition~\ref{prop:isogeny-count}.
+The \emph{depth} of a curve is its distance from the crater.
+It is also the $ℓ$-adic valuation of the conductor
+of~$\mathcal O = \mathrm{End}(E)$.
+% 
+% We call volcano of $\ell$ isogenies, the graph of $\ell$ isogenies. 
+% We call crater the top level in the graph with respect to the vocabulary of ascending and descending isogeny, we denote by $\mathcal{O}_K$ is the endomorphism ring associated to the crater. There are three types of volcano according to the shape of their crater it depends of the value od the Legendre symbol  $\left( \frac{d_{K}}{\ell} \right)$. The following results of \cite{kohel} exhibits this link and the structure of the volcano.
+% 
+% 
 %There are three types of volcano according to the shape of their the top level (crater) in the graph with respect to the vocabulary of ascending and descending isogeny. $\mathcal{O}_K$ is the endomorphism ring associated to the crater (top level) of the volcano. According to the value of the Legendre symbol $\left( \frac{d_{K}}{\ell} \right)$ there are $3$ kind of volcano: with cyclic crater, with crater reduced to one point, with crater reduced to two points. We remind a proposition from \cite{kohel} about the structure of the volcano of $\ell$ isogeny.
-\begin{prop} %prop 23 de la these de Kohel
-Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
-\begin{itemize}
-\item if $\mathcal{O}$ is maximal (i.e. equals to $\mathcal{O}_K$) then there are $\left( \frac{D}{\ell} \right) +1 $ horizontal $\ell$ isogenies,
-\item if $\mathcal{O}$ is non maximal then there are no horizontal $\ell$ isogenies,
-\item if there exists more than $\left( \frac{D}{\ell} \right) +1 $  $\ell$isogenies, up to isomorphism, then all the isogenies are defined over $\mathbb{F}_q$ and there is only $1$ ascending isogeny. 
-\end{itemize}
-\end{prop} 
+% \begin{prop} %prop 23 de la these de Kohel
+% Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ of discriminant $D$, %let $\ell$ be a prime and let $\left( \frac{D}{\ell} \right)$ the Legendre symbol
+% \begin{itemize}
+% \item if $\mathcal{O}$ is maximal (i.e. equals to $\mathcal{O}_K$) then there are $\left( \frac{D}{\ell} \right) +1 $ horizontal $\ell$ isogenies,
+% \item if $\mathcal{O}$ is non maximal then there are no horizontal $\ell$ isogenies,
+% \item if there exists more than $\left( \frac{D}{\ell} \right) +1 $  $\ell$isogenies, up to isomorphism, then all the isogenies are defined over $\mathbb{F}_q$ and there is only $1$ ascending isogeny. 
+% \end{itemize}
+% \end{prop} 
 
 
-		\begin{figure}
+		\begin{figure}[h]
 		\begin{center}
 		
-        \begin{tikzpicture}[scale=0.5]
+        \begin{tikzpicture}[scale=0.3]
         \coordinate (A) at (0,0);
 		\coordinate (B) at (230:5);
 		\coordinate (C) at (270:4);
@@ -327,11 +394,12 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 		\draw (B) node{$\bullet$};
 		\draw (C) node{$\bullet$};
 		\draw (D) node{$\bullet$};
+		\node at (0,-6.7) {$(d_K/ℓ) = -1$};
 		\draw (A)--(B);
 		\draw (A)--(C);
 		\draw (A)--(D);
 		
-		\begin{scope}[xshift=7cm]
+		\begin{scope}[xshift=9cm]
 		\coordinate (A) at (0,0);
 		\coordinate (B) at (5.5,0);
 		\coordinate (C) at (240:4.2);
@@ -340,12 +408,13 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 		\draw (B) node{$\bullet$};
 		\draw (C) node{$\bullet$};
 		\draw (D) node{$\bullet$};
+		\node at (2.8,-6.7) {$(d_K/ℓ) = 0$};
 		\draw (A)--(B);
 		\draw (A)--(C);
 		\draw (A)--(D);
 		\end{scope}
 		
-		\begin{scope}[xshift=12.5cm]
+		\begin{scope}[xshift=14.5cm]
 		\coordinate (A) at (0,0);
 		\coordinate (C) at (240:4.2);
 		\coordinate (D) at (300:4.2);
@@ -361,6 +430,7 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 		\node (B) at (3,0) {$\bullet$};
 		\node (C) at (270:1.2) {$\bullet$};
 		\node (D) at (90:1.5) {};
+		\node at (0,-6.7) {$(d_K/ℓ) = +1$};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
 		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
 		%\draw[-] (B.center) to[bend left=25] (C.center);
@@ -390,82 +460,74 @@ Let $E$ be an elliptic curve with an associated endomorphism ring $\mathcal{O}$ 
 		\end{scope}
 		\end{tikzpicture}
 		%\end{center}
-		\caption{ $3$ kind of volcanos of $2$ isogenies }
+		\caption{The three shapes of volcanoes of $2$-isogenies }
 		
 		\end{center} 
 		\end{figure}
 	
-During the rest of this paper we consider only volcano with cyclic crater (i.e. when $\left( \frac{d_K}{\ell} \right) =1$).
 
 \subsection{The Frobenius and the volcano}
 
-We recall that the Tate module~$T_ℓ(E)$ is defined as
-the projective limit of all $ℓ^n$-torsion groups of points of~$E$.
-Since $E$~is ordinary, $T_ℓ(E)$~is a free module of rank~two over~$ℤ_ℓ$.
-The action of~$π$ on~$E$ provides a semi-linear endomorphism of~$T_ℓ(E)$,
-which we again write~$π$.
+During the rest of this paper we consider only a volcano with a cyclic crater
+(i.e. we assume $\left( \frac{d_K}{\ell} \right) =1$).
+This implies that the Frobenius automorphism on~$T_ℓ(E)$,
+which we write~$π|T_ℓ(E)$, has two distinct eigenvalues~$λ_1 ≠ λ_2$.
 
-The following proposition is a consequence of
-Tate's theorem about the $ℓ$-adic representation attached to
-elliptic curves over finite fields~\cite[Isogeny theorem 7.7]{Sil}.
-
-\begin{prop}
+\begin{prop}\label{prop:matrice-frobenius}
 Let~$E$ be an ordinary elliptic curve with Frobenius endomorphism~$π$.
 Assume that the characteristic polynomial of~$π$
 has two distinct roots~$λ_1, λ_2$ in~$ℤ_ℓ$,
 so that the $ℓ$-isogeny volcano has a cyclic crater.
-Let~$h = v_{ℓ} (λ_1 - λ_2)$.
 Then there exists a basis of~$T_ℓ(E)$ in which $π$~has the matrix
-${\def\arraystretch{.7}\mat{λ_1 & a\\ 0 & λ_2}}$,
-where $a = 0$ if~$E$ lies on the crater,
+$π_ℓ = \smat{λ_1 & a\\ 0 & λ_2}$,
+where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
+with $a = 0$ if~$E$ lies on the crater,
 and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
 \end{prop}
-
-To distinguish the two eigenvalues of the Frobenius we have to consider the $\ell^k$ torsion for $k>h$. The following result links the $\ell$ isogenies and the points of order $\ell^{h+1}$.
-
-\begin{prop} \label{conjecture}
-For $P$ a point of order $\ell^{h+1}$ on $E$ which is on a cyclic crater, with $\lambda_1, \lambda_2$ the two eigenvalues associated to $\pi$, then
-\begin{itemize}
-\item Either $\pi(P)=\lambda_1P$ or $\pi(P)=\lambda_2P$ then the $\ell$-isogeny: $ϕ_P$ with kernel $\ell^{h} P$ is horizontal and of direction $\lambda_1$ or $\lambda_2$,
-\item or $\pi(P) \neq \lambda_2P$ and $\pi(P) \neq \lambda_1P$ then the $\ell$-isogeny with kernel $\ell^{h} P$ is descending.
-\end{itemize} 
-\end{prop}
-
-\todo{telle quelle, elle est fausse: si $P_1$, $P_2$ sont une base
-propre de la $ℓ^{h+1}$-torsion, alors $Q = P_1 + ℓ P_2$ n'est pas un
-vecteur propre, et pourtant $ℓ^h Q = ℓ^h P_1$ est bien horizontal. ))Ton contre-exemple ne marche pas $\ell P_2$ est un point de $\ell^h$ torsion et donc par définition de $h$ on a $\lambda_1 = \lambda_2 \pmod \ell^h$ et donc $\pi( \ell P_2)= \lambda_1 \ell P_2 = \lambda_2 \ell P_2$))
-Pour avoir une version correcte, on peut par exemple l'écrire directement
-dans la $ℓ$-torsion.
-
-suggestion de modification:
-
-Therefore, for~$P ∈ E[ℓ]$, there are two possibilities:
-\begin{itemize}
-\item either~$π(P) = λ_i P$, in which case
-the isogeny~$ϕ_P$ with kernel~$P$ is horizontal;
-moreover, if $P = ℓ^{h} P_1$ with~$π(P_1) = λ P_1$,
-then we say that \emph{$ϕ_P$ has direction~$λ$};
-\item or $P$~is not an eigenvector of~$π$,
-in which case $ϕ_P$ is descending.
-\end{itemize}
-The two horizontal isogenies have direction~$λ_1$ and~$λ_2$.
-The precaution~$P = ℓ^h P_1$ is needed because
-we may have~$λ_1 ≡ λ_2 \pmod{ℓ}$, in which case $π(P)$~does not contain
-enough information to identify the direction of~$ϕ_P$.
-}
-
-The study of the points of order $\ell^{h+1}$ is needed because we have~$λ_1 ≡ λ_2 \pmod{ℓ^h}$, in which case $π(P)$~does not contain enough information to identify the direction of~$ϕ_P$.
-
-
 \begin{proof}
-$E_{\lambda_1}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_1\frac{P}{\ell^h}\}$, $E_{\lambda_2}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_2\frac{P}{\ell^h}\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$).
-since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}).
-On veut faire pareil en disant que $E_{\lambda_1}=(\ell, \frac{\pi - \lambda_1}{\ell^h})$ idem pour $\lambda_2$, tel que $\ell=(\ell, \frac{\pi - \lambda_1}{\ell^h})(\ell, \frac{\pi - \lambda_2}{\ell^h})$, par un résultat dans Advanced Topics de Silverman, il ne reste plus qu'à prouver que cette décomposition de l'idéal $\ell$ est une décomposition en idéaux premiers. 
-%%%%Ancienne preuve avec de très nombreux défauts
-%We denote by $E_{\lambda_1}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
-%We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=\ell$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{\ell} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
+Since the characteristic polynomial of~$π$ splits over~$ℤ_ℓ$,
+the matrix of~$π|T_ℓ(E)$ is trigonalizable.
+Conjugating the matrix $\smat{λ_1 & a\\0 & λ_2}$
+by~$\smat{1 & b\\0 & 1}$ replaces~$a$ by~$a + b (λ_1 - λ_2)$.
+Finally, by Tate's theorem~\cite[Isogeny theorem 7.7 (a)]{Sil},
+$E ⊗ ℤ_ℓ$~is isomorphic to the order in~$ℤ_ℓ[π_ℓ]$
+of matrices with integer coefficients,
+which is generated by the identity and~$ℓ^{-v_ℓ(a)} π_ℓ$.
 \end{proof}
 
+This implies that the two eigenvalues of~$π$
+correspond canonically to the two horizontal $ℓ$-isogenies.
+If~$λ_1 ≡ λ_2 \pmod{ℓ}$ then $π|E[ℓ]$ does not contain enough information
+to identify these directions.
+To make this identification precise,
+we need to consider the $ℓ^k$-torsion for~$k ≥ h+1$.
+The following proposition is then a direct consequence
+of the fact that isogenies act on the Frobenius by matrix conjugation.
+
+\begin{prop} \label{prop:isogenies-eigenvalues}
+Let~$P$ be a point of order~$ℓ^{h+1}$ in~$E$.
+Then one of the following cases happen:
+\begin{enumerate}
+\item either~$π(P) = λ_i P$ for~$i = 1$ or~$2$, and then
+the isogeny~$ϕ_{ℓ^h P}$ with kernel generated by~$ℓ^h P$ is horizontal;
+we say that $ϕ_{ℓ^h P}$ has \emph{direction} $λ_i$;
+\item or $P$~is not an eigenvector for~$π$,
+and then the isogeny $ϕ_{ℓ^h P}$ is descending.
+\end{enumerate}
+\end{prop}
+
+
+
+
+% \begin{proof}
+% $E_{\lambda_1}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_1\frac{P}{\ell^h}\}$, $E_{\lambda_2}=\{P \in E[\ell],  \pi(\frac{P}{\ell^h})=\lambda_2\frac{P}{\ell^h}\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$).
+% since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}).
+% On veut faire pareil en disant que $E_{\lambda_1}=(\ell, \frac{\pi - \lambda_1}{\ell^h})$ idem pour $\lambda_2$, tel que $\ell=(\ell, \frac{\pi - \lambda_1}{\ell^h})(\ell, \frac{\pi - \lambda_2}{\ell^h})$, par un résultat dans Advanced Topics de Silverman, il ne reste plus qu'à prouver que cette décomposition de l'idéal $\ell$ est une décomposition en idéaux premiers. 
+% %%%%Ancienne preuve avec de très nombreux défauts
+% %We denote by $E_{\lambda_1}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_1P\}$, $E_{\lambda_2}=\{P \in E[\ell^{h+1}], \ell^{h}P \neq 0, \pi(P)=\lambda_2P\}$ and consider $\phi_1$(resp. $\phi_2$) the $\ell$isogeny generated by $E_{\lambda_1}$ (resp. $E_{\lambda_2}$). This isogeny is unique since those eigenspace are of dimension $1$. % on pourrait se passer de cette dernière phrase... 
+% %We remind that we have the endomorphism ring of $E$: $\mathcal{O} \subset \mathcal{O}_K $ and $[\mathcal{O}:\mathcal{O}_K] =1$, since we have a cyclic crater $\left( \frac{d_K}{\ell} \right)=1$ then (by Proposition 5.11 of \cite{Cox89} )  $\ell \mathcal{O}_K=\mathfrak{l}_1\mathfrak{l}_2\mathcal{O}_K$ with $Gal(K/\mathbb{Q})$ such as $\mathfrak{l}_1'=\mathfrak{l}_2$ (by theorem 5.9 of \cite{Cox89}). Since $E_{\lambda_1}$ and $E_{\lambda_2}$ are also conjugated with $Gal(K/\mathbb{Q})$ we can associate to the isogeny $\phi_1$ (resp. $\phi_2$)  the integral ideal $\mathfrak{l}_1\mathcal{O}_K$ (resp. $\mathfrak{l}_2\mathcal{O}_K$) and the endomorphism ring $\mathfrak{l}_1^{-1}\mathcal{O}_K$ (resp. $\mathfrak{l}_2^{-1}\mathcal{O}_K$) to their codomain. Since we got $\mathfrak{l}_1\mathfrak{l}_2=\ell$ then $\mathfrak{l}_1^{-1}=\left( \frac{\mathfrak{l}_2}{\ell} \right)$ therefore $[\mathcal{O}_K:\left( \frac{\mathfrak{l}_2}{\ell} \right)\mathcal{O}_K]\wedge \ell =1$. The others isogenies are those associated to the integral ideals $a  \mathfrak{l}_1 + \mathfrak{l}_2$ with $a \wedge \ell =1$ and to the groups which are generated by a linear combination of points of $E_{\lambda_1}$ and $E_{\lambda_2}$
+% \end{proof}
+% 
 
 
 %%%%%%%%%%%%%%%
@@ -957,3 +1019,5 @@ We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(
 
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
 %  LocalWords:  cardinality bijection Couveignes
+
+% vim: ts=2:
