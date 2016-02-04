@@ -1131,25 +1131,27 @@ The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since t
 
 \section{Complete algorithm}
 \label{sec:complete-algorithm}
-\section{Shape of the volcano and path to the crater}
+\subsection{Shape of the volcano and path to the crater}
+	\label{sub: shape-volcano}
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-  For the input curves we have to determine if the curves are on a volcano with cyclic crater. To do this we have to locate a curve on the crater and then look for  the length of $(\ell+1)$ descending paths on the volcano as described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. 
+  For the input curves we have to determine if the curves are on a volcano with cyclic crater. 
+  
+  For $\ell \neq 2$ we have to locate a curve on the crater and then look for  the length of $(\ell+1)$ descending paths on the volcano as described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
 \newline 
-\todo{detailler ce que fait Miret Moreno}
-For $\ell=2$ we can use methods like in \cite{MiretMRV05} which computes an ascending path and can determine the shape of the crater
-For $\ell \neq 2$  We can determine an ascending path using methods in \cite{volcano}, the crater wehave a complexity of $O(H^2 \mathcal{F}(\ell) )$, with $H$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a modular polynomial. Then we can know the shape of the crater by computing $\ell+1$ descending paths with a complexity of $O(H \mathcal{F}(\ell) \ell)$. %c est exactement ce qui est fait dans ce papier...
+For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q)$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
+ %c est exactement ce qui est fait dans ce papier...
   
  \subsection{Curves which are on the cyclic crater}
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
  \begin{enumerate}
 \item Compute horizontal basis $P,Q$ and $P',Q'$ of
-  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $k > 4r$ \todo{preciser cette borne} ;
+  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\ell^{2k} > 4r$ \todo{preciser cette borne} ;
 \item\label{alg:modif-couveignes:interp} Compute the interpolation
   polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
     with Sec.5)} sending $x(P)$ to $x(P')$ and $x(Q)$ to $x(Q')$, and the abscissas of
   their scalar multiples accordingly;
 \item\label{alg:modif-couveignes:rational} Deduce a rational fraction
-  congruent to $\mathcal{A}$ modulo $E[\ell^k]$, and verify that it
+  congruent to $\mathcal{A}$ modulo $T$, and verify that it
   defines an isogeny of degree $r$. If it does, return it, otherwise
   replace $P',Q'$ with an other horizontal basis of $E'[\ell^k]$ and go back to
   Step~\ref{alg:orig-couveignes:interp}.
@@ -1167,7 +1169,7 @@ Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F
   
   \subsection{Curves which are not on the cyclic crater}
 
-If the input curves of the algorithm are not on a cyclic crater of a volcano of $\ell$-isogeny, but at some level below in the volcano then we can reduce our problem to that case. First we prove that they are located at the same level in the volcano, then we prove that the isogenous curve on the crater are still $r$ isogenous. Then we reduce our problem by determining the shortest path of $\ell$-isogenies that go to the crater of the volcano. For this we can use methods like in \cite{DBLP:journals/amc/MiretMSTV06} or methods that take advantage of the $\ell$-torsion structure if the volcano is regular from \cite{DBLP:journals/moc/MiretMRV05}.
+If the input curves of the algorithm are not on a cyclic crater of a volcano of $\ell$-isogeny, but at some level below in the volcano then we can reduce our problem to that case. First we prove that they are located at the same level in the volcano, then we prove that the isogenous curve on the crater are still $r$ isogenous. Then we reduce our problem by determining the shortest path of $\ell$-isogenies that go to the crater of the volcano with methods mentioned in \ref{sub: shape-volcano} 
   
 \begin{prop}
 Let $E$ and $E'$ two elliptic curves $r$-isogenous, with $r$ a prime different from $\ell$. Then they are at the same level in the volcano of $\ell$ isogeny.
