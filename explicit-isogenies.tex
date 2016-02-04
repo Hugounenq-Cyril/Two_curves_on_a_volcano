@@ -836,45 +836,40 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 
-<<<<<<< HEAD
-In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. For an horizontal basis $(P_1,Q_1)$ of $E_1$ and $(P_2,Q_2)$ of $E_2$, for this section we consider that the interpolation aim to send $P_1$ on $aP_2$ and $Q_1$ on $bQ_2$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ 
+In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ 
 
 
 We state first a result on the order of the points under the action of the Frobenius.
 
 \begin{prop} %prouve par Jerome dans la section 3 ???
-Let $E$ be an elliptic curve defined on $\mathbb{F}_q$ such that $E(\mathbb{F}_q)[\ell^{\infty}]=\mathbb{Z}/\ell^{s+j}\mathbb{Z} \times \mathbb{Z}/\ell^{s}\mathbb{Z}$ with $ j \geqslant 0$ and $\nu_\ell(q-1)>h>1$, then $E(\mathbb{F}_{q^{\ell}})[\ell^{\infty}]  \mathbb{Z}/\ell^{s+j+1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+1}\mathbb{Z}$
-\end{prop}
-=======
-Since we consider for the interpolation points on which the Frobenius does not act trivially and we want a rational isogeny, we will work only with points that are in different orbits under the action of the Frobenius. As the size of the orbits are not always the same we will have to consider the different orders and combine them efficiently.
->>>>>>> 9f925a077339dd1764cfd6e1ebb0c6ab5d81091e
-
+Let $E$ be an elliptic curve defined on $\mathbb{F}_q$ such that $E(\mathbb{F}_q)[\ell^{\infty}]=\mathbb{Z}/\ell^{s+j}\mathbb{Z} \times \mathbb{Z}/\ell^{s}\mathbb{Z}$ with $ j \geqslant 0$ and $\nu_\ell(q-1) \geqslant s \geqslant 1$, then $E(\mathbb{F}_{q^{\ell}})[\ell^{\infty}]  \mathbb{Z}/\ell^{s+j+1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+1}\mathbb{Z}$
+\end{prop} \todo{Regarder si on ne peut tout simplement pas supprimer cette proposition a cause des resultats de la section 3}
 
 \begin{defi}
 Let $E(\mathbb{F}_{q^{\ell^k}})[\ell^{\infty}]=\mathbb{Z}/\ell^{k+j+s}
 \mathbb{Z} \times \mathbb{Z}/\ell^{k+s} \mathbb{Z}$ with $j \geqslant
-1$, $1 \leqslant h \leqslant \nu_\ell(q-1)$, we denote by
-$o_{\lambda_1}$ and $o_{\lambda2}$ the multiplicative order of the
-eigenvalues$\lambda_1 , \lambda_2$ of the Frobenius for the
-$\ell^{k+h}$ torsion, with $E[\ell^{k+h}] \subset E(\mathbb{F}_{q^{\ell^k}})$.  \todo{What is the last part, ``defined on the
+1$, $1 \leqslant s \leqslant \nu_\ell(q-1)$, we denote by
+$o_{\lambda}$ and $o_{\mu}$ the multiplicative order of the
+eigenvalues$\lambda , \mu$ of the Frobenius for the
+$\ell^{k+h}$ torsion, with $E[\ell^{k+s}] \subset E(\mathbb{F}_{q^{\ell^k}})$.  \todo{What is the last part, ``defined on the
   extension field \dots''? Is it clear? Proved somewhere? Do you need
   it here? --> Corollary of the previous proposition}
 \end{defi}
 
 \begin{defi}
-We denote by $o_A=\max(o_{\lambda_1},o_{\lambda_2})$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2})$
+We denote by $o_A=\max(o_{\lambda},o_{\mu})$ and $o_B=\min(o_{\lambda},o_{\mu})$
 \end{defi}
 
 \begin{prop}
-$o_A=\max(o_{\lambda_1},o_{\lambda_2}) = \ell^k$ and $o_B=\min(o_{\lambda_1},o_{\lambda_2}) = \ell^{k-j}$
+$o_A=\max(o_{\lambda},o_{\mu}) = \ell^k$ and $o_B=\min(o_{\lambda},o_{\mu}) = \ell^{k-j}$
 \end{prop}
 \begin{proof}
-By proposition \ref{structelevation} we have $E[\ell^{k+h}] \subset E(\mathbb{F}_{q^{\ell^k}})$ and $E[\ell^{k+h}] \not \subset E(\mathbb{F}_{q^{\ell^{k-1}}})$ and $E(\mathbb{F}_{q^{\ell^{k-j}}})[\ell^{\infty}]  \mathbb{Z}/\ell^{s+k}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j}\mathbb{Z}$ and $E(\mathbb{F}_{q^{\ell^{k-j-1}}})[\ell^{\infty}]  \mathbb{Z}/\ell^{s+k-1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j-1}\mathbb{Z} $
+By proposition \ref{structelevation} we have $E[\ell^{k+h}] \subset E(\mathbb{F}_{q^{\ell^k}})$ and $E[\ell^{k+h}] \not \subset E(\mathbb{F}_{q^{\ell^{k-1}}})$ and $E(\mathbb{F}_{q^{\ell^{k-j}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j}\mathbb{Z}$ and $E(\mathbb{F}_{q^{\ell^{k-j-1}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k-1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j-1}\mathbb{Z} $
 %Let consider a point $P$ of order $\ell^{k+s}$ associated to $\max(o_{\lambda_1},o_{\lambda_2})$, then we will have by definition of $o_{\lambda_1}$ and $o_{\lambda_2}$: $\pi(P)^{\max(o_{\lambda_1},o_{\lambda_2})}=P$, as $P$ is a point of order $2^{k+h}$ by the proposition \ref{structelevation} he is defined at least in $\mathbb{F}_{q^{\ell^{k-j}}}$ and at most in $\mathbb{F}_{q^{\ell^k}}$ thus we have the results.
 %\todo{Fix this; not understandable, not a proof.}
 \end{proof}
 
-For the rest of this paper we will consider that $s=0$ to be in the worst case.\todo{What does this mean?}
+For the rest of this section we will consider that $s=1$ to be in the worst case.\todo{What does this mean? It means that the worst case is when we have to work in high extension field to have the $\ell^k$ torsion defined}
 
 Since the isogeny we want to compute is rational and we work with
 points that are defined in extensions of the base field, we will work
@@ -906,13 +901,13 @@ $\mathcal{T}_i$ and $\mathcal{A}_i$ as follows:
 \begin{itemize}
 \item $\mathcal{T}_i$ is the monic polynomial whose roots are the
   abscissae of points of order $\ell^k$ which are representative of orbit of
-  order $o_i$ on the domain curve of  problem \ref{prob:isogeny-problem}; 
+  order $o_i$ on the curve $E_1$ of  problem \ref{prob:isogeny-problem}; 
   \todo{I am not sure this definition makes sense. Do we take all points 
     of $\ell^k$ torsion bla-bla, or one representative per orbit?}
     \todo{By the way, on which curve?} 
 \item $\mathcal{I}_i$ is the Lagrange interpolation polynomial that
   interpolates abscissae of points of order $\ell^k$ which are representative of orbit of
-  order $o_j$ on the domain curve of  problem \ref{prob:isogeny-problem} on abscissae of points of the codomain curve with respect to the interpolation coefficients $a$ and $b$. \todo{Does not make much sense. How do you choose which
+  order $o_j$ on the curve $E$ of  problem \ref{prob:isogeny-problem} on abscissae of points of the curve $E'$ respecting the interpolation mapping specified by $a$ and $b$. \todo{Does not make much sense. How do you choose which
   point is sent to where? On which curves are the points? {\bf Be more precise.}}
 \end{itemize}
 
@@ -922,28 +917,49 @@ vs $A$ and $\mathcal{I}_j$ is not looking good.}
 \begin{lem}
   For $i$ in $\{0, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$, the
   polynomials $\mathcal{T}_i$ and $\mathcal{I}_i$ are defined over
-  $\mathbb{F}_{q^{o_i}}$.
+  $\mathbb{F}_{q^{o_i}}$ and of degree $d_i$. $d_i=\ell^{k-1}$ for $i$ in $\{1, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ and $d_0=\ell^{k-2}$.
 \end{lem}
+
 \begin{proof}
-  Since $\mathcal{T}_i$ is a polynomial defined with abscissas of
-  points of order $\ell^k$ which are representative of different orbits of order $o_i$
-  under the Frobenius action, since the polynomial is made from points of
-  different orbits of same order $o_i$ we have the result. We can apply the same reasoning for $\mathcal{I}_i$.\todo{Not clear, I don't understand
+  Since $\mathcal{T}_i$ is a polynomial defined with abscissae of
+  points of order $\ell^k$  which are representative of orbits of order $o_i$ under the Frobenius action  we then have $\mathcal{T}_i \in \mathbb{F}_{q^{o_i}}[x]$. The fact that we take representants of different orbits permtis us to conclude. We can apply the same reasoning for $\mathcal{I}_i$.\todo{Not clear, I don't understand
     (especially the ``because \dots'').} \todo{What about $I_j$?}
+    \newline
+For $0 < i < \nu_{\ell}(o_A)-\nu_{\ell}(o_B)$ the set of points of order $o_i$ with respect to the Frobenius action is: 
+$\{ \ell^i c P + d Q \} $ with $P$ (resp. $Q$) points of order $\ell^k$ associated to the eigenvalue of order $o_A$ ($o_B$) with $c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$. Thus this set is of size $\ell^{2k-2-i}$. Then we take each abscissa of representant of the orbits of order $o_i$, which gave us the size $\ell^{k-2}$
+\newline
+For $i= 0 $ the set of points of order $o_i$ with respect to the Frobenius action is: 
+$\{ c P + d Q \}$ with $P$ (resp. $Q$) points of order $\ell^k$  associated to the eigenvalue of order $o_A$ ($o_B$) with $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)$ and $a \wedge \ell =1$. Thus this set is of size $\ell^{2k-1}$. Then we take each abscissa of representant of the orbits of order $o_A$, which gave us the size $\ell^{k-1}$
+\newline
+For $i= \nu_{\ell}(o_A)-\nu_{\ell}(o_B) $ the set of points of order $o_B$ with respect to the Frobenius action is: 
+$\{ \ell^i c P + d Q \}$ with $P$ (resp. $Q$) points of order $\ell^k$  associated to the eigenvalue of order $o_A$ ($o_B$) with $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)$ and $b \wedge \ell =1$. Thus this set is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscissa of representant of the orbits of order $o_B$, which gave us the size $\ell^{k-1}$    
 \end{proof}
 
 %Using the action of the Frobenius, we will then get the vanishing
 %(resp. interpolation) polynomials defined on all the orbit \todo{which
 %  orbit?}. To avoid any redundant Frobenius action we have to add a
 %different order after a Frobenius action. \todo{I don't understand}
+\begin{defi}
+We denote by $\sigma$ the action of the frobenius on coefficients of a polynomial.
+\end{defi}
 
 Our aim is to deduce from the different polynomials $\mathcal{T}_i,
 \mathcal{I}_i$ the polynomials
-$$T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\pi^{t}(\mathcal{T}_i)$$ 
+$$T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=1}^{o_i}\sigma^{t}(\mathcal{T}_i)$$ 
 and
-$$I= CRT(\pi^{t}(\mathcal{I}_j) \bmod \pi^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ O,..,o_i \} )$$
+$$I= CRT(\sigma^{t}(\mathcal{I}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ 1,..,o_i \} )$$
 
-\todo{Prove that they have coefficients in $\F_q$}
+\begin{prop}
+$T ,I $ are defined over $\mathbb{F}_q$ and of degree $3\ell^{2k-2}$. $T$ (resp. $I$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$).  
+\end{prop}
+
+\begin{proof}
+$\sigma(T)=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=2}^{o_i+1}\sigma^{t}(\mathcal{T}_i)$
+since $\mathcal{T}_i \in \mathbb{F}_{q^{\ell^{o_i}}}$ then $\sigma^{o_i+1}(T)=\sigma(\sigma^{o_i}(T))=\sigma(T)$, thus we have $\sigma(T)=T$. We can apply the same reasoning for $I$.
+\newline
+Every point $P$ of order $\ell^k$ has by definition an order $o_B \leqslant o \leqslant o_A$, then either the abscissa of $P$ is a root of $\mathbb{T}_i$ either $P$ belongs to the orbit of a point which abscissa is a root of $\mathcal{T}_i$ since with the successive actions of the Frobenius we get all the entire orbit we will get the abscissa of $P$. The same demonstration can be done for $I$. We get the degree of $I$ and $T$ by counting the number of points of degree $\ell^k$ knowing that $E[\ell^{k}] \subset \mathbb{F}_{q^{\ell^k}}$.
+\end{proof}
+
 \todo{Prove that these polynomials satisfy the requirements of the 
 main algorithm. For the moment, we have {\bf no idea} of what interpolates
 what, and how the conditions given at step 2 of the Algo of 6.1 
@@ -954,25 +970,25 @@ are necessarily satisfied by the polynomial $A$ we compute here.}
 %% using the combined actions of the Frobenius with Chinese Remainder
 %% techniques.
 
-
+We won't compute $T$ and $I$ directly as in their definition. We will compute them in a way at each step $i$ we consider all the polynomials defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^i}}}$ and use a combined action of the Frobenius and chinese remainder techniques to have a result defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^{i+1}}}}$
   
-We start by taking into account the greatest orbit with the
-polynomials $\mathcal{I}_0$, $\mathcal{T}_0 \in
-\mathbb{F}_{q^{o_A}}[x]$, which has order $o_A$ for the Frobenius
-action; we obtain polynomials $R$ and $S$ $\in
-\mathbb{F}_{q^{\frac{o_A}{\ell}}}[x]$ with a combined action of the
-Frobenius with Chinese remainder techniques on the polynomials
-$\mathcal{I}_0$, $\mathcal{T}_0$. Then with $R$ and $S$ of order
-$\frac{o_A}{\ell}$ for the Frobenius action we take into account the
-polynomials of same order for the Frobenius action $\mathcal{I}_1$,
-$\mathcal{T}_1 \in \mathbb{F}_{q^{\frac{o_A}{\ell}}}[x]$ and we use
-again a combined action of the Frobenius with Chinese remainder
-techniques on these polynomials to obtain new polynomials $R$ and $S$
-$\in \mathbb{F}_{q^{\frac{o_A}{\ell^2}}}[x]$. We repeat those
-operations until we get polynomials $R$ and $S$ $\in
-\mathbb{F}_{q^{\frac{o_B}{2}}}[x]$. From this point we only use a
-combined action of the Frobenius with Chinese remainder techniques
-until we get $A$ and $T \in \mathbb{F}_q[x]$.
+%We start by taking into account the greatest orbit with the
+%polynomials $\mathcal{I}_0$, $\mathcal{T}_0 \in
+%\mathbb{F}_{q^{o_A}}[x]$, which has order $o_A$ for the Frobenius
+%action; we obtain polynomials $R$ and $S$ $\in
+%\mathbb{F}_{q^{\frac{o_A}{\ell}}}[x]$ with a combined action of the
+%Frobenius with Chinese remainder techniques on the polynomials
+%$\mathcal{I}_0$, $\mathcal{T}_0$. Then with $R$ and $S$ of order
+%$\frac{o_A}{\ell}$ for the Frobenius action we take into account the
+%polynomials of same order for the Frobenius action $\mathcal{I}_1$,
+%$\mathcal{T}_1 \in \mathbb{F}_{q^{\frac{o_A}{\ell}}}[x]$ and we use
+%again a combined action of the Frobenius with Chinese remainder
+%techniques on these polynomials to obtain new polynomials $R$ and $S$
+%$\in \mathbb{F}_{q^{\frac{o_A}{\ell^2}}}[x]$. We repeat those
+%operations until we get polynomials $R$ and $S$ $\in
+%\mathbb{F}_{q^{\frac{o_B}{2}}}[x]$. From this point we only use a
+%combined action of the Frobenius with Chinese remainder techniques
+%until we get $A$ and $T \in \mathbb{F}_q[x]$.
 
 %%  and
 %% then we make act the frobenius on this polynomial (both
@@ -989,23 +1005,21 @@ until we get $A$ and $T \in \mathbb{F}_q[x]$.
 \caption{\label{computingT2ir} Computing $I,T \in \mathbb{F}_q[x]$} 
 \begin{algorithmic}[5]
 \REQUIRE All the polynomials $\mathcal{T}_j, \mathcal{I}_j \in \mathbb{F}_{q^{o_j}}$ for $j \in [0, \nu_{\ell}(o_A)-\nu_{\ell}(o_B)]$. 
-\ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\pi^{t}(\mathcal{T}_i)$ $I= CRT(\pi^{t}(\mathcal{I}_j) \bmod \pi^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ O,..,o_i \} ) \in \mathbb{F}_q[x]$
-%\STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \pi^{o_A/2}(\mathcal{T}_A),\pi^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
-\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRTs \left( \pi^{o_A/\ell}(\mathcal{I}_A) \bmod  \pi^{o_A/\ell}(\mathcal{T}_A),\mathcal{I}_A \bmod \mathcal{T}_A \right)$
-\FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\pi(R)^{o_A/2^{1+r}} T_2=\pi(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
-\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRTs \left( \pi^{o_A/\ell^{1+r}}(R) \bmod \pi^{o_A/\ell^{1+r}}(T), R \bmod T \right) $ 
-%\STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \pi^{o_A/2^{1+r}}(\mathcal{T}_r), \pi^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$  
-\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x]  \gets CRT \left( \pi^{o_A/\ell^{1+r}}(\mathcal{I}_r) \bmod \pi^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{I}_r \bmod \mathcal{T}_r, \right)$ 
+\ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\sigma^{t}(\mathcal{T}_i)$ $I= CRT(\sigma^{t}(\mathcal{I}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  ,t \in \{ O,..,o_i \} ) \in \mathbb{F}_q[x]$
+%\STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \sigma^{o_A/2}(\mathcal{T}_A),\sigma^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
+\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRT \left( \sigma^{o_A/\ell}(\mathcal{I}_A) \bmod  \sigma^{o_A/\ell}(\mathcal{T}_A),\mathcal{I}_A \bmod \mathcal{T}_A \right)$
+\FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\sigma(R)^{o_A/2^{1+r}} T_2=\sigma(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
+\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(R) \bmod \sigma^{o_A/\ell^{1+r}}(T), R \bmod T \right) $ 
+%\STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \sigma^{o_A/2^{1+r}}(\mathcal{T}_r), \sigma^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$  
+\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/\ell^{(r+1)}}}[x]  \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(\mathcal{I}_r) \bmod \sigma^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{I}_r \bmod \mathcal{T}_r, \right)$ 
 \STATE $\left( I,T \right) \gets CRT \left(B \bmod T_B, R \bmod T \right) $
 \ENDFOR
-\FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\pi(R)^{o_B/2^{1+r}}, T2=\pi(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
-\STATE $\left( I , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{r+1})}} \gets CRT \left( I \bmod T ,\pi(R)^{o_B/\ell^{1+r}} \bmod \pi(T)^{o_B/\ell^{1+r}} \right)$
+\FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\sigma(R)^{o_B/2^{1+r}}, T2=\sigma(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
+\STATE $\left( I , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{(r+1)}}} \gets CRT \left( I \bmod T ,\sigma^{o_B/\ell^{1+r}}(R) \bmod \sigma^{o_B/\ell^{1+r}}(T) \right)$
 \ENDFOR
 \RETURN $A,T$
 \end{algorithmic}
 \end{algorithm}
-
-\todo{Choose $x$ or $X$ as a variable once and for all}
 
 Before giving the complexity analysis of this algorithm, we describe
 the cost of some basic operations used in it. The first result is
@@ -1016,14 +1030,14 @@ Lemma~2.2 in~\cite{vzgathen+shoup92}. \todo{could we use
 
 \begin{lem}\label{lemma:complexity_pol_mul}
   The cost of multiplying two polynomials of degree $n$ in
-  $\mathbb{F}_{q^{\ell^k}}[X] $ is $O(M(\ell^kn))$ operations in
+  $\mathbb{F}_{q^{\ell^k}}[x] $ is $O(\mathsf{M}(\ell^kn))$ operations in
   $\mathbb{F}_q$.
 \end{lem}
 
 \begin{prop}
 The cost of the Chinese Remainder Theorem for two polynomials of
-degree $n$ of $\mathbb{F}_{q^{\ell^k}}[X] $ is of
-$O(M(\ell^kn)\log(n))$ operations in $\mathbb{F}_q$.
+degree $n$ of $\mathbb{F}_{q^{\ell^k}}[x] $ is of
+$O(\mathsf{M}(\ell^kn)\log(n))$ operations in $\mathbb{F}_q$.
 \end{prop}
 
 \begin{proof}
@@ -1037,15 +1051,15 @@ For $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{j}}[x]$ of degree inferior to $n$ such
 \end{prop}
 
 \begin{prop}
-For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{A}_j$ of degree $d: \frac{\ell^{2k-2}}{o_{A}}  \leqslant d \leqslant \frac{\ell^{2k-1}}{o_{A}}$ in $\mathbb{F}_{q^{o_j}}$. 
+For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{I}_j$ of degree $d: \ell^{k-2}  \leqslant d \leqslant \ell^{k-1}$ in $\mathbb{F}_{q^{o_j}}$. 
 \newline
-For $\ell=2$ the cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{2^{2k}}{o_{A}})\log(\frac{2^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{2^{2k}}{2^j})\log(\frac{2^{2k}}{o_{A}}))$ in $\mathbb{F}_q$.
+For $\ell=2$ the cost of computing the different $\mathcal{T}_j,\mathcal{I}_j$ is of $O(\mathsf{M}(2^{k})\log(2^{k}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\frac{2^{2k}}{2^j})\log(2^{k}))$ in $\mathbb{F}_q$.
 \newline 
-For $\ell \neq 2$ the cost of computing the different $\mathcal{T}_j,\mathcal{A}_j$ is of $O(M(\frac{\ell^{2k}}{o_{A}})\log(\frac{\ell^{2k}}{o_{A}}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(M(\frac{\ell^{2k}}{o_{A}})M(\ell^{o_j}) \log(\ell^{o_j})\log(\frac{\ell^{2k}}{o_{A}}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
+For $\ell \neq 2$ the cost of computing the different $\mathcal{T}_j,\mathcal{I}_j$ is of $O(\mathsf{M}(\ell^{k})\log(\ell^{k}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\ell^{k})\mathsf{M}(\ell^{o_j}) \log(\ell^{o_j})\log(\ell^{k}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
 \end{prop}
 
-\begin{proof}
-When $\ell=2$ by \cite{DoSc12} the cost of an inversion of elements in $\mathbb{F}_{q^{2^k}}$ of $M(2^k)$ so we got the result. When $\ell \neq 2$ by \cite{DeDoSc13} the cost of an inversion of elements in $\mathbb{F}_{q^{\ell^k}}$ of $M(\ell^k)\log(\ell^k)$ so we got the result.
+\begin{proof}\todo{Regarder si cette preuve ne devient pas inutile avec la section 2}
+When $\ell=2$ by \cite{DoSc12} the cost of an inversion of elements in $\mathbb{F}_{q^{2^k}}$ of $\mathsf{M}(2^k)$ so we got the result. When $\ell \neq 2$ by \cite{DeDoSc13} the cost of an inversion of elements in $\mathbb{F}_{q^{\ell^k}}$ of $\mathsf{M}(\ell^k)\log(\ell^k)$ so we got the result.
 \end{proof}
 
 
@@ -1053,11 +1067,11 @@ We remind that we have two different cost for the C.R.T. one for the pre computa
 
 \begin{prop} %cout total de l'algorithme
 The computational cost of algorithm \ref{computingT2ir} with the knowledge of all $\mathcal{T}_j$ and $\mathcal{A}_j$ with $  o_B \leqslant o_j \leqslant o_A$  is of:
-$O(M(2^{2k})k^2+ 2^{2k}\log(q))
+$O(\mathsf{M}(2^{2k})k^2+ 2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$ for the first occurrence for $\ell=2$. For the next occurrences we have a complexity of:
 $
-O(M(2^{2k})k+2^{2k}\log(q))
+O(\mathsf{M}(2^{2k})k+2^{2k}\log(q))
 $
 operations in $\mathbb{F}_q$
 \newline For $\ell \neq 2$ the complexity is of $
@@ -1065,40 +1079,45 @@ O(M(\ell^{2k})k^2+ \ell^{2k}F(q,\ell^k))
 $
 operations in $\mathbb{F}_q$ for the first occurrence. For the next occurrences we have a complexity of:
 $
-O(M(\ell^{2k})k+\ell^{2k}F(q,\ell^k))
+O(\mathsf{M}(\ell^{2k})k+\ell^{2k}F(q,\ell^k))
 $
 operations in $\mathbb{F}_q$
 
 \end{prop}
 
 \begin{proof}
-For the first occurrence of algorithm \ref{computingT2ir} at each step we compute a C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_{q^{o_j}}$ with a complexity of $O(M(\ell^{2k})\log(\frac{\ell^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{2k}+\frac{2^{2k}}{o_A}\log(q))$ operations in $\mathbb{F}_q$ for $\ell=2$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{o_{j}}}$ according to \cite{DoSc12} multiplying this by the degree of the polynomials considered gave us the result. For $\ell \neq 2$ the Frobenius cost us at each step $O(\frac{\ell^{2k}}{o_A}F(q,\ell^k))$ operations in $\mathbb{F}_q$.
+For the first occurrence of algorithm \ref{computingT2ir} at each step we compute a C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_{q^{o_j}}$ with a complexity of $O(\mathsf{M}(\ell^{2k})\log(\frac{\ell^{2k}}{o_j}))$ in $\mathbb{F}_q$. At each step we compute a Frobenius which cost us $O(2^{2k}+\frac{2^{2k}}{o_A}\log(q))$ operations in $\mathbb{F}_q$ for $\ell=2$ since we have a cost for the Frobenius of $O(2^j+\log(q))$ in $\mathbb{F}_{q}$ for elements in $\mathbb{F}_{q^{o_{j}}}$ according to \cite{DoSc12} multiplying this by the degree of the polynomials considered gave us the result. For $\ell \neq 2$ the Frobenius cost us at each step $O(\frac{\ell^{2k}}{o_A}F(q,\ell^k))$ operations in $\mathbb{F}_q$.
  For the next occurrence at each step we compute a simplified C.R.T. on polynomials of order $O(\frac{\ell^{2k}}{o_j})$ on $\mathbb{F}_q{o_j}$ with a complexity of $O(M(\ell^{2k}))$ in $\mathbb{F}_q$.
 Since we have to repeat those steps up to $k$ times we got the result.
 \end{proof}
 
 
-The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since the cost of the precomputations are of $O(M(r)\log(r)^2)$ and we got to repeat the interpolation try $O(r)$ times until we find the good interpolation.
+The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since the cost of the precomputations are of $O(\mathsf{M}(r)\log(r)^2)$ and we got to repeat the interpolation try $O(r)$ times until we find the good interpolation.
 
 
 \section{Complete algorithm}
 \label{sec:complete-algorithm}
+\section{Shape of the volcano and path to the crater}
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-  For the input curves we have to determine if we are on a cyclic crater or a path to an elliptic curve on the crater, to do this we can use methods like in \cite{volcano}. To detect the crater we have a complexity of $O(H^2 \mathcal{F}(\ell) )$, with $H$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a modular polynomial. Then we can know the shape of the crater by computing $\ell+1$ descending paths with a complexity of $O(H \mathcal{F}(\ell) \ell)$. %c est exactement ce qui est fait dans ce papier...
+  For the input curves we have to determine if the curves are on a volcano with cyclic crater. To do this we have to locate a curve on the crater and then look for  the length of $(\ell+1)$ descending paths on the volcano as described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. 
+\newline 
+\todo{detailler ce que fait Miret Moreno}
+For $\ell=2$ we can use methods like in \cite{MiretMRV05} which computes an ascending path and can determine the shape of the crater
+For $\ell \neq 2$  We can determine an ascending path using methods in \cite{volcano}, the crater wehave a complexity of $O(H^2 \mathcal{F}(\ell) )$, with $H$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a modular polynomial. Then we can know the shape of the crater by computing $\ell+1$ descending paths with a complexity of $O(H \mathcal{F}(\ell) \ell)$. %c est exactement ce qui est fait dans ce papier...
   
  \subsection{Curves which are on the cyclic crater}
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
  \begin{enumerate}
-\item Compute horizontal basis $P₁,Q_1$ and $P_2,Q_2$ of
-  $E_1[\ell^k]$ and $E₂[\ell^k]$ respectively, for $k > 4r$ \todo{preciser cette borne} ;
+\item Compute horizontal basis $P,Q$ and $P',Q'$ of
+  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $k > 4r$ \todo{preciser cette borne} ;
 \item\label{alg:modif-couveignes:interp} Compute the interpolation
   polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
-    with Sec.5)} sending $x(P₁)$ to $x(P₂)$ and $x(Q₁)$ to $x(Q₂)$, and the abscissas of
+    with Sec.5)} sending $x(P)$ to $x(P')$ and $x(Q)$ to $x(Q')$, and the abscissas of
   their scalar multiples accordingly;
 \item\label{alg:modif-couveignes:rational} Deduce a rational fraction
-  congruent to $\mathcal{A}$ modulo $E₁[\ell^k]$, and verify that it
+  congruent to $\mathcal{A}$ modulo $E[\ell^k]$, and verify that it
   defines an isogeny of degree $r$. If it does, return it, otherwise
-  replace $P₂,Q_2$ with an other horizontal basis of $E_2[\ell^k]$ and go back to
+  replace $P',Q'$ with an other horizontal basis of $E'[\ell^k]$ and go back to
   Step~\ref{alg:orig-couveignes:interp}.
 \end{enumerate} 
 
@@ -1117,11 +1136,11 @@ Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F
 If the input curves of the algorithm are not on a cyclic crater of a volcano of $\ell$-isogeny, but at some level below in the volcano then we can reduce our problem to that case. First we prove that they are located at the same level in the volcano, then we prove that the isogenous curve on the crater are still $r$ isogenous. Then we reduce our problem by determining the shortest path of $\ell$-isogenies that go to the crater of the volcano. For this we can use methods like in \cite{DBLP:journals/amc/MiretMSTV06} or methods that take advantage of the $\ell$-torsion structure if the volcano is regular from \cite{DBLP:journals/moc/MiretMRV05}.
   
 \begin{prop}
-Let $E_1$ and $E_2$ two elliptic curves $r$-isogenous, with $r$ a prime different from $\ell$. Then they are at the same level in the volcano of $\ell$ isogeny.
+Let $E$ and $E'$ two elliptic curves $r$-isogenous, with $r$ a prime different from $\ell$. Then they are at the same level in the volcano of $\ell$ isogeny.
 \end{prop}
 
-\begin{proof}
-We denote by $\mathcal{O}_1$ (resp. $\mathcal{O}_2$) the endomorphism ring associated up to isomorphism to the elliptic curve $E_1$ (resp. $E_2$). Since $E_1$ and $E_2$ are $r$ isogenous we have $[\mathcal{O}_1:\mathcal{O}_2]=f$ with $f \in \{r^1,r^0,r^{-1}\}$ (see Kohel). Moreover we have $[\mathcal{O}_K:\mathcal{O}_2]=[\mathcal{O}_K:\mathcal{O}_1][\mathcal{O}_1:\mathcal{O}_2]$ thus we have $\mathcal{O}_1$ and $\mathcal{O}_2$ at the same level in the volcano of $\ell$ isogeny.
+\begin{proof}\todo{rediger cette preuve a l aide des modules de Tate dire que la matrice du Frobenius est invariante par action de matrices liées a des isogénies de degré r, donc supprimer cette ancienne preuve}
+We denote by $\mathcal{O}$ (resp. $\mathcal{O}'$) the endomorphism ring associated up to isomorphism to the elliptic curve $E_1$ (resp. $E_2$). Since $E$ and $E'$ are $r$ isogenous we have $[\mathcal{O}:\mathcal{O}']=f$ with $f \in \{r^1,r^0,r^{-1}\}$ (see Kohel). Moreover we have $[\mathcal{O}_K:\mathcal{O}']=[\mathcal{O}_K:\mathcal{O}][\mathcal{O}:\mathcal{O}']$ thus we have $\mathcal{O}$ and $\mathcal{O}'$ at the same level in the volcano of $\ell$ isogeny.
 \end{proof}  
 
 For the following results we need to work with elliptic curves defined on $\mathbb{C}$ we use then Deuring theorem to apply those results on elliptic curves defined over finite fields.
