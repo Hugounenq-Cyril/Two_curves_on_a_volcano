@@ -32,6 +32,7 @@
 \def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
 \def\smat#1{{\def\arraystretch{.7}\mat{#1}}}
 \def\pa#1{\left(#1\right)}
+\def\bcro#1{\left\llbracket#1\right\rrbracket}
 % pour les coûts des opérations M, F etc. (?)
 \def\cout#1{\mathsf{#1}}
 
@@ -945,6 +946,57 @@ We know that $E[ℓ^k](\F_{q^n})$ is the set of fixed points of~$π^n$.
 The result follows from the diagonalization of~$π$
 according to Proposition~\ref{prop:matrice-frobenius}.
 \end{proof}
+
+% Let~$(P, Q)$ be a diagonal basis of~$E[ℓ^k]$,
+% and let~$R = c P + d Q$ be a a point of~$E[ℓ^k]$.
+% \todo{ceci marche uniquement pour $ℓ ≠ 2$}
+% We may write $c = c_0 · ℓ^γ · \exp (ℓ c_1)$
+% for an unique $(ℓ-1)$-root of unity~$c_0$, integer~$γ ≤ k$,
+% and~$c_1 ∈ ℤ/ℓ^{k-1} ℤ$,
+% and likewise~$d = d_0 · ℓ^δ · \exp (ℓ d_1)$.
+% Since~$λ ≡ 1 \pmod{ℓ}$, we also have~$λ ≡ \exp ( ℓ^{α+1} u )$
+% for a unique invertible~$u ∈ ℤ/ℓ^{k-1-α}ℤ$,
+% and likewise $μ = \exp ( ℓ^{β+1} v)$.
+% The action of~$π^n$ on~$R$ is then given by
+% $π^n (R) = c_0 · ℓ^{γ} · \exp (ℓ c_1 + n ℓ^{α+1} u) P
+% + d_0 · ℓ^{δ} · \exp (d_1 + n ℓ^β v) Q$.
+% We can see that two points~$R, R'$ belong to the same orbit
+% if and only if, (with obvious notations):
+% $c_0 = c'_0$, $d_0 = d'_0$, $γ = γ'$, $δ = δ'$,
+% and $v (c_1 - c'_1) ≡ u (d_1 - d'_1) \pmod{ℓ^{k-\max (α + γ, β+δ)}}$.
+% 
+
+Let~$ξ$ be a $(ℓ-1)$-th root of unity in~$ℤ_ℓ$.
+The map~$f(x, y, z) = ℓ^x· ξ^y· \exp (ℓ z)$
+is a group isomorphism between~$ℤ × (ℤ/(ℓ-1) ℤ) × ℤ_ℓ$ and~$ℚ_ℓ^{×}$.
+For any~$k$, it maps the triples~$(x, y, z)$
+such that~$x ≤ k$, $0 ≤ y ≤ ℓ-2$, and~$0 ≤ z < ℓ^{k - x - 1}$
+to $ℤ/ℓ^{k} ℤ$.
+
+Since~$λ ≡ μ ≡ 1 \pmod{ℓ}$,
+we may write~$λ = f(0, 0, λ_1)$ and~$μ = f(0, 0, μ_1)$.
+Let~$λ_1 = ℓ^α u$ and~$μ_1 = ℓ^β v$ for invertible~$u, v$.
+The action of~$π^n$ on~$R = c P + d Q$,
+where~$c = f(γ, c_0, c_1)$ and~$d = f(δ, d_0, d_1) ∈ ℤ/ℓ^{k} ℤ$,
+is given by~$π^n (R) = f(γ, c_0, c_1 + n λ_1) P + f(δ, d_0, d_1 + n μ_1) Q$.
+Two points~$R, R' ∈ E[ℓ^k]$ are Galois conjugated if, with obvious notations,
+$γ' = γ, δ' = δ, c_0 = c'_0, d_0 = d'_0$, and the equations
+$ℓ^α n ≡ (c'_1 - c_1)/u \pmod{ℓ^{k-γ-1}}$,
+$ℓ^β n ≡ (d'_1 - d_1)/v \pmod{ℓ^{k-δ-1}}$ have a solution~$n$.
+The solutions of this system are given by
+\begin{equation*}
+\left\{\begin{array}{rcl}
+c'_1 &=& c_1 + u ℓ^α x,\\
+d'_1 &=& d_1 + v ℓ^β x + ℓ^{k-δ-1} y\\\end{array}\right.
+\text{ for }\left\{\begin{array}{l}
+0 ≤ x ≤ ℓ^{k-α-γ-1}\\
+0 ≤ y < ℓ^{k-δ-1}.\end{array}\right.
+% $c'_1 = c_1 + u ℓ^{α} x$ for~$0 ≤ x < ℓ^{k-α-γ-1}$
+% and~$d'_1 = d_1 + v ℓ^{β} x + ℓ^{k-δ-1} y$ for~$0 ≤ y < ℓ^{k-δ-1}$.
+\end{equation*}
+
+
+\todo{\vrule height 1pt width 10cm}
 
 In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial $L$ that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. Thus the mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction $\lambda, \mu$ of the horizontal $\ell^k$-isogeny as a rational $r$-isogeny should do.
 
