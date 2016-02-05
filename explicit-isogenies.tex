@@ -966,12 +966,12 @@ according to Proposition~\ref{prop:matrice-frobenius}.
 % and $v (c_1 - c'_1) ≡ u (d_1 - d'_1) \pmod{ℓ^{k-\max (α + γ, β+δ)}}$.
 % 
 
-Let~$ξ$ be a $(ℓ-1)$-th root of unity in~$ℤ_ℓ$.
+Let~$ξ$ be a primitive $(ℓ-1)$-th root of unity in~$ℤ_ℓ$.
 The map~$f(x, y, z) = ℓ^x· ξ^y· \exp (ℓ z)$
 is a group isomorphism between~$ℤ × (ℤ/(ℓ-1) ℤ) × ℤ_ℓ$ and~$ℚ_ℓ^{×}$.
 For any~$k$, it maps the triples~$(x, y, z)$
-such that~$x ≤ k$, $0 ≤ y ≤ ℓ-2$, and~$0 ≤ z < ℓ^{k - x - 1}$
-to $ℤ/ℓ^{k} ℤ$.
+such that~$x ≤ k-1$, $0 ≤ y ≤ ℓ-2$, and~$0 ≤ z < ℓ^{k - x - 1}$
+to $ℤ/ℓ^{k} ℤ ∖ \{0\}$.
 
 Since~$λ ≡ μ ≡ 1 \pmod{ℓ}$,
 we may write~$λ = f(0, 0, λ_1)$ and~$μ = f(0, 0, μ_1)$.
@@ -999,7 +999,15 @@ d'_1 &=& d_1 + v ℓ^β x + ℓ^{k-δ-1} y\\\end{array}\right.
 \subsection{Interpolating a polynomial on a field extension}
 
 In this part we solve the following problem:
-
+given a set of pairs~$(x_i, y_i)$ belonging to
+some field extension~$\F_{q^{n_i}}$,
+computing a rational polynomial~$f ∈ \F_q[x]$ such that~$f(x_i) = y_i$.
+Since $f$~is rational, we always have~$f(σ^j x_i) = σ^j y_i$,
+which gives a total of~$∑ n_i$ relations.
+Therefore, assuming the $(x_i)$ distinct and the $(n_i)$ minimal,
+there exists a solution~$f ∈ \overline{\F}_{q}$
+with degree at most~$d = (∑ n_i) - 1$.
+Since~$(σ(f)) (x_i) = f(x_i)$ for all~$i$, $f$~has rational coefficients.
 
 \todo{\vrule height 1pt width 10cm}
 
