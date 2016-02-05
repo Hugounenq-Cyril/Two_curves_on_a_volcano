@@ -925,6 +925,27 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 
+\subsection{The structure of rational $ℓ^∞$-torsion}
+
+\todo{tout ceci irait bien à la fin de la section 2, mais \texttt{.lock}
+de Luca pour l'instant}
+We again assume that $E$~is a curve with maximal endomorphism ring
+and that all the points of~$E[ℓ]$ are rational,
+which means that~$λ ≡ μ ≡ 1 \pmod{ℓ}$.
+Let~$α = v_{ℓ} (λ - 1)$ and~$β = v_{ℓ} (μ - 1)$.
+Without loss of generality, we may assume~$α ≥ β$.
+
+\begin{prop}\label{prop:l-torsion-rationnelle}
+For any integer~$n$,
+the group of rational $ℓ^∞$-torsion points~$E[ℓ^∞](\F_{q^n})$
+is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n + β} ℤ)$.
+\end{prop}
+\begin{proof}
+We know that $E[ℓ^k](\F_{q^n})$ is the set of fixed points of~$π^n$.
+The result follows from the diagonalization of~$π$
+according to Proposition~\ref{prop:matrice-frobenius}.
+\end{proof}
+
 In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial $L$ that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. Thus the mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction $\lambda, \mu$ of the horizontal $\ell^k$-isogeny as a rational $r$-isogeny should do.
 
 
