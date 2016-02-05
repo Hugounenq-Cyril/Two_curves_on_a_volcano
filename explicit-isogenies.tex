@@ -16,10 +16,6 @@
 %   \leavevmode\kern 7pt \vbox{\hsize 56pt\kern -8pt
   \fontsize{7pt}{8pt}\selectfont #1\par}}}
 
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\tildO}{\tilde{O}}
 
 %\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
@@ -38,8 +34,18 @@
 % pour les coûts des opérations M, F etc. (?)
 \def\cout#1{\mathsf{#1}}
 
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\tildO}{\tilde{O}}
+\newcommand{\MM}{\cout{M}}
+\newcommand{\FF}{\cout{F}}
+\newcommand{\RR}{\cout{R}}
+\DeclareMathOperator{\loglog}{loglog}
+
 \def\algorithmicrequire{\textbf{Input:}}
 \def\algorithmicensure{\textbf{Output:}}
+
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
 \author{Cyril Hugounenq}
@@ -91,46 +97,39 @@ construct new
 cryptosystems~\cite{teske06,charles+lauter+goren09,Stol,defeo+jao+plut12,jao+soukharev2014-signatures}.
 
 The \emph{degree} of an isogeny is its degree as a rational map. If an
-isogeny has degree $n$, we call it an $n$-isogeny, and we say that two
-elliptic curves are $n$-isogenous if there exists an $n$-isogeny
-relating them. Accordingly, we say that two field elements $j_1$ and
-$j_2$ are $r$-isogenous if there exist $r$-isogenous elliptic curves
-$E_1$ and $E_2$ such that $j(E_1)=j_1$ and $j(E_2)=j_2$.
-
-An $n$-isogeny is said to be \emph{separable} if it is
-separable as a rational map, in this case its kernel has order exactly
-$n$. In characteristic zero, every isogeny is separable, while in
-positive characteristic $p$ all non-separable isogenies arise as
-powers of the $p$-power map. Hence, most explicit isogeny computations
-are concerned exclusively with separable isogenies.  The
+isogeny has degree $r$, we call it an $r$-isogeny, and we say that two
+elliptic curves are $r$-isogenous if there exists an $r$-isogeny
+relating them. Accordingly, we say that two field elements $j$ and
+$j'$ are $r$-isogenous if there exist $r$-isogenous elliptic curves
+$E$ and $E'$ such that $j(E)=j$ and $j(E')=j'$. The
 \emph{explicit isogeny} problem has many incarnations. In this paper,
 we are interested in the variant defined below.
 
 \begin{prob}[(Explicit isogeny problem)] \label{prob:isogeny-problem}
-  Given two $j$-invariants $j_1$ and $j_2$, and a positive integer
+  Given two $j$-invariants $j$ and $j'$, and a positive integer
   $r$, determine if they are $r$-isogenous. In that case, compute
-  curves $E_1$, $E_2$ with $j(E_1)=j_1$ and $j(E_2)=j_2$, and the
-  kernel of an $r$-isogeny $E_1\to E_2$.
+  curves $E$, $E'$ with $j(E)=j$ and $j(E')=j'$, and the
+  kernel of an $r$-isogeny $ψ:E\to E'$.
 \end{prob}
 
 Once the kernel of the isogeny is computed, the rational maps
 associated to it can be computed in optimal time using Velu's
 formulas\cite{velu71}.
 
-This paper focuses on the explicit isogeny problem for finite
-fields. A famous theorem by Tate states that two curves are isogenous
-over a finite field if and only if they have the same cardinality over
-that field. The explicit isogeny problem stated here appears naturally
-in the Schoof-Elkies-Atkin point count algorithm (SEA). There, $E_1$
-is the curve of which we want to compute the cardinality, and $E_2$ is
-an $r$-isogenous curve, with $r$ a prime of size approximately
-$\log\#E_1$. For this reason, the explicit isogeny problem is
-customarily solved without prior knowledge of the cardinality of
-$E_1$. We will abide by this convention here.
+This paper focuses on the explicit isogeny problem for \emph{ordinary}
+elliptic curves over finite fields. A famous theorem by Tate states
+that two curves are isogenous over a finite field if and only if they
+have the same cardinality over that field. The explicit isogeny
+problem stated here appears naturally in the Schoof-Elkies-Atkin point
+count algorithm (SEA). There, $E$ is the curve of which we want to
+compute the cardinality, and $E'$ is an $r$-isogenous curve, with $r$
+a prime of size approximately $\log\#E$. For this reason, the explicit
+isogeny problem is customarily solved without prior knowledge of the
+cardinality of $E$. We will abide by this convention here.
 
 A good measure of the computational difficulty of the problem is given
-by the isogeny degree $r$. Indeed the output is represented by exactly
-$r$ base field elements, hence an asymptotically optimal algorithm
+by the isogeny degree $r$. Indeed the output is represented by
+$O(r)$ base field elements, hence an asymptotically optimal algorithm
 would solve the problem using $O(r)$ field operations. Many algorithms
 have been suggested over the years to solve the explicit isogeny
 problem. Early algorithms were due to Atkin~\cite{atkin91} and
@@ -144,7 +143,7 @@ Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
 computation in the context of the SEA
 algorithm. Finally Lercier and Sirvent\cite{lercier+sirvent08,1602.00244}
 generalized Elkies' algorithm to work in any characteristic. Despite
-these progresses, the overall cost of Elkies' algorithm and its
+these advances, the overall cost of Elkies' algorithm and its
 variants is still at least cubic in $r$.
 
 Another line of work to solve the explicit isogeny problem was
@@ -155,13 +154,11 @@ constructions for towers of finite fields of characteristic $p$. Their
 complexity is quasi-quadratic in $r$, but exponential in $\log p$,
 hence they are only practical for very small characteristic.
 
-
-
 In this paper we present a variant of Couveignes' algorithm with
 complexity polynomial in $\log p$ and quasi-quadratic in $r$. Together
 with the Lercier-Sirvent algorithm, they are the only polynomial-time
 isogeny computation algorithms working in any characteristic, hence
-they are especially relevant for counting point in \emph{medium}
+they are especially relevant for counting points in \emph{medium}
 characteristic (i.e., counting points over $\F_{p^n}$, when
 $n\gg p/\log p$).
 
@@ -174,57 +171,91 @@ the state of the art on point counting \todo{but maybe benchmarks are
 solving the explicit isogeny problem, with potential applications in
 other contexts, e.g., cryptography.
 
+\subsection{Notations}
 
-%%%%%%%%%%%%%%%
+Throughout this paper: $r$~is a positive integer, $p$~an odd prime,
+$q$~a power of $p$, and $\mathbb F_q$ is the finite field with
+$q$~elements. $E$ ~is an ordinary elliptic curve over~$\mathbb F_q$,
+its group of $n$-torsion points is denoted by~$E[n]$, its
+$q$-Frobenius automorphism by~$π$.  The endomorphism ring of $E$ is
+denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
+number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
+discriminant of~$\mathcal O_K$.  For a prime~$ℓ$ different from~$p$
+and not dividing~$r$, we denote by~$T_ℓ(E) = \varprojlim E[ℓ^n]$ the
+$ℓ$-adic Tate module~\cite[III.7]{Sil}, which is free of rank~two
+over~$ℤ_ℓ$.  The factorization of the characteristic polynomial of~$π$
+in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.  If
+$(d_K/ℓ) = +1$ then we also define $λ,μ$ as the eigenvalues of~$π$
+in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$, where $v_ℓ$ is the $ℓ$-adic
+valuation.
 
-\section{Couveignes' algorithm}
+We measure all computational complexities in terms of operations in
+$\mathbb{F}_q$, we use the \emph{big-Oh} notation $O()$ to express
+asymptotic complexities, and the notation $\tildO()$ to neglect
+polylogarithmic factors.  We let $\MM(n)$ be a function such that
+polynomials in $\F_q[X]$ of degree less than $n$ can be multiplied
+using $\MM(n)$ operations in $\F_q$, under the assumptions
+of~\cite[Ch.~8.3]{vzGG}. Using FFT multiplication, one can take
+$\MM(n)∈ O(n\log n\loglog n)$.
+
+The algorithms presented next operate on elements defined in finite
+extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
+fields $\F_q=F₀⊂F₁⊂\cdots⊂F_k$ with $[F₁:F₀]$ dividing $ℓ-1$, and
+$[F_{i+1}:F_i]=ℓ$ for any $i>0$. For $ℓ=2$, we build upon the work of
+Doliskani and Schost~\cite{DoSc12}, while for general $ℓ$ we use
+towers of Kummer extensions as described
+in~\cite[\S~2]{DeDoSc13}. Using these constructions, we are able to
+perform the following operations:
+\begin{itemize}
+\item basic arithmetic operations (addition, multiplication) in $F_i$,
+  using $O(\MM(ℓ^i))$ operations;
+\item inversion in $F_i$ using $O(i\MM(ℓ^i)\logℓ)$
+  operations\footnote{When $ℓ=2$, a factor of $i$ can be saved
+    here~\cite{DoSc12}, but we will disregard this optimization for
+    simplicity.};
+\item mapping elements from $F_{i-1}$ to $F_i$ and \emph{vice versa}
+  at no arithmetic cost;
+\item multiplication and Euclidean division of polynomials of degree
+  at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations.
+\end{itemize}
+
+Finally, we introduce the notations $\FF(i,j)$ for the cost of
+computing a $q^{ℓ^j}$-th power in $F_i$, and $\RR(i)$ for the cost of
+finding a root of a polynomial of degree $ℓ$ in $F_i[x]$. When
+$\ell=2$, Doliskani and Schost show that $\FF(i,j)=O(ℓ^i+\log q)$, and
+$\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
+$F(i,j)=O(ℓ^{i+j}\log q)$ using a naive algorithm, and
+$\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\logℓ\log(ℓq))$ using the variant of the
+Cantor-Zassenhaus algorithm described in \cite[\S~14.5]{vzGG} \todo{we
+  could use Kalto-Shoup here}.
+
+
+\subsection{Couveignes' algorithm}
 \label{sec:couv-algor}
 
-Throughout this paper we let $\F_q$ be a field with $q$ elements, and
-we let $p$ be its characteristic. Let $E$ be an elliptic curve defined
-over a finite field, we recall some basic facts on the theory of
-elliptic curves over finite fields.
-
-The Frobenius endomorphism $π$ is the map that sends any point
-$(X:Y:Z)$ of $E$ to the point $(X^q:Y^q:Z^q)$. The Frobenius
-endomorphism satisfies a quadratic equation of the form
-$π² - tπ² + q=0$, where $t$ is an integer satisfying $t²-4q≤0$, called
-the \emph{trace} of $π$. The trace determines the cardinality of $E$
-over $\F_q$, and over any finite extension of it. The curve $E$ is
-said to be \emph{ordinary} if $p$ does not divide $t$,
-\emph{supersingular} otherwise.
-
-For any integer $n$ we denote by $E[n]$ the (geometric) subgroup of
-$n$-torsion of $E$, that is the group of points of $E$ in the
-algebraic closure of $\F_q$ annihilated by multiplication-by-$n$. If
-$p$ does not divide $n$, it is well known that $E[n]≃(ℤ/nℤ)²$;
-furthermore $E[p^k]$ is isomorphic to $ℤ/p^kℤ$ for any $k$ if $E$ is
-ordinary, while it is trivial if $E$ is supersingular. \todo{Define
-  Tate module here?}
-
 Couveignes' isogeny algorithm takes as input two \emph{ordinary}
-elliptic curves $E_1$ and $E_2$, and a positive integer $r$ not
+elliptic curves $E$ and $E'$, and a positive integer $r$ not
 divisible by $p$, and returns, if it exists, the kernel of an
-$r$-isogeny $φ:E₁\to E₂$. It is based on the observation that the
-isogeny $φ$ must put $E₁[p^k]$ in bijection with $E₂[p^k]$, in a way
+$r$-isogeny $ψ:E\to E'$. It is based on the observation that the
+isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
 that is compatible with their group structure. It proceeds in three
 steps:
 \begin{enumerate}
-\item\label{alg:orig-couveignes:tower} Compute generators $P₁,P₂$ of
-  $E_1[p^k]$ and $E₂[p^k]$ respectively, for $k$ large enough;
+\item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
+  $E[p^k]$ and $E'[p^k]$ respectively, for $k$ large enough;
 \item\label{alg:orig-couveignes:interp} Compute the interpolation
   polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
-    with Sec.5)} sending $x(P₁)$ to $x(P₂)$, and the abscissas of
+    with Sec.5)} sending $x(P)$ to $x(P')$, and the abscissas of
   their scalar multiples accordingly;
 \item\label{alg:orig-couveignes:rational} Deduce a rational fraction
-  congruent to $\mathcal{A}$ modulo $E₁[p^k]$, and verify that it
+  congruent to $\mathcal{A}$ modulo $E[p^k]$, and verify that it
   defines an isogeny of degree $r$. If it does, return it, otherwise
-  replace $P₂$ with a scalar multiple of itself and go back to
+  replace $P'$ with a scalar multiple of itself and go back to
   Step~\ref{alg:orig-couveignes:interp}.
 \end{enumerate}
 
 For this algorithm to succeed, enough interpolation points are
-required. Given that the isogeny $φ$ is defined by a rational fraction
+required. Given that the isogeny $ψ$ is defined by a rational fraction
 of degree $(r,r-1)$, it is necessary that $p^k∈O(r)$. However, most of
 the time, those points are not going to be defined in the base field
 $\F_q$, thus Couveignes' algorithm must be based on efficient
@@ -232,67 +263,41 @@ algorithms to construct and compute in towers of extensions of finite
 fields. Indeed, Couveignes and his successors go at great length in
 studying the arithmetic of \emph{Artin-Schreier
   towers}~\cite{couveignes00,df+schost12}, and the adaptation of the
-interpolation algorithm to that setting~\cite{df10}.  Using these
+fast interpolation algorithm to that setting~\cite{df10}.  Using these
 highly specialized constructions,
 Steps~\ref{alg:orig-couveignes:tower}
 and~\ref{alg:orig-couveignes:interp} are both executed in quasi-linear
 time $\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step
-only succeeds for one pair of torsion points $P₁,P₂$, in general, thus
-$O(r)$ trials are expected on average. 
+only succeeds for one pair of torsion points $P,P'$, in general, thus
+$O(r)$ trials are expected on average.
 
 Hence, the overall complexity of Couveignes' algorithm is
 $\tildO(r²p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
-$\log p$. Although the exponent of $p$ is relatively small, Couveignes
+$\log p$. Although the exponent of $\log p$ is relatively small, Couveignes
 algorithm quickly becomes impractical as $p$ grows. In this paper we
 introduce a variant of Couveignes' algorithm with the same quadratic
-complexity in $r$, and \textbf{no exponential dependency in $p$}.
+complexity in $r$, and \textbf{no exponential dependency in $\log p$}.
 
-The bottom line of our algorithm is elementary: replace $E₁[p^k]$ in
-Couveignes' algorithm with $E₁[ℓ^k]$, for some small prime
-$ℓ$. However a naive application of this idea fails to yield a
-quadratic-time algorithm. Indeed, in the worst case one has
-$ℓ^{2k}∈O(r)$, with $E₁[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P₁,Q₁$
-of $E₁[ℓ^k]$ must be mapped onto two generators of $E₂[ℓ^k]$. This can
-be done in $O(ℓ^{4k})$ possible ways \todo{double check this}, thus
-yielding an algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
+The bottom line of our algorithm is elementary: replace $E[p^k]$ in
+the algorithm with $E'[ℓ^k]$, for some small prime $ℓ$. However a
+naive application of this idea fails to yield a quadratic-time
+algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
+$E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
+be mapped onto two generators of $E'[ℓ^k]$. This can be done in
+$O(ℓ^{4k})$ possible ways \todo{double check this}, thus yielding an
+algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
 
 To avoid this pitfall, we must carefully study the structure of
 $E[ℓ^k]$, and its relationship with the Frobenius endomorphism $π$,
 which we do in the next section. With that knowledge, we will be able
-to put some restrictions on the generators $P₁,Q₁$, thus limiting the
+to put some restrictions on the generators $P,Q$, thus limiting the
 number of trials to $O(ℓ^{2k})$, as explained in
-Section~\ref{sec:acti-frob-endm}. Finally, we will need specialized
-algorithms to work in towers of $ℓ$-adic extensions. For $ℓ=2$, we
-will build upon the work of Doliskani and Schost~\cite{DoSc12}, which
-offers very efficient algorithms for all the operations needed. For
-$ℓ≠2$, we build upon the (slightly less complete) work of Doliskani,
-De Feo and Schost~\cite{DeDoSc13}. In Section~\ref{sec:interpolation}
+Section~\ref{sec:acti-frob-endm}.  In Section~\ref{sec:interpolation}
 we present an interpolation algorithm adapted to the setting of
-$ℓ$-adic towers.
-
-All the complexity will be expressed in terms of operations in $\mathbb{F}_q$ except when it is stated otherwise.
-For $\ell=2$ according to \cite{DoSc12} we have the computation for the Frobenius of an element of $\mathbb{F}_{q^{2^k}}$ done in $O(2^k \log(q))$ operations, the multiplication is done in $M(2^k)$ and the inversion in $O(M(2^k))$ operations in $\mathbb{F}_q$. The square root computation is done in $O(M(2^k)\log(2^kq))$ operations in $\mathbb{F}_q$.
-For $\ell \neq 2$  according to \cite{DeDoSc13} the multiplication of an element of $\mathbb{F}_{q^{\ell^k}}$ is done in $M(\ell^k)$ and the inversion in $O(M(\ell^k)\log(\ell^k))$ operations in $\mathbb{F}_q$. For the Frobenius computation we will denote its cost by $F(q,\ell^k)$ operations in $\mathbb{F}_q$.
-
-\subsection*{Notations}
-
-Throughout this paper: $p$~is a prime power, $q$~a power of $p$,
-and $\mathbb F_q$ is the finite field with $q$~elements;
-$π$~is the $q$-Frobenius automorphism;
-$E$~is an ordinary elliptic curve over~$\mathbb F_q$;
-$\mathcal O$~is the endomorphism ring of~$E$,
-$K = \mathcal O ⊗ ℚ$~is the corresponding number field,
-and $\mathcal O_K$ is its maximal order;
-$d_K$~is the discriminant of~$\mathcal O_K$;
-\snote{je ne crois pas qu'on ait besoin de $d_π$}
-$ℓ$~is a prime number different from~$p$;
-$T_ℓ(E) = \varprojlim E[ℓ^n]$~is the $ℓ$-adic Tate module~\cite[III.7]{Sil},
-which is free of rank~two over~$ℤ_ℓ$ since $E$~is ordinary.
-The factorization of the characteristic polynomial of~$π$
-in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
-If $(d_K/ℓ) = +1$ then we also define
-$λ_1, λ_2$ as the eigenvalues of~$π$ in~$ℤ_ℓ$
-and write~$h = v_ℓ(λ_1 - λ_2)$.
+$ℓ$-adic towers, and in Section~\ref{sec:complete-algorithm} we put
+all steps together and analyze the full algorithm. Finally in
+Section~\ref{sec:implem} we discuss our implementation and the
+performances of the algorithm.
 
 
 %%%%%%%%%%%%%%%
@@ -1239,6 +1244,7 @@ We set $a'=a, b'=\ell b, d'=d$ wich defines us $\sigma' \in C(r)$ with $\sigma'(
 \end{document}
 
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
-%  LocalWords:  cardinality bijection Couveignes
+%  LocalWords:  cardinality bijection Couveignes automorphism
 
 % vim: ts=2:
+%  LocalWords:  Frobenius endomorphism
