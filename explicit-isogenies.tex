@@ -875,7 +875,7 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 
-In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ 
+In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial $L$ that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. Thus the mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction of the $\lambda, \mu$ of the $\ell$-isogeny as a rational $r$-isogeny should do.
 
 
 We state first a result on the order of the points under the action of the Frobenius.
@@ -884,31 +884,45 @@ We state first a result on the order of the points under the action of the Frobe
 Let $E$ be an elliptic curve defined on $\mathbb{F}_q$ such that $E(\mathbb{F}_q)[\ell^{\infty}]=\mathbb{Z}/\ell^{s+j}\mathbb{Z} \times \mathbb{Z}/\ell^{s}\mathbb{Z}$ with $ j \geqslant 0$ and $\nu_\ell(q-1) \geqslant s \geqslant 1$, then $E(\mathbb{F}_{q^{\ell}})[\ell^{\infty}]  \mathbb{Z}/\ell^{s+j+1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+1}\mathbb{Z}$
 \end{prop} \todo{Regarder si on ne peut tout simplement pas supprimer cette proposition a cause des resultats de la section 3}
 
+We consider that we work in the smaller extension field to have the entire $\ell^k$ torsion defined, then as we have supposed that $E[\ell] \subset E(\mathbb{F}_q)$ we have the following result.
+
 \begin{defi}
-Let $E(\mathbb{F}_{q^{\ell^k}})[\ell^{\infty}]=\mathbb{Z}/\ell^{k+j+s}
-\mathbb{Z} \times \mathbb{Z}/\ell^{k+s} \mathbb{Z}$ with $j \geqslant
-1$, $1 \leqslant s \leqslant \nu_\ell(q-1)$, we denote by
-$o_{\lambda}$ and $o_{\mu}$ the multiplicative order of the
-eigenvalues$\lambda , \mu$ of the Frobenius for the
-$\ell^{k+h}$ torsion, with $E[\ell^{k+s}] \subset E(\mathbb{F}_{q^{\ell^k}})$.  \todo{What is the last part, ``defined on the
+We denote by $E(\mathbb{F}_q)[\ell^{\infty}]=\mathbb{Z}/\ell^{j+s}
+\mathbb{Z} \times \mathbb{Z}/\ell^{s} \mathbb{Z}$ the structure of the rational $\ell^{\infty}$ torsion with with $j \geqslant 0$, $1 \leqslant s \leqslant \nu_\ell(q-1)$. 
+\todo{, with $E[\ell^{k+s}] \subset E(\mathbb{F}_{q^{\ell^k}})$.   What is the last part, ``defined on the
   extension field \dots''? Is it clear? Proved somewhere? Do you need
   it here? --> Corollary of the previous proposition}
 \end{defi}
 
+By \ref{prop:degree-l-torsion} we have:
+\begin{prop}
+ $E(\mathbb{F}_{q^{\ell^{k-s}}})[\ell^{\infty}]=\mathbb{Z}/\ell^{k+j}
+\mathbb{Z} \times \mathbb{Z}/\ell^{k} \mathbb{Z}$. 
+\end{prop}
+
 \begin{defi}
-We denote by $o_A=\max(o_{\lambda},o_{\mu})$ and $o_B=\min(o_{\lambda},o_{\mu})$
+We denote by $o_{\lambda}$ and $o_{\mu}$ the multiplicative order of the
+eigenvalues $\lambda , \mu \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ of the Frobenius for the
+$\ell^{k}$ torsion of the elliptic curve $E$.
+\newline
+We denote by $o_A=\max(o_{\lambda},o_{\mu})$ and $o_B=\min(o_{\lambda},o_{\mu})$.
+We will suppose without loss of generality that $P$ (resp. $Q$) has an eigenvalue $\lambda$ (resp. $\mu$) of order $o_A$ (resp. $o_B$) for the Frobenius, with $(P,Q)$ the horizontal basis computed section \ref{sec:acti-frob-endm}.
 \end{defi}
 
 \begin{prop}
-$o_A=\max(o_{\lambda},o_{\mu}) = \ell^k$ and $o_B=\min(o_{\lambda},o_{\mu}) = \ell^{k-j}$
+$o_A=\max(o_{\lambda},o_{\mu}) = \ell^{k-s}$ and $o_B=\min(o_{\lambda},o_{\mu}) = \ell^{k-j-s}$
 \end{prop}
+
 \begin{proof}
-By proposition \ref{structelevation} we have $E[\ell^{k+h}] \subset E(\mathbb{F}_{q^{\ell^k}})$ and $E[\ell^{k+h}] \not \subset E(\mathbb{F}_{q^{\ell^{k-1}}})$ and $E(\mathbb{F}_{q^{\ell^{k-j}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j}\mathbb{Z}$ and $E(\mathbb{F}_{q^{\ell^{k-j-1}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k-1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j-1}\mathbb{Z} $
+%By proposition \ref{structelevation} we have $E[\ell^{k+s}] \subset E(\mathbb{F}_{q^{\ell^k}})$ and $E[\ell^{k+s}] \not \subset E(\mathbb{F}_{q^{\ell^{k-1}}})$ and $E(\mathbb{F}_{q^{\ell^{k-j}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j}\mathbb{Z}$ and $E(\mathbb{F}_{q^{\ell^{k-j-1}}})[\ell^{\infty}]=  \mathbb{Z}/\ell^{s+k-1}\mathbb{Z} \times \mathbb{Z}/\ell^{s+k-j-1}\mathbb{Z} $
+%By structure of the $E(\mathbb{F}_{q})[\ell^{\infty}]$ the smallest field where all the entire $\ell^k$ torsion is defined is $\mathbb{F}_{q^{\ell^{k-s}}}$ thus we have point of $\ell^k$ torsion defined only in $\mathbb{F}_{q^{\ell^{k-s}}}$ which gave us  $o_A=\max(o_{\lambda},o_{\mu}) = \ell^{k-s}$. For $o_B=\min(o_{\lambda},o_{\mu}) = \ell^{k-j-s}$ we have to notice that field where $\ell^k$ torsion 
+
 %Let consider a point $P$ of order $\ell^{k+s}$ associated to $\max(o_{\lambda_1},o_{\lambda_2})$, then we will have by definition of $o_{\lambda_1}$ and $o_{\lambda_2}$: $\pi(P)^{\max(o_{\lambda_1},o_{\lambda_2})}=P$, as $P$ is a point of order $2^{k+h}$ by the proposition \ref{structelevation} he is defined at least in $\mathbb{F}_{q^{\ell^{k-j}}}$ and at most in $\mathbb{F}_{q^{\ell^k}}$ thus we have the results.
 %\todo{Fix this; not understandable, not a proof.}
+ Let $P$ be a point of order $\ell^k$, by the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$ and by \ref{prop:degree-l-torsion} we have points defined in $\mathbb{F}_{q^{\ell^{k-j-s}}}$ , for those points we will have $\pi^{\ell^{k-j-s}}(P)=P$ and $\pi^{\ell^{k-j-s-1}}(P) \neq P$ otherwise they would be defined in $\mathbb{F}_{q^{\ell^{k-j-s-1}}}$ which would contradict the structure of $E[\ell^{\infty}]$. We have points $P$ of order $\ell^k$ only defined in $\mathbb{F}_{q^{\ell^{k-s}}}$, for them we have $\pi^{\ell^{k-s}}(P)=P$ and $\pi^{\ell^{k-s-1}}(P) \neq P$ otherwise if would contradict the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$
 \end{proof}
 
-For the rest of this section we will consider that $s=1$ to be in the worst case.\todo{What does this mean? It means that the worst case is when we have to work in high extension field to have the $\ell^k$ torsion defined}
+%For the rest of this section we will consider that $s=1$ to be in the worst case.\todo{What does this mean? It means that the worst case is when we have to work in high extension field to have the $\ell^k$ torsion defined}
 
 Since the isogeny we want to compute is rational and we work with
 points that are defined in extensions of the base field, we will work
@@ -934,6 +948,32 @@ efficiently.
 %% \begin{defi}
 %% We define the cost of computing the Frobenius on a finite field of size $q^{n}$ with the complexity expressed in terms of operations on $\mathbb{F}_q$ by the following function: $F(q,n)$.
 %% \end{defi}
+For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the sets
+$\mathcal{I}_i$ as follows:
+\newline
+For $0 < i < \nu_{\ell}(o_A)-\nu_{\ell}(o_B)$:
+$\mathcal{I}_i=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*} \} $
+\newline
+For $i= \nu_{\ell}(o_A)-\nu_{\ell}(o_B) $:
+$\mathcal{I}_i=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right) \} $ and $d \wedge \ell =1$
+\newline
+For $i=0$
+$\mathcal{I}_0=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ and $c \wedge \ell =1$
+
+For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
+$T_i$ and $L_i$ as follows:
+\begin{itemize}
+\item $T_i= \prod_{R \in I_i} (x-x(R))$
+\item $L_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in I_i $ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
+\end{itemize}
+
+For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
+$T_i$ and $L_i$ as follows:
+\begin{itemize}
+\item $\mathcal{T}_i= \prod_{R \in I_i} (x-x(R))$
+\item $L_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in I_i $ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
+\end{itemize}
+
 
 For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
 $\mathcal{T}_i$ and $\mathcal{A}_i$ as follows:
@@ -941,6 +981,7 @@ $\mathcal{T}_i$ and $\mathcal{A}_i$ as follows:
 \item $\mathcal{T}_i$ is the monic polynomial whose roots are the
   abscissae of points of order $\ell^k$ which are representative of orbit of
   order $o_i$ on the curve $E_1$ of  problem \ref{prob:isogeny-problem}; 
+  $\mathcal{T}_i=(\prod(x-x(P)), P \in E ))$
   \todo{I am not sure this definition makes sense. Do we take all points 
     of $\ell^k$ torsion bla-bla, or one representative per orbit?}
     \todo{By the way, on which curve?} 
