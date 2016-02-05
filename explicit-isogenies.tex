@@ -143,7 +143,7 @@ we are interested in the variant defined below.
 
 Once the kernel of the isogeny is computed, the rational maps
 associated to it can be computed in optimal time using Velu's
-formulas~\cite{velu71}.
+formulas\cite{velu71}.
 
 This paper focuses on the explicit isogeny problem for \emph{ordinary}
 elliptic curves over finite fields. A famous theorem by Tate states
@@ -230,9 +230,9 @@ $\MM(n)∈ O(n\log n\loglog n)$.
 The algorithms presented next operate on elements defined in finite
 extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
 fields $\F_q=F₀⊂F₁⊂\cdots⊂F_k$ with $[F₁:F₀]$ dividing $ℓ-1$, and
-$[F_{i+1}:F_i]∈\{1,ℓ\}$ for any $i>0$. For $ℓ=2$, we build upon the
-work of Doliskani and Schost~\cite{DoSc12}, while for general $ℓ$ we
-use towers of Kummer extensions as described
+$[F_{i+1}:F_i]=ℓ$ for any $i>0$. For $ℓ=2$, we build upon the work of
+Doliskani and Schost~\cite{DoSc12}, while for general $ℓ$ we use
+towers of Kummer extensions as described
 in~\cite[\S~2]{DeDoSc13}. Using these constructions, we are able to
 perform the following operations:
 \begin{itemize}
@@ -743,7 +743,7 @@ with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
 \STATE $h \leftarrow h+1$
 \ENDIF
 \ENDFOR
-\RETURN $(P,Q,λ,μ)$
+\RETURN $(P_{i+1},Q_{i+1},λ,μ)$
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}
