@@ -875,7 +875,7 @@ Since $P$ is a point that generates a horizontal isogeny then there exists a poi
 \section{Interpolation step}
 \label{sec:interpolation}
 
-In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial $L$ that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. Thus the mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction of the $\lambda, \mu$ of the $\ell$-isogeny as a rational $r$-isogeny should do.
+In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial that interpolates the abscissas of thoses points. We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, for this section we want to compute an interpolation polynomial $L$ that respects the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. Thus the mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction $\lambda, \mu$ of the horizontal $\ell^k$-isogeny as a rational $r$-isogeny should do.
 
 
 We state first a result on the order of the points under the action of the Frobenius.
@@ -889,9 +889,6 @@ We consider that we work in the smaller extension field to have the entire $\ell
 \begin{defi}
 We denote by $E(\mathbb{F}_q)[\ell^{\infty}]=\mathbb{Z}/\ell^{j+s}
 \mathbb{Z} \times \mathbb{Z}/\ell^{s} \mathbb{Z}$ the structure of the rational $\ell^{\infty}$ torsion with with $j \geqslant 0$, $1 \leqslant s \leqslant \nu_\ell(q-1)$. 
-\todo{, with $E[\ell^{k+s}] \subset E(\mathbb{F}_{q^{\ell^k}})$.   What is the last part, ``defined on the
-  extension field \dots''? Is it clear? Proved somewhere? Do you need
-  it here? --> Corollary of the previous proposition}
 \end{defi}
 
 By \ref{prop:degree-l-torsion} we have:
@@ -906,7 +903,7 @@ eigenvalues $\lambda , \mu \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ of the Frobenius
 $\ell^{k}$ torsion of the elliptic curve $E$.
 \newline
 We denote by $o_A=\max(o_{\lambda},o_{\mu})$ and $o_B=\min(o_{\lambda},o_{\mu})$.
-We will suppose without loss of generality that $P$ (resp. $Q$) has an eigenvalue $\lambda$ (resp. $\mu$) of order $o_A$ (resp. $o_B$) for the Frobenius, with $(P,Q)$ the horizontal basis computed section \ref{sec:acti-frob-endm}.
+We will suppose without loss of generality that $P$ (resp. $Q$) has an eigenvalue $\lambda$ (resp. $\mu$) of order $o_A$ (resp. $o_B$) for the Frobenius, with $(P,Q)$ the horizontal basis computed in section \ref{sec:acti-frob-endm}.
 \end{defi}
 
 \begin{prop}
@@ -932,10 +929,8 @@ have to consider the different possible orders and combine them
 efficiently.
 
 \begin{defi}
-  For $i$ in $\{0, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$, we denote by $o_i$
+  For $i$ in $\{0, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)=j\}$, we denote by $o_i$
   the integer $o_i =\frac{o_A}{\ell^i} \in \{o_B,\dots,o_A\}$.
-  \todo{No; $j$ was fixed in the definition of $o_B$, you can't reuse it.}
-  \todo{By the way, that other $j$ is precisely $\nu_{\ell}(o_A)-\nu_{\ell}(o_B)$}
 \end{defi}
 
 %\begin{defi}
@@ -948,56 +943,49 @@ efficiently.
 %% \begin{defi}
 %% We define the cost of computing the Frobenius on a finite field of size $q^{n}$ with the complexity expressed in terms of operations on $\mathbb{F}_q$ by the following function: $F(q,n)$.
 %% \end{defi}
-For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the sets
-$\mathcal{I}_i$ as follows:
+
+
+\begin{defi}
+For $i$ in $\{0,\dots j\}$ we define the sets
+$I_i$ of points of order $\ell^k$ and of orbits of length $o_i$ for the Frobenius as follows:
 \newline
 For $0 < i < \nu_{\ell}(o_A)-\nu_{\ell}(o_B)$:
-$\mathcal{I}_i=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*} \} $
+$I_i=\{ \ell^i c P + d Q, (c,d) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z}^{*} \right)^2 \} $ \todo{Nom de variable moche ouvert à suggestion}
 \newline
-For $i= \nu_{\ell}(o_A)-\nu_{\ell}(o_B) $:
-$\mathcal{I}_i=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right) \} $ and $d \wedge \ell =1$
+$I_j=\{ \ell^j c P + d Q, (c,d) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^2, d \wedge \ell =1 \} $
 \newline
-For $i=0$
-$\mathcal{I}_0=\{ \ell^i c P + d Q, c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ and $c \wedge \ell =1$
+$I_0=\{ c P + d Q, (c,d) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^2, c \wedge \ell =1 \}$
+\end{defi}
 
-For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
-$T_i$ and $L_i$ as follows:
+%For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
+%$T_i$ and $L_i$ as follows:
+%\begin{itemize}
+%\item $T_i= \prod_{R \in I_i} (x-x(R))$
+%\item $L_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in I_i $ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
+%\end{itemize}
+We won't work directly with $I_i$ we consider the action of the Frobenius and thus we will work with the following sets.
+\newline
+\begin{defi}
+For $i$ in $\{0,j\}$ we define the sets
+$\mathcal{I}_i$ of points of order $\ell^k$ and representative of orbits of length $o_i$ for the Frobenius as follows:
+\newline
+For $0 \leqslant i \leqslant j $:
+$\mathcal{I}_i=\{ R \in I_i, \pi^t(R) \notin \mathcal{I}_i, t \in \{0.. o_i\} \} $ 
+\end{defi}
+The sets $\mathcal{I}_i$ are not uniquely defined. In practice we compute the index of these points $R \in \mathcal{I}_i$ in the basis $(P,Q)$ and then we take the corresponding points. The choice of representants of orbits is not important since we will consider then the action of the Frobenius and thus all the points of $I_i$.
+\newline
+We define for $i$ in $\{0,\dots j\}$ the polynomials
+$\mathcal{T}_i$ and $\mathcal{L}_i$ as follows:
 \begin{itemize}
-\item $T_i= \prod_{R \in I_i} (x-x(R))$
-\item $L_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in I_i $ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
+\item $\mathcal{T}_i= \prod_{R \in \mathcal{I}_i} (x-x(R))$
+\item $\mathcal{L}_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in \mathcal{I}_i$ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
 \end{itemize}
 
-For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
-$T_i$ and $L_i$ as follows:
-\begin{itemize}
-\item $\mathcal{T}_i= \prod_{R \in I_i} (x-x(R))$
-\item $L_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in I_i $ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
-\end{itemize}
-
-
-For $i$ in $\{0,\dots \nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ we define the polynomials
-$\mathcal{T}_i$ and $\mathcal{A}_i$ as follows:
-\begin{itemize}
-\item $\mathcal{T}_i$ is the monic polynomial whose roots are the
-  abscissae of points of order $\ell^k$ which are representative of orbit of
-  order $o_i$ on the curve $E_1$ of  problem \ref{prob:isogeny-problem}; 
-  $\mathcal{T}_i=(\prod(x-x(P)), P \in E ))$
-  \todo{I am not sure this definition makes sense. Do we take all points 
-    of $\ell^k$ torsion bla-bla, or one representative per orbit?}
-    \todo{By the way, on which curve?} 
-\item $\mathcal{I}_i$ is the Lagrange interpolation polynomial that
-  interpolates abscissae of points of order $\ell^k$ which are representative of orbit of
-  order $o_j$ on the curve $E$ of  problem \ref{prob:isogeny-problem} on abscissae of points of the curve $E'$ respecting the interpolation mapping specified by $a$ and $b$. \todo{Does not make much sense. How do you choose which
-  point is sent to where? On which curves are the points? {\bf Be more precise.}}
-\end{itemize}
-
-\todo{I am not sure the notation / fonts are well-chosen. $T$ and $\mathcal{T}_j$
-vs $A$ and $\mathcal{I}_j$ is not looking good.}
 
 \begin{lem}
-  For $i$ in $\{0, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$, the
+  For $i$ in $\{0, \dots,j\}$, the
   polynomials $\mathcal{T}_i$ and $\mathcal{I}_i$ are defined over
-  $\mathbb{F}_{q^{o_i}}$ and of degree $d_i$. $d_i=\ell^{k-1}$ for $i$ in $\{1, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ and $d_0=\ell^{k-2}$.
+  $\mathbb{F}_{q^{o_i}}$ and of degree $d_i$. $d_i=\ell^{k-1+s}$ for $i$ in $\{1, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ and $d_0=\ell^{k-2+s}$.
 \end{lem}
 
 \begin{proof}
@@ -1005,14 +993,11 @@ vs $A$ and $\mathcal{I}_j$ is not looking good.}
   points of order $\ell^k$  which are representative of orbits of order $o_i$ under the Frobenius action  we then have $\mathcal{T}_i \in \mathbb{F}_{q^{o_i}}[x]$. The fact that we take representants of different orbits permtis us to conclude. We can apply the same reasoning for $\mathcal{I}_i$.\todo{Not clear, I don't understand
     (especially the ``because \dots'').} \todo{What about $I_j$?}
     \newline
-For $0 < i < \nu_{\ell}(o_A)-\nu_{\ell}(o_B)$ the set of points of order $o_i$ with respect to the Frobenius action is: 
-$\{ \ell^i c P + d Q \} $ with $P$ (resp. $Q$) points of order $\ell^k$ associated to the eigenvalue of order $o_A$ ($o_B$) with $c,d \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$. Thus this set is of size $\ell^{2k-2-i}$. Then we take each abscissa of representant of the orbits of order $o_i$, which gave us the size $\ell^{k-2}$
+For $0 < i < j$ the set $I_i$: is of size $\ell^{2k-2-i}$. Then to obtain $\mathcal{I}_i$ we take each abscissa of representant of the orbits of order $o_i$, which gave us the size $\ell^{k-2+s}$
 \newline
-For $i= 0 $ the set of points of order $o_i$ with respect to the Frobenius action is: 
-$\{ c P + d Q \}$ with $P$ (resp. $Q$) points of order $\ell^k$  associated to the eigenvalue of order $o_A$ ($o_B$) with $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)$ and $a \wedge \ell =1$. Thus this set is of size $\ell^{2k-1}$. Then we take each abscissa of representant of the orbits of order $o_A$, which gave us the size $\ell^{k-1}$
+The set $I_0$ is of size $\ell^{2k-1}$. Then we take each abscissa of representant of the orbits of order $o_A$, which gave us the size $\ell^{k-1+s}$ for $\mathcal{I}_0$
 \newline
-For $i= \nu_{\ell}(o_A)-\nu_{\ell}(o_B) $ the set of points of order $o_B$ with respect to the Frobenius action is: 
-$\{ \ell^i c P + d Q \}$ with $P$ (resp. $Q$) points of order $\ell^k$  associated to the eigenvalue of order $o_A$ ($o_B$) with $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)$ and $b \wedge \ell =1$. Thus this set is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscissa of representant of the orbits of order $o_B$, which gave us the size $\ell^{k-1}$    
+The set $I_j$ is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscissa of representant of the orbits of order $o_B$, which gave us the size $\ell^{k-1+s}$   for $\mathcal{I}_j$
 \end{proof}
 
 %Using the action of the Frobenius, we will then get the vanishing
@@ -1027,17 +1012,20 @@ Our aim is to deduce from the different polynomials $\mathcal{T}_i,
 \mathcal{I}_i$ the polynomials
 $$T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=1}^{o_i}\sigma^{t}(\mathcal{T}_i)$$ 
 and
-$$I= CRT(\sigma^{t}(\mathcal{I}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ 1,..,o_i \} )$$
+$$I= CRT(\sigma^{t}(\mathcal{L}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ 1,..,o_i \} )$$
+with $CRT$ the Chinese Remainder Theorem.
 
 \begin{prop}
-$T ,I $ are defined over $\mathbb{F}_q$ and of degree $3\ell^{2k-2}$. $T$ (resp. $I$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$).  
+$T ,L $ are defined over $\mathbb{F}_q$ and of degree $3\ell^{2k-2}$. $T$ (resp. $L$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$) according to the mapping coefficients $(a,b) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} ^* \right)^2$.  
 \end{prop}
 
 \begin{proof}
 $\sigma(T)=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=2}^{o_i+1}\sigma^{t}(\mathcal{T}_i)$
 since $\mathcal{T}_i \in \mathbb{F}_{q^{\ell^{o_i}}}$ then $\sigma^{o_i+1}(T)=\sigma(\sigma^{o_i}(T))=\sigma(T)$, thus we have $\sigma(T)=T$. We can apply the same reasoning for $I$.
 \newline
-Every point $P$ of order $\ell^k$ has by definition an order $o_B \leqslant o \leqslant o_A$, then either the abscissa of $P$ is a root of $\mathbb{T}_i$ either $P$ belongs to the orbit of a point which abscissa is a root of $\mathcal{T}_i$ since with the successive actions of the Frobenius we get all the entire orbit we will get the abscissa of $P$. The same demonstration can be done for $I$. We get the degree of $I$ and $T$ by counting the number of points of degree $\ell^k$ knowing that $E[\ell^{k}] \subset \mathbb{F}_{q^{\ell^k}}$.
+Every point $P$ of order $\ell^k$ has by definition an order $o_B \leqslant o \leqslant o_A$, then either the abscissa of $P$ is a root of $\mathcal{T}_i$ either $P$ belongs to the orbit of a point which abscissa is a root of $\mathcal{T}_i$ since with the successive actions of the Frobenius we get all the entire orbit we will get the abscissa of $P$. The same demonstration can be done for $I$. We get the degree of $I$ and $T$ by counting the number of points of degree $\ell^k$ knowing that $E[\ell^{k}] \subset \mathbb{F}_{q^{\ell^k}}$.
+\newline 
+Let $R=(cP+dQ)$ a point of order $\ell^k$, such that $R$ is a root of a $\mathcal{T}_i$ for $i \in \{ 0 ..j \} $ then  for every $t \in \{0..o_i \}$ by construction of $L$ we have  $L = \sigma^{t}(\mathcal{L}_i)  \bmod  \sigma^{t}(\mathcal{T}_i)$ thus  $=L(x(c\lambda^tP+d\mu^tQ))=L(\pi^t(x(R)))=\pi^t(L(x(R)))=\pi^t(x(caP'+dbQ'))=x(ca\lambda^tP'+db\mu^tQ')$. Since every point of order $\ell^k$ belongs to the orbit of one of the $\mathcal{T}_j$ we have $L$ that interpolates conformly with the mapping coefficients $a$ and $b$.
 \end{proof}
 
 \todo{Prove that these polynomials satisfy the requirements of the 
@@ -1103,21 +1091,20 @@ We won't compute $T$ and $I$ directly as in their definition. We will compute th
 
 Before giving the complexity analysis of this algorithm, we describe
 the cost of some basic operations used in it. The first result is
-Lemma~2.2 in~\cite{vzgathen+shoup92}. \todo{could we use
-  $\mathsf{M}(d)$ instead of $M(d)$?}  \todo{Is it wise to use $k$
+Lemma~2.2 in~\cite{vzgathen+shoup92}.  \todo{Is it wise to use $k$
   here? Isn't $k$ already fixed?}
 \todo{we don't need this before, by the way?}
 
-\begin{lem}\label{lemma:complexity_pol_mul}
+\begin{lem}\label{lemma:complexity_pol_mul} Let $t$ be an integer
   The cost of multiplying two polynomials of degree $n$ in
-  $\mathbb{F}_{q^{\ell^k}}[x] $ is $O(\mathsf{M}(\ell^kn))$ operations in
+  $\mathbb{F}_{q^{\ell^t}}[x] $ is $O(\mathsf{M}(\ell^tn))$ operations in
   $\mathbb{F}_q$.
 \end{lem}
 
-\begin{prop}
-The cost of the Chinese Remainder Theorem for two polynomials of
-degree $n$ of $\mathbb{F}_{q^{\ell^k}}[x] $ is of
-$O(\mathsf{M}(\ell^kn)\log(n))$ operations in $\mathbb{F}_q$.
+\begin{prop}Let $t$ be an integer,
+the cost of the Chinese Remainder Theorem for two polynomials of
+degree $n$ of $\mathbb{F}_{q^{\ell^t}}[x] $ is of
+$O(\mathsf{M}(\ell^tn)\log(n))$ operations in $\mathbb{F}_q$.
 \end{prop}
 
 \begin{proof}
@@ -1126,16 +1113,16 @@ We obtain this result by adapting the proof of the Theorem $11.5$ of \cite{vzGG}
 
 Since we can do some pre computation for the C.R.T. we have his cost that changes. 
 
-\begin{prop}
-For $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{j}}[x]$ of degree inferior to $n$ such that $U=0 \bmod T_A$, $U=1 \bmod T_B$ $V=1 \bmod T_A$, $V=0 \bmod T_B$ . The cost of $CRTs(A \bmod T_A,B\bmod T_B)$ is of $M(nj)$ on $\mathbb{F}_q$.
+\begin{prop}Let $t$ be an integer,
+for $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{t}}[x]$ of degree inferior to $n$ such that $U=0 \bmod T_A$, $U=1 \bmod T_B$ $V=1 \bmod T_A$, $V=0 \bmod T_B$ . The cost of $CRTs(A \bmod T_A,B\bmod T_B)$ is of $M(nt)$ on $\mathbb{F}_q$.
 \end{prop}
 
 \begin{prop}
-For $ o_{B} \leqslant o_j \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{I}_j$ of degree $d: \ell^{k-2}  \leqslant d \leqslant \ell^{k-1}$ in $\mathbb{F}_{q^{o_j}}$. 
+For $ o_{B} \leqslant o_i \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{L}_i$ of degree $d: \ell^{k-2+s}  \leqslant d \leqslant \ell^{k-1+s}$ in $\mathbb{F}_{q^{o_i}}$. 
 \newline
-For $\ell=2$ the cost of computing the different $\mathcal{T}_j,\mathcal{I}_j$ is of $O(\mathsf{M}(2^{k})\log(2^{k}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\frac{2^{2k}}{2^j})\log(2^{k}))$ in $\mathbb{F}_q$.
+For $\ell=2$ the cost of computing the different $\mathcal{T}_i,\mathcal{L}_j$ is of $O(\mathsf{M}(2^{k+s})\log(2^{k+s}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\frac{2^{2k}}{2^j})\log(2^{k}))$ in $\mathbb{F}_q$.
 \newline 
-For $\ell \neq 2$ the cost of computing the different $\mathcal{T}_j,\mathcal{I}_j$ is of $O(\mathsf{M}(\ell^{k})\log(\ell^{k}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\ell^{k})\mathsf{M}(\ell^{o_j}) \log(\ell^{o_j})\log(\ell^{k}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
+For $\ell \neq 2$ the cost of computing the different $\mathcal{T}_i,\mathcal{L}_j$ is of $O(\mathsf{M}(\ell^{k+s})\log(\ell^{k+s}))$ operations on $\mathbb{F}_{q^{o_j}}$, thus $O(\mathsf{M}(\ell^{k+s})\mathsf{M}(\ell^{o_j}) \log(\ell^{o_j})\log(\ell^{k+s}))$ in $\mathbb{F}_q$. %peut etre preciser ici que je me sers du papier de tours \ell adique de Luca Jawad et Eric
 \end{prop}
 
 \begin{proof}\todo{Regarder si cette preuve ne devient pas inutile avec la section 2}
