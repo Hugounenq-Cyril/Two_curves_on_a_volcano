@@ -644,28 +644,6 @@ extensions, quand elle sera écrite}
 % From this point we study the $\ell$ torsion points that are eigenvector for the Frobenius, thus we work in this section only with curves that are on the cyclic crater of a volcano (i.e. when $\left( \frac{d_K}{\ell} \right)=1$). We have to determine  the two eigenvalues of the Frobenius and $2$ points of $\ell^{h+1}$ order who are also eigenvector for the $2$ eigenvalues. First we describe an algorithm to compute the pre image of a point by the multiplication by $\ell$. Then we present an algorithm that computes recursively for $s=1$ to $s=k$ with $k>h$ a basis of the $\ell^s$ torsion with each generator a different eigenvector for the value $\lambda_1, \lambda_2 \bmod \ell^s$.
 %First we have to tell how we obtain such a basis and the eigenvalues
 
-%\begin{algorithm}
-%\caption{\label{ldivision}Compute the pre image of $Q$ by the multiplication by $\ell$.}
-%\begin{algorithmic}[5]
-%\REQUIRE  $E: y^2=h(x)$ such that $E[\ell] \subset E(\mathbb{F}_q)$ % a reformuler
-%\STATE $Q$: a point on $E$.
-%\ENSURE $Q_1$: a point on $E$ such that $\ell Q_1 = Q$.
-%\STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E $
-%\STATE Let $\phi_1: E → E_1$ be the isogeny with kernel~$P_1$.
-%\STATE Let~$\phi_2: E_1 → E$ be the isogeny with kernel~$\phi_1(P_2)$.
-% %\STATE $\phi_1  \gets \lbrace E\rightarrow \nicefrac{E}{P_1}=E_1 \rbrace $
-% %\STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
-%%\STATE $f(x) \gets \phi_2(x)[0]$
-%%\STATE $P_1(x)=ax^2+bx+c=0 \gets \phi_2(x)[0]=Q[0]$
-%\STATE $x_1 \gets \phi_2(x_1)[0]=Q[0] $
-%%\STATE $g(x) \gets \phi_1(x)[0]$
-%%\STATE $P_2(x)=a_2x^2+b_2x+c_2=0 \gets \phi_1(x)[0]=x_1$
-%\STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
-%%\STATE $h(x)  \gets E $
-%%\STATE $y_2 \gets y_2^2=h(x_2) $
-%\RETURN $Q_1 =(x_2,\sqrt{h(x_2)})$
-%\end{algorithmic}
-%\end{algorithm}
 
 %\begin{prop}
 %Algorithm $\ref{ldivision}$ computes a preimage of~$Q$ with a complexity
@@ -717,7 +695,7 @@ O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 \end{equation}
 
 \begin{algorithm}
-\caption{\label{alg:diagonal}Diagonalizing and computing the basis $(P,Q)$ of the $\ell^k$ torsion.}
+\caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
 \REQUIRE $(P_1, Q_1 )$: a basis of $E[\ell]$;
 $k$: an integer.
@@ -744,7 +722,7 @@ with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
 \STATE $h \leftarrow h+1$
 \ENDIF
 \ENDFOR
-\RETURN $(P_{i+1},Q_{i+1},λ,μ)$
+\RETURN $(P_{k},Q_{k},λ,μ)$
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}
@@ -844,24 +822,24 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \caption{ Example for the case $\ell=2$ } 
 \end{figure}
 \begin{algorithm}
-\caption{\label{alg:horizontal}Straightening $Q$ following the $\lambda_1$ direction}
+\caption{\label{alg:horizontal}Horizontalisation of $R$ following the $\lambda$ direction}
 \begin{algorithmic}[1]
 \REQUIRE $(P, Q)$: a diagonal basis of~$E[ℓ^{h+1}]$;\\
-$R$: a point of~$E[ℓ^k]$ such that
+$R$: a point of~$E$ of order $ℓ^k$ such that
 $ℓ^n R$~is horizontal of direction~$μ$ for some~$n ≤ k$.
 \ENSURE $E →^{ϕ_1} E_{1} … E_{n-1} →^{ϕ_n} E_n$:
 a chain of $n$ horizontal $ℓ$-isogenies of direction~$λ$;\\
-$R_n$: a horizontal point of~$E_{n}[ℓ^{k}]$ of direction~$μ$.
+$R_n$: a horizontal point of~$E_{n}$ of order $ℓ^k$ of direction~$μ$.
 \STATE $E_0 \gets E$; $(P_0, Q_0, R_0) \gets (P, Q, R)$
 \FOR{$i = 1$ to~$n$}
 \STATE $ϕ_i\gets $ isogeny with kernel ${ℓ^h P_{i-1}}$
-\STATE $Q_{i} \gets ϕ(Q_{i-1})$
-\STATE $P' \gets ϕ(P_{i-1})/ℓ$.
+\STATE $Q_{i} \gets ϕ_i(Q_{i-1})$
+\STATE $P' \gets ϕ_i(P_{i-1})/ℓ$.
 \STATE Write~$π(P') = λ P' + b Q_i$ for~$b ∈ ℤ/ℓℤ$ and
 let $P_{i} \gets P' - (b/μ) Q_i$.
-\STATE $R_i \gets ϕ(R_{i-1})$.
+\STATE $R_i \gets ϕ_i(R_{i-1})$.
 \ENDFOR
-\RETURN $R_n, \{ϕ_i,i \in \{1,..n\} \}$
+\RETURN $\{ϕ_1,..,ϕ_n\}, R_n $
 \end{algorithmic}
 \end{algorithm}
 % \begin{prop}%<<<
@@ -911,14 +889,13 @@ of degree up to~$ℓ^{k+h}$.
 Now that we have seen a way to determine a set of $\ell^{k}$ torsion points that generates horizontal $\ell^k$ isogenies, we have to show that this set is invariant under isogenies of degree prime to $\ell$.
 
 \begin{prop}
-For $\phi$: $E \rightarrow E'$ a $r$-isogeny  with $r \wedge \ell=1$ a prime, and $P$ a $\ell^i$ primitive torsion point, with $i>0$ such that $E \rightarrow E / \langle P \rangle $ is horizontal and $\pi(P)=\lambda_1P$. Then the isogeny  $E' \rightarrow E' / \langle \phi(P) \rangle$ is also horizontal.
+For $\psi$: $E \rightarrow E'$ a $r$-isogeny  with $r \wedge \ell=1$ a prime, and $P$ a point of order $\ell^i$, with $i>0$ such that $E \rightarrow E / \langle P \rangle $ is horizontal of direction $\lambda$. Then the isogeny $\phi_{\psi(P)}$ is also horizontal of direction $\lambda$.
 \end{prop}
 
 \begin{proof}
-We just have to prove that there exists a $\ell^{h+i}$ primitive torsion point $V$ dividing $\phi(P)$ such that $\pi(V)=\lambda_1V$.
-Since $P$ is a point that generates a horizontal isogeny then there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. Since $\phi$ is a $r$ isogeny then $\phi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\phi$ (because this one is defined on $\mathbb{F}_q$) then we have $\pi(\phi(R))=\lambda_1\phi(R)$ which proves the assertion.
+Since $P$ is a point that generates a horizontal isogeny then by \ref{prop:diagonal-horizontal} there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. As $\phi$ is a $r$ isogeny then $\psi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\phi$ (because $\psi$ is defined on $\mathbb{F}_q$) then we have $\pi(\phi(R))=\lambda\phi(R)$ we can conclude by \ref{prop:diagonal-horizontal}.
 \end{proof}
-
+%We just have to prove that there exists a point of order $\ell^{h+i}$:  $V$ dividing $\phi(P)$ such that $\pi(V)=\lambda V$.
 
 
 %%%%%%%%%%%%%%%
@@ -1387,6 +1364,31 @@ This implies that there exist bases of~$T_ℓ(E), T_ℓ(E')$
 in which $Φ_P$ has the matrix~$ℓ^n M_P^{-1}$.
 Therefore, the matrix of~$π' = π|T_ℓ(E)$
 is conjugated, over~$ℤ_ℓ$, to $M_P^{-1} . π · M_P$.
+
+\section{Algorithm of $\ell$ division}
+\begin{algorithm}
+\caption{\label{ldivision}Compute the pre image of $Q$ by the multiplication by $\ell$.}
+\begin{algorithmic}[5]
+\REQUIRE  $E: y^2=h(x)$ such that $E[\ell] \subset E(\mathbb{F}_q)$ % a reformuler
+\STATE $Q$: a point on $E$.
+\ENSURE $Q_1$: a point on $E$ such that $\ell Q_1 = Q$.
+\STATE $ \langle P_1,P_2 \rangle = E[\ell] \gets E $
+\STATE Let $\phi_1: E → E_1$ be the isogeny with kernel~$P_1$.
+\STATE Let~$\phi_2: E_1 → E$ be the isogeny with kernel~$\phi_1(P_2)$.
+ %\STATE $\phi_1  \gets \lbrace E\rightarrow \nicefrac{E}{P_1}=E_1 \rbrace $
+ %\STATE $\phi_2  \gets \lbrace E_1\rightarrow {E_1}/{\phi_1(P_2)}=E \rbrace $
+%\STATE $f(x) \gets \phi_2(x)[0]$
+%\STATE $P_1(x)=ax^2+bx+c=0 \gets \phi_2(x)[0]=Q[0]$
+\STATE $x_1 \gets \phi_2(x_1)[0]=Q[0] $
+%\STATE $g(x) \gets \phi_1(x)[0]$
+%\STATE $P_2(x)=a_2x^2+b_2x+c_2=0 \gets \phi_1(x)[0]=x_1$
+\STATE $x_2 \gets \phi_1(x_2)[0]=x_1  $
+%\STATE $h(x)  \gets E $
+%\STATE $y_2 \gets y_2^2=h(x_2) $
+\RETURN $Q_1 =(x_2,\sqrt{h(x_2)})$
+\end{algorithmic}
+\end{algorithm}
+
 
 \end{document}
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
