@@ -702,7 +702,7 @@ The cost of the $P/ℓ$ operation is therefore
 %\end{array}\right\rbrace}.
 %\end{equation}
 \begin{equation}\label{eq:div-by-l}
-\mathsf{R}(\ell)
+\mathsf{R}(k)
 \end{equation}
 
 
@@ -750,7 +750,7 @@ with a complexity of at most
 %\end{array}
 %\end{equation*}
 \begin{equation*}
-O(k(\mathsf{R}(\ell)+\mathsf{F}(i,0)))
+O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))
 \end{equation*}
 
 \end{prop}
@@ -763,12 +763,12 @@ The cost of Algorithm~\ref{alg:diagonal} is dominated
 by $k$~times the cost of the last execution of the loop in step~2.
 Inside this loop, computing the preimages in step~3 has a cost given in
 Equation~\ref{eq:div-by-l} above.
-Computing the Frobenius~$π(P)$ in step~4 has a cost of~$\cout{F}(q, ℓ^k)$;
-if $ℓ = 2$ then this is bounded~\cite[2.3]{DoSc12}
-by~$O(ℓ^k + \log q)$, and therefore dominated by the cost of step~3.
+Computing the Frobenius~$π(P)$ in step~4 has a cost of~$\mathsf{F}(k, 0)$;
+%if $ℓ = 2$ then this is bounded~\cite[2.3]{DoSc12} by~$O(ℓ^k + \log q)$, and therefore dominated by the cost of step~3.
 Writing~$π(P)$ as a linear combination~$α P + β Q$
-needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \cout{M}(ℓ^k)$.
-This is again negligible compared to step~3.
+needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \mathsf{M}(ℓ^k)$.
+This is %again 
+negligible compared to step~3.
 Finally, all steps after step~5 only involve field arithmetic.
 
 % 
@@ -871,7 +871,7 @@ Algorithm~\ref{alg:horizontal} is correct and has a complexity of
 %\end{array}
 %\end{equation*}
 \begin{equation*}
-O(k(\mathsf{R}(\ell)+\mathsf{F}(i,0)))
+O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))
 \end{equation*}
 \end{prop}
 % Algorithm~\ref{alg:horizontal} is correct and has a computational complexity for
@@ -913,11 +913,7 @@ For $\psi$: $E \rightarrow E'$ a $r$-isogeny  with $r \wedge \ell=1$ a prime, an
 \end{prop}
 
 \begin{proof}
-<<<<<<< HEAD
-Since $P$ is horizontal of direction $\lambda$ then by \ref{prop:diagonal-horizontal} there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. As $\psi$ is a $r$ isogeny then $\psi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\psi$ (because $\psi$ is defined on $\mathbb{F}_q$) then we have $\pi(\psi(R))=\lambda\psi(R)$ we can conclude by \ref{prop:diagonal-horizontal}.
-=======
-Since $P$ is a point that generates a horizontal isogeny then by \ref{prop:diagonal-horizontal} there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. As $\psi$ is a $r$ isogeny then $\psi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\psi$ (because $\psi$ is defined on $\mathbb{F}_q$) then we have $\pi(\psi(R))=\lambda\psi(R)$ we can conclude by \ref{prop:diagonal-horizontal}.
->>>>>>> b8ef4e66cb19b8b72998cead0a500981b033009d
+Since $P$ is a point that generates a horizontal isogeny then by \ref{prop:diagonal-horizontal} there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. As $\psi$ is a $r$ isogeny then $\psi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\psi$ (because $\psi$ is defined on $\mathbb{F}_q$) then we have $\pi(\psi(R))=\lambda\psi(R)$ we can conclude by \ref{alg:diagonal-horizontal}  .
 \end{proof}
 
 
@@ -1308,7 +1304,13 @@ For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the sh
  %c est exactement ce qui est fait dans ce papier...
   
  \subsection{Curves which are on the cyclic crater}
-  The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
+  The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
+\newline
+\todo{complete the complexity}
+ To compute an horizontal basis, first we have to compute a diagonalized basis. We compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O$%Cantor Zassenhauss dans F_1
+ Then we can use \ref{alg:diagonal} to compute a diagonal basis with a complexity of 
+\newline  
+  As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
  \begin{enumerate}
 \item Compute horizontal basis $P,Q$ and $P',Q'$ of
   $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $3\ell^{2k-2} > 4r$ \todo{preciser cette borne} ;
