@@ -1017,7 +1017,7 @@ As we consider a rational $r$ isogeny we have to compute an interpolation polyno
 \item it should respect the group law of the elliptic curve,
 \item it should be rational.
 \end{itemize}
-To respect the first point, with $(P,Q)$ a horizontal basis of $E[\ell^k]$ and $(P',Q')$ a horizontal basis of $E'[\ell^k]$, we have to get $L(x(P))=x(aP')$ with $a \in \mathbb{Z}/\ell^k \mathbb{Z}^*$, similarly we have to get $L(x(Q))=x(bQ')$ with $b \in \mathbb{Z}/\ell^k \mathbb{Z}^*$. $L$ should also respect the group law, thus we sould have for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$: $L(x(cP+dQ))=L(caP'+dbQ')$. Since the isogeny should be rational and we work with points defined in extension field, we should get  for every $c,d \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$ $L(x(\pi(cP+dQ))))=\pi(L(x(cP+dQ))))=x(\pi(caP'+dbQ'))$.
+To respect the first point, with $(P,Q)$ a horizontal basis of $E[\ell^k]$ and $(P',Q')$ a horizontal basis of $E'[\ell^k]$, we have to get $L(x(P))=x(aP')$ with $a \in \mathbb{Z}/\ell^k \mathbb{Z}^*$, similarly we have to get $L(x(Q))=x(bQ')$ with $b \in \mathbb{Z}/\ell^k \mathbb{Z}^*$. $L$ should also respect the group law, thus we sould have for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$: $L(x(cP+dQ))=L(x(caP'+dbQ'))$. Since the isogeny should be rational and we work with points defined in extension field, we should get  for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$ $L(x(\pi(cP+dQ))))=\pi(L(x(cP+dQ))))=x(\pi(caP'+dbQ'))$.
 \newline
 %In the following subsection the first two points will be taken care of in the choice of the mapping for the interpolation, the third will be taken into account with the construction of the interpolation polynomial.
 
@@ -1121,7 +1121,7 @@ We define for $i$ in $\{0,\dots j\}$ the polynomials
 $\mathcal{T}_i$ and $\mathcal{L}_i$ as follows:
 \begin{itemize}
 \item $\mathcal{T}_i= \prod_{R \in \mathcal{I}_i} (x-x(R))$
-\item $\mathcal{L}_i$ is the Lagrange interpolation polynomial that send: $x(\ell^i c P + d Q)$ on $x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in \mathcal{I}_i$ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the parameters for the interpolation mapping.
+\item $\mathcal{L}_i$ is the Lagrange interpolation polynomial such that: $\mathcal{L}_i(x(\ell^i c P + d Q))=x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in \mathcal{I}_i$ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the fixed parameters for the interpolation mapping.
 \end{itemize}
 
 
