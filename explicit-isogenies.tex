@@ -1152,10 +1152,10 @@ The set $I_j$ is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscis
 %different order after a Frobenius action. \todo{I don't understand}
 
 Our aim is to deduce from the different polynomials $\mathcal{T}_i,
-\mathcal{I}_i$ the polynomials
+\mathcal{L}_i$ the polynomials
 $$T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=1}^{o_i}\sigma^{t}(\mathcal{T}_i)$$ 
 and
-$$I= CRT(\sigma^{t}(\mathcal{L}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ 1,..,o_i \} )$$
+$$L= CRT(\sigma^{t}(\mathcal{L}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  t \in \{ 1,..,o_i \} )$$
 with $CRT$ the Chinese Remainder Theorem.
 
 \begin{prop}
@@ -1311,9 +1311,9 @@ The computational cost of the interpolation step is of $O(rM(r)\log(r))$ since t
 \subsection{Shape of the volcano and path to the crater}
 	\label{sub:shape-volcano}
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-  For the input curves we have to determine if the curves are on a volcano with cyclic crater. 
-  
-  For $\ell \neq 2$ we have to locate a curve on the crater and then look for  the length of $(\ell+1)$ descending paths on the volcano as described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
+One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
+  \newline
+  For $\ell \neq 2$ after determining a chain of $\ell$-isogeny to a curve on the crater we determine which kind of crater the curve is located on by looking for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, all those methods are described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
 \newline 
 For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
  %c est exactement ce qui est fait dans ce papier...
@@ -1322,19 +1322,19 @@ For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the sh
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
 \newline
 \todo{complete the complexity}
- First we compute $k$ such that $3\ell^{2k-2}>'r$. We compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(..)$.%Cantor Zassenhauss dans F_1
- Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. Using notations of algorithm \ref{alg:horizontal} we apply this one to $(P,Q,Q)$, we get then $(P_{k-h},Q_{k-h})$ a diagonal basis of $E_{k-h}[\ell^k]$ and a chain of $\ell$ isogeny of direction $\mu$, we then apply successively the isogenies of the chain on $P_{k-h}$ and we get in the end a horizontal point $P$ of $E$ of direction $\lambda$. We use a similar method to get $Q$ an horizontal point of $E$ of direction $\mu$. Thus the cost of computing an horizontal basis is the same as algorithm \ref{alg:horizontal}: $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$.  
+ First we compute $k$ such that $\frac{3}{2}\ell^{2k-2}>r$, then we compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(..)$.%Cantor Zassenhauss dans F_1
+ Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. Using notations of algorithm \ref{alg:horizontal} we apply this algorithm to $(P,Q,Q)$, we get then $(P_{k-h},Q_{k-h})$ a diagonal basis of $E_{k-h}[\ell^k]$ and a chain of $\ell$ isogeny of direction $\mu$, we then apply successively the isogenies of the chain on $P_{k-h}$ and we get in the end a horizontal point $P$ of $E$ of direction $\lambda$. We use a similar method to get $Q$ an horizontal point of $E$ of direction $\mu$. Thus the cost of computing an horizontal basis is the same as algorithm \ref{alg:horizontal}: $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$.  Now we can describe the entire algorithm for elliptic curves located on the cyclic crater of a volcano.
 \newline  
   As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
  \begin{enumerate}
 \item Compute horizontal basis $P,Q$ and $P',Q'$ of
-  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $3\ell^{2k-2} > 4r$ \todo{preciser cette borne} ;
-\item\label{alg:modif-couveignes:interp} Compute the interpolation
-  polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
-    with Sec.5)} sending $x(P)$ to $x(P')$ and $x(Q)$ to $x(Q')$, and the abscissas of
-  their scalar multiples accordingly;
+  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\frac{3}{2}\ell^{2k-2} > 4r$ \todo{preciser cette borne} ;
+\item\label{alg:modif-couveignes:interp} Choose $(a,b) \in (\mathbb{Z}/\ell^k\mathbb{Z}^*)^2$ and compute the interpolation
+  polynomial $L$ \todo{(verify that notation is consistent
+    with Sec.4)} sending $x(P)$ to $x(aP')$ and $x(Q)$ to $x(bQ')$, and the abscissas of
+  their scalar multiples of order $\ell^k$ accordingly;
 \item\label{alg:modif-couveignes:rational} Deduce a rational fraction
-  congruent to $\mathcal{A}$ modulo $T$, and verify that it
+  congruent to $L$ modulo $T$, and verify that it
   defines an isogeny of degree $r$. If it does, return it, otherwise
   replace $P',Q'$ with an other horizontal basis of $E'[\ell^k]$ and go back to
   Step~\ref{alg:orig-couveignes:interp}.
