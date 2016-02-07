@@ -909,7 +909,7 @@ of degree up to~$ℓ^{k+h}$.
 \subsection{Proof of the algorithm}
 Now that we have seen a way to determine a set of $\ell^{k}$ torsion points that generates horizontal $\ell^k$ isogenies, we have to show that this set is invariant under isogenies of degree prime to $\ell$.
 
-\begin{prop}
+\begin{prop} \label{prop:horizontal-invariance}
 For $\psi$: $E \rightarrow E'$ a $r$-isogeny  with $r \wedge \ell=1$ a prime, and $P$ a point of order $\ell^i$, with $i>0$ such that $P $ is horizontal of direction $\lambda$. Then $\psi(P)$ is also horizontal of direction $\lambda$.
 \end{prop}
 
@@ -1009,9 +1009,22 @@ Since~$(σ(f)) (x_i) = f(x_i)$ for all~$i$, $f$~has rational coefficients.
 
 \todo{\vrule height 1pt width 10cm}
 
-In this section we consider the abscissae of points of order $\ell^k$ and generators of horizontal isogenies on the two input curves of problem \ref{prob:isogeny-problem} on a cyclic crater of volcano of $\ell$ isogeny. We want to compute an interpolation polynomial $L$ defined on $\mathbb{F}_q[x]$, as like the $r$-isogeny, that interpolates the abscissas points of order $\ell^k$ defined in extension field of $\mathbb{F}_q$, to take advantage of this fact we will use techniques like in \todo{put reference to Enge and Morain} and the construction of extension fields \cite{DoSc12} \cite{DeDoSc13} . We want also that this interpolation polynomial respects the group law of the elliptic curve and more over that it respects the horizontal basis defined in the previous section as a rational $r$ isogeny should do \todo{put reference}.
+\subsection{Choice of the interpolation}
+We will compute the isogeny, working only with abscissae of points, we will denote by $x(P)$ the abscissa of the point $P$. 
+As we consider a rational $r$ isogeny we have to compute an interpolation polynomial $L$ with the same properties as the rational isogeny: 
+\begin{itemize}
+\item it should send an horizontal point of direction $\lambda$ on an other horizontal point of direction $\lambda$ as seen in \ref{prop:horizontal-invariance}, 
+\item it should respect the group law of the elliptic curve,
+\item it should be rational.
+\end{itemize}
+To respect the first point, with $(P,Q)$ a horizontal basis of $E[\ell^k]$ and $(P',Q')$ a horizontal basis of $E'[\ell^k]$, we have to get $L(x(P))=x(aP')$ with $a \in \mathbb{Z}/\ell^k \mathbb{Z}^*$, similarly we have to get $L(x(Q))=x(bQ')$ with $b \in \mathbb{Z}/\ell^k \mathbb{Z}^*$. $L$ should also respect the group law, thus we sould have for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$: $L(x(cP+dQ))=L(caP'+dbQ')$. Since the isogeny should be rational and we work with points defined in extension field, we should get  for every $c,d \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$ $L(x(\pi(cP+dQ))))=\pi(L(x(cP+dQ))))=x(\pi(caP'+dbQ'))$.
 \newline
- We consider the horizontal basis $(P,Q)$ of $E$ and $(P',Q')$ of $E'$ computed in the section \ref{sec:acti-frob-endm}, the interpolation polynomial $L$ has to respect the mapping $P \rightarrow aP'$ and $Q \rightarrow bQ'$ with $a,b \in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^*$ such that $L(x(cP+dQ))=x(caP+dbQ)$ for $c,d \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ with $c\wedge \ell=1$ or $d \wedge \ell =1$ and $x(P)$ which represents the abscissa of $P$. This mapping will respect the fact that an horizontal basis $(P,Q)$ is sent on an other horizontal basis $(P',Q')$, respecting the direction $\lambda, \mu$ of the horizontal $\ell^k$-isogeny as a rational $r$-isogeny should do. More over since $L$ should be rational we should have for every point $R$, $L(\pi(x(R))))=\pi(L(x(R))$ 
+%In the following subsection the first two points will be taken care of in the choice of the mapping for the interpolation, the third will be taken into account with the construction of the interpolation polynomial.
+
+\subsection{Computation of the interpolation}
+In this subsection we consider only the abscissae of points of order $\ell^k$, the same reasoning could be applied to points of lesser order, thus with notations of the previous subsection we have $c \wedge \ell =1$ or $d \wedge \ell =1$ 
+
+We want to compute an interpolation polynomial $L$ defined on $\mathbb{F}_q[x]$, as like the $r$-isogeny, that interpolates the abscissas points of order $\ell^k$ defined in extension field of $\mathbb{F}_q$, to take advantage of this fact we will use techniques like in \cite{enge+morain03} and the construction of extension fields \cite{DoSc12} \cite{DeDoSc13}. In this subsection when we consider an interpolation polynomial on points of $E$ of order $\ell^k$ it already take into account the mapping between the abscissas described in the previous subsection, and of course this mapping is fixed.
 \newline
 We now explain how to work efficiently in those extension fields to compute such a rational interpolation. 
 We state first a result on the order of the points under the action of the Frobenius.
