@@ -1011,7 +1011,7 @@ Since~$(σ(f)) (x_i) = f(x_i)$ for all~$i$, $f$~has rational coefficients.
 
 \subsection{Choice of the interpolation}
 We will compute the isogeny, working only with abscissae of points, we will denote by $x(P)$ the abscissa of the point $P$. 
-As we consider a rational $r$ isogeny we have to compute an interpolation polynomial $L$ with the same properties as the rational isogeny: 
+As we consider a rational $r$-isogeny we have to compute an interpolation polynomial $L$ with the same properties as the rational $r$-isogeny: 
 \begin{itemize}
 \item it should send an horizontal point of direction $\lambda$ on an other horizontal point of direction $\lambda$ as seen in \ref{prop:horizontal-invariance}, 
 \item it should respect the group law of the elliptic curve,
@@ -1019,6 +1019,10 @@ As we consider a rational $r$ isogeny we have to compute an interpolation polyno
 \end{itemize}
 To respect the first point, with $(P,Q)$ a horizontal basis of $E[\ell^k]$ and $(P',Q')$ a horizontal basis of $E'[\ell^k]$, we have to get $L(x(P))=x(aP')$ with $a \in \mathbb{Z}/\ell^k \mathbb{Z}^*$, similarly we have to get $L(x(Q))=x(bQ')$ with $b \in \mathbb{Z}/\ell^k \mathbb{Z}^*$. $L$ should also respect the group law, thus we sould have for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$: $L(x(cP+dQ))=L(x(caP'+dbQ'))$. Since the isogeny should be rational and we work with points defined in extension field, we should get  for every $(c,d) \in (\mathbb{Z}/\ell^k \mathbb{Z})^2$ $L(x(\pi(cP+dQ))))=\pi(L(x(cP+dQ))))=x(\pi(caP'+dbQ'))$.
 \newline
+\begin{defi} 
+We denote by $\sigma$ the action of the frobenius on coefficients of a polynomial. \todo{peut on la placer plus tot ? voir dans la section 1.2 ?}
+\end{defi}
+
 %In the following subsection the first two points will be taken care of in the choice of the mapping for the interpolation, the third will be taken into account with the construction of the interpolation polynomial.
 
 \subsection{Computation of the interpolation}
@@ -1046,7 +1050,7 @@ eigenvalues $\lambda , \mu \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ of the Frobenius
 $\ell^{k}$ torsion of the elliptic curve $E$.
 \newline
 We denote by $o_A=\max(o_{\lambda},o_{\mu})$ and $o_B=\min(o_{\lambda},o_{\mu})$.
-We will suppose without loss of generality that $P$ (resp. $Q$) has an eigenvalue $\lambda$ (resp. $\mu$) of order $o_A$ (resp. $o_B$) for the Frobenius, with $(P,Q)$ the horizontal basis computed in section \ref{sec:acti-frob-endm}.
+We suppose without loss of generality that $P$ (resp. $Q$) has an eigenvalue $\lambda$ (resp. $\mu$) of order $o_A$ (resp. $o_B$) for the Frobenius, with $(P,Q)$ the horizontal basis computed in section \ref{sec:acti-frob-endm}.
 \end{defi}
 
 \begin{prop}
@@ -1059,15 +1063,16 @@ $o_A=\max(o_{\lambda},o_{\mu}) = \ell^{k-s}$ and $o_B=\min(o_{\lambda},o_{\mu}) 
 
 %Let consider a point $P$ of order $\ell^{k+s}$ associated to $\max(o_{\lambda_1},o_{\lambda_2})$, then we will have by definition of $o_{\lambda_1}$ and $o_{\lambda_2}$: $\pi(P)^{\max(o_{\lambda_1},o_{\lambda_2})}=P$, as $P$ is a point of order $2^{k+h}$ by the proposition \ref{structelevation} he is defined at least in $\mathbb{F}_{q^{\ell^{k-j}}}$ and at most in $\mathbb{F}_{q^{\ell^k}}$ thus we have the results.
 %\todo{Fix this; not understandable, not a proof.}
- Let $P$ be a point of order $\ell^k$, by the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$ and by \ref{prop:degree-l-torsion} we have points defined in $\mathbb{F}_{q^{\ell^{k-j-s}}}$ , for those points we will have $\pi^{\ell^{k-j-s}}(P)=P$ and $\pi^{\ell^{k-j-s-1}}(P) \neq P$ otherwise they would be defined in $\mathbb{F}_{q^{\ell^{k-j-s-1}}}$ which would contradict the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$. We have points $P$ of order $\ell^k$ only defined in $\mathbb{F}_{q^{\ell^{k-s}}}$, for them we have $\pi^{\ell^{k-s}}(P)=P$ and $\pi^{\ell^{k-s-1}}(P) \neq P$ otherwise if would contradict the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$
+ %Let $P$ be a point of order $\ell^k$, by the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$ and by \ref{prop:degree-l-torsion} we have points defined in $\mathbb{F}_{q^{\ell^{k-j-s}}}$ , for those points we will have $\pi^{\ell^{k-j-s}}(P)=P$ and $\pi^{\ell^{k-j-s-1}}(P) \neq P$ otherwise they would be defined in $\mathbb{F}_{q^{\ell^{k-j-s-1}}}$ which would contradict the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$. We have points $P$ of order $\ell^k$ only defined in $\mathbb{F}_{q^{\ell^{k-s}}}$, for them we have $\pi^{\ell^{k-s}}(P)=P$ and $\pi^{\ell^{k-s-1}}(P) \neq P$ otherwise if would contradict the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$
+For points of order $\ell^k$ we have a diagonal matrix $D(\lambda, \mu)$ of $\pi|E[\ell^k]$ since these points $R$ are defined in $\mathbb{F}_{q^t}$ when $\pi^t(R)=R$,  with the structure of $E(\mathbb{F}_q)[\ell^{\infty}]$ we have the result.
 \end{proof}
 
 %For the rest of this section we will consider that $s=1$ to be in the worst case.\todo{What does this mean? It means that the worst case is when we have to work in high extension field to have the $\ell^k$ torsion defined}
 
 Since the isogeny we want to compute is rational and we work with
-points that are defined in extensions of the base field, we will work
+points that are defined in extensions of the base field, we work
 with points that are in different orbits under the action of the
-Frobenius. As the size of the orbits are not always the same, we will
+Frobenius. As the size of the orbits are not always the same, we 
 have to consider the different possible orders and combine them
 efficiently.
 
@@ -1124,32 +1129,27 @@ $\mathcal{T}_i$ and $\mathcal{L}_i$ as follows:
 \item $\mathcal{L}_i$ is the Lagrange interpolation polynomial such that: $\mathcal{L}_i(x(\ell^i c P + d Q))=x(\ell^i c aP' + d b Q')$ for every  $ \ell^i c P + d Q  \in \mathcal{I}_i$ and $a,b \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} \right)^{*}$ the fixed parameters for the interpolation mapping.
 \end{itemize}
 
-
 \begin{lem}
   For $i$ in $\{0, \dots,j\}$, the
   polynomials $\mathcal{T}_i$ and $\mathcal{I}_i$ are defined over
-  $\mathbb{F}_{q^{o_i}}$ and of degree $d_i$. $d_i=\ell^{k-1+s}$ for $i$ in $\{1, \dots,\nu_{\ell}(o_A)-\nu_{\ell}(o_B)\}$ and $d_0=\ell^{k-2+s}$.
+  $\mathbb{F}_{q^{o_i}}$ and of degree $d_i=\frac{\ell^{k-1+s}}{2}$ for $i$ in $\{1, \dots,j-1\}$ and $d_0=d_j=\frac{\ell^{k-2+s}}{2}$.
 \end{lem}
 
 \begin{proof}
-  Since $\mathcal{T}_i$ is a polynomial defined with abscissae of
-  points of order $\ell^k$  which are representative of orbits of order $o_i$ under the Frobenius action  we then have $\mathcal{T}_i \in \mathbb{F}_{q^{o_i}}[x]$. The fact that we take representants of different orbits permtis us to conclude. We can apply the same reasoning for $\mathcal{I}_i$.\todo{Not clear, I don't understand
-    (especially the ``because \dots'').} \todo{What about $I_j$?}
+Since $\mathcal{T}_i=\prod_{R \in \mathcal{I}_i}(x-x(R))$, we have for every $t \in \{1 .. o_i/\ell \}  \pi(t)(R) \not \in  \mathcal{I}_i $ thus $\sigma^t(\mathcal{T}_i) \neq \mathcal{T}_i$ since the $R \in \mathcal{I}_i$ are of order $o_i$ then we have $\sigma^{o_i}(\mathcal{T}_i)=\mathcal{T}_i$. We can apply the same reasoning for $\mathcal{L}_i$ since the mapping respect the order for the Frobenius\todo{should we explicit this somewhere ?} 
+ % Since $\mathcal{T}_i$ is a polynomial defined with abscissae of  points of order $\ell^k$  which are representative of orbits of order $o_i$ under the Frobenius action  we then have $\mathcal{T}_i \in \mathbb{F}_{q^{o_i}}[x]$. The fact that we take representants of different orbits permtis us to conclude. We can apply the same reasoning for $\mathcal{I}_i$.\todo{Not clear, I don't understand (especially the ``because \dots'').} \todo{What about $I_j$?}
     \newline
-For $0 < i < j$ the set $I_i$: is of size $\ell^{2k-2-i}$. Then to obtain $\mathcal{I}_i$ we take each abscissa of representant of the orbits of order $o_i$, which gave us the size $\ell^{k-2+s}$
+For $0 < i < j$ the set $I_i$: is of size $\ell^{2k-2-i}$. Then to obtain $\mathcal{I}_i$ we take each abscissa of representant of the orbits of order $o_i$, which gave us the size $\frac{\ell^{k-2+s}}{2}$
 \newline
-The set $I_0$ is of size $\ell^{2k-1}$. Then we take each abscissa of representant of the orbits of order $o_A$, which gave us the size $\ell^{k-1+s}$ for $\mathcal{I}_0$
+The set $I_0$ is of size $\ell^{2k-1}$. Then we take each abscissa of representant of the orbits of order $o_A$, which gave us the size $\frac{\ell^{k-1+s}}{2}$ for $\mathcal{I}_0$
 \newline
-The set $I_j$ is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscissa of representant of the orbits of order $o_B$, which gave us the size $\ell^{k-1+s}$   for $\mathcal{I}_j$
+The set $I_j$ is of size $\ell^{2k-1} \frac{o_B}{o_A}$. Then we take each abscissa of representant of the orbits of order $o_B$, which gave us the size $\frac{\ell^{k-1+s}}{2}$   for $\mathcal{I}_j$
 \end{proof}
 
 %Using the action of the Frobenius, we will then get the vanishing
 %(resp. interpolation) polynomials defined on all the orbit \todo{which
 %  orbit?}. To avoid any redundant Frobenius action we have to add a
 %different order after a Frobenius action. \todo{I don't understand}
-\begin{defi}
-We denote by $\sigma$ the action of the frobenius on coefficients of a polynomial.
-\end{defi}
 
 Our aim is to deduce from the different polynomials $\mathcal{T}_i,
 \mathcal{I}_i$ the polynomials
@@ -1159,14 +1159,14 @@ $$I= CRT(\sigma^{t}(\mathcal{L}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,..
 with $CRT$ the Chinese Remainder Theorem.
 
 \begin{prop}
-$T ,L $ are defined over $\mathbb{F}_q$ and of degree $3\ell^{2k-2}$. $T$ (resp. $L$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$) according to the mapping coefficients $(a,b) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} ^* \right)^2$.  
+$T ,L $ are defined over $\mathbb{F}_q$ and of degree $\frac{3}{2}\ell^{2k-2}$. $T$ (resp. $L$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$) according to the mapping coefficients $(a,b) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} ^* \right)^2$.  
 \end{prop}
 
 \begin{proof}
 $\sigma(T)=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=2}^{o_i+1}\sigma^{t}(\mathcal{T}_i)$
-since $\mathcal{T}_i \in \mathbb{F}_{q^{\ell^{o_i}}}$ then $\sigma^{o_i+1}(T)=\sigma(\sigma^{o_i}(T))=\sigma(T)$, thus we have $\sigma(T)=T$. We can apply the same reasoning for $I$.
+since $\mathcal{T}_i \in \mathbb{F}_{q^{\ell^{o_i}}}$ then $\sigma^{o_i+1}(T)=\sigma(\sigma^{o_i}(T))=\sigma(T)$, thus we have $\sigma(T)=T$. We can apply the same reasoning for $L$.
 \newline
-Every point $P$ of order $\ell^k$ has by definition an order $o_B \leqslant o \leqslant o_A$, then either the abscissa of $P$ is a root of $\mathcal{T}_i$ either $P$ belongs to the orbit of a point which abscissa is a root of $\mathcal{T}_i$ since with the successive actions of the Frobenius we get all the entire orbit we will get the abscissa of $P$. The same demonstration can be done for $I$. We get the degree of $I$ and $T$ by counting the number of points of degree $\ell^k$ knowing that $E[\ell^{k}] \subset \mathbb{F}_{q^{\ell^k}}$.
+Every point $P$ of order $\ell^k$ has by definition an order $o_B \leqslant o \leqslant o_A$, then either the abscissa of $P$ is a root of $\mathcal{T}_i$ either $P$ belongs to the orbit of a point which abscissa is a root of $\mathcal{T}_i$, since with the successive actions of the Frobenius we get all the entire orbit we will get the abscissa of $P$. The same demonstration can be done for $L$. We get the degree of $L$ and $T$ by counting the number of points of degree $\ell^k$ knowing that $E[\ell^{k}] \subset \mathbb{F}_{q^{\ell^k}}$ and dividing the result by $2$ since we work only with abscissas.
 \newline 
 Let $R=(cP+dQ)$ a point of order $\ell^k$, such that $R$ is a root of a $\mathcal{T}_i$ for $i \in \{ 0 ..j \} $ then  for every $t \in \{0..o_i \}$ by construction of $L$ we have  $L = \sigma^{t}(\mathcal{L}_i)  \bmod  \sigma^{t}(\mathcal{T}_i)$ thus  $=L(x(c\lambda^tP+d\mu^tQ))=L(\pi^t(x(R)))=\pi^t(L(x(R)))=\pi^t(x(caP'+dbQ'))=x(ca\lambda^tP'+db\mu^tQ')$. Since every point of order $\ell^k$ belongs to the orbit of one of the $\mathcal{T}_j$ we have $L$ that interpolates conformly with the mapping coefficients $a$ and $b$.
 \end{proof}
@@ -1181,7 +1181,7 @@ are necessarily satisfied by the polynomial $A$ we compute here.}
 %% using the combined actions of the Frobenius with Chinese Remainder
 %% techniques.
 
-We won't compute $T$ and $I$ directly as in their definition. We will compute them in a way at each step $i$ we consider all the polynomials defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^i}}}$ and use a combined action of the Frobenius and chinese remainder techniques to have a result defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^{i+1}}}}$
+We won't compute $T$ and $L$ directly as in their definition. We will compute them in a way at each step $i$ we consider all the polynomials defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^i}}}$ and use a combined action of the Frobenius and chinese remainder techniques to have a result defined in $\mathbb{F}_{q^{\frac{o_A}{\ell^{i+1}}}}$
   
 %We start by taking into account the greatest orbit with the
 %polynomials $\mathcal{I}_0$, $\mathcal{T}_0 \in
@@ -1213,22 +1213,23 @@ We won't compute $T$ and $I$ directly as in their definition. We will compute th
 %% At each step we obtain a new interpolation polynomial $A_j$ from the CRT of two other polynomials, we do some pre-computation to fasten the next CRT computation since the modulus do not change at each interpolation try of the algorithm.
 
 \begin{algorithm}
-\caption{\label{computingT2ir} Computing $I,T \in \mathbb{F}_q[x]$} 
-\begin{algorithmic}[5]
-\REQUIRE All the polynomials $\mathcal{T}_j, \mathcal{I}_j \in \mathbb{F}_{q^{o_j}}$ for $j \in [0, \nu_{\ell}(o_A)-\nu_{\ell}(o_B)]$. 
-\ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\sigma^{t}(\mathcal{T}_i)$ $I= CRT(\sigma^{t}(\mathcal{I}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  ,t \in \{ O,..,o_i \} ) \in \mathbb{F}_q[x]$
+\caption{\label{computingT2ir} Computing $L,T \in \mathbb{F}_q[x]$} 
+\begin{algorithmic}[1]
+\REQUIRE All the polynomials $\mathcal{T}_i, \mathcal{L}_i \in \mathbb{F}_{q^{o_i}}$ for $i \in [0, \nu_{\ell}(o_A)-\nu_{\ell}(o_B)]$. 
+\ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\sigma^{t}(\mathcal{T}_i)$, \\ 
+$L= CRT(\sigma^{t}(\mathcal{L}_i) \bmod \sigma^{t}(\mathcal{T}_i), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  ,t \in \{ O,..,o_i \} ) \in \mathbb{F}_q[x]$
 %\STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \sigma^{o_A/2}(\mathcal{T}_A),\sigma^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
-\STATE $\left( R,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRT \left( \sigma^{o_A/\ell}(\mathcal{I}_A) \bmod  \sigma^{o_A/\ell}(\mathcal{T}_A),\mathcal{I}_A \bmod \mathcal{T}_A \right)$
+\STATE $\left( L,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRT \left( \sigma^{o_A/\ell}(\mathcal{L}_A) \bmod  \sigma^{o_A/\ell}(\mathcal{T}_A),\mathcal{L}_A \bmod \mathcal{T}_A \right)$
 \FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\sigma(R)^{o_A/2^{1+r}} T_2=\sigma(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
-\STATE $\left( R , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(R) \bmod \sigma^{o_A/\ell^{1+r}}(T), R \bmod T \right) $ 
+\STATE $\left( L , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(L) \bmod \sigma^{o_A/\ell^{1+r}}(T), L \bmod T \right) $ 
 %\STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \sigma^{o_A/2^{1+r}}(\mathcal{T}_r), \sigma^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$  
-\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/\ell^{(r+1)}}}[x]  \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(\mathcal{I}_r) \bmod \sigma^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{I}_r \bmod \mathcal{T}_r, \right)$ 
-\STATE $\left( I,T \right) \gets CRT \left(B \bmod T_B, R \bmod T \right) $
+\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/\ell^{(r+1)}}}[x]  \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(\mathcal{L}_r) \bmod \sigma^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{L}_r \bmod \mathcal{T}_r, \right)$ 
+\STATE $\left( L,T \right) \gets CRT \left(B \bmod T_B, L \bmod T \right) $
 \ENDFOR
 \FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\sigma(R)^{o_B/2^{1+r}}, T2=\sigma(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
-\STATE $\left( I , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{(r+1)}}} \gets CRT \left( I \bmod T ,\sigma^{o_B/\ell^{1+r}}(R) \bmod \sigma^{o_B/\ell^{1+r}}(T) \right)$
+\STATE $\left( L , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{(r+1)}}} \gets CRT \left( L \bmod T ,\sigma^{o_B/\ell^{1+r}}(L) \bmod \sigma^{o_B/\ell^{1+r}}(T) \right)$
 \ENDFOR
-\RETURN $A,T$
+\RETURN $L,T$
 \end{algorithmic}
 \end{algorithm}
 
