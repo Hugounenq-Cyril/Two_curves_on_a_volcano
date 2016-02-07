@@ -1213,7 +1213,7 @@ We won't compute $T$ and $L$ directly as in their definition. We will compute th
 %% At each step we obtain a new interpolation polynomial $A_j$ from the CRT of two other polynomials, we do some pre-computation to fasten the next CRT computation since the modulus do not change at each interpolation try of the algorithm.
 
 \begin{algorithm}
-\caption{\label{computingT2ir} Computing $L,T \in \mathbb{F}_q[x]$} 
+\caption{\label{alg:computingLT} Computing $L,T \in \mathbb{F}_q[x]$} 
 \begin{algorithmic}[1]
 \REQUIRE All the polynomials $\mathcal{T}_i, \mathcal{L}_i \in \mathbb{F}_{q^{o_i}}$ for $i \in [0, \nu_{\ell}(o_A)-\nu_{\ell}(o_B)]$. 
 \ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\sigma^{t}(\mathcal{T}_i)$, \\ 
@@ -1234,16 +1234,17 @@ $L= CRT(\sigma^{t}(\mathcal{L}_i) \bmod \sigma^{t}(\mathcal{T}_i), i\in \{ 0,..,
 \end{algorithm}
 
 Before giving the complexity analysis of this algorithm, we describe
-the cost of some basic operations used in it. The first result is
-Lemma~2.2 in~\cite{vzgathen+shoup92}.  \todo{Is it wise to use $k$
-  here? Isn't $k$ already fixed?}
-\todo{we don't need this before, by the way?}
-
-\begin{lem}\label{lemma:complexity_pol_mul} Let $t$ be an integer
-  The cost of multiplying two polynomials of degree $n$ in
-  $\mathbb{F}_{q^{\ell^t}}[x] $ is $O(\mathsf{M}(\ell^tn))$ operations in
-  $\mathbb{F}_q$.
-\end{lem}
+the cost of some basic operations used in it. 
+%The first result is
+%Lemma~2.2 in~\cite{vzgathen+shoup92}.  \todo{Is it wise to use $k$
+%  here? Isn't $k$ already fixed?}
+%\todo{we don't need this before, by the way?}
+%Lemme devenu redondant avecla section 2
+%\begin{lem}\label{lemma:complexity_pol_mul} Let $t$ be an integer
+%  The cost of multiplying two polynomials of degree $n$ in
+%  $\mathbb{F}_{q^{\ell^t}}[x] $ is $O(\mathsf{M}(\ell^tn))$ operations in
+%  $\mathbb{F}_q$.
+%\end{lem}
 
 \begin{prop}Let $t$ be an integer,
 the cost of the Chinese Remainder Theorem for two polynomials of
@@ -1260,6 +1261,18 @@ Since we can do some pre computation for the C.R.T. we have his cost that change
 \begin{prop}Let $t$ be an integer,
 for $A, T_A,B, T_B,U,V \in \mathbb{F}_{q^{t}}[x]$ of degree inferior to $n$ such that $U=0 \bmod T_A$, $U=1 \bmod T_B$ $V=1 \bmod T_A$, $V=0 \bmod T_B$ . The cost of $CRTs(A \bmod T_A,B\bmod T_B)$ is of $M(nt)$ on $\mathbb{F}_q$.
 \end{prop}
+
+\begin{lem}
+The polynomial $T$ at the step $5$ of the algorithm \ref{alg:computingLT} and at the $r$th iteration is of degree: $ba$. The polynomial $T$ at the step $8$ of the algorithm \ref{alg:computingLT} and at the $r$th iteration is of degree: $ba$.
+\end{lem}
+
+\begin{proof}\todo{en cours, donc a finir..}
+At the end of step $1$ we got a polynomial $T$ of degree $2\frac{\ell^{k-2+s}}{2}$. The degree of the polynomial $T$ at the step $5$ of the algorithm and at the $r$-th iteration is $2^r\ell^{k-2+s}+\frac{\ell^{k-1+s}}{2}\sum_{i=1}^r2^i$.
+\newline
+After $j-1$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\ell^{k-2+s}(2^{j-1}+\ell(2^{j}-1))$. After $j$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\ell^{k-2+s}(2^{j-1}+\ell(2^{j}-1))$
+\newline
+After $\nu_l(o_B)-1=k-j-s-1$ iterations of step $7-9$ the polynomial $T$ is of degree...
+\end{proof}
 
 \begin{prop}
 For $ o_{B} \leqslant o_i \leqslant o_{A}$ we have $\mathcal{T}_j$ and $\mathcal{L}_i$ of degree $d: \ell^{k-2+s}  \leqslant d \leqslant \ell^{k-1+s}$ in $\mathbb{F}_{q^{o_i}}$. 
@@ -1322,7 +1335,7 @@ For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the sh
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
 \newline
 \todo{complete the complexity}
- First we compute $k$ such that $\frac{3}{2}\ell^{2k-2}>r$, then we compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(..)$.%Cantor Zassenhauss dans F_1
+ First we compute $k$ such that $\frac{3}{2}\ell^{2k-2}>r$, then we compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$ with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
  Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. Using notations of algorithm \ref{alg:horizontal} we apply this algorithm to $(P,Q,Q)$, we get then $(P_{k-h},Q_{k-h})$ a diagonal basis of $E_{k-h}[\ell^k]$ and a chain of $\ell$ isogeny of direction $\mu$, we then apply successively the isogenies of the chain on $P_{k-h}$ and we get in the end a horizontal point $P$ of $E$ of direction $\lambda$. We use a similar method to get $Q$ an horizontal point of $E$ of direction $\mu$. Thus the cost of computing an horizontal basis is the same as algorithm \ref{alg:horizontal}: $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$.  Now we can describe the entire algorithm for elliptic curves located on the cyclic crater of a volcano.
 \newline  
   As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
@@ -1344,7 +1357,7 @@ For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the sh
 The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$ isogeny is for $\ell=2$ of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
 \end{prop}
 
-\begin{proof}
+\begin{proof}%refaire ça avec les notations de Luca
 The cost of computing horizontal basis is for $\ell=2$ of $O((\log(r)^2+\log(r)\log(q))M(\sqrt{r}))$ in $\mathbb{F}_q$, for $\ell \neq 2$ it is of $O(\sqrt{r}\log(q)M(\sqrt{r})\log(r)^2 \log(\ell)^{-1}+kF(q,\ell^k))$ in $\mathbb{F}_q$.
 The cost of computing an interpolation polynomial is for $\ell=2$ of $O(M(r)\log(r))$, for $\ell \neq 2$ it is of $O(M(r)\log(r)+rF(q,\ell^k))$ . The rational reconstruction is done in $O(M(r)\log(r))$ operations in $\mathbb{F}_q$. In average we have to repeat this step $O(\ell^{2k})=O(r)$ times. 
 Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
