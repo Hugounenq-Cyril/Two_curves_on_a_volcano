@@ -1012,7 +1012,7 @@ In this paragraph, we adapt De Feo's algorithm to our context, in a straightforw
 use a cyclotomic-something tower.}
 
 
-\todo{The following should be somewhere else.}
+
 \begin{lem}\label{lemma:frob-ell}
   Let $a$ be in $\F_{q^{\ell^e}}$, and suppose that $\F_{q^{\ell^e}}$
   is represented as XXX. For any integer $v$, we can compute
@@ -1071,7 +1071,7 @@ subproduct tree techniques, as in~\cite[Chapter~10]{vzGG}.
 %\end{lem}
 
 
-\begin{lem}
+\begin{lem} \label{lemma:mul-pol}
   Let $R_1,\dots,R_s$ pairwise coprime polynomials in
   $\F_{q^{\ell^\mu}}[x]$, with sum of degree $t$. Then one can compute the
   polynomial $R=R_1 \cdots R_s$
@@ -1161,6 +1161,26 @@ holds for all pairs $(c,d) \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ for
 which either $c$ or $d$ is coprime with $\ell$, in which case $cP+dQ$
 and $acP'+dbQ'$ have order $\ell^k$; here, $x(P)$ denotes the abscissa
 of a point $P$.  
+\newline
+\begin{prop}
+The points of order $\ell^k$ of $E$ are of order $\ell^{\beta+k}=o_j  \leqslant o_i \leqslant o_0=  \ell^{\alpha+k} $ for the Frobenius action according to the structure of $E[\ell^\infty](\mathbb{F}_k)$.
+\newline
+Moreover the sets of representant of points of order $o_i$ are of size $\frac{\ell^2k-2}{\ell^{\alpha+k}}$ for $i \in \{1,..,j-1\}$ and of size $\frac{\ell^{2k-1}}{\ell^{\alpha+k}}$ for $i=0$ and $i=j$.
+\end{prop}
+The computations of representants of the different orbits is done working only with indexes in $(\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$ of the basis $(P,Q)$. Once we have the indexes we compute the corresponding points. Since there is $O(\ell^k)$ points of different orbits we can state the following result:
+
+\begin{prop}
+The cost of computings the different representatives of orbits is $O(\ell^kM(\ell^k))$.
+\end{prop}
+Now we can apply the results of the preceding subsection to compute for each representative of orbits of order $o_i$ their interpolation polynomial associated in $O(\log(o_i)M(o_i))$ operations on $\mathbb{F}_q$ for $i \in \{0,..,j\}$. We can then recombine all those results using Chinese Remainder Theorem. We can notice also that the modulus for the Chinese Remainder Theorem do not depend of the choices of the coefficients $(a,b) \in (\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$, thus we can use this to speed up the next occurrences of the CRT by doing precomputation for the inverse of the modulus in the CRT, we will state two complexity analysis for the CRT .
+
+\begin{prop}
+The cost of the Frobenius for the first occurence is of $O(M(\ell^{2k})\log(\ell^{2k}))$ operations in $\mathbb{F}_q$. For the next occurences the cost is of $O(M(\ell^{2k})\log(\ell^{k}))$ operations in $\mathbb{F}_q$.
+\end{prop}
+
+\begin{proof}
+The first assertion comes from the fact that there is $\ell^{2k-2}\frac{\ell^2-1}{\ell^2}$ points of order $\ell^k$ and we work with polynomials in $\mathbb{F}_q[x]$. The second one comes from the fact that we have $O(\ell^k)$ representatives of orbits, we conclude by lemma \ref{lemma:mul-pol}
+\end{proof}
 
 \todo{Do it by splitting the set of $\ell^k$ torsion into orbits for
   the Frobenius. Each orbit can be handled in quasi-linear time using
