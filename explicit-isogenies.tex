@@ -1159,7 +1159,7 @@ $$L= CRT(\sigma^{t}(\mathcal{L}_j) \bmod \sigma^{t}(\mathcal{T}_j), i\in \{ 0,..
 with $CRT$ the Chinese Remainder Theorem.
 
 \begin{prop}
-$T ,L $ are defined over $\mathbb{F}_q$ and of degree $\frac{3}{2}\ell^{2k-2}$. $T$ (resp. $L$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$) according to the mapping coefficients $(a,b) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} ^* \right)^2$.  
+$T ,L $ are defined over $\mathbb{F}_q$ and of degree $\frac{\ell^2-1}{2\ell^2}\ell^{2k-2}$. $T$ (resp. $L$) vanishes (resp. interpolates) on all the abscissas of point of order $\ell^k$ of the curve $E$ (resp. of the curve $E$ on $E'$) according to the mapping coefficients $(a,b) \in \left( \mathbb{Z}/ \ell^k \mathbb{Z} ^* \right)^2$.  
 \end{prop}
 
 \begin{proof}
@@ -1219,15 +1219,15 @@ We won't compute $T$ and $L$ directly as in their definition. We will compute th
 \ENSURE $T=\prod_{i=0}^{\nu_{\ell}(o_A)-\nu_{\ell}(o_B)}\prod_{t=0}^{o_i}\sigma^{t}(\mathcal{T}_i)$, \\ 
 $L= CRT(\sigma^{t}(\mathcal{L}_i) \bmod \sigma^{t}(\mathcal{T}_i), i\in \{ 0,.., \nu_{\ell}(o_A)-\nu_{\ell}(o_B) \}  ,t \in \{ O,..,o_i \} ) \in \mathbb{F}_q[x]$
 %\STATE \textit{Compute} $\mathcal{A}_A$ %\STATE $\left( \sigma^{o_A/2}(\mathcal{T}_A),\sigma^{o_A/2}(\mathcal{A}_A) \right) \gets \left( \mathcal{T}_A,\mathcal{A}_A \right) \in \mathbb{F}_q^{o_A}[x]$
-\STATE $\left( L,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRT \left( \sigma^{o_A/\ell}(\mathcal{L}_A) \bmod  \sigma^{o_A/\ell}(\mathcal{T}_A),\mathcal{L}_A \bmod \mathcal{T}_A \right)$
+\STATE $\left( L,T \right) \in \mathbb{F}_{q^{o_A/\ell}}[x] \gets CRT \left( \sigma^{t(o_A/\ell)}(\mathcal{L}_A) \bmod  \sigma^{t(o_A/\ell)}(\mathcal{T}_A),t \in \{0, \dots, \ell-1\} \right)$
 \FOR{$r=1$ to $\nu_\ell(\frac{o_{A}}{o_{B}})$}%\STATE $\left( R_2=\sigma(R)^{o_A/2^{1+r}} T_2=\sigma(T)^{o_A/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$
-\STATE $\left( L , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(L) \bmod \sigma^{o_A/\ell^{1+r}}(T), L \bmod T \right) $ 
+\STATE $\left( L , T \right) \in \mathbb{F}_{q^{o_A/(\ell^{r+1})}}[x] \gets CRT \left( \sigma^{t(o_A/\ell^{1+r})}(L) \bmod \sigma^{t(o_A/\ell^{1+r})}(T), t \in \{0, \dots, \ell-1\} \right) $ 
 %\STATE \textit{Compute} $\mathcal{A}_r$%\STATE $\left( \sigma^{o_A/2^{1+r}}(\mathcal{T}_r), \sigma^{o_A/2^{1+r}}(\mathcal{A}_r) \right) \gets \left( \mathcal{T}_r , \mathcal{A}_r \right) \in \mathbb{F}_{q^{o_A/(2^r)}}$  
-\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/\ell^{(r+1)}}}[x]  \gets CRT \left( \sigma^{o_A/\ell^{1+r}}(\mathcal{L}_r) \bmod \sigma^{o_A/\ell^{1+r}} (\mathcal{T}_r),\mathcal{L}_r \bmod \mathcal{T}_r, \right)$ 
+\STATE $\left( B,T_B \right)\in \mathbb{F}_{q^{o_A/\ell^{(r+1)}}}[x]  \gets CRT \left( \sigma^{t(o_A/\ell^{1+r})}(\mathcal{L}_r) \bmod \sigma^{t(o_A/\ell^{1+r})} (\mathcal{T}_r),t \in \{0, \dots, \ell-1\} \right)$ 
 \STATE $\left( L,T \right) \gets CRT \left(B \bmod T_B, L \bmod T \right) $
 \ENDFOR
 \FOR{$r=1$ to $\nu_\ell(o_B)-1$}%\STATE $\left( R_2=\sigma(R)^{o_B/2^{1+r}}, T2=\sigma(T)^{o_B/2^{1+r}} \right) \gets \left( R,T \right) \in \mathbb{F}_{q^{o_B/(2^r)}} $
-\STATE $\left( L , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{(r+1)}}} \gets CRT \left( L \bmod T ,\sigma^{o_B/\ell^{1+r}}(L) \bmod \sigma^{o_B/\ell^{1+r}}(T) \right)$
+\STATE $\left( L , T \right)\in \mathbb{F}_{q^{o_B/(\ell^{(r+1)}}} \gets CRT \left( \sigma^{t(o_B/\ell^{1+r})}(L) \bmod \sigma^{t(o_B/\ell^{1+r})}(T), t \in \{0, \dots, \ell-1\} \right)$
 \ENDFOR
 \RETURN $L,T$
 \end{algorithmic}
@@ -1267,9 +1267,9 @@ The polynomial $T$ at the step $5$ of the algorithm \ref{alg:computingLT} and at
 \end{lem}
 
 \begin{proof}\todo{en cours, donc a finir..}
-At the end of step $1$ we got a polynomial $T$ of degree $2\frac{\ell^{k-2+s}}{2}$. The degree of the polynomial $T$ at the step $5$ of the algorithm and at the $r$-th iteration is $2^r\ell^{k-2+s}+\frac{\ell^{k-1+s}}{2}\sum_{i=1}^r2^i$.
+At the end of step $1$ we got a polynomial $T$ of degree $\frac{\ell^{k+s}}{2}$. The degree of the polynomial $T$ at the step $5$ of the algorithm and at the $r$-th iteration is $\frac{\ell^{k+s-2}}{2}(\ell^{r+2}+\sum_{i=1}^r\ell^i$).
 \newline
-After $j-1$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\ell^{k-2+s}(2^{j-1}+\ell(2^{j}-1))$. After $j$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\ell^{k-2+s}(2^{j-1}+\ell(2^{j}-1))$
+After $j-1$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\frac{\ell^{k+s-2}}{2}(\ell^{j+1}+\frac{\ell^{j}-\ell}{\ell-1})$. After $j$ iterations of step $2-6$ of algorithm \ref{alg:computingLT} the degree of $T$ is $\frac{\ell^{k+s-1}}{2}(\ell^{j+1}+\frac{\ell^{j}-\ell}{\ell-1}+\ell)$
 \newline
 After $\nu_l(o_B)-1=k-j-s-1$ iterations of step $7-9$ the polynomial $T$ is of degree...
 \end{proof}
