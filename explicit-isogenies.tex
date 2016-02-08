@@ -210,14 +210,17 @@ its group of $n$-torsion points is denoted by~$E[n]$, its
 $q$-Frobenius automorphism by~$π$.  The endomorphism ring of $E$ is
 denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
 number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
-discriminant of~$\mathcal O_K$.  For a prime~$ℓ$ different from~$p$
-and not dividing~$r$, we denote by~$T_ℓ(E) = \varprojlim E[ℓ^n]$ the
-$ℓ$-adic Tate module~\cite[III.7]{Sil}, which is free of rank~two
-over~$ℤ_ℓ$.  The factorization of the characteristic polynomial of~$π$
-in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.  If
-$(d_K/ℓ) = +1$ then we also define $λ,μ$ as the eigenvalues of~$π$
-in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$, where $v_ℓ$ is the $ℓ$-adic
-valuation.
+discriminant of~$\mathcal O_K$.
+For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
+we denote by~$E[ℓ^n]$ the group of $ℓ^n$-torsion points of~$E$,
+$E[ℓ^{∞}] = \varinjlim E[ℓ^n]$ the reunion of all $E[ℓ^n]$,
+and $T_ℓ(E) = \varprojlim E[ℓ^n]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
+which is free of rank~two over~$ℤ_ℓ$.
+The factorization of the characteristic polynomial of~$π$
+in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
+If $(d_K/ℓ) = +1$ then we also define $λ,μ$ as
+the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
+where $v_ℓ$ is the $ℓ$-adic valuation.
 
 We measure all computational complexities in terms of operations in
 $\mathbb{F}_q$, we use the \emph{big-Oh} notation $O()$ to express
@@ -547,8 +550,9 @@ it allows us to compute a horizontal point of order~$ℓ^{n+1}$.
 
 \begin{prop}\label{prop:push-horizontal}
 Let~$ψ: E → E'$ be a horizontal $ℓ$-isogeny with direction~$λ$.
-For any point~$Q$ such that~$ℓ · Q$ is horizontal with direction~$μ$,
-$ψ(Q)$ is horizontal with direction~$μ$.
+For any point~$Q ∈ E[ℓ^∞]$,
+if $ℓ · Q$~is horizontal with direction~$μ$,
+then $ψ(Q)$ is horizontal with direction~$μ$.
 \end{prop}
 \begin{proof}
 Let~$Q' = ψ(Q)$ and~$\widehat{ψ}$ be the isogeny dual to~$ψ$.
@@ -560,28 +564,32 @@ with direction~$μ$, $Q'$~is also horizontal.
 As another simple consequence of Proposition~\ref{prop:matrice-frobenius},
 we may bound the degree of extensions containing points of $ℓ^n$-torsion.
 \begin{prop}\label{prop:degree-l-torsion}
-  Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$. For any~$n$, let~$F_n$
-  be the smallest field extension of $\F_q$ such that all the points
-  of~$E[ℓ^n]$ are rational over~$F_n$.  Then:
+  Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
+For any~$n$, let~$F_n$ be the smallest field extension of $\F_q$
+such that all the points of~$E[ℓ^n]$ are rational over~$F_n$,
+and~$d_n = [F_n:\F_q]$. Then:
 \begin{enumerate}
-\item $d$ divides $[F₁:F₀]$, and $[F₁:F₀]$ divides~$(ℓ-1)$;
-\item there exists a constant~$c ≥ 1$ such that $[F_n:F₁] = ℓ^{n-c}$
-  for all~$n ≥ c$.
+\item $d$ divides $d_1$, and $d_1$ divides~$(ℓ-1)$;
+\item Let~$α = v_ℓ(λ^{d_1}-1)$ and~$β = v_{ℓ} (μ^{d_1}-1)$.
+For any integer~$n$, the group $E[ℓ^∞](\F_{q^{ℓ^n · d_1}})$
+is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n + β} ℤ)$.
+\item Assume~$α ≥ β$. Then for all~$n ≥ β$, $d_n = ℓ^{n-β} d_1$.
 \end{enumerate}
 \todo{Isn't it true that $d=[F₁:F₀]$ in the Elkies case? Can't we make
   the constant $c$ explicit?}
 \end{prop}
 \begin{proof}
-The degree~$[F_n:F₀]$ is exactly the order of the matrix~$π|E[ℓ^n]$.
+The degree~$d_n$ is exactly the order of the matrix~$π|E[ℓ^n]$.
 It is therefore the least common multiple of the multiplicative orders
 of~$λ, μ$ modulo~$ℓ^n$.
 We conclude using the multiplicative structure of~$(ℤ/ℓ^n ℤ)^×$, and the fact
 that $λμ=q$.
+Note that in general $d ≠ d_1$, as for example for the case
+of~$π^2 - π + 29 = 0$ and~$ℓ = 7$.
 % To conclude we use the canonical decomposition:
 % $(ℤ/ℓ^nℤ)^× = (ℤ/ℓℤ)^× × (ℤ/ℓ^{n-1} ℤ)$ for~$ℓ ≠ 2$,
 % and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
 \end{proof}
-
 
 \begin{prop}\label{prop:isogenie-premiere}
 Let~$ψ: E → E'$ be an isogeny of degree~$r$ prime to~$ℓ$.
@@ -905,18 +913,6 @@ but that would require computing in an extension
 of degree up to~$ℓ^{k+h}$.
 
 %Algorithme necessaire, surement pour enfoncer le clou...
-
-\subsection{Proof of the algorithm}
-Now that we have seen a way to determine a set of $\ell^{k}$ torsion points that generates horizontal $\ell^k$ isogenies, we have to show that this set is invariant under isogenies of degree prime to $\ell$.
-
-\begin{prop} \label{prop:horizontal-invariance}
-For $\psi$: $E \rightarrow E'$ a $r$-isogeny  with $r \wedge \ell=1$ a prime, and $P$ a point of order $\ell^i$, with $i>0$ such that $P $ is horizontal of direction $\lambda$. Then $\psi(P)$ is also horizontal of direction $\lambda$.
-\end{prop}
-
-\begin{proof}
-Since $P$ is a point that generates a horizontal isogeny then by \ref{prop:diagonal-horizontal} there exists a point $R$ of order $\ell^{h+i}$ dividing $P$. As $\psi$ is a $r$ isogeny then $\psi$ doesn't change the order of $P$ and $R$, moreover the frobenius commutes with $\psi$ (because $\psi$ is defined on $\mathbb{F}_q$) then we have $\pi(\psi(R))=\lambda\psi(R)$ we can conclude by \ref{alg:diagonal-horizontal}  .
-\end{proof}
-
 
 
 %%%%%%%%%%%%%%%
