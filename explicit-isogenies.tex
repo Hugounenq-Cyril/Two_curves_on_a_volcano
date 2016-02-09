@@ -224,7 +224,7 @@ the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
 where $v_ℓ$ is the $ℓ$-adic valuation.
 
 We measure all computational complexities in terms of operations in
-$\mathbb{F}_q$, we use the \emph{big-Oh} notation $O()$ to express
+$\mathbb{F}_q$, we use the Landau notation $O()$ to express
 asymptotic complexities, and the notation $\tildO()$ to neglect
 polylogarithmic factors.  We let $\MM(n)$ be a function such that
 polynomials in $\F_q[X]$ of degree less than $n$ can be multiplied
@@ -236,12 +236,35 @@ $\MM(n)∈ O(n\log n\loglog n)$.
 
 The algorithms presented next operate on elements defined in finite
 extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
-fields $\F_q=F₀⊂F₁⊂\cdots⊂F_k$ with $[F₁:F₀]$ dividing $ℓ-1$, and
-$[F_{i+1}:F_i]∈\{1,ℓ\}$ for any $i>0$. For $ℓ=2$, we build upon the
-work of Doliskani and Schost~\cite{DoSc12}, while for general $ℓ$ we
-use towers of Kummer extensions as described
-in~\cite[\S~2]{DeDoSc13}. Using these constructions, we are able to
-perform the following operations:
+fields $\F_q=F₀⊂F₁⊂\cdots⊂F_k$ with $\ell$ dividing $\#F_1-1$, $[F₁:F₀]$
+dividing $ℓ-1$, and $[F_{i+1}:F_i]∈\{1,ℓ\}$ for any $i>0$. For $ℓ=2$,
+we build upon the work of Doliskani and Schost~\cite{DoSc12}. For
+general $ℓ$ we use towers of Kummer extensions in a way similar
+to~\cite[\S~2]{DeDoSc13}.  Both constructions represent elements of
+$F_i$ as univariate polynomials with coefficients in $\F_q$, thus
+basic arithmetic operations can be performed with classic modular
+polynomial arithmetic. While constructing the tower, we also enforce
+special relations between the generators of each level, so that moving
+elements up and down the tower, and testing membership, can be done at
+negligible cost.
+
+We briefly sketch the construction for odd $\ell$. Let $d_1=[F₁:F₀]$,
+we first look for a primitive polynomial $P_1∈\F_q[x]$ of degree
+$d_0$. There are many probabilistic algorithms to compute $P_1$ in
+time polynomial in $\ell$ and $\log q$; since their cost does not
+depend on the height $k$ of the tower, we neglect it. Then, the image
+$x₁$ of $x$ in $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative
+order $\#F₁-1$, and in particular it is a non $ℓ$-adic residue. Let
+now $e_i=[F_i:F_1]$, we define $F_i$ as $\F_q[x]/P_1(x^{e_i})$, which
+does not require any algebraic computation. Using this representation,
+elements of $F_i$ can be expressed as elements of a higher level, and
+reciprocally, by a simple rearrangement of the coefficients. The
+construction for $\ell=2$ is similar, but Doliskani and
+Schost~\cite{DoSc12} enrich it with several non-trivial algorithms for
+advanced arithmetic operations such as field traces and square roots.
+
+Summarizing, the following computations can be performed at the same
+asymptotic cost for any $ℓ$:
 \begin{itemize}
 \item basic arithmetic operations (addition, multiplication) in $F_i$,
   using $O(\MM(ℓ^i))$ operations;
@@ -255,17 +278,22 @@ perform the following operations:
   at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations.
 \end{itemize}
 
-Finally, we introduce the notations $\FF(i,j)$ for the cost of
-computing a $q^{ℓ^j}$-th power in $F_i$, and $\RR(i)$ for the cost of
-finding a root of a polynomial of degree $ℓ$ in $F_i[x]$. When
-$\ell=2$, Doliskani and Schost show that $\FF(i,j)=O(ℓ^i+\log q)$, and
-$\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
+For two fundamental operations, we only have efficient algorithms in
+the case $ℓ=2$, hence we introduce the following notations:
+\begin{itemize}
+\item $\FF(i,j)$ is the cost of computing a $q^{ℓ^j}$-th power in
+  $F_i$;
+\item $\RR(i)$ is the cost of finding a root of a polynomial of degree
+  $ℓ$ in $F_i[x]$.
+\end{itemize}
+For $\ell=2$, Doliskani and Schost show that $\FF(i,j)=O(ℓ^i+\log q)$,
+and $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
 $F(i,j)=O(ℓ^{i+j}\log q)$ using a naive algorithm, and
 $\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\logℓ\log(ℓq))$ using the variant of the
-Cantor-Zassenhaus algorithm described in \cite[\S~14.5]{vzGG} \todo{we
-  could use Kalto-Shoup here}.
+Cantor-Zassenhaus algorithm described in \cite[\S~14.5]{vzGG}, or
+$\RR(i)=O\bigl((ℓ^{i(ω+1)/2}+\MM(ℓ^{i+1}\log q))i\logℓ\bigr)$
+using~\cite{kaltofen+shoup97}.
 
-\todo{More details on $ℓ≠2$.}
 
 \subsection{Couveignes' algorithm}
 \label{sec:couv-algor}
