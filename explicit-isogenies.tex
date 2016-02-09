@@ -622,7 +622,8 @@ we must have~$P' = ψ(P)$.
 \subsection{The structure of rational $ℓ^∞$-torsion}
 
 \begin{prop}\label{prop:degree-l-torsion}
-  Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
+Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
+Assume that $E$~has a maximal endomorphism ring.
 For any~$n$, let~$F_n$ be the smallest field extension of $\F_q$
 such that all the points of~$E[ℓ^n]$ are rational over~$F_n$,
 and~$d_n = [F_n:\F_q]$. Then:
@@ -634,6 +635,9 @@ is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n + β} ℤ)$.
 \item Assume~$α ≥ β$. Then for all~$n ≥ β$, $d_n = ℓ^{n-β} d_1$.
 \end{enumerate}
 \end{prop}
+\todo{deux contre-exemples à ce qu'on pense :
+$E: y^2 ≡ x^3 + 62 x + 50 \pmod{79}, ℓ = 3$,
+et $π^2 + 37 π + 599 = 0, ℓ = 7$.}
 \begin{proof}
 The degree~$d_n$ is exactly the order of the matrix~$π|E[ℓ^n]$.
 It is therefore the least common multiple of the multiplicative orders
@@ -662,7 +666,6 @@ $2 (ℓ-1) · ℓ^{\min (i, α-1)}$ orbits of size~$ℓ^{\max (0, i-α+1)}$;
 \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
-
 \begin{proof}\todo{migrer en appendice ?}
 Fix a basis~$(P, Q)$ of~$E[ℓ^k]$ such that~$π(P)=λP$, $π(Q)=μQ$.
 Studying the Galois orbits of~$E[ℓ^k]$
@@ -710,12 +713,10 @@ in order to identify the directions of the two horizontal $ℓ$-isogenies.
 By Proposition~\ref{prop:degree-l-torsion},
 replacing~$\mathbb F_q$ with an extension~$F_1$ of degree~$d_1 ≤ ℓ - 1$,
 we may assume that all the points of~$E[ℓ]$ are rational over~$\mathbb F_q$;
-then all the points of~$E[ℓ^k]$ are rational over~$\mathbb F_{q^{ℓ^k}}$.
-Therefore, all our algorithms work in~$\mathbb F_{q^{ℓ^k}}$.
+then all the points of~$E[ℓ^k]$ are rational over~$F_k$ with~$[F_k:F_1] ≤ ℓ^k$.
+Algorithm~\ref{alg:diagonal} works in~$F_k$.
 All the complexities are given as a number of
 operations in the base field~$\mathbb F_q$.
-\todo{référer à la partie qui explique les complexités du calcul dans les
-extensions, quand elle sera écrite}
 
 In the following algorithm we describe how to compute eigenvalues of
 the Frobenius $\bmod \ell^k$ and
@@ -1107,16 +1108,42 @@ The first assertion comes from the fact that there is $\ell^{2k-2}\frac{\ell^2-1
 
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
-\subsection{Shape of the volcano and path to the crater}
-	\label{sub:shape-volcano}
+%%%%%%%%%%%%%%%
+\subsection{Finding a suitable $ℓ$-volcano}
+\label{sub:shape-volcano}
+
+Our algorithm uses an Elkies prime~$ℓ$.
+According to Chebotarev's density theorem,
+\todo{apparemment selon qu'on transcrit depuis le russe ou l'ukrainien
+son nom change, je voudrais ne pas trop troller le referee si possible}
+the density of primes~$ℓ$ such that~$(d_K/ℓ) = +1$ is asymptotically~$1/2$,
+so that we need only try a $O(1)$ number of primes~$ℓ$.
+Since~$d_K$ is not assumed to be known yet,
+we need to be able to compute the shape of the crater,
+as well the shortest $ℓ$-isogeny chain from~$E$ to the crater.
+
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
-  \newline
+% One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
+%   \newline
   For $\ell \neq 2$ after determining a chain of $\ell$-isogeny to a curve on the crater we determine which kind of crater the curve is located on by looking for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, all those methods are described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
 \newline 
 For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
  %c est exactement ce qui est fait dans ce papier...
   
+\subsection{Lifting the problem to a cyclic crater}
+
+If the two input curves~$E$, $E'$ of our algorithm
+belong to cyclic $ℓ$-isogenies volcanos but not to their crater,
+then by Proposition~\ref{prop:parallel},
+their depth below the craters is the same.
+Using the methods of~\ref{sub:shape-volcano},
+we can compute the shortest path of $ℓ$-isogenies~$α: E → E_{\max}$,
+$α': E' → E'_{\max}$ linking the curves~$E, E'$ to the craters.
+By Proposition~\ref{prop:parallel} (iii),
+the curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous;
+we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
+Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
+
  \subsection{Curves which are on the cyclic crater}
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
 \newline
@@ -1149,27 +1176,6 @@ The cost of computing an interpolation polynomial is for $\ell=2$ of $O(M(r)\log
 Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
 \end{proof}
   
-  \subsection{Curves which are not on the cyclic crater}
-
-If the two input curves~$E$, $E'$ of our algorithm
-belong to cyclic $ℓ$-isogenies volcanos but not to their crater,
-then by Proposition~\ref{prop:parallel},
-their depth below the craters is the same.
-Using the methods of~\ref{sub:shape-volcano},
-we can compute the shortest path of $ℓ$-isogenies~$α: E → E_{\max}$,
-$α': E' → E'_{\max}$ linking the curves~$E, E'$ to the craters.
-By Proposition~\ref{prop:parallel} (iii),
-the curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous;
-we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
-Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
-
-  \subsection{Curves which are not on a cyclic volcano}
-  %We take another \ell and we cross our fingers.
-  For curves which are not on an Elkies volcano we change $\ell$ and we take another prime number and we test if this new one is an Elkies prime. For every prime we have a probability of $\frac{1}{2}$ to be an Elkies prime. 
-
-
-%%%%%%%%%%%%%%%
-
 \section{Experimental results}
 \label{sec:implem}
 
