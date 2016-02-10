@@ -279,20 +279,21 @@ asymptotic cost for any $ℓ$:
 \item mapping elements from $F_{i-1}$ to $F_i$ and \emph{vice versa}
   at no arithmetic cost;
 \item multiplication and Euclidean division of polynomials of degree
-  at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations.
+  at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations;
+\item computing a $q^{\ell^{j}}$ power in $F_i$ using $O(\ell^i+\log(q))$ operations, the case $\ell=2$ was a result from Doliskani and Schost, the case $\ell \neq 2$ is proved in \ref{lemma:frob-ell} using a generalisation of the case $\ell=2$.
 \end{itemize}
 
-For two fundamental operations, we only have efficient algorithms in
+For one fundamental operations, we only have an efficient algorithm in
 the case $ℓ=2$, hence we introduce the following notations:
 \begin{itemize}
-\item $\FF(i,j)$ is the cost of computing a $q^{ℓ^j}$-th power in
-  $F_i$;
+%\item $\FF(i,j)$ is the cost of computing a $q^{ℓ^j}$-th power in
+%  $F_i$;
 \item $\RR(i)$ is the cost of finding a root of a polynomial of degree
   $ℓ$ in $F_i[x]$.
 \end{itemize}
-For $\ell=2$, Doliskani and Schost show that $\FF(i,j)=O(ℓ^i+\log q)$,
-and $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
-$F(i,j)=O(ℓ^{i+j}\log q)$ using a naive algorithm, and
+For $\ell=2$, Doliskani and Schost show that %$\FF(i,j)=O(ℓ^i+\log q)$, and
+ $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
+%$F(i,j)=O(ℓ^{i+j}\log q)$ using a naive algorithm, and
 $\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\logℓ\log(ℓq))$ using the variant of the
 Cantor-Zassenhaus algorithm described in \cite[\S~14.5]{vzGG}, or
 $\RR(i)=O\bigl((ℓ^{i(ω+1)/2}+\MM(ℓ^{i+1}\log q))i\logℓ\bigr)$
@@ -930,7 +931,7 @@ use a cyclotomic-something tower.}
 
 
 
-\begin{lem}\label{lemma:frob-ell}
+\begin{lem}\label{lemma:frob-ell} \todo{peut etre bouger cela ailleurs ou le mentionner dans la section 1}
   Let $a$ be in $\F_{q^{\ell^e}}$, and suppose that $\F_{q^{\ell^e}}$
   is represented as XXX. For any integer $v$, we can compute
   $a^{q^{\ell^v}}$ using $O(\ell^e)$ operations in $\F_q$, after a
