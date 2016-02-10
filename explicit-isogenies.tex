@@ -555,12 +555,12 @@ If $π(P) = λ P$ then we say that $ℓ^h P$~has the direction~$λ$.
 \end{prop}
 \begin{proof}
 Fix a basis~$(R, S)$ of~$E[ℓ^n]$ that diagonalizes~$π$.
-We can write $P = a R + b S$; w.l.o.g. we may assume $b=1$.
+We can write $P = x R + y S$; w.l.o.g. we may assume $y=1$.
 Let~$E'$ be the image curve of~$ϕ_{ℓ^h P}$.
-Then $π|T_ℓ(E')$ has the matrix~$\smat{λ& ℓ^{h-n} a (μ-λ)\\ 0&μ}$.
-This matrix is diagonalizable only if~$v_{ℓ}(a) ≥ n - h$.
-On the other hand, we can compute~$(π - μ) P = a (λ - μ) R$,
-so that $P$~is an eigenvector on the same condition~$v_{ℓ}(a) ≥ n-h$.
+Then $π|T_ℓ(E')$ has the matrix~$\smat{λ& ℓ^{h-n} x (λ-μ)\\ 0&μ}$.
+This matrix is diagonalizable only if~$v_{ℓ}(x) ≥ n - h$.
+On the other hand, we can compute~$(π - μ) P = x (λ - μ) R$,
+so that $P$~is an eigenvector on the same condition~$v_{ℓ}(x) ≥ n-h$.
 \end{proof}
 
 While horizontal bases are our main interest,
@@ -655,8 +655,8 @@ of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
 \begin{prop}\label{prop:orbites-l-torsion}
 Let~$E$ be an elliptic curve with maximal endomorphism ring.
 Assume~$λ ≡ μ ≡ 1 \pmod{ℓ}$ and let~$α = v_ℓ(λ-1), β=v_ℓ(μ-1)$.
-Write~$ν(x, y) = \min (x+y, x+α-1, y+β-1)$
-and~$ρ(x, y) = x+y - ν(x, y) = \max (0, y-α+1, x-β+1)$.
+Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
+and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
 The decomposition of the group~$E[ℓ^k]$ in Galois orbits is as follows:
 \begin{enumerate}
 \item for~$i, j = 1, …, k-1$:
