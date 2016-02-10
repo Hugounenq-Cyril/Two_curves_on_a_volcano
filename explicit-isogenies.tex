@@ -155,7 +155,7 @@ elliptic curves over finite fields. A famous theorem by Tate states
 that two curves are isogenous over a finite field if and only if they
 have the same cardinality over that field. The explicit isogeny
 problem stated here appears naturally in the Schoof-Elkies-Atkin point
-count algorithm (SEA). There, $E$ is the curve of which we want to
+counting algorithm (SEA). There, $E$ is the curve of which we want to
 compute the cardinality, and $E'$ is an $r$-isogenous curve, with $r$
 a prime of size approximately $\log\#E$. For this reason, the explicit
 isogeny problem is customarily solved without prior knowledge of the
@@ -352,7 +352,7 @@ introduce a variant of Couveignes' algorithm with the same quadratic
 complexity in $r$, and \textbf{no exponential dependency in $\log p$}.
 
 The bottom line of our algorithm is elementary: replace $E[p^k]$ in
-the algorithm with $E'[ℓ^k]$, for some small prime $ℓ$. However a
+the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
 naïve application of this idea fails to yield a quadratic-time
 algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
 $E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
