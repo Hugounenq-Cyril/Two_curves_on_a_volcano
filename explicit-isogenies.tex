@@ -39,6 +39,8 @@
 \def\cout#1{\mathsf{#1}}
 % let's decide on one!
 \let\leq\leqslant \let\geq\geqslant
+% and be able to change this one
+\def\division#1#2{\mathsf{divide}(#1,ℓ^{#2})}
 
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -625,7 +627,7 @@ we must have~$P' = ψ(P)$.
 \subsection{The structure of rational $ℓ^∞$-torsion}
 
 \begin{prop}\label{prop:degree-l-torsion}
-Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
+Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^×$.
 Assume that $E$~has a maximal endomorphism ring.
 For any~$n$, let~$F_n$ be the smallest field extension of $\F_q$
 such that all the points of~$E[ℓ^n]$ are rational over~$F_n$,
@@ -737,7 +739,7 @@ $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 \STATE $h:=1, u:=1$
 \FOR {$i=1$  to  $k-1$}
-\STATE $P' \leftarrow P_i/\ell$; $Q' \leftarrow Q_i/\ell$.
+\STATE $P' \gets \division{P_i}{}$; $Q' \gets \division{Q_i}{}$.
 \STATE compute $\pi|(P',Q')=\left( \begin{array}{cc}
 λ + a\ell^{i} & b\ell^{i}\\
 c\ell^{i} & μ + d\ell^{i}
@@ -855,11 +857,11 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \FOR{$i = 1$ to~$k-1$}
 \STATE $ϕ_i \gets $ isogeny with kernel~$ℓ^{h} P_{i-1}$
 \STATE $Q_{i} \gets ϕ_i(Q_{i-1})$
-\STATE $P' \gets ϕ_i(P_{i-1})/ℓ$.
+\STATE $P' \gets \division{ϕ_i(P_{i-1})}{}$.
 \STATE Write~$π(P') = λ P' + b Q_i$ for~$b ∈ ℤ/ℓℤ$ and
 let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
-\RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1} ( ℓ^{-k+1} P_{k-1} )$.
+\RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1} (\division{P_{k-1}}{k-1})$.
 % \RETURN $\{\widehat{ϕ}_1,..,\widehat{ϕ}_n\}, R_n, P_n$
 \end{algorithmic}
 \end{algorithm}
@@ -1178,6 +1180,31 @@ we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
 Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
+
+Let~$ψ: E→ E'$ be an isogeny between curves with maximal endomorphism rings.
+We fix bases of~$E[ℓ^k]$, $E'[ℓ^k]$ and write~$π, π'$ for the matrices
+of the Frobenius.
+Since $ψ$~is rational, its matrix satisfies the relation~$π' · ψ = ψ · π$
+in $ℤ_ℓ^{2×2}$ and hence in~$(ℤ/ℓ^k ℤ)^{2 × 2}$.
+
+If diagonal bases of~$E[ℓ^k], E'[ℓ^k]$ are used then,
+since $π$~is a cyclic endomorphism of~$ℤ_ℓ^2$,
+this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$,
+\emph{i.e.} that $ψ$~is a diagonal matrix;
+however, $ℤ/ℓ^k ℤ$~is not an integral domain
+and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
+so we can only say that~$ψ ∈ (ℤ/ℓ^k ℤ)[π] \pmod{ℓ^{k-h}}$.
+If on the other hand we choose \emph{horizontal} bases
+of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
+we know that $ψ$~is a diagonal matrix.
+
+We then enumerate all the $ℓ^{2k-2}$ invertible diagonal matrices;
+for each matrix~$M$, we try to interpolate
+the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
+The successful interpolation will be our explicit isogeny~$ψ$.
+
+\todo{fin du texte nouveau. Reste à justifier le choix du~$k$...}
+
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
 \newline
 \todo{complete the complexity}
@@ -1259,15 +1286,16 @@ the matrix of~$π|T_ℓ(E_P)$ is $M_P^{-1} · π · M_P^{}$.
 \section{Division of a point by~$\ell$}
 \label{ap:division}
 
-We write~$Q ← P/ℓ$ for the computation of a preimage of~$P$
+We write~$Q ← \division{P}{}$ for the computation of a preimage of~$P$
 by multiplication by~$ℓ$.
-The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
+The obvious way to compute this would be to use the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
 Instead, we factor the multiplication-by-$ℓ$ map
 as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
-the cost of the $P/ℓ$ operation is therefore $\mathsf{R} (k)$.
+the cost of the $\division{P}{}$ operation, where $P$~has coordinates in~$F_k$,
+is therefore $\mathsf{R} (k)$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
