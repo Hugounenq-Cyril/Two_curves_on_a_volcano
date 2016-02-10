@@ -915,7 +915,7 @@ of degree up to~$ℓ^{k+h}$.
 \section{Interpolation step}
 \label{sec:interpolation}
 \subsection{Interpolating a polynomial on a field extension}
-
+\todo{eventuellement remplacer $m$ par $k$ car c'est ce que l'on risque de faire en pratique}
 In this part, we consider the following problem. Consider a pair $(v,
 w)$, with both $v$ and $w$ in $\F_{q^{\ell^m}}$, and $v$ of degree exactly
 $\ell^m$ over $\F_q$. Our goal is to
@@ -928,14 +928,15 @@ In~\cite{df10}, De Feo gives a recursive algorithm for this task in the
 context of Artin-Schreier extensions, which was inspired by earlier
 work by Enge and Morain for solving equations by radicals~\cite{enge+morain03}.
 In this paragraph, we adapt De Feo's algorithm to our context, in a straightforward manner. 
+We recall that in this section we work with towers of Kummer extensions as mentionned in section \ref{sec:introduction}.
 \todo{Say that we assume that $\ell-1$ divides $q$, and that we
 use a cyclotomic-something tower.}
 
 
 
-\begin{lem}\label{lemma:frob-ell} \todo{peut etre bouger cela ailleurs ou le mentionner dans la section 1}
+\begin{lem}\label{lemma:frob-ell} \todo{peut etre bouger cela ailleurs, mentionné dans la section 1}
   Let $a$ be in $\F_{q^{\ell^e}}$, and suppose that $\F_{q^{\ell^e}}$
-  is represented as XXX. For any integer $v$, we can compute
+  is represented as an element of a Kummer Tower. For any integer $v$, we can compute
   $a^{q^{\ell^v}}$ using $O(\ell^e)$ operations in $\F_q$, after a
   precomputation independent from $a$ that uses $O(\log(q))$
   operations in $\F_q$ and $\tilde{O}(\ell^e \log(q))$ bit operations.
@@ -945,7 +946,7 @@ use a cyclotomic-something tower.}
   Without loss of generality, we can assume that $v < e$; otherwise,
   the output is simply $a$ itself. By assumption, $a$ is written as
   $a =a_0 + a_1 x + \cdots + a_{\ell^e-1} x^{\ell^e-1}$, for some $x$
-  that satisfies $x^{\ell^e}=c$, with $c$ in $\F_q$. 
+  that satisfies $x^{\ell^e}=c$, with $c$ in $\F_q$. \todo{avec les notations ce serait $F_1$} 
 
   The first step, independently of $a$, is to compute
   $y=x^{q^{\ell^v}}$. Writing $q^{\ell^v} = u \ell^e + r$, with $r <
@@ -969,15 +970,23 @@ for $0 \le j \le \ell-1$
 and define 
 $$T^{(i+1)}=\prod_{j=0}^{\ell-1} T^{(i,j)};$$ one easily sees that
 $T^{(i)}$ is the minimal polynomial of $v$ over $\F_{q^{\ell^{m-i}}}$,
-and in particular that $T^{(m)}=T$.  At step $i$, using
+and in particular that $T^{(m)}=T$.  
+
+\begin{prop}
+The cost of computing all the $T^{(i,j)}$ from all the $T^{(i)}$ is of $O(m\mathsf{M}(\ell^m))$ plus a
+precomputation that takes $O(m \log(q))$ operations in $\F_q$ and
+$\tilde{O}(\ell^{m} \log(q))$ bit operations.
+\end{prop}
+
+\begin{proof}
+At step $i$, using
 Lemma~\ref{lemma:frob-ell}, we see that computing a single Frobenius
 takes $O(\ell^m)$ operations in $\F_q$, for a total of $O(\ell^{m+1})$
 for all $\ell$ of them (together with a precomputation that costs
 $O(\log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m-i} \log(q))$
 bit operations. Summing over all $i$, the total time for the
-Frobeniuses is is $O(m \ell^m)$ operations in $\F_q$, plus a
-precomputation that takes $O(m \log(q))$ operations in $\F_q$ and
-$\tilde{O}(\ell^{m} \log(q))$ bit operations.
+Frobeniuses is is $O(m \ell^m)$ operations in $\F_q$, plus the precomputations. 
+\end{proof}
 
 Deducing $T^{(i+1)}$ from the $T^{(i,j)}$'s can be done using
 subproduct tree techniques, as in~\cite[Chapter~10]{vzGG}. 
@@ -1002,7 +1011,7 @@ subproduct tree techniques, as in~\cite[Chapter~10]{vzGG}.
   instance~\cite[Lemma~10.4]{vzGG}; the analysis however has to be
   adapted to our context in order to derive the claimed cost bound.
 
-  Following the previous lemma, let $c$ be such that we can multiply
+  Following section \ref{sec:introduction}, let $c$ be such that we can multiply
   polynomials of degree $n$ in $\mathbb{F}_{q^{\ell^\mu}}[x] $ in at
   most $c M(\ell^\mu n)$ operations in $\F_q$. The multiplication
   algorithm we use involves $O(\log(s))$ steps. At each of them, we
@@ -1022,17 +1031,25 @@ subproduct tree techniques, as in~\cite[Chapter~10]{vzGG}.
   the proof.
 \end{proof}
 
-Thus, we can compute $T^{(i)}$ using $O(\mathsf{M}(\ell^m)\log(\ell))$
-operations in $\F_q$, and for all $T^{(i)}$'s, and in particular $T$,
-the time becomes $O(\mathsf{M}(\ell^m)\log(\ell^m))$.
+Thus, we can compute $T^{(i)}$ from the $T^{(i,j)}$ using $O(\mathsf{M}(\ell^m)\log(\ell))$
+operations in $\F_q$
+
+\begin{prop}
+The cost of computing $T^{(m)}=T$ is of $O(\mathsf{M}(\ell^m)\log(\ell^m))$ plus a precomputation that takes $O(m \log(q))$ operations in $\F_q$ and
+$\tilde{O}(\ell^{m} \log(q))$ bit operations.
+\end{prop}
 
 Next, we compute $T'(v)$. This is done by means of successive
 Euclidean remainders, since $T'(v) = (((T' \bmod T^{(1)}) \bmod
 T^{(2)}) \cdots \bmod T^{(m)})$.  At stage $i$, we have to compute 
 the Euclidean division of polynomials of degree $O(\ell^{m-i})$ 
-in $\F_{q^{\ell^i}}[x]$. Using Lemma~\ref{lemma:complexity_pol_mul},
-and the fact that Euclidean division can be reduced to polynomial 
-multiplication, we deduce that each division can be done in time
+in $\F_{q^{\ell^i}}[x]$. Using %Lemma~\ref{lemma:complexity_pol_mul} 
+%\todo{faire reference au cout de mutliplication des polynômes de l'introduction} 
+%the fact that multiplication and Euclidean division of polynomials of degree at most d in $F_i[x]$ can be done in $O(M(d\ell^i))$ operations (as recall in section \ref{sec:introduction}),
+results from section \ref{sec:introduction}
+%and the fact that Euclidean division can be reduced to polynomial 
+%multiplication, 
+we deduce that each division can be done in time
 $O(\mathsf{M}(\ell^m)\log(\ell))$, for a total of 
 $O(\mathsf{M}(\ell^m)\log(\ell^m))$ operations in~$\F_q$.
 
@@ -1050,11 +1067,17 @@ T^{(i,j-1)} T^{(i,j+1)} \cdots T^{(i,\ell-1)}.$$ As proved
 in~\cite{df10}, $L^{(m)}$ is the polynomial $L$ we are looking for.
 The cost induced by the recombination above is of the same order as
 that seen previously for the computation giving
-$T^{(i+1)}$. Altogether, the total is $O(\mathsf{M}(\ell^m)
+$T^{(i+1)}$.% Altogether, the total is $O(\mathsf{M}(\ell^m)
+%\log(\ell^m))$ operations in $\F_q$, plus a precomputation that takes
+%$O(m \log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m} \log(q))$
+%bit operations. \todo{don't call this a precomputation, and handle it better.}
+\begin{prop}
+The cost of computing $T$ and $L$ for $v \in F_{q^{\ell^m}}$ of degree exactly $\ell^{m}$ over $\mathbb{F}_q$ is of $O(\mathsf{M}(\ell^m)
 \log(\ell^m))$ operations in $\F_q$, plus a precomputation that takes
 $O(m \log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m} \log(q))$
-bit operations. \todo{don't call this a precomputation, and handle it better.}
-\todo{write a proper proposition}
+bit operations.
+\end{prop}
+%\todo{write a proper proposition}
 
 \subsection{Taking all orbits into account}
 \todo{du coup a deplacer vers le 5}
