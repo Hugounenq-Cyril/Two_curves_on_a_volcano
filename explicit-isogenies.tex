@@ -1154,6 +1154,26 @@ we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
 Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
+
+Let~$ψ: E→ E'$ be an isogeny between curves with maximal endomorphism rings.
+We fix bases of~$E[ℓ^k]$, $E'[ℓ^k]$ and write~$π, π'$ for the matrices
+of the Frobenius.
+Since $ψ$~is rational, its matrix satisfies the relation~$π' · ψ = ψ · π$
+in $ℤ_ℓ^{2×2}$ and hence in~$(ℤ/ℓ^k ℤ)^{2 × 2}$.
+
+If diagonal bases of~$E[ℓ^k], E'[ℓ^k]$ are used then,
+since $π$~is a cyclic endomorphism of~$ℤ_ℓ^2$,
+this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$;
+however, $ℤ/ℓ^k ℤ$~is not an integral domain
+and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
+so we can only say that~$ψ ∈ (ℤ/ℓ^k ℤ)[π] \pmod{ℓ^{k-h}}$.
+If on the other hand we choose \emph{horizontal} bases
+of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
+we know that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$.
+
+We then enumerate all the $ℓ^{2k-1}$ non-zero matrices of $(Z/ℓ^k ℤ)[π]$;
+for each matrix, we try to interpolate \todo{parti manger...}
+
   The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
 \newline
 \todo{complete the complexity}
