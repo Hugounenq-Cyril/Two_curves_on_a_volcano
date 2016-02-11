@@ -1111,11 +1111,11 @@ The points of order $\ell^k$ of $E$ are of order $\ell^{k-\beta} \geqslant o \ge
 The computations of representants of the different orbits is done working only with indexes in $(\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$ of the basis $(P,Q)$. Once we have the indexes we compute the corresponding points. Since there is $O(\ell^k)$ points of different orbits we can state the following result:
 
 \begin{prop}\todo{a verifier plus en detail..., voir si on peut pas se servir de la proposition de Jerome}
-The cost of computings the different representatives of orbits is majorated by  $O(M(\ell^{2k})k \log(\ell))$.
+The cost of computings the different representatives of orbits is majorated by  $\ell^{\alpha-\beta}O(M(\ell^{2k})k \log(\ell))$.
 \end{prop}
 
 \begin{proof}
-We consider the point of order $\ell^k$ with order $\ell^i$ for the Frobenius, then we have at most $\ell^{2k}\frac{\ell^i}{\ell^{k-\alpha}}$ points of order $\ell^i$, thus overall we have a complexity $\ell^{k+\alpha}k\log(\ell) \sum_{i=\beta}^{\alpha}\mathsf{M}(\ell^{k-i})$  let $c$ be such that we can multiply elements of $\mathbb{F}_{q^{\ell^{k-i}}}$ in $c\ell^{k-i}(k-i)\log(k-i)$ majorated by $c\ell^{k-i}(k)\log(k)$, then we get $\sum_{i=\beta}^{\alpha}c\ell^{k-i}(k)\log(k) \leqslant c\ell^{k-\alpha+1}(k)\log(k)$. In the end we get the cost majorated by $c\ell^{2k}\log(k)k^2\log(\ell)=\mathsf{M}(\ell^{2k})k\log(\ell)$
+We consider the point of order $\ell^k$ with order $\ell^i$ for the Frobenius, then we have at most $\ell^{2k}\frac{\ell^i}{\ell^{k-\alpha}}$ points of order $\ell^i$, thus overall we have a complexity $\ell^{k+\alpha}k\log(\ell) \sum_{i=\beta}^{\alpha}\mathsf{M}(\ell^{k-i})$. Let $c$ be such that we can multiply elements of $\mathbb{F}_{q^{\ell^{k-i}}}$ in $c\ell^{k-i}(k-i)\log(k-i)$ majorated by $c\ell^{k-i}(k)\log(k)$, then we get $\sum_{i=\beta}^{\alpha}c\ell^{k-i}(k)\log(k) \leqslant c\ell^{k-\beta+1}(k)\log(k)$. In the end we get the cost majorated by $c\ell^{\alpha-\beta}\ell^{2k}\log(k)k^2\log(\ell)=\ell^{\alpha-\beta}\mathsf{M}(\ell^{2k})k\log(\ell)$
 \end{proof}
 
 Now we can apply the results of the preceding subsection to compute for each representative of orbits of order $o_i$ their interpolation polynomial associated in $O(\log(o_i)M(o_i))$ operations on $\mathbb{F}_q$ for $i \in \{0,..,j\}$. We can then recombine all those results using Chinese Remainder Theorem. We can notice also that the modulus for the Chinese Remainder Theorem do not depend of the choices of the coefficients $(a,b) \in (\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$, thus we can use this to speed up the next occurrences of the CRT by doing precomputation for the inverse of the modulus in the CRT, we will state two complexity analysis for the CRT .
