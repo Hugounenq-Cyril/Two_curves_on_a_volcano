@@ -1079,62 +1079,6 @@ bit operations.
 \end{prop}
 %\todo{write a proper proposition}
 
-\subsection{Taking all orbits into account}
-\todo{du coup a deplacer vers le 5}
-In this section we work with the points of order $\ell^k$ on two input
-curves $E,E'$ as in Problem~\ref{prob:isogeny-problem}, that lie on
-the cyclic crater of a volcano of $\ell$-isogenies (in all this
-section, $k$ is fixed).
-As input, we are given horizontal bases $(P,Q)$ of $E[\ell^k]$ and
-$(P',Q')$ of $E'[\ell^k]$ as computed in
-Section~\ref{sec:acti-frob-endm}, together with two coefficients $(a,b)
-\in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^{\times}$. For the discussion below,
-let $S$ and $S'$ denote the set of abscissae of points of order
-$\ell^k$ on respectively $E$ and $E'$.
-
-The algorithm in this section computes two polynomials. The first of
-them is $T(x)$, which is the squarefree monic polynomial whose roots
-are the elements in $S$; in particular, it does not depend on
-$E'$. More crucially, we also compute an interpolation polynomial
-$L(x)$ that maps $S$ to a permutation of $S'$ induced by the mapping
-$P \mapsto aP'$ and $Q \mapsto bQ'$.
-
-Precisely, this means that we ask that $L(x(cP+dQ))=x(caP'+dbQ')$
-holds for all pairs $(c,d) \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ for
-which either $c$ or $d$ is coprime with $\ell$, in which case $cP+dQ$
-and $acP'+dbQ'$ have order $\ell^k$; here, $x(P)$ denotes the abscissa
-of a point $P$.  
-\newline
-\begin{prop}
-The points of order $\ell^k$ of $E$ are of order $\ell^{k-\beta} \geqslant o \geqslant \ell^{k-\alpha} $ for the Frobenius action according to the structure of $E[\ell^\infty](\F_k)$.
-\end{prop}
-The computations of representants of the different orbits is done working only with indexes in $(\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$ of the basis $(P,Q)$. Once we have the indexes we compute the corresponding points. Since there is $O(\ell^k)$ points of different orbits we can state the following result:
-
-\begin{prop}\todo{a verifier plus en detail..., voir si on peut pas se servir de la proposition de Jerome}
-The cost of computings the different representatives of orbits is majorated by  $O(\ell^{2k}M(\ell^{k-\beta})k \log(\ell))$.
-\end{prop}
-
-\begin{proof}
-We consider the point of order $\ell^k$ with order $\ell^i$ for the Frobenius, then we have at most $\ell^{2k}$ points of order $\ell^i$, thus overall we have a complexity $\ell^{2k}k\log(\ell) \sum_{i=\beta}^{\alpha}\mathsf{M}(\ell^{k-i})$. Let $c$ be such that we can multiply elements of $\mathbb{F}_{q^{\ell^{k-i}}}$ in $c\ell^{k-i}(k-i)\log(k-i)$ majorated by $c\ell^{k-i}(k-\beta)\log(k-\beta)$, then we get $\sum_{i=\beta}^{\alpha}c\ell^{k-i}(k-\beta)\log(k-\beta) \leqslant c\ell^{k-\beta+1}(k-\beta)\log(k-\beta)$. In the end we get the cost majorated by $c\ell^{k-\beta+1}\ell^{2k}k\log(\ell)(k-\beta)\log(k-\beta)=c\ell^{2k}\mathsf{M}(\ell^{k-\beta})k\log(\ell)$
-\end{proof}
-
-Now we can apply the results of the preceding subsection to compute for each representative of orbits of order $o_i$ their interpolation polynomial associated in $O(\log(o_i)M(o_i))$ operations on $\mathbb{F}_q$ for $i \in \{0,..,j\}$. We can then recombine all those results using Chinese Remainder Theorem. We can notice also that the modulus for the Chinese Remainder Theorem do not depend of the choices of the coefficients $(a,b) \in (\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$, thus we can use this to speed up the next occurrences of the CRT by doing precomputation for the inverse of the modulus in the CRT, we will state two complexity analysis for the CRT .
-
-\begin{prop}
-The cost of the C.R.T. applied on all the different orbits for the first occurence is of $O(M(\ell^{2k})\log(\ell^{2k}))$ operations in $\mathbb{F}_q$. For the next occurences the cost is of $O(M(\ell^{2k})\log(\ell^{k}))$ operations in $\mathbb{F}_q$.
-\end{prop}
-
-\begin{proof}
-The first assertion comes from the fact that there is $\ell^{2k-2}\frac{\ell^2-1}{\ell^2}$ points of order $\ell^k$ and we work with polynomials in $\mathbb{F}_q[x]$. The second one comes from the fact that we have $O(\ell^k)$ representatives of orbits and we do only multiplication and additions on the polynomials associated to the orbits, we conclude by lemma \ref{lemma:mul-pol}
-\end{proof}
-
-\todo{Do it by splitting the set of $\ell^k$ torsion into orbits for
-  the Frobenius. Each orbit can be handled in quasi-linear time using
-  the previous subsection, and the recombination is just Chinese
-  remaindering over $\F_q$, so we should be good.}
-
-\todo{Make sure that computing one representative per orbit is not too
-  expensive.}
 
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
@@ -1175,8 +1119,81 @@ we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
 Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
-  The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) thus for this subsection we consider two input curves at the problem \ref{prob:isogeny-problem} in this situation. 
+ % The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) and 
+ The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. 
+ 
+ We work with the points of order $\ell^k$ on two input
+curves $E,E'$  with $k$ fixed.%as in Problem~\ref{prob:isogeny-problem}, that lie on
+%the cyclic crater of a volcano of $\ell$-isogenies (in all this
+%section, $k$ is fixed).
+As input, we are given horizontal bases $(P,Q)$ of $E[\ell^k]$ and
+$(P',Q')$ of $E'[\ell^k]$ as computed in
+Section~\ref{sec:acti-frob-endm}, together with two coefficients $(a,b)
+\in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^{\times}$. For the discussion below,
+let $S$ and $S'$ denote the set of abscissae of points of order
+$\ell^k$ on respectively $E$ and $E'$.
+
+The algorithm in this subsection computes two polynomials. The first of
+them is $T(x)$, which is the squarefree monic polynomial whose roots
+are the elements in $S$; in particular, it does not depend on
+$E'$. More crucially, we also compute an interpolation polynomial
+$L(x)$ that maps $S$ to a permutation of $S'$ induced by the mapping
+$P \mapsto aP'$ and $Q \mapsto bQ'$.
+
+Precisely, this means that we ask that $L(x(cP+dQ))=x(caP'+dbQ')$
+holds for all pairs $(c,d) \in (\mathbb{Z}/\ell^k\mathbb{Z})^2$ for
+which either $c$ or $d$ is coprime with $\ell$, in which case $cP+dQ$
+and $acP'+dbQ'$ have order $\ell^k$; here, $x(P)$ denotes the abscissa
+of a point $P$.  
 \newline
+\begin{prop}
+The points of order $\ell^k$ of $E$ are of order $\ell^{k-\beta} \leqslant \ell^i \leqslant \ell^{k-\alpha} $ for the Frobenius action according to the structure of $E[\ell^\infty](\F_k)$.
+\newline
+The sets of points of orders $\ell^k$ and of order $\ell^i$ for the Frobenius are of size less than $\ell^{2k}\frac{\ell^{i}}{\ell^{k-\beta}}$ and have at most $\ell^{k+\beta}$ representatives.
+\end{prop}
+The computations of representants of the different orbits is done working only with indexes in $(\mathbb{Z}/\ell^k \mathbb{Z}^{\times})^2$ of the basis $(P,Q)$. Once we have the indexes we compute the corresponding points. We state the following result on the cost of computing all of them:
+
+\begin{prop}%\todo{a verifier plus en detail..., voir si on peut pas se servir de la proposition de Jerome}
+The cost of computings the different representatives of orbits is majorated by  $O(\ell^{k}M(\ell^{k})k \log(\ell))$.
+\end{prop}
+
+\begin{proof}
+%We have at most $\ell^{2k}\frac{\ell^{i}}{\ell^{k-\beta}\ell^i}$ points of order $\ell^k$ representatives 
+%of orbits of order $\ell^i$ for the Frobenius with 
+For each of the representatives we have up to $k \log(\ell)$ operations to compute them. Overall we have a complexity $k\log(\ell) \ell^{k+\beta} \sum_{i=\beta}^{\alpha}\mathsf{M}(\ell^{k-i})$. Let $c$ be such that we can multiply elements of $\mathbb{F}_{q^{\ell^{k-i}}}$ in $c\ell^{k-i}(k-i)\log(k-i)$ majorated by $c\ell^{k-i}(k)\log(k)$, then we get $\sum_{i=\beta}^{\alpha}c\ell^{k-i}(k)\log(k) \leqslant c\ell^{k-\beta+1}(k)\log(k)$. In the end we get the cost majorated by $c\ell^{k+\beta}\ell^{k-\beta+1}(k)\log(k)k\log(\ell)=c\ell^{k}\mathsf{M}(\ell^{k})k\log(\ell)$
+\end{proof}
+We then have to apply the results of the preceding section to compute for each representative of orbits of order $\ell^i$ their interpolation polynomial associated.
+
+\begin{prop}
+With the knowledge of the representatives of different orbits we can compute the interpolations polynomials with a complexity of $O(\mathsf{M}(\ell^{2k})k\log(k))$
+\end{prop}
+
+\begin{proof}
+Since we have at most $\frac{\ell^{2k}}{\ell^{k-\beta}}$ representatives of orbits of points of order $ \ell^{k-\beta} \leqslant \ell^i \leqslant\ell^{k-\alpha}$ for the Frobenius. From \todo{mettre reference au dernier resultat de section 4} we have an overall complexity of $\ell^{k+\beta}\sum_{i=k-\alpha}^{k-\beta}M(\ell^i)\log(\ell^i)$. Let $c$ be such that the cost of computing an interpolation polynomial is less than $c\ell^ik\log^2(k)\log(\log(k))$, we then have the total cost less than $c\ell^{k+\beta}\ell^{k-\beta+1}\log^2(k)\log(\log(k))k$. 
+\end{proof}
+
+We recombine then all those interpolations polynomials using Chinese Remainder Theorem. %We can notice also that the modulus for the Chinese Remainder Theorem do not depend of the choices of the coefficients $(a,b) \in (\mathbb{Z}/\ell^k \mathbb{Z}^*)^2$ for the interpolation, thus we can use this to speed up the next occurrences of the CRT by doing precomputation for the inverse of the modulus in the CRT, we state thus two complexity analysis for the CRT .
+
+\begin{prop}
+The cost of the C.R.T. applied on all the different orbits for the first occurence is of $O(M(\ell^{2k})\log(\ell^{2k}))$ operations in $\mathbb{F}_q$. %For the next occurences the cost is of $O(M(\ell^{2k})\log(\ell^{k+\alpha}))$ operations in $\mathbb{F}_q$.
+\end{prop}
+
+\begin{proof}
+The assertion comes from the fact that there is $\ell^{2k-2}\frac{\ell^2-1}{\ell^2}$ points of order $\ell^k$ and we work with polynomials in $\mathbb{F}_q[x]$. %The second one comes from the fact that we have $\ell^{k+\alpha}$ representatives of orbits and we do only multiplication and additions on the polynomials associated to the orbits, we conclude by lemma \ref{lemma:mul-pol}
+\end{proof}
+
+\begin{prop}
+The total cost of computing polynomials $L$, $T$ is of $O(\mathsf{M}(\ell^{2k})k\log(k))$ with $O(\ell^k\mathsf{M}(\ell^k)k\log(l))$ precomputations independent from the choices of the interpolation mapping coefficients $a,b$. 
+\end{prop}
+
+%\todo{Do it by splitting the set of $\ell^k$ torsion into orbits for
+ % the Frobenius. Each orbit can be handled in quasi-linear time using
+ % the previous subsection, and the recombination is just Chinese
+ % remaindering over $\F_q$, so we should be good.}
+
+%\todo{Make sure that computing one representative per orbit is not too
+ % expensive.}
+
 \todo{complete the complexity}
  First we compute $k$ such that $\frac{3}{2}\ell^{2k-2}>r$, then we compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$ with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
  Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. Using notations of algorithm \ref{alg:horizontal} we apply this algorithm to $(P,Q,Q)$, we get then $(P_{k-h},Q_{k-h})$ a diagonal basis of $E_{k-h}[\ell^k]$ and a chain of $\ell$ isogeny of direction $\mu$, we then apply successively the isogenies of the chain on $P_{k-h}$ and we get in the end a horizontal point $P$ of $E$ of direction $\lambda$. We use a similar method to get $Q$ an horizontal point of $E$ of direction $\mu$. Thus the cost of computing an horizontal basis is the same as algorithm \ref{alg:horizontal}: $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$.  Now we can describe the entire algorithm for elliptic curves located on the cyclic crater of a volcano.
