@@ -12,10 +12,7 @@
 \usepackage{stmaryrd}
  
 \newcommand{\todo}[1]{{\color{red}TODO: #1}}
-\def\snote#1{\marginpar{{\color{blue}%
-%   \rlap{\hskip 50pt \vrule height 1pt width 20pt}%
-%   \leavevmode\kern 7pt \vbox{\hsize 56pt\kern -8pt
-  \fontsize{7pt}{8pt}\selectfont #1\par}}}
+\def\snote#1{}
 
 
 %\theoremstyle{plain}
@@ -213,7 +210,7 @@ Throughout this paper: $r$~is a positive integer, $p$~an odd prime,
 $q$~a power of $p$, and $\mathbb F_q$ is the finite field with
 $q$~elements. $E$ ~is an ordinary elliptic curve over~$\mathbb F_q$,
 its group of $n$-torsion points is denoted by~$E[n]$, its
-$q$-Frobenius automorphism by~$π$.  The endomorphism ring of $E$ is
+$q$-Frobenius endomorphism by~$π$.  The endomorphism ring of $E$ is
 denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
 number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
@@ -229,12 +226,14 @@ the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
 where $v_ℓ$ is the $ℓ$-adic valuation.
 
 We measure all computational complexities in terms of operations in
-$\mathbb{F}_q$, we use the Landau notation $O()$ to express
+$\mathbb{F}_q$; the binary costs associated to the algorithms
+presented next are negligible compared to the algebraic costs, and
+will be ignored. We use the Landau notation $O()$ to express
 asymptotic complexities, and the notation $\tildO()$ to neglect
 polylogarithmic factors.  We let $\MM(n)$ be a function such that
 polynomials in $\F_q[X]$ of degree less than $n$ can be multiplied
 using $\MM(n)$ operations in $\F_q$, under the assumptions
-of~\cite[Ch.~8.3]{vzGG}. Using FFT multiplication, one can take
+of~\cite[Chapter~8.3]{vzGG}. Using FFT multiplication, one can take
 $\MM(n)∈ O(n\log n\loglog n)$.
 
 \subsection{Towers of finite fields}
@@ -242,8 +241,8 @@ $\MM(n)∈ O(n\log n\loglog n)$.
 
 The algorithms presented next operate on elements defined in finite
 extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
-fields $\F_q=F₀⊂F₁⊂\cdots⊂F_k$ with $\ell$ dividing $\#F_1-1$, $[F₁:F₀]$
-dividing $ℓ-1$, and $[F_{i+1}:F_i]∈\{1,ℓ\}$ for any $i>0$. For $ℓ=2$,
+fields $\F_q=F₀⊂F₁⊂\cdots⊂F_n$ with $\ell$ dividing $\#F_1-1$, $[F₁:F₀]$
+dividing $ℓ-1$, and $[F_{i+1}:F_i]=ℓ$ for any $i>0$. For $ℓ=2$,
 we build upon the work of Doliskani and Schost~\cite{DoSc12}. For
 general $ℓ$ we use towers of Kummer extensions in a way similar
 to~\cite[\S~2]{DeDoSc13}.  Both constructions represent elements of
@@ -254,50 +253,82 @@ special relations between the generators of each level, so that moving
 elements up and down the tower, and testing membership, can be done at
 negligible cost.
 
-We briefly sketch the construction for odd $\ell$. Let $d_1=[F₁:F₀]$,
-we first look for a primitive polynomial $P_1∈\F_q[x]$ of degree
-$d_0$. There are many probabilistic algorithms to compute $P_1$ in
-time polynomial in $\ell$ and $\log q$; since their cost does not
-depend on the height $k$ of the tower, we neglect it. Then, the image
-$x₁$ of $x$ in $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative
-order $\#F₁-1$, and in particular it is a non $ℓ$-adic residue. Let
-now $e_i=[F_i:F_1]$, we define $F_i$ as $\F_q[x]/P_1(x^{e_i})$, which
-does not require any algebraic computation. Using this representation,
-elements of $F_i$ can be expressed as elements of a higher level, and
-reciprocally, by a simple rearrangement of the coefficients. The
-construction for $\ell=2$ is similar, but Doliskani and
-Schost~\cite{DoSc12} enrich it with several non-trivial algorithms for
-advanced arithmetic operations such as field traces and square roots.
+We briefly sketch the construction for odd $\ell$. We first look for a
+primitive polynomial $P_1∈\F_q[x]$ of degree equal to $[F₁:F₀]$. There
+are many probabilistic algorithms to compute $P_1$ in time polynomial
+in $\ell$ and $\log q$; since their cost does not depend on the height
+$n$ of the tower, we neglect it. Then, the image $x₁$ of $x$ in
+$F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order $\#F₁-1$,
+and in particular it is a non $ℓ$-adic residue. Hence for any $i>1$ we
+define $F_i$ as $\F_q[x]/P_1\bigl(x^{ℓ^{i-1}}\bigr)$, the computation
+of the polynomials $P_1\bigl(x^{ℓ^{i-1}}\bigr)$ incurring no algebraic
+cost. Using this representation, elements of $F_i$ can be expressed as
+elements of a higher level, and reciprocally, by a simple
+rearrangement of the coefficients. Another fundamental operation can
+be done much more efficiently than in generic finite fields, as the
+following generalization of~\cite[\S~2.3]{DoSc12} shows.
 
-Summarizing, the following computations can be performed at the same
-asymptotic cost for any $ℓ$:
+\begin{lem}\label{lemma:frob-ell}
+  Let $F_0⊂\cdots⊂F_n$ be a Kummer tower as defined above, and let
+  $a∈F_i$ for some $0≤i≤n$. For any integer $j$, we can compute the
+  $(\#F_j)$-th power of $a$ using $O(ℓ^i\MM(ℓ) + \MM(ℓ^i))$ operations
+  in $\F_q$, after a precomputation independent of $a$ that uses
+  $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$.
+\end{lem}
+\begin{proof}
+  Without loss of generality, we can assume that $j<i$; otherwise, the
+  output is simply $a$ itself. Let $τ=\#F_i$ and $σ=\#F_j$. By
+  assumption, $a$ is written as
+  $a =a_0 + a_1 x + \cdots + a_{τ-1} x^{τ-1}$, for some $x$ that
+  satisfies $x^{\ell^{i-1}}=x_1$, where $x₁∈F₁$ is a root of $P₁$.
+
+  The first step, independently of $a$, is to compute $y=x^σ$. Writing
+  $σ = u \ell^{i-1} + r$, with $r < \ell^{i-1}$, we see that $y$ is
+  given by $x₁^{u \bmod \#F₁}x^r$. We compute $x₁^{u\bmod\#F₁}$ using
+  $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$, and we keep this element
+  as a monomial of $F₁[x]$.
+
+  Finally, once we know $y$, we compute $a(y)$ by a Horner scheme. All
+  powers $y^i$ we need are themselves monomials in $F₁[x]$, each
+  computed from the previous one using $O(\MM(ℓ))$ operations in
+  $\F_q$, for a total of $O(ℓ^i\MM(ℓ))$. Finally the monomials
+  $a_iy^i$ are combined together to form a polynomial in $x$ of degree
+  $O(ℓ^i)$, and then brought to a canonical form in $F_i$ via a
+  modular reduction at a cost of $O(\MM(ℓ^i))$ operations.
+\end{proof}
+
+Note that the complexity of the previous algorithm can be
+significantly improved when $F₁=F₀$, as shown in~\cite{DoSc12} for the
+case $ℓ=2$.  Summarizing, the following computations can be performed
+in a Kummer tower at the indicated asymptotic cost:
 \begin{itemize}
 \item basic arithmetic operations (addition, multiplication) in $F_i$,
   using $O(\MM(ℓ^i))$ operations;
-\item inversion in $F_i$ using $O(i\MM(ℓ^i)\logℓ)$
+\item inversion in $F_i$ using $O(\MM(ℓ^i)\log(ℓ^i))$
   operations\footnote{When $ℓ=2$, a factor of $i$ can be saved
     here~\cite{DoSc12}, but we will disregard this optimization for
     simplicity.};
 \item mapping elements from $F_{i-1}$ to $F_i$ and \emph{vice versa}
   at no arithmetic cost;
 \item multiplication and Euclidean division of polynomials of degree
-  at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations;
-\item computing a $q^{\ell^{j}}$ power in $F_i$ using $O(\ell^i+\log(q))$ operations, the case $\ell=2$ was a result from Doliskani and Schost, the case $\ell \neq 2$ is proved in \ref{lemma:frob-ell} using a generalisation of the case $\ell=2$.
+  at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations, via
+  Kronecker's
+  substitution~\cite{moenck76,kaltofen87,vzGG,vzgathen+shoup92,harvey09};
+\item computing a $(\#F_j)$-th power in $F_i$ using
+  $O(ℓ^i\MM(ℓ) + \MM(ℓ^i))$ operations, after a precomputation that
+  uses $O(ℓ\MM(ℓ)\log(q))$ operations.
 \end{itemize}
 
-For one fundamental operations, we only have an efficient algorithm in
+For one fundamental operation, we only have an efficient algorithm in
 the case $ℓ=2$, hence we introduce the following notations:
 \begin{itemize}
-%\item $\FF(i,j)$ is the cost of computing a $q^{ℓ^j}$-th power in
-%  $F_i$;
 \item $\RR(i)$ is the cost of finding a root of a polynomial of degree
   $ℓ$ in $F_i[x]$.
 \end{itemize}
-For $\ell=2$, Doliskani and Schost show that %$\FF(i,j)=O(ℓ^i+\log q)$, and
- $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
-%$F(i,j)=O(ℓ^{i+j}\log q)$ using a naive algorithm, and
+For $\ell=2$, Doliskani and Schost show that
+$\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
 $\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\logℓ\log(ℓq))$ using the variant of the
-Cantor-Zassenhaus algorithm described in \cite[\S~14.5]{vzGG}, or
+Cantor-Zassenhaus algorithm described in \cite[Chapter~14.5]{vzGG}, or
 $\RR(i)=O\bigl((ℓ^{i(ω+1)/2}+\MM(ℓ^{i+1}\log q))i\logℓ\bigr)$
 using~\cite{kaltofen+shoup97}.
 
@@ -364,7 +395,7 @@ $O(ℓ^{4k})$ possible ways \todo{double check this}, thus yielding an
 algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
 
 To avoid this pitfall, we carefully study
-in section~\ref{sec:isogeny-volcanoes} the structure of
+in Section~\ref{sec:isogeny-volcanoes} the structure of
 $E[ℓ^k]$, and its relationship with the Frobenius endomorphism $π$.
 With that knowledge, we can put some restrictions on the generators $P,Q$,
 thus limiting the number of trials to $O(ℓ^{2k})$,
@@ -629,25 +660,21 @@ we must have~$P' = ψ(P)$.
 \begin{prop}\label{prop:degree-l-torsion}
 Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
 Assume that $E$~has a maximal endomorphism ring.
-For any~$n$, let~$F_n$ be the smallest field extension of $\F_q$
-such that all the points of~$E[ℓ^n]$ are rational over~$F_n$,
-and~$d_n = [F_n:\F_q]$. Then:
+For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
+such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
 \item $d$ divides $d_1$, and $d_1$ divides~$(ℓ-1)$;
 \item Let~$α = v_ℓ(λ^{d_1}-1)$ and~$β = v_{ℓ} (μ^{d_1}-1)$.
-For any integer~$n$, the group $E[ℓ^∞](\F_{q^{ℓ^n · d_1}})$
-is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n + β} ℤ)$.
-\item Assume~$α ≥ β$. Then for all~$n ≥ β$, $d_n = ℓ^{n-β} d_1$.
+For any integer~$i$, the group $E[ℓ^∞](\F_{q^{ℓ^i · d_1}})$
+is isomorphic to~$(ℤ/ℓ^{i+α} ℤ) × (ℤ/ℓ^{i + β} ℤ)$.
+\item Assume~$α ≥ β$. Then for all~$k ≥ β$, $d_k = ℓ^{k-β} d_1$.
 \end{enumerate}
 \end{prop}
-\todo{deux contre-exemples à ce qu'on pense :
-$E: y^2 ≡ x^3 + 62 x + 50 \pmod{79}, ℓ = 3$,
-et $π^2 + 37 π + 599 = 0, ℓ = 7$.}
 \begin{proof}
-The degree~$d_n$ is exactly the order of the matrix~$π|E[ℓ^n]$.
+The degree~$d_k$ is exactly the order of the matrix~$π|E[ℓ^n]$.
 It is therefore the least common multiple of the multiplicative orders
-of~$λ, μ$ modulo~$ℓ^n$.
-We conclude using the multiplicative structure of~$(ℤ/ℓ^n ℤ)^×$, and the fact
+of~$λ, μ$ modulo~$ℓ^k$.
+We conclude using the multiplicative structure of~$(ℤ/ℓ^k ℤ)^×$, and the fact
 that $λμ=q$.
 Note that in general $d ≠ d_1$, as for example for the case
 of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
@@ -711,16 +738,16 @@ the sets~$V(i, c) · P$ and~$V(j,d) · Q$.
 \subsection{Computation of a diagonal basis}
 \label{ss:diagonal}
 
-In this part, given an elliptic curve~$E$ belonging to the crater
-of an $ℓ$-isogeny volcano, we explicitly diagonalize the Frobenius endomorphism
-in~$E[ℓ^k]$, where $k ≥ h+1$,
-in order to identify the directions of the two horizontal $ℓ$-isogenies.
-By Proposition~\ref{prop:degree-l-torsion},
-replacing~$\mathbb F_q$ with an extension~$F_1$ of degree~$d_1 ≤ ℓ - 1$,
-we may assume that all the points of~$E[ℓ]$ are rational over~$\mathbb F_q$;
-then all the points of~$E[ℓ^k]$ are rational over~$F_k$ with~$[F_k:F_1] ≤ ℓ^k$.
-Algorithm~\ref{alg:diagonal} works in~$F_k$.
-All the complexities are given as a number of
+In this part, given an elliptic curve~$E$ belonging to the crater of
+an $ℓ$-isogeny volcano, we explicitly diagonalize the Frobenius
+endomorphism in~$E[ℓ^k]$, where $k ≥ h+1$, in order to identify the
+directions of the two horizontal $ℓ$-isogenies.  By
+Proposition~\ref{prop:degree-l-torsion}, there is an
+extension~$F/\F_q$ of degree~$d_k ≤ ℓ^k$ such that all the points
+of~$E[ℓ^k]$ are rational over~$F$.  Algorithm~\ref{alg:diagonal} works
+in this extension~$F$. \todo{We could save a log by not working in $F$
+  from the beginning, but given that we then run Algo 2, this might
+  not be so important.}  All the complexities are given as a number of
 operations in the base field~$\mathbb F_q$.
 
 In the following algorithm we describe how to compute eigenvalues of
@@ -916,171 +943,118 @@ of degree up to~$ℓ^{k+h}$.
 
 \section{Interpolation step}
 \label{sec:interpolation}
+
+After constructing bases $(P,Q)$ of $E[ℓ^k]$ and $(P',Q')$ of
+$E'[ℓ^k]$ using the algorithms of the previous section, our algorithm
+computes the polynomial with coefficients in $\F_q$ sending
+$x(P)↦x(P')$, $x(Q)↦x(Q')$, and the other abscissas accordingly.  In
+this section we give an efficient algorithm for this specific
+interpolation problem. The algorithm has already appeared
+in~\cite{df10} and~\cite{enge+morain03}; we briefly recall it here,
+and adapt the complexity analysis to out setting.
+
 \subsection{Interpolating a polynomial on a field extension}
-\todo{eventuellement remplacer $m$ par $k$ car c'est ce que l'on risque de faire en pratique}
-In this part, we consider the following problem. Consider a pair $(v,
-w)$, with both $v$ and $w$ in $\F_{q^{\ell^m}}$, and $v$ of degree exactly
-$\ell^m$ over $\F_q$. Our goal is to
-compute polynomials $T$ and $L$ such that
+
+We start by tackling a simpler problem. We suppose we have constructed
+a tower of Kummer extensions $\F_q=F_0⊂F_1⊂\cdots⊂F_n$, with
+$[F₁:F₀]\mid(ℓ-1)$, and $[F_{i+1}:F_i]=ℓ$ for any $i>0$. Given two
+elements $v,w∈F_n\setminus F_{n-1}$, we want to compute polynomials
+$T$ and $L$ such that:
 \begin{itemize}
-\item $T \in \F_q[x]$ is the minimal polynomial of $v$, so that $\deg(T) = \ell^m$;
-\item $L$ is in $\F_q[x]$, of degree less than $\ell^m$, and $L(v)=w$.
+\item $T \in \F_q[x]$ is the minimal polynomial of $v$, of degree
+  $d=\deg T<ℓ^n$;
+\item $L$ is in $\F_q[x]$, of degree less than $d$, and $L(v)=w$.
 \end{itemize}
-In~\cite{df10}, De Feo gives a recursive algorithm for this task in the
-context of Artin-Schreier extensions, which was inspired by earlier
-work by Enge and Morain for solving equations by radicals~\cite{enge+morain03}.
-In this paragraph, we adapt De Feo's algorithm to our context, in a straightforward manner. 
-We recall that in this section we work with towers of Kummer extensions as mentionned in section \ref{sec:introduction}.
-\todo{Say that we assume that $\ell-1$ divides $q$, and that we
-use a cyclotomic-something tower.}
+Observe that, since $v,w∉F_{n-1}$, we necessarily have $v_ℓ(d)=n-1$,
+so that $ℓ^{n-1}≤d<ℓ^n$.
 
+Using a fast interpolation algorithm~\cite[Chapter~10.2]{vzGG}, the
+polynomials $T$ and $L$ could be computed in
+$O\bigl(n\MM(ℓ^{2n})\log(ℓ)\bigr)$ operations in $\F_q$. We can do
+much better by exploiting the form of the Kummer tower, and the
+Frobenius algorithm given in Lemma~\ref{lemma:frob-ell}.
 
-
-\begin{lem}\label{lemma:frob-ell} \todo{peut etre bouger cela ailleurs, mentionné dans la section 1}
-  Let $a$ be in $\F_{q^{\ell^e}}$, and suppose that $\F_{q^{\ell^e}}$
-  is represented as an element of a Kummer Tower. For any integer $v$, we can compute
-  $a^{q^{\ell^v}}$ using $O(\ell^e)$ operations in $\F_q$, after a
-  precomputation independent from $a$ that uses $O(\log(q))$
-  operations in $\F_q$ and $\tilde{O}(\ell^e \log(q))$ bit operations.
-\end{lem}
-\begin{proof}
-  This is a direct generalization of the case $\ell=2$ from~\cite{DoSc12}.
-  Without loss of generality, we can assume that $v < e$; otherwise,
-  the output is simply $a$ itself. By assumption, $a$ is written as
-  $a =a_0 + a_1 x + \cdots + a_{\ell^e-1} x^{\ell^e-1}$, for some $x$
-  that satisfies $x^{\ell^e}=c$, with $c$ in $\F_q$. \todo{avec les notations ce serait $F_1$} 
-
-  The first step, independently of $a$, is to compute
-  $y=x^{q^{\ell^v}}$. Writing $q^{\ell^v} = u \ell^e + r$, with $r <
-  \ell^e$, we see that $y$ is given by $c^{u \bmod (q-1)}x^r$, which
-  can be computed in $O(\log(q))$ operations in $\F_q$ once $u \bmod
-  (q-1)$ and $r$ are known.  To find $u \bmod (q-1)$ and $r$, first
-  compute $q^{\ell^v}$ modulo $\ell^e(q-1)$ and take respectively the
-  quotient and remainder in the division by $\ell^e$. This can all be
-  using in boolean time quasi-linear in $\ell^e \log(q)$.
-
-  Finally, once we know $y$, we compute $a(y)$; all powers $y^i$ we need
-  are themselves monomials in $x$, and can be computed in time $O(\ell^e)$.
-\end{proof}
-
-De Feo's algorithm first computes $T$, starting from $T^{(0)}=x-v$.
-For $i=0,\dots,m-1$, suppose we know a polynomial $T^{(i)}$ of degree
-$\ell^i$ in $\F_{q^{\ell^{m-i}}}[x]$. Then, compute the polynomials
-$T^{(i,j)}$ given by
-$$T^{(i,j)}= \pi^{\ell^{j(m-i-1)}}\left (T^{(i)} \right)$$
-for $0 \le j \le \ell-1$
-and define 
+Following~\cite{df10}, we first compute $T$, starting from
+$T^{(0)}=x-v$.  We let $\sigma_i$ be the map that takes all the
+coefficients of a polynomial in $F_{n-i}[x]$ to the power
+$\#F_{n-i-1}$. For $i=0,\dots,n-2$, suppose we know a polynomial
+$T^{(i)}$ of degree $\ell^i$ in $F_{n-i}[x]$. Then, compute the
+polynomials $T^{(i,j)}$ given by
+\begin{equation*}
+  T^{(i,j)}= \sigma_i^j\bigl (T^{(i)} \bigr)
+  \quad\text{for $0 \le j \le \ell-1$},
+\end{equation*}
+and define
 $$T^{(i+1)}=\prod_{j=0}^{\ell-1} T^{(i,j)};$$ one easily sees that
-$T^{(i)}$ is the minimal polynomial of $v$ over $\F_{q^{\ell^{m-i}}}$,
-and in particular that $T^{(m)}=T$.  
+$T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$. For the
+last step $i=n-1$, we proceed in a similar way by defining
+\begin{equation*}
+  T = T^{(n)}=\prod_{j=0}^{d/ℓ^{n-1}} T^{(n-1,j)}.
+\end{equation*}
 
-\begin{prop}
-The cost of computing all the $T^{(i,j)}$ from all the $T^{(i)}$ is of $O(m\mathsf{M}(\ell^m))$ plus a
-precomputation that takes $O(m \log(q))$ operations in $\F_q$ and
-$\tilde{O}(\ell^{m} \log(q))$ bit operations.
-\end{prop}
-
-\begin{proof}
-At step $i$, using
-Lemma~\ref{lemma:frob-ell}, we see that computing a single Frobenius
-takes $O(\ell^m)$ operations in $\F_q$, for a total of $O(\ell^{m+1})$
-for all $\ell$ of them (together with a precomputation that costs
-$O(\log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m-i} \log(q))$
-bit operations. Summing over all $i$, the total time for the
-Frobeniuses is is $O(m \ell^m)$ operations in $\F_q$, plus the precomputations. 
-\end{proof}
-
-Deducing $T^{(i+1)}$ from the $T^{(i,j)}$'s can be done using
-subproduct tree techniques, as in~\cite[Chapter~10]{vzGG}. 
-%\todo{The following should go somewhere else.} We start
-%by the following claim, which is Lemma~2.2 in~\cite{vzgathen+shoup92}.
-
-%\begin{lem}\label{lemma:complexity_pol_mul} Let $\mu$ be a non-negative integer.
-%  The cost of multiplying two polynomials of degree $n$ in
-%  $\mathbb{F}_{q^{\ell^\mu}}[x] $ is $O(\mathsf{M}(\ell^\mu n))$ operations in
-%  $\mathbb{F}_q$.
-%\end{lem}
-
-
-\begin{lem} \label{lemma:mul-pol}
-  Let $R_1,\dots,R_s$ pairwise coprime polynomials in
-  $\F_{q^{\ell^\mu}}[x]$, with sum of degree $t$. Then one can compute the
-  polynomial $R=R_1 \cdots R_s$
-  using $O(\mathsf{M}(\ell^\mu t) \log(s) )$ operations in $\F_q$.
+\begin{lem}\label{lemma:interpolation:minpoly}
+  The cost of computing $T^{(n)}=T$ is of
+  $O\bigl(nℓ\bigl(\MM(ℓ^{n+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$ operations in $\F_q$
 \end{lem}
+
 \begin{proof}
-  The algorithm is well-known, see for
-  instance~\cite[Lemma~10.4]{vzGG}; the analysis however has to be
-  adapted to our context in order to derive the claimed cost bound.
+  At each step $i$, from the knowledge of $T^{(i)}$ we compute all
+  $T^{(i,j)}$ using Lemma~\ref{lemma:frob-ell}. The cost for a single
+  polynomial $T^{(i,j)}$ is of
+  $O\bigl(ℓ^i\bigl(ℓ^{n-i}\MM(ℓ)+\MM(ℓ^{n-i})\bigr)\bigr)$ operations,
+  which we simplify to a total of $O(ℓ\MM(ℓ^{n+1}))$ for all $O(\ell)$
+  of them.
 
-  Following section \ref{sec:introduction}, let $c$ be such that we can multiply
-  polynomials of degree $n$ in $\mathbb{F}_{q^{\ell^\mu}}[x] $ in at
-  most $c M(\ell^\mu n)$ operations in $\F_q$. The multiplication
-  algorithm we use involves $O(\log(s))$ steps. At each of them, we
-  rely on several products of polynomials, the sum of which degrees is
-  at most $n$.
-  
-  Consider a given step, say $i$, and let
-  $(S_{i,1},U_{i,1}),\dots,(S_{i,t_i},U_{i,t_i})$ be the pairs of
-  polynomials we have to multiply. Let $(\nu_{i,j},\eta_{i,j})$ be the
-  degrees of $(S_{i,j},U_{i,j})$; in view of the discussion above, we
-  see that multiplying these two polynomials takes at most $c
-  \mathsf{M}(\ell^\mu (\nu_{i,j}+\eta_{i,j}))$ operations in
-  $\F_q$. Summing over all $j$, and using the assumption that the sum
-  of all $\nu_{i,j}+\eta_{i,j}$, for fixed $i$, is at most $n$, we
-  conclude that the cost at step $i$ is at most $c \mathsf{M}(\ell^\mu
-  n)$ operations in $\F_q$. Taking all steps into account, we finish
-  the proof.
+  At each step, we must also account for the precomputation required
+  by Lemma~\ref{lemma:frob-ell}, which costs $O(ℓ\MM(ℓ)\log(q))$
+  operations.
+
+  From the $T^{(i,j)}$'s we compute $T^{(i+1)}$ using a subproduct
+  tree, as in~\cite[Lemma~10.4]{vzGG}. The result has degree
+  $O(ℓ^{i+1})$ and coefficients in $F_{n-i}$, thus the overall cost is
+  $O(\MM(ℓ^{n+1})\log(ℓ))$. After $T^{(i+1)}$ is computed this way, we
+  can convert its coefficients to $F_{n-i-1}$ at no algebraic cost.
+
+  Summing over all $i$, we obtain the stated complexity.
 \end{proof}
-
-Thus, we can compute $T^{(i)}$ from the $T^{(i,j)}$ using $O(\mathsf{M}(\ell^m)\log(\ell))$
-operations in $\F_q$
-
-\begin{prop}
-The cost of computing $T^{(m)}=T$ is of $O(\mathsf{M}(\ell^m)\log(\ell^m))$ plus a precomputation that takes $O(m \log(q))$ operations in $\F_q$ and
-$\tilde{O}(\ell^{m} \log(q))$ bit operations.
-\end{prop}
-
-Next, we compute $T'(v)$. This is done by means of successive
-Euclidean remainders, since $T'(v) = (((T' \bmod T^{(1)}) \bmod
-T^{(2)}) \cdots \bmod T^{(m)})$.  At stage $i$, we have to compute 
-the Euclidean division of polynomials of degree $O(\ell^{m-i})$ 
-in $\F_{q^{\ell^i}}[x]$. Using %Lemma~\ref{lemma:complexity_pol_mul} 
-%\todo{faire reference au cout de mutliplication des polynômes de l'introduction} 
-%the fact that multiplication and Euclidean division of polynomials of degree at most d in $F_i[x]$ can be done in $O(M(d\ell^i))$ operations (as recall in section \ref{sec:introduction}),
-results from section \ref{sec:introduction}
-%and the fact that Euclidean division can be reduced to polynomial 
-%multiplication, 
-we deduce that each division can be done in time
-$O(\mathsf{M}(\ell^m)\log(\ell))$, for a total of 
-$O(\mathsf{M}(\ell^m)\log(\ell^m))$ operations in~$\F_q$.
 
 We can finally proceed with the interpolation itself. First, compute
-$w' = w/T'(v)$ and let $L^{(0)}=w'$; this takes $O(\mathsf{M}(\ell^m)\log(\ell^m))$ operations in $\F_q$.
-Next, for $i=0,\dots,m-1$, suppose we
-know a polynomial $L^{(i)}$ in $\F_{q^{\ell^{m-i}}}[x]$
- of degree less than
-$\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
-$$L^{(i,j)}= \pi^{\ell^{j(m-i-1)}}\left (L^{(i)} \right),$$
-for $0 \le j \le \ell-1$, 
-and 
-$$L^{(i+1)} = \sum_{0 \le j \le \ell-1} L^{(i,j)} T^{(i,0)} \cdots
-T^{(i,j-1)} T^{(i,j+1)} \cdots T^{(i,\ell-1)}.$$ As proved
-in~\cite{df10}, $L^{(m)}$ is the polynomial $L$ we are looking for.
-The cost induced by the recombination above is of the same order as
-that seen previously for the computation giving
-$T^{(i+1)}$.% Altogether, the total is $O(\mathsf{M}(\ell^m)
-%\log(\ell^m))$ operations in $\F_q$, plus a precomputation that takes
-%$O(m \log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m} \log(q))$
-%bit operations. \todo{don't call this a precomputation, and handle it better.}
-\begin{prop}
-The cost of computing $T$ and $L$ for $v \in F_{q^{\ell^m}}$ of degree exactly $\ell^{m}$ over $\mathbb{F}_q$ is of $O(\mathsf{M}(\ell^m)
-\log(\ell^m))$ operations in $\F_q$, plus a precomputation that takes
-$O(m \log(q))$ operations in $\F_q$ and $\tilde{O}(\ell^{m} \log(q))$
-bit operations.
-\end{prop}
-%\todo{write a proper proposition}
+$w' = w/T'(v)$ and let $L^{(0)}=w'$.  Next, for $i=0,\dots,n-2$,
+suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
+than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
+$$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr),$$
+for $0 \le j \le \ell-1$, and
+$$L^{(i+1)} = \sum_{j=0}^{\ell-1} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}}.$$ The last step $i=n-1$
+is done analogously.  As shown in~\cite{df10}, $L^{(n)}$ is the
+polynomial $L$ we are looking for.
 
+\begin{prop}
+  Given elements $v,w∈F_n\setminus F_{n-1}$, the cost of computing the
+  minimal polynomial $T∈\F_q[x]$ of $v$, and the interpolating
+  polynomial $L∈\F_q[x]$ such that $L(v)=w$, is of
+  $O\bigl(nℓ\bigl(\MM(ℓ^{n+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$ operations
+  in $\F_q$.
+\end{prop}
+\begin{proof}
+  After the polynomials $T^{(i)}$ have been computed, we need to
+  compute $T'(v)$. This is done by means of successive Euclidean
+  remainders, since
+  $T'(v) = (((T' \bmod T^{(1)}) \bmod T^{(2)}) \cdots \bmod T^{(n)})$.
+  At stage $i$, we have to compute the Euclidean division of a
+  polynomial of degree $O(ℓ^{n-i+1})$ by one of degree $O(ℓ^{n-i})$ in
+  $F_i[x]$. Using the complexities from Section~\ref{sub:towers} we
+  deduce that each division can be done in time $O(\MM(ℓ^{n+1}))$, for
+  a total of $O(n\MM(ℓ^{n+1}))$ operations. Then, computing
+  $w' = w/T'(v)$ takes $O(\MM(\ell^n)\log(\ell^n))$ operations.
+
+  Finally, at each step $i$, the polynomials $L^{(i,j)}$ are computed
+  at a cost of $O(ℓ\MM(ℓ^{n+1}))$, as in the proof of
+  Lemma~\ref{lemma:interpolation:minpoly}.  The computation of
+  $T^{(i)}$ requires $O(ℓ)$ additions, multiplications and divisions
+  of polynomials of degree $O(ℓ^{i+1})$ with coefficients in
+  $F_{n-i}$, again at a cost of $O(ℓ\MM(ℓ^{n+1}))$. Summing over all
+  $i$, the complexity statement follows readily.
+\end{proof}
 
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
@@ -1403,4 +1377,4 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 %  LocalWords:  cardinality bijection Couveignes automorphism
 
 % vim: ts=2:
-%  LocalWords:  Frobenius endomorphism
+%  LocalWords:  Frobenius endomorphism precomputation
