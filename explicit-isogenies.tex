@@ -657,7 +657,7 @@ we must have~$P' = ψ(P)$.
 
 \subsection{The structure of rational $ℓ^∞$-torsion}
 
-\begin{prop}\label{prop:degree-l-torsion}
+\begin{prop}\label{prop:degree-l-torsion}\todo{state somewher that we suppose that $\alpha \geqslant \beta$}
 Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
 Assume that $E$~has a maximal endomorphism ring.
 For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
@@ -741,11 +741,12 @@ the sets~$V(i, c) · P$ and~$V(j,d) · Q$.
 In this part, given an elliptic curve~$E$ belonging to the crater of
 an $ℓ$-isogeny volcano, we explicitly diagonalize the Frobenius
 endomorphism in~$E[ℓ^k]$, where $k ≥ h+1$, in order to identify the
-directions of the two horizontal $ℓ$-isogenies.  By
+directions of the two horizontal $ℓ$-isogenies and such that $(\ell^2-1)\ell^{2k-2}>8r$ as explained in \ref{sec:complete-algorithm}.  By
 Proposition~\ref{prop:degree-l-torsion}, there is an
-extension~$F/\F_q$ of degree~$d_k ≤ ℓ^k$ such that all the points
-of~$E[ℓ^k]$ are rational over~$F$.  Algorithm~\ref{alg:diagonal} works
-in this extension~$F$. \todo{We could save a log by not working in $F$
+extension~$F_{k-\beta}/\F_q$ %of degree~$d_k ≤ ℓ^k$ 
+such that all the points
+of~$E[ℓ^k]$ are rational over~$F_{k-\beta}$.  Algorithm~\ref{alg:diagonal} works
+in this extension~$F_{k-\beta}$. \todo{We could save a log by not working in $F$
   from the beginning, but given that we then run Algo 2, this might
   not be so important.}  All the complexities are given as a number of
 operations in the base field~$\mathbb F_q$.
@@ -791,7 +792,7 @@ with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
 Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
 with a complexity of at most \vskip -20pt
 \begin{equation*}
-O(k(\mathsf{R}(k)+\mathsf{F}(k,0))).
+O(k(\mathsf{R}(k-\beta)).
 \end{equation*}
 
 \end{prop}
@@ -799,11 +800,11 @@ O(k(\mathsf{R}(k)+\mathsf{F}(k,0))).
 The cost of Algorithm~\ref{alg:diagonal} is dominated
 by $k$~times the cost of the last execution of the loop in step~2.
 We give in Appendix~\ref{ap:division} an algorithm
-performing the division by~$ℓ$ of step~3 at a cost of~$\mathsf R(k)$.
-Computing the Frobenius~$π(P)$ in step~4 has a cost of~$\mathsf{F}(k, 0)$.
+performing the division by~$ℓ$ of step~3 at a cost of~$\mathsf R(k-\beta)$.
+Computing the Frobenius~$π(P)$ in step~4 has a cost of~$O(\ell^{k-\beta}\mathsf{M}(\ell)+\mathsf{M}(\ell^{k-\beta}))$ plus $O(\ell \mathbf{M}(\ell) \log(q))$ precomputations.
 %if $ℓ = 2$ then this is bounded~\cite[2.3]{DoSc12} by~$O(ℓ^k + \log q)$, and therefore dominated by the cost of step~3.
 Writing~$π(P)$ as a linear combination~$α P + β Q$
-needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \mathsf{M}(ℓ^k)$.
+needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \mathsf{M}(ℓ^{k-\beta})$.
 This is %again 
 negligible compared to step~3.
 Finally, all steps after step~5 only involve field arithmetic.
@@ -888,7 +889,7 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \STATE Write~$π(P') = λ P' + b Q_i$ for~$b ∈ ℤ/ℓℤ$ and
 let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
-\RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1} ( ℓ^{-k+1} P_{k-1} )$.
+\RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1} ( ℓ^{h-k+1} P_{k-1} )$. 
 % \RETURN $\{\widehat{ϕ}_1,..,\widehat{ϕ}_n\}, R_n, P_n$
 \end{algorithmic}
 \end{algorithm}
@@ -903,7 +904,7 @@ Algorithm~\ref{alg:horizontal} is correct and has a complexity of
 %\end{array}
 %\end{equation*}
 \begin{equation*}
-O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))
+O(k(\mathsf{R}(k-\beta)))
 \end{equation*}
 \end{prop}
 \begin{proof}
@@ -933,8 +934,8 @@ One application of Algorithm~\ref{alg:diagonal} (with input~$k ← h+1$)
 and two applications of Algorithm~\ref{alg:horizontal} allow us
 to compute a horizontal basis of~$E[ℓ^k]$.
 This could be done directly with Algorithm~\ref{alg:diagonal} instead,
-but that would require computing in an extension
-of degree up to~$ℓ^{k+h}$.
+but that would require computing in an extension $F_{k+h-\beta}$.
+%of degree up to~$ℓ^{k+h}$.
 
 %Algorithme necessaire, surement pour enfoncer le clou...
 
@@ -1075,7 +1076,9 @@ as well the shortest $ℓ$-isogeny chain from~$E$ to the crater.
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
 % One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
 %   \newline
-  For $\ell \neq 2$ after determining a chain of $\ell$-isogeny to a curve on the crater we determine which kind of crater the curve is located on by looking for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, all those methods are described in \cite{volcano}. If there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
+As we will need to compute at one moment the $\ell^{\infty}$ rational torsion of the curve, we start by doing it using algorithm like \ref{alg:diagonal}, and then we take advantage of this knowledge like in \cite{MireMRV05} \todo{check this quote} to build an ascending path until we reach a level of stability where there is no link between the structure of the $\ell^{\infty}$ torsion of a curve and its level in the volcano. After this we use methods like in \cite{volcano} to find a curve on the crater by exploring all the chain of $\ell$-isogenies. 
+\newline
+Once we got a curve on the crater we still have to determine which kind of crater the curve is located on. Using algorithm \ref{alg:diagonal} we can compute a matrix of the Frobenius on the $\ell^{h+1}$ torsion , since we know $h$ the height of the volcano, if we got two distinct eigenvalues then the crater is cyclic then it is not. The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing three roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
 \newline 
 For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
  %c est exactement ce qui est fait dans ce papier...
@@ -1096,9 +1099,8 @@ Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
  % The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) and 
- The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. 
+ The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. We will work with $\ell^{k}$ torsion point with $k$ such that $k \geqslant h+1$ and such that $(\ell^2-1)\ell^{2k-2}> 8 r$, the first condition is necessary to compute horizontal $\ell$-isogenies, the second one is necessary to have enough points for the interpolation of the $r$-isogeny. We can notice that the first condition is only necessary for section \ref{sec:acti-frob-endm}, we can then work only with horizontal points of degree $\ell^k$ such that they verify $(\ell^2-1)\ell^{2k-2}> 8 r$.
 
-\todo{Precise somewhere that $\lambda \neq \mu \bmod \ell^k$}
 In this section we work with the abscissas of points of order $\ell^k$ on two input
 curves $E,E'$ as in Problem~\ref{prob:isogeny-problem}, with $k$ fixed.
 As input, we are given horizontal bases $(P,Q)$ of $E[\ell^k]$ and
