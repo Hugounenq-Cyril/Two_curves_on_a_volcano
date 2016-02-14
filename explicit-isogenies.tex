@@ -1124,8 +1124,8 @@ Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
  % The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) and 
  The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. 
 
-
-In this section we work with the points of order $\ell^k$ on two input
+\todo{Precise somewhere that $\lambda \neq \mu \bmod \ell^k$}
+In this section we work with the abscissas of points of order $\ell^k$ on two input
 curves $E,E'$ as in Problem~\ref{prob:isogeny-problem}, with $k$ fixed.
 As input, we are given horizontal bases $(P,Q)$ of $E[\ell^k]$ and
 $(P',Q')$ of $E'[\ell^k]$ as computed in
@@ -1146,16 +1146,20 @@ coprime with $\ell$, in which case $cP+dQ$ and $acP'+dbQ'$ have order
 $\ell^k$; here, $x(P)$ denotes the abscissa of a point $P$.
 
 As before, \todo{really? where?} we assume that $\pi(P)=\lambda P$ and
-$\pi(Q) = \mu Q$, with $\lambda \bmod \ell = \mu \bmod \ell = 1$.  We
-further let $\alpha$ and $\beta$ be the respective $\ell$-adic
-valuations of $\lambda$ and $\mu$. 
+$\pi(Q) = \mu Q$, with $\lambda \bmod \ell = \mu \bmod \ell = 1$ and $\lambda \neq \mu \bmod \ell^k$.  We
+further let $\alpha$ and $\beta$ be the respective multiplicative orders %$\ell$-adic valuations 
+of $\lambda$ and $\mu$ as defined in \ref{prop:degree-l-torsion}.%\todo{Wrong it is their $\ell$-adic 
+%valuation of their multiplicative order modulo $\ell^k$ } 
 
-Given $u,v$ in $\{0,\dots,k-1,k\}$, let us denote by $T_{u,v}$ the set
+\begin{defi}
+For $u,v$ in $\{0,\dots,k-1,k\}$, we denote by $T_{u,v}$ the set
 of all points on $E$ of the form $R=c P + d Q$, with $(c,d)$ in
 $(\Z/\ell^k\Z)^2$, $c$ and $d$ having respective $\ell$-adic
 valuations $u$ and $v$ (having valuation $k$ means that the
-corresponding element is zero). All these points are in $E[\ell^k]$;
-the set of points of order exactly $\ell^k$ is the disjoint union of
+corresponding element is zero). All these points are in $E[\ell^k]$
+\end{defi}
+
+The set of points of order exactly $\ell^k$ is the disjoint union of
 the sets $T_{u,v}$ for which either $u$ or $v$ is zero.
 
 Take $u,v$ as above. For $R$ in $T_{u,v}$ and $s \ge 0$, we have
@@ -1163,10 +1167,10 @@ $\pi^s(R) = c\lambda^s P+ d \mu^s Q$.  Because $\lambda$ and $\mu$ are
 both equal to $1$ modulo $\ell$, the set $T_{u,v}$ is thus the
 disjoint union of orbits under the action of $\pi$. For any $R$ as
 above, the length of its orbit (which is as well the degree of its
-field of definition over $\F_q$) is the least $s>0$ such that $c
+field of definition over $\F_q$ \todo{replace with $F_1$}) is the least $s>0$ such that $c
 \lambda^s = c \bmod \ell^k$ and $d \mu^s =d \bmod \ell^k$. It is thus
-given by $\ell^e$, with $e={\max(k-u-\alpha, k-v-\beta, 0)}$, if I am
-not wrong.
+given by $\ell^e$, with $e={\max(k-u-\alpha, k-v-\beta, 0)}$. %if I am
+%not wrong.
 
 To get representatives of these orbits, we start by computing
 $\ell^uP$ and $\ell^vQ$. They have respective degrees
@@ -1175,7 +1179,7 @@ $\F_q$, and to simplify matters we assume that they are both given
 over $\F_{q^{\ell^e}}$. This can be done in $O( \M(\ell^k)
 \log(\ell^k))$ operations in $\F_q$. \todo{explain, projective
   coordinates}. Next, we compute representatives $C_{u,v} \subset
-U=(\Z/\ell^{k-u}\Z)^* \times (\Z/\ell^{k-v}\Z)^*$ for the cosets
+U=(\Z/\ell^{k-u}\Z)^{\times} \times (\Z/\ell^{k-v}\Z)^{\times}$ for the cosets
 modulo $(\lambda, \mu)$; $C_{u,v}$ has cardinality $(\ell-1)^2
 \ell^{2k-u-v-2-e}$. This is done in a direct manner, by a loop over
 all elements in $U$ (for any element not marked before, we add it to
@@ -1188,7 +1192,14 @@ C_{u,v})$, with $R_{u,v,c,d}=c \ell^u P + d \ell^v Q$; these points
 are all defined over $\F_{q^{\ell^e}}$ and there are $(\ell-1)^2
 \ell^{2k-u-v-2-e}$ of them. This takes $O(\ell^{2k-u-v-e}
 \M(\ell^e)\log(\ell^k))$ operations in $\F_q$, which is $O(\ell^{-u-v}
-\M(\ell^{2k})\log(\ell^k))$.
+\M(\ell^{2k})\log(\ell^k))$. Summing over all $u,v$ 
+(with either $u=0$ or $v=0$) leads to a total
+of $O(\M(\ell^{2k})\log(\ell^k))$.
+
+\begin{prop} \label{prop:cout-repre}
+The cost of computing all the $R_{u,v}=(R_{u,v,c,d}\ \mid (c,d) \in
+C_{u,v})$ is of $O(\M(\ell^{2k})\log(\ell^k))$.
+\end{prop}
 
 We do the same thing on $E'$ using $aP'$ and $bQ'$ instead of $P$ and
 $Q$, computing points $R'_{u,v}$. Then, we apply the algorithm of 
@@ -1196,7 +1207,7 @@ the previous section to each pair $(R_{u,v,c,d},R'_{u,v,c,d})$. \todo{discuss
 the fact that we take only abscissae; maybe $\ell=2$ needs special case}
 This takes $O(\M(\ell^e)\log(\ell^e))$ operations in $\F_q$ per point,
 for a total of $O( \ell^{-u-v} \M(\ell^{2k})\log(\ell^k))$ as above.
-If I am not wrong, summing over all $u,v$ 
+Summing over all $u,v$ 
 (with either $u=0$ or $v=0$) leads to a total
 of $O(\M(\ell^{2k})\log(\ell^k))$.
 \todo{work out all this stuff precisely, and don't forget the bit complexity of 
@@ -1210,6 +1221,10 @@ pair $(T,L)$ that describes the action of the putative isogeny over
 all points of order $\ell^k$. The CRT takes time
 $O(\M(\ell^{2k})\log(\ell^k))$, since the sum of the lengths of the
 orbits is less than $\ell^{2k}$.
+
+\begin{prop} \label{prop: cout-interp}
+The cost of computing the polynomials $(T,L)$ is of $O(\mathsf{M}(\ell^{2k})\log(\ell^{k}))$ with precomputations of $O(\M(\ell^{2k})\log(\ell^k))$ in $\mathbb{F}_q$
+\end{prop}
 
  
 %%  We work with the points of order $\ell^k$ on two input
@@ -1285,13 +1300,14 @@ orbits is less than $\ell^{2k}$.
  % expensive.}
 
 \todo{complete the complexity}
- First we compute $k$ such that $\frac{3}{2}\ell^{2k-2}>r$, then we compute a basis of the $\ell$ torsion solving a division polynomial of degree $\ell^2$, thus we have a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$ with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
- Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. Using notations of algorithm \ref{alg:horizontal} we apply this algorithm to $(P,Q,Q)$, we get then $(P_{k-h},Q_{k-h})$ a diagonal basis of $E_{k-h}[\ell^k]$ and a chain of $\ell$ isogeny of direction $\mu$, we then apply successively the isogenies of the chain on $P_{k-h}$ and we get in the end a horizontal point $P$ of $E$ of direction $\lambda$. We use a similar method to get $Q$ an horizontal point of $E$ of direction $\mu$. Thus the cost of computing an horizontal basis is the same as algorithm \ref{alg:horizontal}: $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$.  Now we can describe the entire algorithm for elliptic curves located on the cyclic crater of a volcano.
-\newline  
-  As like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
+ To complete the complexity analysis we need to state the complexity of solving a division polynomial of degree $\ell^2$ in the aim of computing a basis of the $\ell$ torsion to apply algorithms of $\ell$ division. It has a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$. %with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
+ %Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. 
+ \newline
+  Now we are able to describe the entire algorithm,   
+  as like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
  \begin{enumerate}
 \item Compute horizontal basis $P,Q$ and $P',Q'$ of
-  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\frac{3}{2}\ell^{2k-2} > 4r$ \todo{preciser cette borne} ;
+  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\frac{3}{2}\ell^{2k-2} > 4r$ \todo{preciser cette borne ??} ;
 \item\label{alg:modif-couveignes:interp} Choose $(a,b) \in (\mathbb{Z}/\ell^k\mathbb{Z}^*)^2$ and compute the interpolation
   polynomial $L$ \todo{(verify that notation is consistent
     with Sec.4)} sending $x(P)$ to $x(aP')$ and $x(Q)$ to $x(bQ')$, and the abscissas of
@@ -1304,13 +1320,11 @@ orbits is less than $\ell^{2k}$.
 \end{enumerate} 
 
 \begin{prop}
-The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$ isogeny is for $\ell=2$ of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
+The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$-isogeny is of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ plus a pre-computation of $O(\mathsf{M}(r)\log(r))$
 \end{prop}
 
 \begin{proof}%refaire ça avec les notations de Luca
-The cost of computing horizontal basis is for $\ell=2$ of $O((\log(r)^2+\log(r)\log(q))M(\sqrt{r}))$ in $\mathbb{F}_q$, for $\ell \neq 2$ it is of $O(\sqrt{r}\log(q)M(\sqrt{r})\log(r)^2 \log(\ell)^{-1}+kF(q,\ell^k))$ in $\mathbb{F}_q$.
-The cost of computing an interpolation polynomial is for $\ell=2$ of $O(M(r)\log(r))$, for $\ell \neq 2$ it is of $O(M(r)\log(r)+rF(q,\ell^k))$ . The rational reconstruction is done in $O(M(r)\log(r))$ operations in $\mathbb{F}_q$. In average we have to repeat this step $O(\ell^{2k})=O(r)$ times. 
-Thus we have a total complexity for $\ell=2$ of  $O(rM(r)\log(r))$ in $\mathbb{F}_q$ and for $\ell \neq 2$ of $O(rM(r)\log(r)+r^2F(q,\ell^k))$ in $\mathbb{F}_q$.
+We just have to multiply by $r$ the results obtained from \ref{prop: cout-interp} for the different try for the mapping.
 \end{proof}
   
 \section{Experimental results}
