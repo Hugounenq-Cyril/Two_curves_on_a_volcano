@@ -36,6 +36,7 @@
 \def\cout#1{\mathsf{#1}}
 % let's decide on one!
 \let\leq\leqslant \let\geq\geqslant
+\def\sfdiv{\mathsf{divide}}
 
 \newcommand{\M}{\mathsf{M}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -1343,15 +1344,16 @@ the matrix of~$π|T_ℓ(E_P)$ is $M_P^{-1} · π · M_P^{}$.
 \section{Division of a point by~$\ell$}
 \label{ap:division}
 
-We write~$Q ← P/ℓ$ for the computation of a preimage of~$P$
+We write~$Q ← \sfdiv{ℓ, P}$ for the computation of a preimage of~$P$
 by multiplication by~$ℓ$.
-The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
+The obvious way to compute~$\sfdiv{ℓ, P}$ would be to use
+the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
 Instead, we factor the multiplication-by-$ℓ$ map
 as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
-the cost of the $P/ℓ$ operation is therefore $\mathsf{R} (k)$.
+the cost of the $\sfdiv{ℓ, P}$ operation is therefore $\mathsf{R} (k)$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
@@ -1378,24 +1380,28 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 \end{algorithm}
 
 
+\goodbreak
 \section{Galois orbits in~$E[ℓ^k]$: the $ℓ=2$ case}
 \label{ap:orbites-2-torsion}
 
 \begin{prop}\label{prop:orbites-2-torsion}
 Let~$E$ be an elliptic curve with $2$-maximal endomorphism ring.
-Assume $ℓ = 2$, $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
+Assume $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
 Write~$ν_2(x, y) = \min (x+y, x+β-2, y+α-2)$
 and~$ρ_2(x, y) = x+y - ν_2(x, y) = \max (0, x-α+2, y-β+2)$.
 The decomposition of the group~$E[2^k]$ in Galois orbits is as follows:
 \begin{enumerate}
 \item for~$i, j = 0, …, k-2$:
-$4 · ℓ^{ν_2(i,j)}$ orbits of size~$ℓ^{ρ_2(i,j)}$;
+$4 · 2^{ν_2(i,j)}$ orbits of size~$2^{ρ_2(i,j)}$;
 \item for~$i = 0, …, k-2$:
-$8 · ℓ^{\min (i, α-2)}$ orbits of size~$ℓ^{\max (0, i-α+2)}$;
+$8 · 2^{\min (i, α-2)}$ orbits of size~$2^{\max (0, i-α+2)}$;
 \item the four singleton orbits of $2$-torsion points.
-% \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
+Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
+by replacing the base field by a quadratic extension,
+we can always ensure that the condition $λ ≡ μ ≡ 1 \pmod{4}$ is
+satisfied.
 \begin{proof}
 The proof is much the same as that of Prop.~\ref{prop:orbites-l-torsion}.
 The case~$ℓ = 2$ of~\cite[Théorème II.3.2]{Serre.Arith}
