@@ -435,10 +435,10 @@ in which case we call $ϕ$ \emph{horizontal}.
 \begin{prop}[{\cite[Proposition~23]{Kohel}; \cite[Lemma~6]{sutherland2013isogeny}}] \label{prop:isogeny-count}
 Let~$E$ be an ordinary elliptic curve with endomorphism ring~$\mathcal O$.
 \begin{enumerate}
-\item If $\mathcal O$~is maximal then
+\item If $\mathcal O$~is $ℓ$-maximal then
 there are $(d_K/ℓ)+1$~horizontal $ℓ$-isogenies from~$E$
 (and no ascending $ℓ$-isogenies).
-\item If $\mathcal O$~is not maximal then
+\item If $\mathcal O$~is not $ℓ$-maximal then
 there are no horizontal $ℓ$-isogenies from~$E$,
 and one ascending $ℓ$-isogeny.
 \end{enumerate}
@@ -447,7 +447,7 @@ and one ascending $ℓ$-isogeny.
 A \emph{volcano of $ℓ$-isogenies} is a connected component
 of the graph of rational $ℓ$-isogenies between curves defined on~$\mathbb F_q$.
 The \emph{crater} is the subgraph corresponding to curves
-having the maximal endomorphism ring~$\mathcal O_K$.
+having an $ℓ$-maximal endomorphism ring.
 The shape of the crater is given by the Kronecker symbol~$(d_K/ℓ)$,
 as per Proposition~\ref{prop:isogeny-count}.
 For any~$n ≥ 0$, a $ℓ^n$-isogeny is \emph{horizontal}
@@ -650,7 +650,7 @@ we must have~$P' = ψ(P)$.
 
 \begin{prop}\label{prop:degree-l-torsion}\todo{state somewher that we suppose that $\alpha \geqslant \beta$}
 Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
-Assume that $E$~has a maximal endomorphism ring.
+Assume that $E$~has a $ℓ$-maximal endomorphism ring.
 For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
 such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
@@ -674,7 +674,7 @@ of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
 % and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
 \end{proof}
 \begin{prop}\label{prop:orbites-l-torsion}
-Let~$E$ be an elliptic curve with maximal endomorphism ring.
+Let~$E$ be an elliptic curve with $ℓ$-maximal endomorphism ring.
 Assume $ℓ ≠ 2$, $λ ≡ μ ≡ 1 \pmod{ℓ}$ and let~$α = v_ℓ(λ-1), β=v_ℓ(μ-1)$.
 Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
 and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
