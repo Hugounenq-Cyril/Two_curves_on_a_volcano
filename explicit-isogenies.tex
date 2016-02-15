@@ -36,6 +36,7 @@
 \def\cout#1{\mathsf{#1}}
 % let's decide on one!
 \let\leq\leqslant \let\geq\geqslant
+\def\sfdiv{\mathsf{divide}}
 
 \newcommand{\M}{\mathsf{M}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -215,9 +216,9 @@ denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
 number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
 For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
-we denote by~$E[ℓ^n]$ the group of $ℓ^n$-torsion points of~$E$,
-$E[ℓ^{∞}] = \varinjlim E[ℓ^n]$ the reunion of all $E[ℓ^n]$,
-and $T_ℓ(E) = \varprojlim E[ℓ^n]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
+we denote by~$E[ℓ^k]$ the group of $ℓ^k$-torsion points of~$E$,
+$E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the reunion of all $E[ℓ^k]$,
+and $T_ℓ(E) = \varprojlim E[ℓ^k]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$.
 The factorization of the characteristic polynomial of~$π$
 in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
@@ -259,7 +260,7 @@ are many probabilistic algorithms to compute $P_1$ in time polynomial
 in $\ell$ and $\log q$; since their cost does not depend on the height
 $n$ of the tower, we neglect it. Then, the image $x₁$ of $x$ in
 $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order $\#F₁-1$,
-and in particular it is a non $ℓ$-adic residue. Hence for any $i>1$ we
+and in particular it is not a $ℓ$-th power. Hence for any $i>1$ we
 define $F_i$ as $\F_q[x]/P_1\bigl(x^{ℓ^{i-1}}\bigr)$, the computation
 of the polynomials $P_1\bigl(x^{ℓ^{i-1}}\bigr)$ incurring no algebraic
 cost. Using this representation, elements of $F_i$ can be expressed as
@@ -649,9 +650,9 @@ we must have~$P' = ψ(P)$.
 \subsection{The structure of rational $ℓ^∞$-torsion}
 
 \begin{prop}\label{prop:degree-l-torsion}\todo{state somewher that we suppose that $\alpha \geqslant \beta$}
-Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
+Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^×$.
 Assume that $E$~has a $ℓ$-maximal endomorphism ring.
-For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
+For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
 such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
 \item $d$ divides $d_1$, and $d_1$ divides~$(ℓ-1)$;
@@ -680,11 +681,11 @@ Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
 and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
 The decomposition of the group~$E[ℓ^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-1$:
+\item for~$i, j = 1, …, k-1$:
 $(ℓ-1)^2 · ℓ^{ν(i,j)}$ orbits of size~$ℓ^{ρ(i,j)}$;
-\item for~$i = 0, …, k-1$:
+\item for~$i = 1, …, k-1$:
 $2 (ℓ-1) · ℓ^{\min (i, α-1)}$ orbits of size~$ℓ^{\max (0, i-α+1)}$;
-\item the orbit~$\acco{0}$.
+\item the $ℓ^2$ singleton orbits of~$E[ℓ]$.
 % \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
@@ -717,6 +718,7 @@ whereas the size of each orbit is~$[(ℤ/ℓ^i ℤ)×(ℤ/ℓ^j ℤ)\::\: Λ_{i,
 By using elementary column manipulations,
 we find that the covolume of~$Λ_{i,j}$ is~$ℓ^{ν(i,j)}$,
 hence the point~(i) of the proposition.
+(The case~$i = j = 0$ yields singleton orbits in~$E[ℓ]$).
 
 The reunion of all the sets~$W(j,i,c,d)$
 is exactly the set of all~$x P + y Q$ for~$x, y ≠ 0$.
@@ -809,8 +811,8 @@ we can compute a diagonal basis of~$E[ℓ^{h+1}]$.
 By Proposition~\ref{prop:diagonal-horizontal},
 this gives us a horizontal basis of~$E[ℓ]$.
 By Proposition~\ref{prop:push-horizontal},
-we can use this information to improve horizontal points of~$E[ℓ^n]$
-into horizontal points of~$E[ℓ^{n+1}]$.
+we can use this information to improve horizontal points of~$E[ℓ^k]$
+into horizontal points of~$E[ℓ^{k+1}]$.
 This is what Algorithm~\ref{alg:horizontal} does.
 
 \begin{figure}
@@ -863,11 +865,8 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \end{figure}
 \begin{algorithm}
 \caption{\label{alg:horizontal}Computing a horizontal point of order~$ℓ^k$}
-% Horizontalisation of $R$ following the $\lambda$ direction}
 \begin{algorithmic}[1]
 \REQUIRE $(P_0, Q_0)$: a diagonal basis of~$E[ℓ^{h+1}]$; $k$: an integer.\\
-% $R$: a point of~$E$ of order $ℓ^k$ such that
-% $ℓ^n R$~is horizontal of direction~$μ$ for some~$n ≤ k$.
 \ENSURE $R$: a horizontal point of~$E[ℓ^k]$ with direction~$λ$.
 \FOR{$i = 1$ to~$k-1$}
 \STATE $ϕ_i \gets $ isogeny with kernel~$\chev{ℓ^{h} P_{i-1}}$
@@ -878,7 +877,6 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
 \RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1}
   (\mathsf{divide}( ℓ^{k-(h+1)}, P_{k-1}) )$. 
-% \RETURN $\{\widehat{ϕ}_1,..,\widehat{ϕ}_n\}, R_n, P_n$
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}
@@ -1066,7 +1064,7 @@ as well the shortest $ℓ$-isogeny chain from~$E$ to the crater.
 %   \newline
 As we will need to compute the $\ell^{\infty}$ rational torsion of the curve, we start by doing it using algorithm like \ref{alg:diagonal}, and then we take advantage of this knowledge like in \cite{MireMRV05} \todo{check this quote} to build an ascending path until we reach a level of stability where there is no more link between the structure of the $\ell^{\infty}$ rational torsion of a curve and its level in the volcano. After this we use methods like in \cite{volcano} to find a curve on the crater by exploring all the chain of $\ell$-isogenies. In the case where the volcano has no level of stabilty (said regular) then we have a cost of $O(\frac{\log(q)}{\log(\ell}) \mathsf{R}(1) )$ otherwise it is of  $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. 
 \newline
-Once we got a curve on the crater we still have to determine which kind of crater the curve is located on. Using algorithm \ref{alg:diagonal} we can compute a matrix of the Frobenius on the $\ell^{h+1}$ torsion , since we know $h$ the height of the volcano, if we got two distinct eigenvalues then the crater is cyclic otherwise it is not. The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})\ell \mathcal{F}(\ell) )$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
+Once we got a curve on the crater we still have to determine which kind of crater the curve is located on. Using algorithm \ref{alg:diagonal} we can compute a matrix of the Frobenius on the $\ell^{h+1}$ torsion, since we know $h$ the height of the volcano, if we got two distinct eigenvalues then the crater is cyclic otherwise it is not. The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})\ell \mathcal{F}(\ell) )$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
 \newline 
 For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
  %c est exactement ce qui est fait dans ce papier...
@@ -1086,6 +1084,51 @@ we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
 Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
+
+\todo{proposition de modification -- Jérôme:
+
+Let~$ψ: E→ E'$ be an isogeny between curves with maximal endomorphism rings.
+We fix bases of~$E[ℓ^k]$, $E'[ℓ^k]$ and write~$π, π'$ for the matrices
+of the Frobenius.
+Since $ψ$~is rational, its matrix satisfies the relation~$π' · ψ = ψ · π$
+in $ℤ_ℓ^{2×2}$ and hence in~$(ℤ/ℓ^k ℤ)^{2 × 2}$.
+
+If diagonal bases of~$E[ℓ^k], E'[ℓ^k]$ are used then,
+since $π$~is a cyclic endomorphism of~$ℤ_ℓ^2$,
+this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$,
+\emph{i.e.} that $ψ$~is a diagonal matrix;
+however, $ℤ/ℓ^k ℤ$~is not an integral domain
+and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
+so we can only say that~$ψ ∈ (ℤ/ℓ^k ℤ)[π] \pmod{ℓ^{k-h}}$.
+If on the other hand we choose \emph{horizontal} bases
+of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
+we know that $ψ$~is a diagonal matrix.
+
+We then enumerate all the $ℓ^{2k-2}$ invertible diagonal matrices;
+for each matrix~$M$, we try to interpolate
+the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
+The successful interpolation will be our explicit isogeny~$ψ$.
+
+We interpolate using only the abscissas~$x(P)$
+of the $(ℓ^{2k}-1)/2$ abscissas of non-zero points~$P$ of order~$ℓ^k$.
+Since the isogeny~$ψ$ is a rational fraction of degrees~$(r, r-1)$,
+it is defined by $2r$ coefficients.
+According to~\cite[§3.1]{df10},
+an $r$-isogeny can be interpolated, and identified,
+from its values on $2r$~abscissas.
+For this method to work, we therefore select the smallest~$k ≥ h+1$
+such that~$ℓ^{2k}-1 > 4r$.
+
+Using the method of section~\ref{sec:interpolation},
+we compute the polynomial~$T$ vanishing on the abscissas of
+the points of order~$ℓ^k$,
+as well as, for each $a, b ∈ (ℤ/ℓ^k ℤ)^×$
+(representing the diagonal coefficients of our candidate matrix $ψ$),
+the interpolation polynomial~$L_{a,b}$
+such that $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$
+for all $u, v ∈ ℤ/ℓ^k ℤ$.
+}
+
  % The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) and 
  The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. We will work with $\ell^{k}$ torsion point with $k$ such that $k \geqslant h+1$ and such that $(\ell^2-1)\ell^{2k-2}> 8 r$, the first condition is necessary to compute horizontal $\ell$-isogenies, the second one is necessary to have enough points for the interpolation of the $r$-isogeny. We can notice that the first condition is only necessary for section \ref{sec:acti-frob-endm}, we can then work only with horizontal points of degree $\ell^k$ such that they verify $(\ell^2-1)\ell^{2k-2}> 8 r$.
 
@@ -1343,15 +1386,16 @@ the matrix of~$π|T_ℓ(E_P)$ is $M_P^{-1} · π · M_P^{}$.
 \section{Division of a point by~$\ell$}
 \label{ap:division}
 
-We write~$Q ← P/ℓ$ for the computation of a preimage of~$P$
+We write~$Q ← \sfdiv{ℓ, P}$ for the computation of a preimage of~$P$
 by multiplication by~$ℓ$.
-The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
+The obvious way to compute~$\sfdiv{ℓ, P}$ would be to use
+the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
 Instead, we factor the multiplication-by-$ℓ$ map
 as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
-the cost of the $P/ℓ$ operation is therefore $\mathsf{R} (k)$.
+the cost of the $\sfdiv{ℓ, P}$ operation is therefore $\mathsf{R} (k)$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
@@ -1377,25 +1421,28 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 \end{algorithmic}
 \end{algorithm}
 
-
+\goodbreak
 \section{Galois orbits in~$E[ℓ^k]$: the $ℓ=2$ case}
 \label{ap:orbites-2-torsion}
 
 \begin{prop}\label{prop:orbites-2-torsion}
 Let~$E$ be an elliptic curve with $2$-maximal endomorphism ring.
-Assume $ℓ = 2$, $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
+Assume $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
 Write~$ν_2(x, y) = \min (x+y, x+β-2, y+α-2)$
 and~$ρ_2(x, y) = x+y - ν_2(x, y) = \max (0, x-α+2, y-β+2)$.
 The decomposition of the group~$E[2^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-2$:
-$4 · ℓ^{ν_2(i,j)}$ orbits of size~$ℓ^{ρ_2(i,j)}$;
-\item for~$i = 0, …, k-2$:
-$8 · ℓ^{\min (i, α-2)}$ orbits of size~$ℓ^{\max (0, i-α+2)}$;
-\item the four singleton orbits of $2$-torsion points.
-% \item \todo{le cas où $ℓ=2$}
+\item for~$i, j = 1, …, k-2$:
+$4 · 2^{ν_2(i,j)}$ orbits of size~$2^{ρ_2(i,j)}$;
+\item for~$i = 1, …, k-2$:
+$8 · 2^{\min (i, α-2)}$ orbits of size~$2^{\max (0, i-α+2)}$;
+\item the 16 singleton orbits of~$E[4]$.
 \end{enumerate}
 \end{prop}
+Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
+by replacing the base field by a quadratic extension,
+we can always ensure that the condition $λ ≡ μ ≡ 1 \pmod{4}$ is
+satisfied.
 \begin{proof}
 The proof is much the same as that of Prop.~\ref{prop:orbites-l-torsion}.
 The case~$ℓ = 2$ of~\cite[Théorème II.3.2]{Serre.Arith}
@@ -1411,7 +1458,8 @@ also write~$λ = f(0,0,2^{α-2} u)$, $μ = f(0,0,2^{β-2} v)$.
 Then the Galois orbits in~$W(i,j,c,d)$ correspond to $ℤ_2^2$ modulo
 the lattice~$Λ_{i,j} = \smat{2^{i}&0&2^{α-2} u\\0&2^{j}&2^{β-2} v}$.
 We find that $Λ_{i,j}$ has covolume~$2^{ν_2(i,j)}$.
-This gives the orbits of point~(i) of the proposition.
+This gives the orbits of point~(i) of the proposition,
+while the case~$i = j = 0$ gives singleton orbits.
 
 By considering the orbits of~$V(i,c) P + ε Q$ and~$ε P + V(i,c) Q$
 for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
