@@ -569,8 +569,16 @@ class Tower_two:
 		sage: K.pushD(Test2,3)==Test
 		True
 		'''
-		for i in range(nb):	
-			element=self.push1l(element)
+		i=0
+		Test=True
+		while (Test and i<nb ):
+			i=i+1 
+		#for i in range(nb):	
+			element2=self.push1l(element)
+			if element==self.lift1l(element2):
+				element=element2
+			else:
+				Test=False
 		return element
 
 	def cardinality_field(self,field):

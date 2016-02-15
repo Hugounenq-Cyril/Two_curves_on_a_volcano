@@ -392,7 +392,7 @@ def calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1, Lambda_2,power):
 	elif (A==((R+2**(rs-1)*Q)[0]) and B==((R+2**(rs-1)*Q)[1])):
 		a=0; b=1;
 	else:
-		print 'Dernier cas P,rs,Lambda_1',rs,Lambda_1,(R+2**(rs-1)*(P+Q))[0]
+		#print 'Dernier cas P,rs,Lambda_1',rs,Lambda_1,(R+2**(rs-1)*(P+Q))[0]
 		a=1; b=1;
 	A=Tower.frobenius_computation(Q[0],power)
 	B=Tower.frobenius_computation(Q[1],power)
@@ -404,7 +404,7 @@ def calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1, Lambda_2,power):
 	elif (A==((R+2**(rs-1)*P)[0]) and B==((R+2**(rs-1)*P)[1])):
 		c=1; d=0;
 	else:
-		print 'Dernier cas Q,rs,Lambda_2',rs,Lambda_2,(R+2**(rs-1)*(P+Q))[0]
+		#print 'Dernier cas Q,rs,Lambda_2',rs,Lambda_2,(R+2**(rs-1)*(P+Q))[0]
 		c=1; d=1;
 	return a,b,c,d
 
