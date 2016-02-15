@@ -323,9 +323,9 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 						T[i1][j1]=False
 						T[-i1%2**k2][-j1%2**k2]=False
 			j=0
-		M[0]=C
+		M[h]=C
 		C=[]	
-	else:	
+	else:
 		for i in range(2**k2):#on fait l ordre o1<o2
 			for j in range(2**(k2-o2+o1)):
 				if T[i][2**(o2-o1)*j]!=False and (i%2==1):#faut pas recompter ceux qui ont deja ete compte
@@ -477,6 +477,7 @@ def precalcul_v(M,L,R):
 	P=M[-1][0].diff()**(-1)
 	for i in range(n):
 		if M[-1][0](L[i][0])!=0 or M[-1][0].diff()(L[i][0])==0:
+			print 'L',L
 			print 'i,L[i]',i,L[i]
 			print 'M[-1][0].factor()',M[-1][0](L[i][0])
 			print 'M[-1][0].diff(),M[-1][0].diff()(L[i][0])',M[-1][0].diff(),M[-1][0].diff()(L[i][0])
@@ -787,9 +788,13 @@ def CRTm(A,TA,B,TB,u0,v0):
 	and also the Bezout coefficients
 	'''
 	S=TA*TB
+	#print "calcul de S ok"
+	#print "v0",v0,"u0",u0
 	R=(A*v0+B*u0)%S
+	#print "calcul div eucl ok"	
 	if (R%TA!=A%TA or R%TB!=B%TB):
 		print 'R%TA!=A%TA R%TB!=B%TB',R%TA!=A%TA, R%TB!=B%TB
+	#print "calcul div eucl 2 ok"
 	return (R,S)
 
 def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=None):
@@ -820,6 +825,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 	if o1>o2:
 		(o2,o1,Lambda_2,Lambda_1,Q1,P1,Q2,P2)=(o1,o2,Lambda_1,Lambda_2,P1,Q1,P2,Q2)
 	L=creation_list_interpolation(P1,Q1,o1,o2,Lambda_1,Lambda_2,order,i,j,P2,Q2,Tower)
+	#print 'L',L
 	#print 'len(L[0]),len(L[1]),len(L[2]),L',len(L[0]),len(L[1]),L[0][0],L[1][0]
 	M=initialisation_poly(L,R)#M ne dependent pas des images choisies il est calcule pour tous les ordres du frobenius
 	print 'len(L),order,o1,o2,Lambda_1,Lambda_2,power',len(L),order,o1,o2,Lambda_1,Lambda_2,power
@@ -857,7 +863,9 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		TA=red_pol_basis(TA,Tower)
 		Le.append([U,V])
 		L0=L[r+1]#on ne considere que les points lies a l ordre intermediaire
+		#print 'L[r+1]',L[r+1],'M[r+1][1]',M[r+1][1]
 		V=precalcul_v(M[r+1][1],L0,R)
+		print "deuxieme precalcul passe,r",r
 		Vr.append(V)
 		Aj=interpolation_global(M[r+1][1],M[r+1][0],L0,V,R)#on cree le poly interpol associe
 		for s in range(len(L0)):
@@ -889,6 +897,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		TA=red_pol_basis(TA,Tower)
 		Le.append([U,V])
 		L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
+		#print 'L[o2-o1]',L[o2-o1],'M[o2-o1][1]',M[o2-o1][1],'M[o2-o1][1][-1][0]',M[o2-o1][1][-1][0]#, M[o2-o1][1][-1][0].factor()		
 		V=precalcul_v(M[o2-o1][1],L0,R)
 		Vr.append(V)
 		Aj=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,V,R)#on cree le poly interpol associe
@@ -975,6 +984,8 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 			TAT=M[0][1][-1][0]#a copy of TA for this try of interpolation
 			B=frobenius_polynomial(A,Tower,power**(2**(o2-1)))
 			TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1)))
+			#print "u0",Lc[0][0],"v0",Lc[0][1]
+			#print "1 ere occurence"
 			A,TA=CRTm(A,TAT,B,TB,Lc[0][0],Lc[0][1]) # on fait le CRT avec les valeurs pre calculees
 			for s in range(len(L0)):
 				if A(L0[s][0])!=L0[s][1]:
@@ -988,6 +999,8 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				Le=[]
 				B=frobenius_polynomial(A,Tower,power**(2**(o2-1-r-1)))
 				TB=frobenius_polynomial(TA,Tower,power**(2**(o2-1-r-1)))
+				#print "r+1",r+1,"u0",Lc[r+1][0][0],"v0",Lc[r+1][0][1]
+				#print "2 eme occurence"				
 				A,TA=CRTm(A,TA,B,TB,Lc[r+1][0][0],Lc[r+1][0][1])
 				A=red_pol_basis(A,Tower)
 				TA=red_pol_basis(TA,Tower)
@@ -1000,12 +1013,16 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				B=frobenius_polynomial(Aj,Tower,power**(2**(o2-1-r-1))) #on calcule son conjugue
 				TAT=M[r+1][1][-1][0] # le modulus associe au poly ajoute
 				TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1-r-1)))
+				#print "r+1",r+1,"u0",Lc[r+1][2][0],"v0",Lc[r+1][2][1]				
+				#print "3 eme occurence"				
 				B,TB=CRTm(Aj,TAT,B,TB,Lc[r+1][1][0],Lc[r+1][1][1])#pour le polynome ajoute
 				B=red_pol_basis(B,Tower)
 				TB=red_pol_basis(TB,Tower)
 				for s in range(len(L0)):
 					if B(L0[s][0])!=L0[s][1]:
 						print 'B(L[i][0]),L[i]',s,B(L0[s][0]),L0[s]
+				#print "r+1",r+1,"u0",Lc[r+1][2][0],"v0",Lc[r+1][2][1]
+				#print "4 eme occurence"				
 				A,TA=CRTm(A,TA,B,TB,Lc[r+1][2][0],Lc[r+1][2][1])
 				for s in range(len(L0)):
 					if A(L0[s][0])!=L0[s][1]:
@@ -1018,13 +1035,15 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				#Le=[]
 				B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
 				TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
+				#print "o2-o1",r+1,"u0",Lc[o2-o1][0][0],"v0",Lc[o2-o1][0][1]				
+				#print "5 eme occurence"				
 				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1][0][0],Lc[o2-o1][0][1])
 				A=red_pol_basis(A,Tower)
 				TA=red_pol_basis(TA,Tower)
 				#Le.append([U,V])
 				#L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
 				L0=modif_list_interpolation(L[o1-o2],i,j,P2,Q2,Tower)#on ne considere que les points lies a l ordre intermediaire
-				print 'L0',L0				
+				#print 'L0',L0				
 				Aj=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,Vr[o2-o1],R)#on cree le poly interpol associe
 				for s in range(len(L0)):
 					if Aj(L0[s][0])!=L0[s][1]:
@@ -1032,17 +1051,19 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
 				TAT=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
 				TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
+				#print "6 eme occurence"				
 				B,TB=CRTm(Aj,TAT,B,TB,Lc[o2-o1][1][0],Lc[o2-o1][1][1])#pour le polynome ajoute
 				B=red_pol_basis(B,Tower)
 				TB=red_pol_basis(TB,Tower)
 				#Le.append([U,V])
+				#print "7 eme occurence"				
 				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1][2][0],Lc[o2-o1][2][1])
-				for s in range(len(L[0])):
-					if A(L[0][s][0])!=L[0][s][1]:
-						print 'A(L[i][0]),L[i]',s,A(L[0][s][0]),L[0][s],'o1>0'
-				for s in range(len(L[1])):
-					if A(L[1][s][0])!=L[1][s][1]:
-						print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s],'o1>0'
+				for s in range(len(L0)):
+					if A(L0[s][0])!=L0[s][1]:
+						print 'A(L[i][0]),L[i]',s,A(L0[s][0]),L0[s],'o1>0 recu'
+				#for s in range(len(L[1])):
+					#if A(L[1][s][0])!=L[1][s][1]:
+						#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s],'o1>0 recu'
 				#Le.append([U,V])
 				#Lc.append(Le)
 			else :#du coup on ne fait pas agir le Frobenius... CRT A FINIR !!!
@@ -1067,8 +1088,9 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				B=red_pol_basis(Aj,Tower)
 				TB=red_pol_basis(TAT,Tower)
 				#Le.append([U,V])
-				#A,TA=CRTm(A,TA,B,TB,Lc[o2-o1][0][0],Lc[o2-o1][0][1])		
-				A,TA,U,V=CRT(A,TA,B,TB)				
+				#print "8eme occurrence"
+				A,TA=CRTm(A,TA,B,TB,Lc[-1][0],Lc[-1][1])		
+				#A,TA,U,V=CRT(A,TA,B,TB)				
 				for s in range(len(L0)):
 					if A(L0[s][0])!=L0[s][1]:
 						print 'A(L0[s][0]),L0[s]',s,A(L0[s][0]),L0[s],'o1=0','reccurrence'
@@ -1077,15 +1099,18 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 			for r in range(o1-1):
 				B=frobenius_polynomial(A,Tower,power**(2**(o1-2-r)))
 				TB=frobenius_polynomial(TA,Tower,power**(2**(o1-2-r)))
-				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1+r][0],Lc[o2-o1+r][1])
+				#print "9 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1+r+1][0],Lc[o2-o1+r+1][1])
 				A=red_pol_basis(A,Tower)
 				TA=red_pol_basis(TA,Tower)
+			print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
 			Test=fonction_test_iso(A,TA,R2,d,Tower)
 			print 'i,j',i,j		
 			i+=1
 		i=1
 		j+=1
 	if Test!=False:
+		print "Test",Test
 		phi=Test/Test.leading_coefficient()
 		#print 'P1,phi.list(),phi,d',P1,phi.list(), phi,d
 		#print 'P1.curve(),phi.list()',P1.curve(),phi.list()
@@ -1093,7 +1118,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		PR=PolynomialRing(Tower._base,'x')
 		#Ker=PR(phi.list())
 		#print 'Ker,phi',Ker,phi
-		E22=EllipticCurve([K(P1.curve().a4()[0]),K(P1.curve().a6()[0])]) #oblige de prendre une construction sur une courbe situee sur le pluas bas niveau afin de pouvoir utiliser la fonction isogeny par la suite
+		E22=EllipticCurve([K(P1.curve().a4()[0]),K(P1.curve().a6()[0])]) #oblige de prendre une construction sur une courbe situee sur le plus bas niveau afin de pouvoir utiliser la fonction isogeny par la suite
 		L=[]
 		for l in phi.list():
 			L.append(l[0])
@@ -1135,7 +1160,7 @@ def fonction_test_iso(A,T,R,d,Tower):
 		-Tower a 2-adic tower under which the polynomials are defined
 		
 		OUTPUT
-		The l-isogeny that respects A
+		The "denominator" of the l-isogeny that respects A
 		'''
 		q0,r0=T,A
 		#q1,r1=divmod(T,A)
@@ -1159,6 +1184,7 @@ def fonction_test_iso(A,T,R,d,Tower):
 			#j=r0
 			r0=i
 			deg=R(v0).degree()
+			#on peut eventuellement retourner r0
 		if (deg==d-1):
 			test=test_square(v0,Tower)#v0.is_square(True) not implemented for all the polynomials
 			if test[0]==True:
@@ -1218,3 +1244,4 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 				print (Lambda_1*P1)[0]!=Tower.frobenius_computation(P1[0],101), (Lambda_1*P2)[0]!=Tower.frobenius_computation(P2[0],101), (Lambda_2*Q1)[0]!=Tower.frobenius_computation(Q1[0],101), (Lambda_2*Q2)[0]!=Tower.frobenius_computation(Q2[0],101) 
 			T=E1.division_polynomial(2**k1,R.gen())
 			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,T,r,Lambda_1,Lambda_2,Tower)
+
