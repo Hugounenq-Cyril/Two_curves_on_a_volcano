@@ -681,11 +681,11 @@ Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
 and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
 The decomposition of the group~$E[ℓ^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-1$:
+\item for~$i, j = 1, …, k-1$:
 $(ℓ-1)^2 · ℓ^{ν(i,j)}$ orbits of size~$ℓ^{ρ(i,j)}$;
-\item for~$i = 0, …, k-1$:
+\item for~$i = 1, …, k-1$:
 $2 (ℓ-1) · ℓ^{\min (i, α-1)}$ orbits of size~$ℓ^{\max (0, i-α+1)}$;
-\item the orbit~$\acco{0}$.
+\item the $ℓ^2$ singleton orbits of~$E[ℓ]$.
 % \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
@@ -718,6 +718,7 @@ whereas the size of each orbit is~$[(ℤ/ℓ^i ℤ)×(ℤ/ℓ^j ℤ)\::\: Λ_{i,
 By using elementary column manipulations,
 we find that the covolume of~$Λ_{i,j}$ is~$ℓ^{ν(i,j)}$,
 hence the point~(i) of the proposition.
+(The case~$i = j = 0$ yields singleton orbits in~$E[ℓ]$).
 
 The reunion of all the sets~$W(j,i,c,d)$
 is exactly the set of all~$x P + y Q$ for~$x, y ≠ 0$.
@@ -1375,7 +1376,6 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 \end{algorithmic}
 \end{algorithm}
 
-
 \goodbreak
 \section{Galois orbits in~$E[ℓ^k]$: the $ℓ=2$ case}
 \label{ap:orbites-2-torsion}
@@ -1387,11 +1387,11 @@ Write~$ν_2(x, y) = \min (x+y, x+β-2, y+α-2)$
 and~$ρ_2(x, y) = x+y - ν_2(x, y) = \max (0, x-α+2, y-β+2)$.
 The decomposition of the group~$E[2^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-2$:
+\item for~$i, j = 1, …, k-2$:
 $4 · 2^{ν_2(i,j)}$ orbits of size~$2^{ρ_2(i,j)}$;
-\item for~$i = 0, …, k-2$:
+\item for~$i = 1, …, k-2$:
 $8 · 2^{\min (i, α-2)}$ orbits of size~$2^{\max (0, i-α+2)}$;
-\item the four singleton orbits of $2$-torsion points.
+\item the 16 singleton orbits of~$E[4]$.
 \end{enumerate}
 \end{prop}
 Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
@@ -1413,7 +1413,8 @@ also write~$λ = f(0,0,2^{α-2} u)$, $μ = f(0,0,2^{β-2} v)$.
 Then the Galois orbits in~$W(i,j,c,d)$ correspond to $ℤ_2^2$ modulo
 the lattice~$Λ_{i,j} = \smat{2^{i}&0&2^{α-2} u\\0&2^{j}&2^{β-2} v}$.
 We find that $Λ_{i,j}$ has covolume~$2^{ν_2(i,j)}$.
-This gives the orbits of point~(i) of the proposition.
+This gives the orbits of point~(i) of the proposition,
+while the case~$i = j = 0$ gives singleton orbits.
 
 By considering the orbits of~$V(i,c) P + ε Q$ and~$ε P + V(i,c) Q$
 for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
