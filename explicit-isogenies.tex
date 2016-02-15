@@ -1148,6 +1148,11 @@ field of definition over $\F_q$ \todo{replace with $F_1$}) is the least $s>0$ su
 given by $\ell^e$, with $e={\max(k-u-\alpha, k-v-\beta, 0)}$. %if I am
 %not wrong.
 
+\begin{prop} \label{prop:cout-repre}
+The cost of computing all the representatives of points of order $\ell^k$ is of $O(\M(\ell^{2k})\log(\ell^k))$.
+\end{prop}
+
+\begin{proof}
 To get representatives of these orbits, we start by computing
 $\ell^uP$ and $\ell^vQ$. They have respective degrees
 $\ell^{\max(k-u-\alpha, 0)}$ and $\ell^{\max(k-v-\beta, 0)}$ over
@@ -1172,10 +1177,7 @@ are all defined over $\F_{q^{\ell^e}}$ and there are $(\ell-1)^2
 (with either $u=0$ or $v=0$) leads to a total
 of $O(\M(\ell^{2k})\log(\ell^k))$.
 
-\begin{prop} \label{prop:cout-repre}
-The cost of computing all the $R_{u,v}=(R_{u,v,c,d}\ \mid (c,d) \in
-C_{u,v})$ is of $O(\M(\ell^{2k})\log(\ell^k))$.
-\end{prop}
+\end{proof}
 
 We do the same thing on $E'$ using $aP'$ and $bQ'$ instead of $P$ and
 $Q$, computing points $R'_{u,v}$. Then, we apply the algorithm of 
@@ -1199,7 +1201,7 @@ $O(\M(\ell^{2k})\log(\ell^k))$, since the sum of the lengths of the
 orbits is less than $\ell^{2k}$.
 
 \begin{prop} \label{prop: cout-interp}
-The cost of computing the polynomials $(T,L)$ is of $O(\mathsf{M}(\ell^{2k})\log(\ell^{k}))$ with precomputations of $O(\M(\ell^{2k})\log(\ell^k))$ in $\mathbb{F}_q$
+The cost of computing the polynomials $(T,L)$ is of $O(k\ell\mathsf{M}(\ell^{2k+1})+\mathsf{\ell}\log(q))$ with precomputations of $O(\M(\ell^{2k})\log(\ell^k))$ in $\mathbb{F}_q$
 \end{prop}
 
  
