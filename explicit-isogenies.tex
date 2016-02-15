@@ -36,6 +36,7 @@
 \def\cout#1{\mathsf{#1}}
 % let's decide on one!
 \let\leq\leqslant \let\geq\geqslant
+\def\sfdiv{\mathsf{divide}}
 
 \newcommand{\M}{\mathsf{M}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -215,9 +216,9 @@ denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
 number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
 For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
-we denote by~$E[ℓ^n]$ the group of $ℓ^n$-torsion points of~$E$,
-$E[ℓ^{∞}] = \varinjlim E[ℓ^n]$ the reunion of all $E[ℓ^n]$,
-and $T_ℓ(E) = \varprojlim E[ℓ^n]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
+we denote by~$E[ℓ^k]$ the group of $ℓ^k$-torsion points of~$E$,
+$E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the reunion of all $E[ℓ^k]$,
+and $T_ℓ(E) = \varprojlim E[ℓ^k]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$.
 The factorization of the characteristic polynomial of~$π$
 in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
@@ -651,7 +652,7 @@ we must have~$P' = ψ(P)$.
 \begin{prop}\label{prop:degree-l-torsion}\todo{state somewher that we suppose that $\alpha \geqslant \beta$}
 Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
 Assume that $E$~has a $ℓ$-maximal endomorphism ring.
-For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
+For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
 such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
 \item $d$ divides $d_1$, and $d_1$ divides~$(ℓ-1)$;
@@ -680,11 +681,11 @@ Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
 and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
 The decomposition of the group~$E[ℓ^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-1$:
+\item for~$i, j = 1, …, k-1$:
 $(ℓ-1)^2 · ℓ^{ν(i,j)}$ orbits of size~$ℓ^{ρ(i,j)}$;
-\item for~$i = 0, …, k-1$:
+\item for~$i = 1, …, k-1$:
 $2 (ℓ-1) · ℓ^{\min (i, α-1)}$ orbits of size~$ℓ^{\max (0, i-α+1)}$;
-\item the orbit~$\acco{0}$.
+\item the $ℓ^2$ singleton orbits of~$E[ℓ]$.
 % \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
@@ -717,6 +718,7 @@ whereas the size of each orbit is~$[(ℤ/ℓ^i ℤ)×(ℤ/ℓ^j ℤ)\::\: Λ_{i,
 By using elementary column manipulations,
 we find that the covolume of~$Λ_{i,j}$ is~$ℓ^{ν(i,j)}$,
 hence the point~(i) of the proposition.
+(The case~$i = j = 0$ yields singleton orbits in~$E[ℓ]$).
 
 The reunion of all the sets~$W(j,i,c,d)$
 is exactly the set of all~$x P + y Q$ for~$x, y ≠ 0$.
@@ -809,8 +811,8 @@ we can compute a diagonal basis of~$E[ℓ^{h+1}]$.
 By Proposition~\ref{prop:diagonal-horizontal},
 this gives us a horizontal basis of~$E[ℓ]$.
 By Proposition~\ref{prop:push-horizontal},
-we can use this information to improve horizontal points of~$E[ℓ^n]$
-into horizontal points of~$E[ℓ^{n+1}]$.
+we can use this information to improve horizontal points of~$E[ℓ^k]$
+into horizontal points of~$E[ℓ^{k+1}]$.
 This is what Algorithm~\ref{alg:horizontal} does.
 
 \begin{figure}
@@ -863,11 +865,8 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \end{figure}
 \begin{algorithm}
 \caption{\label{alg:horizontal}Computing a horizontal point of order~$ℓ^k$}
-% Horizontalisation of $R$ following the $\lambda$ direction}
 \begin{algorithmic}[1]
 \REQUIRE $(P_0, Q_0)$: a diagonal basis of~$E[ℓ^{h+1}]$; $k$: an integer.\\
-% $R$: a point of~$E$ of order $ℓ^k$ such that
-% $ℓ^n R$~is horizontal of direction~$μ$ for some~$n ≤ k$.
 \ENSURE $R$: a horizontal point of~$E[ℓ^k]$ with direction~$λ$.
 \FOR{$i = 1$ to~$k-1$}
 \STATE $ϕ_i \gets $ isogeny with kernel~$\chev{ℓ^{h} P_{i-1}}$
@@ -878,7 +877,6 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
 \RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1}
   (\mathsf{divide}( ℓ^{k-(h+1)}, P_{k-1}) )$. 
-% \RETURN $\{\widehat{ϕ}_1,..,\widehat{ϕ}_n\}, R_n, P_n$
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}
@@ -1343,15 +1341,16 @@ the matrix of~$π|T_ℓ(E_P)$ is $M_P^{-1} · π · M_P^{}$.
 \section{Division of a point by~$\ell$}
 \label{ap:division}
 
-We write~$Q ← P/ℓ$ for the computation of a preimage of~$P$
+We write~$Q ← \sfdiv{ℓ, P}$ for the computation of a preimage of~$P$
 by multiplication by~$ℓ$.
-The obvious way to compute~$P/ℓ$ would be to use the $ℓ$-division polynomial.
+The obvious way to compute~$\sfdiv{ℓ, P}$ would be to use
+the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
 Instead, we factor the multiplication-by-$ℓ$ map
 as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
-the cost of the $P/ℓ$ operation is therefore $\mathsf{R} (k)$.
+the cost of the $\sfdiv{ℓ, P}$ operation is therefore $\mathsf{R} (k)$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
@@ -1377,25 +1376,28 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 \end{algorithmic}
 \end{algorithm}
 
-
+\goodbreak
 \section{Galois orbits in~$E[ℓ^k]$: the $ℓ=2$ case}
 \label{ap:orbites-2-torsion}
 
 \begin{prop}\label{prop:orbites-2-torsion}
 Let~$E$ be an elliptic curve with $2$-maximal endomorphism ring.
-Assume $ℓ = 2$, $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
+Assume $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
 Write~$ν_2(x, y) = \min (x+y, x+β-2, y+α-2)$
 and~$ρ_2(x, y) = x+y - ν_2(x, y) = \max (0, x-α+2, y-β+2)$.
 The decomposition of the group~$E[2^k]$ in Galois orbits is as follows:
 \begin{enumerate}
-\item for~$i, j = 0, …, k-2$:
-$4 · ℓ^{ν_2(i,j)}$ orbits of size~$ℓ^{ρ_2(i,j)}$;
-\item for~$i = 0, …, k-2$:
-$8 · ℓ^{\min (i, α-2)}$ orbits of size~$ℓ^{\max (0, i-α+2)}$;
-\item the four singleton orbits of $2$-torsion points.
-% \item \todo{le cas où $ℓ=2$}
+\item for~$i, j = 1, …, k-2$:
+$4 · 2^{ν_2(i,j)}$ orbits of size~$2^{ρ_2(i,j)}$;
+\item for~$i = 1, …, k-2$:
+$8 · 2^{\min (i, α-2)}$ orbits of size~$2^{\max (0, i-α+2)}$;
+\item the 16 singleton orbits of~$E[4]$.
 \end{enumerate}
 \end{prop}
+Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
+by replacing the base field by a quadratic extension,
+we can always ensure that the condition $λ ≡ μ ≡ 1 \pmod{4}$ is
+satisfied.
 \begin{proof}
 The proof is much the same as that of Prop.~\ref{prop:orbites-l-torsion}.
 The case~$ℓ = 2$ of~\cite[Théorème II.3.2]{Serre.Arith}
@@ -1411,7 +1413,8 @@ also write~$λ = f(0,0,2^{α-2} u)$, $μ = f(0,0,2^{β-2} v)$.
 Then the Galois orbits in~$W(i,j,c,d)$ correspond to $ℤ_2^2$ modulo
 the lattice~$Λ_{i,j} = \smat{2^{i}&0&2^{α-2} u\\0&2^{j}&2^{β-2} v}$.
 We find that $Λ_{i,j}$ has covolume~$2^{ν_2(i,j)}$.
-This gives the orbits of point~(i) of the proposition.
+This gives the orbits of point~(i) of the proposition,
+while the case~$i = j = 0$ gives singleton orbits.
 
 By considering the orbits of~$V(i,c) P + ε Q$ and~$ε P + V(i,c) Q$
 for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
