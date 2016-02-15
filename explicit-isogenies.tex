@@ -911,10 +911,10 @@ computes the polynomial with coefficients in $\F_q$ sending
 $x(P)↦x(P')$, $x(Q)↦x(Q')$, and the other abscissas accordingly.  In
 this section we give an efficient algorithm for this specific
 interpolation problem. The algorithm has already appeared
-in~\cite{df10} and~\cite{enge+morain03}; we briefly recall it here,
-and adapt the complexity analysis to out setting.
+in~\cite{df10} and~\cite{enge+morain03}; we recall it here, and adapt
+the complexity analysis to our setting.
 
-\subsection{Interpolating a polynomial on a field extension}
+\subsection{Rational interpolation}
 
 We start by tackling a simpler problem. We suppose we have constructed
 a tower of Kummer extensions $\F_q=F_0⊂F_1⊂\cdots⊂F_n$, with
@@ -1016,6 +1016,56 @@ polynomial $L$ we are looking for.
   $F_{n-i}$, again at a cost of $O(ℓ\MM(ℓ^{n+1}))$. Summing over all
   $i$, the complexity statement follows readily.
 \end{proof}
+
+We finally go to the general problem of interpolating a polynomial in
+$\F_q[x]$ at many points of $F_n$.
+
+\begin{prop}
+  Let $(v_1,w_1),\dots,(v_s,w_s)$ be pairs of elements of $F_n$, let
+  $d_i$ be the degree of the minimal polynomial of $v_i$, and let
+  $d=\sum d_i$. The polynomials
+  \begin{itemize}
+  \item $T∈\F_q[x]$ of degree $d$ such that $T(v_i)=0$ for all $i$,
+    and
+  \item $L∈\F_q[x]$ of degree less than $d$ such that $L(v_i)=w_i$ for
+    all $i$
+  \end{itemize}
+  can be computed using
+  $O\bigl(\MM(d\log(s)) + snℓ\bigl(\MM(ℓ^{n+1}) +
+  \MM(ℓ)\log(q)\bigr)\bigr)$ operations in $\F_q$.
+\end{prop}
+\begin{proof}
+  The polynomial $T$ is simply the product of all the minimal
+  polynomials $T_i$. By pushing $(v_i,w_i)$ to the smallest level
+  $F_j$ containing them, each $T_i$ is computed as explained
+  previously at a cost bounded by
+  $O\bigl(nℓ\bigl(\MM(ℓ^{n+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$
+  operations. Summing over all $i$, we obtain a bound of
+  $O\bigl(snℓ\bigl(\MM(ℓ^{n+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$
+  operations. Simultaneously, we compute all the polynomials $L_i$
+  such that $L_i(v_i)=w_i$, at the same cost.
+
+  Then we arrange the $T_i$'s into a binary subproduct tree and
+  multiply them together. Since the degrees $d_i$ are not necessarily
+  all equal, the optimum tree shape is obtained by using a
+  Huffman-coding-like scheme: pop from the list of all $T_i$ the two
+  polynomials of lowest degree, multiply them together, put the result
+  back in the list, and start again. By keeping track of each
+  multiplication, we build a binary product tree. If the degrees of
+  the internal nodes are denoted by $e_i$, the cost of computing the
+  tree is $\sum \MM(e_i)$, which, by virtue of the super-linearity of
+  $\MM$, we bound by $\MM(\sum e_i)$. The worst case for the Huffman
+  coding is attained when all degrees $d_i$ are equal, then
+  $\sum e_i∈O(\sum d_i\log(s))$. Hence, we can bound the cost of
+  building the whole tree by $O(\MM(d\log(s)))$, \todo{but since no
+    multiplication of degree greater than $d$ occurs, this must be
+    $O(\MM(d)\log(s))$?!?!}.
+
+  Finally, using the same subproduct tree structure, we apply the
+  Chinese remainder algorithm of~\cite[Chapter~10]{vzGG} to compute
+  the polynomial $L$ at the same cost $O(\MM(d\log(s)))$.
+\end{proof}
+
 
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
@@ -1465,4 +1515,5 @@ of point~(ii).
 %  LocalWords:  cardinality bijection Couveignes automorphism
 
 % vim: ts=2:
-%  LocalWords:  Frobenius endomorphism precomputation
+%  LocalWords:  Frobenius endomorphism precomputation morphism
+%  LocalWords:  subproduct
