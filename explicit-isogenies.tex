@@ -216,9 +216,9 @@ denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
 number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
 For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
-we denote by~$E[ℓ^n]$ the group of $ℓ^n$-torsion points of~$E$,
-$E[ℓ^{∞}] = \varinjlim E[ℓ^n]$ the reunion of all $E[ℓ^n]$,
-and $T_ℓ(E) = \varprojlim E[ℓ^n]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
+we denote by~$E[ℓ^k]$ the group of $ℓ^k$-torsion points of~$E$,
+$E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the reunion of all $E[ℓ^k]$,
+and $T_ℓ(E) = \varprojlim E[ℓ^k]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$.
 The factorization of the characteristic polynomial of~$π$
 in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
@@ -652,7 +652,7 @@ we must have~$P' = ψ(P)$.
 \begin{prop}\label{prop:degree-l-torsion}\todo{state somewher that we suppose that $\alpha \geqslant \beta$}
 Let $d$ be the order of $q$ in $(ℤ/ℓℤ)^\ast$.
 Assume that $E$~has a $ℓ$-maximal endomorphism ring.
-For any~$n$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
+For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
 such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
 \item $d$ divides $d_1$, and $d_1$ divides~$(ℓ-1)$;
@@ -810,8 +810,8 @@ we can compute a diagonal basis of~$E[ℓ^{h+1}]$.
 By Proposition~\ref{prop:diagonal-horizontal},
 this gives us a horizontal basis of~$E[ℓ]$.
 By Proposition~\ref{prop:push-horizontal},
-we can use this information to improve horizontal points of~$E[ℓ^n]$
-into horizontal points of~$E[ℓ^{n+1}]$.
+we can use this information to improve horizontal points of~$E[ℓ^k]$
+into horizontal points of~$E[ℓ^{k+1}]$.
 This is what Algorithm~\ref{alg:horizontal} does.
 
 \begin{figure}
@@ -864,11 +864,8 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \end{figure}
 \begin{algorithm}
 \caption{\label{alg:horizontal}Computing a horizontal point of order~$ℓ^k$}
-% Horizontalisation of $R$ following the $\lambda$ direction}
 \begin{algorithmic}[1]
 \REQUIRE $(P_0, Q_0)$: a diagonal basis of~$E[ℓ^{h+1}]$; $k$: an integer.\\
-% $R$: a point of~$E$ of order $ℓ^k$ such that
-% $ℓ^n R$~is horizontal of direction~$μ$ for some~$n ≤ k$.
 \ENSURE $R$: a horizontal point of~$E[ℓ^k]$ with direction~$λ$.
 \FOR{$i = 1$ to~$k-1$}
 \STATE $ϕ_i \gets $ isogeny with kernel~$\chev{ℓ^{h} P_{i-1}}$
@@ -879,7 +876,6 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
 \RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1}
   (\mathsf{divide}( ℓ^{k-(h+1)}, P_{k-1}) )$. 
-% \RETURN $\{\widehat{ϕ}_1,..,\widehat{ϕ}_n\}, R_n, P_n$
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}
