@@ -1064,6 +1064,16 @@ $\F_q[x]$ at many points of $F_n$.
   Finally, using the same subproduct tree structure, we apply the
   Chinese remainder algorithm of~\cite[Chapter~10]{vzGG} to compute
   the polynomial $L$ at the same cost $O(\MM(d\log(s)))$.
+  
+  \todo{proposition d'adaptation de preuve du premier paragraphe:
+  Let denote by $(v_{1i},w_{1i}),\dots,(v_{si},w_{si})$ be pairs 
+  of elements of $F_i \setminus F_{i-1}$. We denote by $s_i$ the 
+  number of representatives we have $s_i \leqslant \ell^{k+\beta}$, 
+   each $T_i$ is computed as explained previously at a cost bounded by
+  $O\bigl(nℓ\bigl(\MM(ℓ^{i+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$
+  operations. Summing for $i=k - \alpha$ to $k - \beta$, we obtain a bound 
+  of  $O\bigl(nℓ\bigl(\MM(ℓ^{2k+1}) + \MM(ℓ)\log(q)\bigr)\bigr)$
+  }
 \end{proof}
 
 
