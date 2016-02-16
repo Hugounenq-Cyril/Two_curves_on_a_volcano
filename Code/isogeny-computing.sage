@@ -922,7 +922,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		Lc.append(Le)
 	else :#du coup on ne fait pas agir le Frobenius...
 		Le=[]		
-		print "L[o2-o1]",L[o2-o1]		
+		#print "L[o2-o1]",L[o2-o1]		
 		#B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
 		#TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
 		#A,TA,U,V=CRT(A,TA,B,TB)
@@ -957,8 +957,8 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		for s in range(len(L[o2-o1-1])):
 			if A(L[o2-o1-1][s][0])!=L[o2-o1-1][s][1]:
 				print 'A(L[o2-o1-1][0]),L[o2-o1-1]',s,A(L[o2-o1-1][s][0]),L[o2-o1-1][s],'o1=0','deuxieme essai different apres CRT'
-		Le.append([U,V])		
-		Lc.append(Le)		
+		Lc.append([U,V])		
+		#Lc.append(Le)		
 	for r in range(o1-1):
 		B=frobenius_polynomial(A,Tower,power**(2**(o1-2-r)))
 		TB=frobenius_polynomial(TA,Tower,power**(2**(o1-2-r)))
@@ -1088,9 +1088,8 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				B=red_pol_basis(Aj,Tower)
 				TB=red_pol_basis(TAT,Tower)
 				#Le.append([U,V])
-				#print "8eme occurrence"
 				A,TA=CRTm(A,TA,B,TB,Lc[-1][0],Lc[-1][1])		
-				#A,TA,U,V=CRT(A,TA,B,TB)				
+				#A,TA,U,V=CRT(A,TA,B,TB)			
 				for s in range(len(L0)):
 					if A(L0[s][0])!=L0[s][1]:
 						print 'A(L0[s][0]),L0[s]',s,A(L0[s][0]),L0[s],'o1=0','reccurrence'
@@ -1111,9 +1110,13 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 		j+=1
 	if Test!=False:
 		print "Test",Test
+		r=Test[1]
+		Test=Test[0]
 		phi=Test/Test.leading_coefficient()
 		#print 'P1,phi.list(),phi,d',P1,phi.list(), phi,d
 		#print 'P1.curve(),phi.list()',P1.curve(),phi.list()
+		return r,phi,r/(phi**2)
+		#le reste du code est pour les isogenies faites a base de sous groupe de la courbe
 		K=Tower._base	
 		PR=PolynomialRing(Tower._base,'x')
 		#Ker=PR(phi.list())
@@ -1144,7 +1147,7 @@ def test_square(P,Tower):
 		P3=P.quo_rem(P2**2)
 		if P3[0].degree()==0 and P3[1]==0 and P2.degree()==(P.degree()/2):
 			print 'P3[0],P3[0][0]',P3[0],P3[0][0]
-			return [True,Tower.root_computing(P3[0][0])*P2]
+			return [True,Tower.root_computing(P3[0][0])*P2,P3[0][0]]
 		else:
 			return [False]
 		#calcul du pgcd de P et DP pour savoir si c'est un carre
@@ -1179,19 +1182,23 @@ def fonction_test_iso(A,T,R,d,Tower):
 			v1=v0-q1*v1
 			v0=i
 			i=r1
+			r2=r0
 			#q1,r1=divmod(r1,r0)
 			(q1,r1)=r0.quo_rem(r1)
 			#j=r0
+			#print "r1,r2",r1,r2
 			r0=i
 			deg=R(v0).degree()
 			#on peut eventuellement retourner r0
 		if (deg==d-1):
 			test=test_square(v0,Tower)#v0.is_square(True) not implemented for all the polynomials
-			if test[0]==True:
+			if test[0]==True:			
 				#I=F(j/v0)
 				#phi=test[1]/test[1].leading_coefficient()
 				#phi=EllipticCurveIsogeny(E,phi.list())
-				return test[1] 
+				r2=r2/test[2]
+				print "test[1],r2",test[1],r2				
+				return test[1],r2 
 			#tester si r0 est un carre sage le fait betement par une factorisation
 			#computation of I the possible isogeny
 			else :
