@@ -345,7 +345,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 		M[o2-o1]=C	
 	#M.append([C])
 	#on a alors fini les ordres
-	print 'len(C),o1,o2,k2,Lambda_1,Lambda_2',len(C),o1,o2,k2,Lambda_1,Lambda_2	
+	#print 'len(C),o1,o2,k2,Lambda_1,Lambda_2',len(C),o1,o2,k2,Lambda_1,Lambda_2	
 	#for c in C:	
 		#print c[-1],c[-2]
 	#print 'M[0]',len(M[0]),M[0]
@@ -1102,14 +1102,14 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1+r+1][0],Lc[o2-o1+r+1][1])
 				A=red_pol_basis(A,Tower)
 				TA=red_pol_basis(TA,Tower)
-			print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
+			#print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
 			Test=fonction_test_iso(A,TA,R2,d,Tower)
 			print 'i,j',i,j		
 			i+=1
 		i=1
 		j+=1
 	if Test!=False:
-		print "Test",Test
+		#print "Test",Test
 		r=Test[1]
 		Test=Test[0]
 		phi=Test/Test.leading_coefficient()
