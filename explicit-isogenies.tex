@@ -677,6 +677,7 @@ we must have~$P' = ψ(P)$.
 Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.
 Let~$α = v_{ℓ} (λ^{ℓ-1}-1)$ and~$β = v_{ℓ} (μ^{ℓ-1}-1)$
 and assume without loss of generality that $α ≥ β$.
+(If $ℓ = 2$, let instead~$α = v_2 (λ^2-1)$ and~$β = v_2(μ^2-1)$).
 \label{sub:orbits}
 \begin{prop}\label{prop:degree-l-torsion}
 % déjà supposé :
@@ -699,8 +700,11 @@ It is therefore the least common multiple of the multiplicative orders
 of~$λ, μ$ modulo~$ℓ^k$.
 We conclude using the multiplicative structure of~$(ℤ/ℓ^k ℤ)^×$, and the fact
 that $λμ=q$.
-Note that in general $d ≠ d_1$, as for example for the case
-of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
+Note that in general the order of~$q$ is a strict divisor of~$d_1$,
+as is for example the case for~$π^2 - π + 29 = 0$ and~$ℓ = 7$,
+where $q = 29 ≡ 1 \pmod{7}$ and $d_1 = 6$.
+% Note that in general $d ≠ d_1$, as for example for the case
+% of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
 % To conclude we use the canonical decomposition:
 % $(ℤ/ℓ^nℤ)^× = (ℤ/ℓℤ)^× × (ℤ/ℓ^{n-1} ℤ)$ for~$ℓ ≠ 2$,
 % and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
@@ -1426,16 +1430,16 @@ We just have to multiply by $r$ the results obtained from \ref{prop: cout-interp
 \section{Division of a point by~$\ell$}
 \label{ap:division}
 
-We write~$Q ← \sfdiv{ℓ, P}$ for the computation of a preimage of~$P$
+We write~$Q ← \sfdiv(ℓ, P)$ for the computation of a preimage of~$P$
 by multiplication by~$ℓ$.
-The obvious way to compute~$\sfdiv{ℓ, P}$ would be to use
+The obvious way to compute~$\sfdiv(ℓ, P)$ would be to use
 the $ℓ$-division polynomial.
 However, this polynomial has a degree~$O(ℓ^2)$.
 Instead, we factor the multiplication-by-$ℓ$ map
 as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
-the cost of the $\sfdiv{ℓ, P}$ operation is therefore $\mathsf{R} (k)$.
+the cost of the $\sfdiv(ℓ, P)$ operation is therefore $\mathsf{R} (k)$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
@@ -1463,7 +1467,10 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 
 \goodbreak
 \section{Galois orbits in~$E[ℓ^k]$}
+\label{ap:galois}
 
+We give here the full decomposition of $E[ℓ^k]$ in Galois orbits.
+This is a more precise form of Proposition~\ref{prop:bound-orbits}.
 \begin{prop}\label{prop:orbites-l-torsion}
 Let~$E$ be an elliptic curve with $ℓ$-maximal endomorphism ring.
 Assume $ℓ ≠ 2$, $λ ≡ μ ≡ 1 \pmod{ℓ}$ and let~$α = v_ℓ(λ-1), β=v_ℓ(μ-1)$.
@@ -1518,6 +1525,7 @@ the sets~$V(i, c) · P$ and~$V(j,d) · Q$.
 \end{proof}
 
 We now state the equivalent proposition when~$ℓ = 2$.
+The proof is much the same as in the odd case.
 
 \begin{prop}\label{prop:orbites-2-torsion}
 Let~$E$ be an elliptic curve with $2$-maximal endomorphism ring.
@@ -1538,28 +1546,28 @@ Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
 by replacing the base field by a quadratic extension,
 we can always ensure that the condition $λ ≡ μ ≡ 1 \pmod{4}$ is
 satisfied.
-\begin{proof}
-The proof is much the same as that of Prop.~\ref{prop:orbites-l-torsion}.
-The case~$ℓ = 2$ of~\cite[Théorème II.3.2]{Serre.Arith}
-states that $f(x,y,z) = 2^x · (-1)^y · \exp (4z)$
-is an isomorphism between~$ℤ × (ℤ/2ℤ) × ℤ_2$ and~$ℚ_2^×$.
-Let~$V(i, c)$ be the image modulo~$2^k$ of~$f(k-2-i, c, -)$;
-then $V(i, c)$ has cardinal~$2^{i}$ for~$i ≥ 0$,
-while~$V(-1, 0) = V(-1, 1)$ is the singleton $\acco{2^{k-1}}$.
-
-Let~$P, Q$ be diagonal generators of~$E[2^{k}]$
-and define~$W(i,j,c,d) = V(i,c) P + V(j,d) Q$;
-also write~$λ = f(0,0,2^{α-2} u)$, $μ = f(0,0,2^{β-2} v)$.
-Then the Galois orbits in~$W(i,j,c,d)$ correspond to $ℤ_2^2$ modulo
-the lattice~$Λ_{i,j} = \smat{2^{i}&0&2^{α-2} u\\0&2^{j}&2^{β-2} v}$.
-We find that $Λ_{i,j}$ has covolume~$2^{ν_2(i,j)}$.
-This gives the orbits of point~(i) of the proposition,
-while the case~$i = j = 0$ gives singleton orbits.
-
-By considering the orbits of~$V(i,c) P + ε Q$ and~$ε P + V(i,c) Q$
-for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
-of point~(ii).
-\end{proof}
+% \begin{proof}%<<<
+% The proof is much the same as that of Prop.~\ref{prop:orbites-l-torsion}.
+% The case~$ℓ = 2$ of~\cite[Théorème II.3.2]{Serre.Arith}
+% states that $f(x,y,z) = 2^x · (-1)^y · \exp (4z)$
+% is an isomorphism between~$ℤ × (ℤ/2ℤ) × ℤ_2$ and~$ℚ_2^×$.
+% Let~$V(i, c)$ be the image modulo~$2^k$ of~$f(k-2-i, c, -)$;
+% then $V(i, c)$ has cardinal~$2^{i}$ for~$i ≥ 0$,
+% while~$V(-1, 0) = V(-1, 1)$ is the singleton $\acco{2^{k-1}}$.
+% 
+% Let~$P, Q$ be diagonal generators of~$E[2^{k}]$
+% and define~$W(i,j,c,d) = V(i,c) P + V(j,d) Q$;
+% also write~$λ = f(0,0,2^{α-2} u)$, $μ = f(0,0,2^{β-2} v)$.
+% Then the Galois orbits in~$W(i,j,c,d)$ correspond to $ℤ_2^2$ modulo
+% the lattice~$Λ_{i,j} = \smat{2^{i}&0&2^{α-2} u\\0&2^{j}&2^{β-2} v}$.
+% We find that $Λ_{i,j}$ has covolume~$2^{ν_2(i,j)}$.
+% This gives the orbits of point~(i) of the proposition,
+% while the case~$i = j = 0$ gives singleton orbits.
+% 
+% By considering the orbits of~$V(i,c) P + ε Q$ and~$ε P + V(i,c) Q$
+% for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
+% of point~(ii).
+% \end{proof}%>>>
 \end{document}
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
 %  LocalWords:  cardinality bijection Couveignes automorphism
