@@ -952,7 +952,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 	K=E.base_field()
 	if (K==Tower._base):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
-		print "k1,P,k2,Q",k1,P,k2,Q
+		#print "k1,P,k2,Q",k1,P,k2,Q
 		ind=-2
 	else :
 		ind=Tower.floor(K.random_element())#calcule le niveau ou l on se situe sur la tour
@@ -962,7 +962,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		E,P,Q=construction_lift_better(E3,K1,E.base_field(),P,Q)
 		i=valuation(valuation(Tower.cardinality_field(K),Tower._base.cardinality()),2)		
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i)
-		print 'k1,P.order(),P,k2,Q.order(),Q',k1,k2, 2**(k1)*P,2**(k2)*Q ,2**(k1-1)*P,2**(k2-1)*Q
+		#print 'k1,P.order(),P,k2,Q.order(),Q',k1,k2, 2**(k1)*P,2**(k2)*Q ,2**(k1-1)*P,2**(k2-1)*Q
 		
 	if k2==0:
 		print("probleme choix courbe")
