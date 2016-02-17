@@ -828,7 +828,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 	#print 'L',L
 	#print 'len(L[0]),len(L[1]),len(L[2]),L',len(L[0]),len(L[1]),L[0][0],L[1][0]
 	M=initialisation_poly(L,R)#M ne dependent pas des images choisies il est calcule pour tous les ordres du frobenius
-	print 'len(L),order,o1,o2,Lambda_1,Lambda_2,power',len(L),order,o1,o2,Lambda_1,Lambda_2,power
+	#print 'len(L),order,o1,o2,Lambda_1,Lambda_2,power',len(L),order,o1,o2,Lambda_1,Lambda_2,power
 	TA=M[0][1][-1][0]
 	for r in range(len(L[0])):
 		if TA(L[0][r][0])!=0:
