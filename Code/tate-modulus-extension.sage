@@ -75,10 +75,27 @@ def antecedent_2_mutliplication(E,Q,Tower):
 	'''
 	phi1,phi2,Pl=calcul_2_isogenie_antecedent(E,Tower)
 	R=calcul_antecedent_2_isogenie(Pl(Q),phi2,Tower)
+	if phi2(R)!=Pl(Q):
+		R=-R
+	#print "R==phi2(Pl(Q))",R==phi2(Pl(Q))
+	if phi2(R)!=Pl(Q):
+		print "R",R		
+		print "Q",Q
+		print "Pl(Q)",Pl(Q)	
+		print "phi2(R)==Pl(Q)",phi2(R)==Pl(Q)
+		print "phi2(R),Pl(Q)",phi2(R),Pl(Q)
 	# le return n est pas encore tout a fait exact il faut calculer l ordonnee du point
+	R2=R
 	R= calcul_antecedent_2_isogenie(R,phi1,Tower)
+	if phi1(R)!=R2:
+		R=-R
+	#print "R==phi1(Pl(Q))",R==phi1(Pl(Q))
+	if phi1(R)!=R2:
+		print "phi1(R)==R2",phi1(R)==R2	
+		print "phi1(R),R2",phi1(R),R2
 	if 2*R!=Q:
 		R=E(R[0],-R[1])
+		print "2*R==Q",2*R==Q
 	return  R
 
 def calcul_2_isogenie_antecedent(E,Tower):
@@ -169,24 +186,64 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	num=PR2([num.coefficients()[2],num.coefficients()[1],num.coefficients()[0]])
 	den=PR2([den.coefficients()[1],den.coefficients()[0]])
 	solv=num-den*Q[0]
+	suppri5=solv
 	#now we can use the implemented fonction to compute square roots to solve this quadratic equation
 	delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
+	while delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
+		delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
+		if delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
+			print 'delta_sqrt,delat_sqrt**2',delta_sqrt,delta_sqrt**2
+			print '(solv[1]**2-4*solv[2]*solv[0])',(solv[1]**2-4*solv[2]*solv[0])
+			print Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])**2
+	suppri=delta_sqrt
+	suppri2=solv[1]
+	suppri3=solv[2]
 	delta_sqrt,solv1=Tower.meeting(delta_sqrt,solv[1])
 	#to be sure that the square root is at the good level in the tower
 	delta_sqrt,solv2=Tower.meeting(delta_sqrt,solv[2])
+	if delta_sqrt.parent()!=solv1.parent():
+		print delta_sqrt.parent(),solv1.parent()
 	#ditto
 	if delta_sqrt.parent()!=solv[2].parent():
 		PR2=PolynomialRing(delta_sqrt.parent(),'x')	
 	A2=PR2((-solv1+delta_sqrt)/(2*solv2))[0]
+	suppri4=A2
 	A2,a2=Tower.meeting(A2,a2)
 	A2,b2=Tower.meeting(A2,b2)
 	B=Tower.root_computing(A2**3+a2*A2+b2)
 	A2,B=Tower.meeting(A2,B)
+	#print "A2,solv,solv(A2)",suppri4,suppri5,suppri5(suppri4)
 	if E.base_field()!=A2.parent():
 		a2,A2=Tower.meeting(a2,A2)
 		b2,A2=Tower.meeting(b2,A2)
 		E=EllipticCurve([a2,b2])
-	return E(A2,B)
+	
+	if E!=phi.domain():
+		print "E",E
+		f=phi.rational_maps()[0].denominator()
+		print "f,1",f
+		f=PolynomialRing(K,'x')([f.coefficients()[0],f.coefficients()[1]])
+		print "f,2",f
+		f=f.gcd(f.diff())
+		print "f,3",f,f**2
+		phi=E.isogeny(f)
+		print "phi.domain()",phi.domain()	
+		print "A2,B",A2,B
+		print "Q",Q.curve(),Q
+		print  "phi(E(A2,B))",phi(E(A2,B))
+		print "phi(E(A2,B))!=Q", phi(E(A2,B))!=Q
+		#phi2=E.isogeny()
+	if phi(E(A2,B))!=Q :
+		if phi(E(A2,- B))!=Q :
+			print "phi(E(A2,-B))!=Q",phi(E(A2,-B))!=Q
+			print "phi(E(A2,-B)),Q",phi(E(A2,-B)),Q
+			print "phi(E(A2,B)",phi(E(A2,B))
+			print "E==phi.domain(),Q.curve()==phi.codomain()",E==phi.domain(),Q.curve()==phi.codomain()
+			print "delta_sqrt.parent(),solv[1].parent(),solv[2].parent()",suppri.parent(), suppri2.parent(), suppri3.parent()
+			print "A2,solv,solv(A2)",suppri4,suppri5,suppri5(suppri4)
+		return E(A2,-B)
+	else :
+		return E(A2,B)
 
 def division_point_qbis(l,P,E,Tower):
 	#this function is made to work on point with coordinates on the tower

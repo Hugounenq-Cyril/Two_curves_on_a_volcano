@@ -903,7 +903,10 @@ class Tower_two:
 				lambda_=delta**((q-1)/2)
 				eta=1+lambda_
 				if eta==0:
-					c*=delta.parent().random_element()
+					r=delta.parent().random_element()
+					while r==0:
+						r=delta.parent().random_element()
+					c*=r
 					delta*=c**2
 				else:
 					test=True						
@@ -914,7 +917,10 @@ class Tower_two:
 				em=self.computing_em(lambda_,n-2,q,L)
 				eta=1+lambda_*(1+em)
 				if eta==0:
-					c*=delta.parent().random_element()
+					r=delta.parent().random_element()
+					while r==0:
+						r=delta.parent().random_element()
+					c*=r					
 					delta*=c**2
 				else:
 					test=True
@@ -931,7 +937,10 @@ class Tower_two:
 					lambda_=delta**((q-1)/2)
 					eta=1+lambda_
 					if eta==0:
-						c*=delta.parent().random_element()
+						r=delta.parent().random_element()
+						while r==0:
+							r=delta.parent().random_element()
+						c*=r
 						delta*=c**2
 					else:
 						test=True										
@@ -942,7 +951,10 @@ class Tower_two:
 					em=self.computing_em(lambda_,n-2,q,L)
 					eta=1+lambda_*(1+em)
 					if eta==0:
-						c*=delta.parent().random_element()
+						r=delta.parent().random_element()
+						while r==0:
+							r=delta.parent().random_element()
+						c*=r
 						delta*=c**2
 					else:
 						test=True		
