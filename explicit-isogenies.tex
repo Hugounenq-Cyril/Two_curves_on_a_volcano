@@ -673,7 +673,7 @@ we must have~$P' = ψ(P)$.
 \end{proof}
 
 %%%%%%%%%%%%%%%
-\subsection{Galois orbits in the $ℓ$-torsion}
+\subsection{Galois classes in the $ℓ$-torsion}
 Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.
 If $ℓ$~is odd, let~$α = v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$;
 if $ℓ=2$, let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$,
@@ -683,8 +683,8 @@ if $ℓ=2$, let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$,
 % and assume without loss of generality that $α ≥ β$.
 % Let~$α = v_{ℓ} (λ^{ℓ-1}-1)$ and~$β = v_{ℓ} (μ^{ℓ-1}-1)$
 and assume without loss of generality that $α ≥ β$.
-\label{sub:orbits}
-\begin{prop}\label{prop:degree-l-torsion}
+\label{sub:classes}
+\begin{prop}\label{prop:classes}
 % déjà supposé :
 % Assume that $E$~has a $ℓ$-maximal endomorphism ring.
 For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
@@ -699,7 +699,7 @@ $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
 \item For any~$n$, the group $E[ℓ^{∞}](F_n)$
 is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
 \item The group~$E[ℓ^k]$ contains at most
-$k · ℓ^{k-β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
+$k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
 \end{enumerate}
 \end{prop}
 \begin{proof}
@@ -719,14 +719,14 @@ Let~$(P, Q)$ be a diagonal basis of~$E[ℓ^k]$.
 The point $(π^n - 1) (x P + y Q) = (λ^n-1) x P + (μ^n-1) y Q$
 is zero iff $v_{ℓ} (x) + α + v_{ℓ} (n) ≥ k$
 and~$v_{ℓ} (y) + β + v_{ℓ} (n) ≥ k$. This shows~(iv).
-The largest Galois orbits
+The largest Galois classes
 are those for which~$v_{ℓ} (y) = 0$ and their size is~$ℓ^{k - β}$,
 proving~(ii) and~(iii).
 Moreover, for any~$i ≤ k-β$ the points in an orbit of size~$≤ ℓ^i$
 are those for which~$v_{ℓ} (x) ≥ k - α - i$ and~$v_{ℓ} (y) ≥ k - β - i$;
 there are at most $ℓ^{\min(α+i, k) + \min (β+i, k)}$ such points,
 and therefore $ℓ^{\min(α+i, k) + \min(β, k-i)} ≤ ℓ^{k-i+β}$
-corresponding orbits.
+corresponding classes.
 Summing this over all~$i$ proves~(v).
 \end{proof}
 \section{Computing the action of the Frobenius endomorphism}
@@ -769,17 +769,14 @@ such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 c\ell^{i} & μ + d\ell^{i}
 \end{array} \right) \pmod {\ell^{i+1}}$
 with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
-\IF {$λ \neq μ$}
-\STATE $u \leftarrow (λ -μ)/\ell^h$
-\ENDIF
+\STATE \textbf{if} {$λ \neq μ$} \textbf{then}
+$u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
 \STATE $(λ, μ) \gets
   (λ + a\ell^i, μ + d\ell^i)$
 \STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
 \STATE $(P_{i+1},Q_{i+1}) \gets
   (P'+\ell^{i-1-h}b' Q',\;Q'+\ell^{i-1-h}c' P')$
-\IF {$λ = μ$}
-\STATE $h \leftarrow h+1$
-\ENDIF
+\STATE \textbf{if} {$λ = μ$} \textbf{then} $h \leftarrow h+1$ \textbf{endif}
 \ENDFOR
 \RETURN $(P_{k},Q_{k},λ,μ)$
 \end{algorithmic}
@@ -1187,8 +1184,8 @@ If there exists a rational fraction~$F ≡ L_{a,b} \pmod{T}$
 defining a $r$-isogeny,
 then we have found the isogney~$ψ$.
 
-By Proposition~\ref{prop:bound-orbits},
-there are at most~$s = O(kℓ^{k+β})$ Galois orbits in~$E[ℓ^k]$,
+By Proposition~\ref{prop:classes}~(v),
+there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
 By Proposition~\ref{prop:cout-repre},
 we can enumerate these representatives for a cost
@@ -1447,24 +1444,24 @@ $Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
 \end{algorithm}
 
 \goodbreak
-\section{Galois orbits in~$E[ℓ^k]$}
+\section{Galois classes in~$E[ℓ^k]$}
 \label{ap:galois}
 
-We give here the full decomposition of $E[ℓ^k]$ in Galois orbits.
-This is a more precise form of Proposition~\ref{prop:bound-orbits}.
+We give here the full decomposition of $E[ℓ^k]$ in Galois classes.
+This is a more precise form of Proposition~\ref{prop:classes}~(v).
 \begin{prop}\label{prop:orbites-l-torsion}
 Let~$E$ be an elliptic curve with $ℓ$-maximal endomorphism ring.
 Assume $ℓ ≠ 2$, $λ ≡ μ ≡ 1 \pmod{ℓ}$ and let~$α = v_ℓ(λ-1), β=v_ℓ(μ-1)$.
 Write~$ν(x, y) = \min (x+y, x+β-1, y+α-1)$
 and~$ρ(x, y) = x+y - ν(x, y) = \max (0, x-α+1, y-β+1)$.
-The decomposition of the group~$E[ℓ^k]$ in Galois orbits is as follows:
+The decomposition of the group~$E[ℓ^k]$ in Galois classes is as follows:
 \begin{enumerate}
 \item for~$i, j = 1, …, k-1$:
-$(ℓ-1)^2 · ℓ^{ν(i,j)}$ orbits of size~$ℓ^{ρ(i,j)}$;
+$(ℓ-1)^2 · ℓ^{ν(i,j)}$ classes of size~$ℓ^{ρ(i,j)}$;
 \item for~$i = 1, …, k-1$:
-$(ℓ-1) · ℓ^{\min (i, α-1)}$ orbits of size~$ℓ^{\max (0, i-α+1)}$, and
-$(ℓ-1) · ℓ^{\min (i, β-1)}$ orbits of size~$ℓ^{\max (0, i-β+1)}$;
-\item the $ℓ^2$ singleton orbits of~$E[ℓ]$.
+$(ℓ-1) · ℓ^{\min (i, α-1)}$ classes of size~$ℓ^{\max (0, i-α+1)}$, and
+$(ℓ-1) · ℓ^{\min (i, β-1)}$ classes of size~$ℓ^{\max (0, i-β+1)}$;
+\item the $ℓ^2$ singleton classes of~$E[ℓ]$.
 % \item \todo{le cas où $ℓ=2$}
 \end{enumerate}
 \end{prop}
@@ -1497,11 +1494,11 @@ whereas the size of each orbit is~$[(ℤ/ℓ^i ℤ)×(ℤ/ℓ^j ℤ)\::\: Λ_{i,
 By using elementary column manipulations,
 we find that the covolume of~$Λ_{i,j}$ is~$ℓ^{ν(i,j)}$,
 hence the point~(i) of the proposition.
-(The case~$i = j = 0$ yields singleton orbits in~$E[ℓ]$).
+(The case~$i = j = 0$ yields singleton classes in~$E[ℓ]$).
 
 The reunion of all the sets~$W(j,i,c,d)$
 is exactly the set of all~$x P + y Q$ for~$x, y ≠ 0$.
-We obtain the orbits of~(ii) by considering
+We obtain the classes of~(ii) by considering
 the sets~$V(i, c) · P$ and~$V(j,d) · Q$.
 \end{proof}
 
@@ -1513,14 +1510,14 @@ Let~$E$ be an elliptic curve with $2$-maximal endomorphism ring.
 Assume $λ ≡ μ ≡ 1 \pmod{4}$ and let~$α = v_2(λ-1), β=v_2(μ-1)$.
 Write~$ν_2(x, y) = \min (x+y, x+β-2, y+α-2)$
 and~$ρ_2(x, y) = x+y - ν_2(x, y) = \max (0, x-α+2, y-β+2)$.
-The decomposition of the group~$E[2^k]$ in Galois orbits is as follows:
+The decomposition of the group~$E[2^k]$ in Galois classes is as follows:
 \begin{enumerate}
 \item for~$i, j = 1, …, k-2$:
-$4 · 2^{ν_2(i,j)}$ orbits of size~$2^{ρ_2(i,j)}$;
+$4 · 2^{ν_2(i,j)}$ classes of size~$2^{ρ_2(i,j)}$;
 \item for~$i = 1, …, k-2$:
-$4 · 2^{\min (i, α-2)}$ orbits of size~$2^{\max (0, i-α+2)}$, and
-$4 · 2^{\min (i, β-2)}$ orbits of size~$2^{\max (0, i-β+2)}$.
-\item the 16 singleton orbits of~$E[4]$.
+$4 · 2^{\min (i, α-2)}$ classes of size~$2^{\max (0, i-α+2)}$, and
+$4 · 2^{\min (i, β-2)}$ classes of size~$2^{\max (0, i-β+2)}$.
+\item the 16 singleton classes of~$E[4]$.
 \end{enumerate}
 \end{prop}
 Note that if $λ$ or~$μ ≡ -1 \pmod{4}$ then
