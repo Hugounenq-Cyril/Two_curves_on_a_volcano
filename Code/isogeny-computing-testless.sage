@@ -273,7 +273,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 	T=[]
 	C=[]
 	M=[0]*(o2-o1+1)
-	print 'k2',k2
+	#print 'k2',k2
 	for i in range(2**k2): 
 		for j in range(2**k2):
 			if (i%2==1)or(j%2==1 ):
@@ -1138,7 +1138,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=N
 				TA=red_pol_basis(TA,Tower)
 			#print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
 			Test=fonction_test_iso(A,TA,R2,d,Tower)
-			print 'i,j',i,j		
+			#print 'i,j',i,j		
 			i+=1
 		i=1
 		j+=1
