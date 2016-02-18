@@ -323,7 +323,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 						T[i1][j1]=False
 						T[-i1%2**k2][-j1%2**k2]=False
 			j=0
-		M[h]=C
+		M[0]=C
 		C=[]	
 	else:
 		for i in range(2**k2):#on fait l ordre o1<o2

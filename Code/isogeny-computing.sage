@@ -323,7 +323,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 						T[i1][j1]=False
 						T[-i1%2**k2][-j1%2**k2]=False
 			j=0
-		M[h]=C
+		M[0]=C
 		C=[]	
 	else:
 		for i in range(2**k2):#on fait l ordre o1<o2
@@ -1251,4 +1251,5 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 				print (Lambda_1*P1)[0]!=Tower.frobenius_computation(P1[0],101), (Lambda_1*P2)[0]!=Tower.frobenius_computation(P2[0],101), (Lambda_2*Q1)[0]!=Tower.frobenius_computation(Q1[0],101), (Lambda_2*Q2)[0]!=Tower.frobenius_computation(Q2[0],101) 
 			T=E1.division_polynomial(2**k1,R.gen())
 			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,T,r,Lambda_1,Lambda_2,Tower)
+
 
