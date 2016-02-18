@@ -675,9 +675,14 @@ we must have~$P' = ψ(P)$.
 %%%%%%%%%%%%%%%
 \subsection{Galois orbits in the $ℓ$-torsion}
 Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.
-Let~$α = v_{ℓ} (λ^{ℓ-1}-1)$ and~$β = v_{ℓ} (μ^{ℓ-1}-1)$
+If $ℓ$~is odd, let~$α = v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$;
+if $ℓ=2$, let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$,
+% Let~$α = v_{ℓ} (λ^{2(ℓ-1)}-1)$ and~$β = v_{ℓ} (μ^{2(ℓ-1)}-1)$%
+ % \footnote{This trick ensures that for $ℓ$ odd, $α = v_{ℓ} (λ^{ℓ-1}-1)$,
+% whereas for $ℓ=2$, $α = v_2 (λ^2-1)$ for~$ℓ=2$.}
+% and assume without loss of generality that $α ≥ β$.
+% Let~$α = v_{ℓ} (λ^{ℓ-1}-1)$ and~$β = v_{ℓ} (μ^{ℓ-1}-1)$
 and assume without loss of generality that $α ≥ β$.
-(If $ℓ = 2$, let instead~$α = v_2 (λ^2-1)$ and~$β = v_2(μ^2-1)$).
 \label{sub:orbits}
 \begin{prop}\label{prop:degree-l-torsion}
 % déjà supposé :
@@ -687,49 +692,42 @@ such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
 \begin{enumerate}
 \item The order of $q$ in $(ℤ/ℓℤ)^×$ divides $d_1$,
 and $d_1$ divides~$(ℓ-1)$.
-\item % Let~$α = v_ℓ(λ^{d_1}-1)$ and~$β = v_{ℓ} (μ^{d_1}-1)$.
-For any integer~$i$, the group $E[ℓ^∞](\F_{q^{ℓ^i · d_1}})$
-is isomorphic to~$(ℤ/ℓ^{i+α} ℤ) × (ℤ/ℓ^{i + β} ℤ)$.
-\item %Assume~$α ≥ β$. Then
-For all~$k ≥ β$, $d_k = ℓ^{k-β} d_1$.
+\item If $ℓ$~is odd then for all $k ≥ 1$,
+$d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
+\item If $ℓ=2$ then $d_2 ∈ \acco{1,2}$ and, for all~$k ≥ 2$,
+$d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
+\item For any~$n$, the group $E[ℓ^{∞}](F_n)$
+is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
+\item The group~$E[ℓ^k]$ contains at most
+$k · ℓ^{k-β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
 \end{enumerate}
 \end{prop}
 \begin{proof}
 The degree~$d_k$ is exactly the order of the matrix~$π|E[ℓ^n]$.
 It is therefore the least common multiple of the multiplicative orders
 of~$λ, μ$ modulo~$ℓ^k$.
-We conclude using the multiplicative structure of~$(ℤ/ℓ^k ℤ)^×$, and the fact
-that $λμ=q$.
+This proves~(i) using the fact that~$λ · μ = q$.
+% We conclude using the multiplicative structure of~$(ℤ/ℓ^k ℤ)^×$, and the fact
+% that $λμ=q$.
 Note that in general the order of~$q$ is a strict divisor of~$d_1$,
 as is for example the case for~$π^2 - π + 29 = 0$ and~$ℓ = 7$,
 where $q = 29 ≡ 1 \pmod{7}$ and $d_1 = 6$.
-% Note that in general $d ≠ d_1$, as for example for the case
-% of~$π^2 - π + 29 = 0$ and~$ℓ = 7$, where~$d = 1$ and~$d_1 = 6$.
-% To conclude we use the canonical decomposition:
-% $(ℤ/ℓ^nℤ)^× = (ℤ/ℓℤ)^× × (ℤ/ℓ^{n-1} ℤ)$ for~$ℓ ≠ 2$,
-% and $(ℤ/2^{n} ℤ)^× = (ℤ/4ℤ)^× × (ℤ/2^{n-2} ℤ)$ for~$ℓ = 2$.
-\end{proof}
-\begin{prop}\label{prop:bound-orbits}
-With the notations of Proposition~\ref{prop:degree-l-torsion},
-further assume that~$d_1 = 1$. Then:
-\begin{enumerate}
-\item The Galois orbits in~$E[ℓ^k]$ have size $≤ ℓ^{k - β}$.
-\item There are $O(ℓ^{k+β})$ such Galois orbits.
-\end{enumerate}
-\end{prop}
-\begin{proof}
+
+For points~(i)--(v) we may assume that $d_1 = 1$.
+Then, for any~$n$, $v_ℓ(λ^{2n}-1) = α + v_{ℓ} (2n)$.
 Let~$(P, Q)$ be a diagonal basis of~$E[ℓ^k]$.
-Then, for any~$n$, since $v_{ℓ} (λ^n - 1) = α v_{ℓ}(n)$,
-the point $(π^n - 1) (x P + y Q) = (λ^n-1) x P + (μ^n-1) y Q$
-is zero iff $v_{ℓ} (x) + α v_{ℓ} (n) ≥ k$ and~$v_{ℓ} (y) + β v_{ℓ} (n) ≥ k$.
-This shows that the largest Galois orbits
-are those for which~$v_{ℓ} (y) = 0$ and their size is~$ℓ^{k - β}$.
+The point $(π^n - 1) (x P + y Q) = (λ^n-1) x P + (μ^n-1) y Q$
+is zero iff $v_{ℓ} (x) + α + v_{ℓ} (n) ≥ k$
+and~$v_{ℓ} (y) + β + v_{ℓ} (n) ≥ k$. This shows~(iv).
+The largest Galois orbits
+are those for which~$v_{ℓ} (y) = 0$ and their size is~$ℓ^{k - β}$,
+proving~(ii) and~(iii).
 Moreover, for any~$i ≤ k-β$ the points in an orbit of size~$≤ ℓ^i$
 are those for which~$v_{ℓ} (x) ≥ k - α - i$ and~$v_{ℓ} (y) ≥ k - β - i$;
 there are at most $ℓ^{\min(α+i, k) + \min (β+i, k)}$ such points,
-and therefore $ℓ^{\min(α, k-i) + \min(β, k-i)} ≤ ℓ^{k-i+β}$
+and therefore $ℓ^{\min(α+i, k) + \min(β, k-i)} ≤ ℓ^{k-i+β}$
 corresponding orbits.
-Summing this over all~$i$ proves~(ii).
+Summing this over all~$i$ proves~(v).
 \end{proof}
 \section{Computing the action of the Frobenius endomorphism}
 \label{sec:acti-frob-endm}
