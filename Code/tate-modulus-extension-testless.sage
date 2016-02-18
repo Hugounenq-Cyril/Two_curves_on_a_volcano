@@ -189,8 +189,10 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	suppri5=solv
 	#now we can use the implemented fonction to compute square roots to solve this quadratic equation
 	delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
-	while delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
+	delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
+	while delta_sqrt**2!=b:
 		delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
+		delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
 		#if delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
 			#print 'delta_sqrt,delat_sqrt**2',delta_sqrt,delta_sqrt**2
 			#print '(solv[1]**2-4*solv[2]*solv[0])',(solv[1]**2-4*solv[2]*solv[0])
@@ -1009,7 +1011,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 	K=E.base_field()
 	if (K==Tower._base):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
-		print "k1,P,k2,Q",k1,P,k2,Q
+		#print "k1,P,k2,Q",k1,P,k2,Q
 		ind=-2
 	else :
 		ind=Tower.floor(K.random_element())#calcule le niveau ou l on se situe sur la tour
@@ -1019,7 +1021,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		E,P,Q=construction_lift_better(E3,K1,E.base_field(),P,Q)
 		i=valuation(valuation(Tower.cardinality_field(K),Tower._base.cardinality()),2)		
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i)
-		print 'k1,P.order(),P,k2,Q.order(),Q',k1,k2, 2**(k1)*P,2**(k2)*Q ,2**(k1-1)*P,2**(k2-1)*Q
+		#print 'k1,P.order(),P,k2,Q.order(),Q',k1,k2, 2**(k1)*P,2**(k2)*Q ,2**(k1-1)*P,2**(k2-1)*Q
 		
 	if k2==0:
 		print("probleme choix courbe")
@@ -1054,7 +1056,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 					Tower.add_one_level()
 			K2=Tower._levels[ind]		
 		E2,P,Q=construction_lift_betterbis(E,K,K2,P,Q,Tower)
-		print P,Q
+		#print P,Q
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E2,P,Q,k1,k2,l,Tower,c)
 	else :
 		K2=E.base_field()
@@ -1091,8 +1093,8 @@ def tate_module(E,b,Tower,l,conservation=None):
 		K2=Tower._levels[ind]		
 		E2,P,Q=construction_lift_betterbis(E2,K,K2,P,Q,Tower)
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max_2(E2,P,Q,k1,k2,l,Tower,1,h,Lambda_1,Lambda_2)
-	if (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101) or (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101) or (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101) or (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101):
-		 print 'Test val propres' (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101), (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101), (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101), (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101)
+	#if (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101) or (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101) or (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101) or (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101):
+		# print 'Test val propres' (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101), (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101), (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101), (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101)
 	Er,Pr,Lr=straightening_step(E2,P,Q,l,k2,Tower,Lambda_1,h)
 	El,Pl,Ll=straightening_step(E2,Q,P,l,k2,Tower,Lambda_2,h)
 	#determination(Pr,stair,Tower,l**k2)???

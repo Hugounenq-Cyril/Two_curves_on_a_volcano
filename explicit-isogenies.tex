@@ -680,7 +680,7 @@ and assume without loss of generality that $α ≥ β$.
 (If $ℓ = 2$, let instead~$α = v_2 (λ^2-1)$ and~$β = v_2(μ^2-1)$).
 \label{sub:orbits}
 \begin{prop}\label{prop:degree-l-torsion}
-% déjà supposé :
+% déjà supposé :
 % Assume that $E$~has a $ℓ$-maximal endomorphism ring.
 For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
 such that all the points of~$E[ℓ^k]⊂E(F)$. Then:
@@ -1144,8 +1144,6 @@ Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
 
  \subsection{Curves which are on the cyclic crater}
 
-\todo{proposition de modification -- Jérôme:
-
 Let~$ψ: E→ E'$ be an isogeny between curves
 with $ℓ$-maximal endomorphism rings.
 We fix bases of~$E[ℓ^k]$, $E'[ℓ^k]$ and write~$π, π'$ for the matrices
@@ -1170,7 +1168,7 @@ the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
 The successful interpolation will be our explicit isogeny~$ψ$.
 
 We interpolate using only the abscissas~$x(P)$
-of the $(ℓ^{2k}-1)/2$ abscissas of non-zero points~$P$ of order~$ℓ^k$.
+of the $(ℓ^{2k}-1)/2$ abscissas of non-zero points~$P$ of $E[ℓ^k]$.
 Since the isogeny~$ψ$ is a rational fraction of degrees~$(r, r-1)$,
 it is defined by $2r$ coefficients.
 According to~\cite[§3.1]{df10},
@@ -1192,7 +1190,7 @@ defining a $r$-isogeny,
 then we have found the isogney~$ψ$.
 
 By Proposition~\ref{prop:bound-orbits},
-there are at most~$s = O(ℓ^{k+β})$ Galois orbits in~$E[ℓ^k]$,
+there are at most~$s = O(kℓ^{k+β})$ Galois orbits in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
 By Proposition~\ref{prop:cout-repre},
 we can enumerate these representatives for a cost
@@ -1203,114 +1201,99 @@ we can compute the polynomials~$T$ and~$L_{a,b}$ with
 complexity~$O(\MM(t) (n + \log s) + \log q)
 = O(k \MM(ℓ^{2k}) + \log q)$.
 
-}
 
- % The previous sections \ref{sec:acti-frob-endm}, \ref{sec:interpolation} describe steps of the algorithm for curves located on the crater of cyclic volcano (Elkies) and 
- The previous subsection describe how to reduce the problem to the case of elliptic curves located on a cyclic crater of a volcano. Thus for this subsection we consider two input curves $E$, $E'$ at the problem \ref{prob:isogeny-problem} in this situation. We will work with $\ell^{k}$ torsion point with $k$ such that $k \geqslant h+1$ and such that $(\ell^2-1)\ell^{2k-2}> 8 r$, the first condition is necessary to compute horizontal $\ell$-isogenies, the second one is necessary to have enough points for the interpolation of the $r$-isogeny. We can notice that the first condition is only necessary for section \ref{sec:acti-frob-endm}, we can then work only with horizontal points of degree $\ell^k$ such that they verify $(\ell^2-1)\ell^{2k-2}> 8 r$.
 
-In this section we work with the abscissas of points of order $\ell^k$ on two input
-curves $E,E'$ as in Problem~\ref{prob:isogeny-problem}, with $k$ fixed.
-As input, we are given horizontal bases $(P,Q)$ of $E[\ell^k]$ and
-$(P',Q')$ of $E'[\ell^k]$ as computed in
-Section~\ref{sec:acti-frob-endm}, together with two coefficients $(a,b)
-\in \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^{\times}$. For the discussion below,
-let $S$ and $S'$ denote the set of abscissae of points of order
-$\ell^k$ on respectively $E$ and $E'$.
 
-The algorithm in this section computes two polynomials. The first of
-them is $T(x)$, which is the squarefree monic polynomial whose roots
-are the elements in $S$; in particular, it does not depend on
-$E'$. More crucially, we also compute an interpolation polynomial
-$L(x)$ that maps $S$ to a permutation of $S'$ induced by the mapping
-$P \mapsto aP'$ and $Q \mapsto bQ'$.  Precisely, this means that we
-ask that $L(x(cP+dQ))=x(caP'+dbQ')$ holds for all pairs $(c,d) \in
-(\mathbb{Z}/\ell^k\mathbb{Z})^2$ for which either $c$ or $d$ is
-coprime with $\ell$, in which case $cP+dQ$ and $acP'+dbQ'$ have order
-$\ell^k$; here, $x(P)$ denotes the abscissa of a point $P$.
+%As before, \todo{really? where?} we assume that $\pi(P)=\lambda P$ and
+%$\pi(Q) = \mu Q$, with $\lambda \bmod \ell = \mu \bmod \ell = 1$ and $\lambda \neq \mu \bmod \ell^k$.  We
+%further let $\alpha$ and $\beta$ be the respective multiplicative orders %$\ell$-adic valuations 
+%of $\lambda$ and $\mu$ as defined in \ref{prop:degree-l-torsion}.%\todo{Wrong it is their $\ell$-adic 
+%%valuation of their multiplicative order modulo $\ell^k$ } 
+%
+%\begin{defi}
+%For $u,v$ in $\{0,\dots,k-1,k\}$, we denote by $T_{u,v}$ the set
+%of all points on $E$ of the form $R=c P + d Q$, with $(c,d)$ in
+%$(\Z/\ell^k\Z)^2$, $c$ and $d$ having respective $\ell$-adic
+%valuations $u$ and $v$ (having valuation $k$ means that the
+%corresponding element is zero). All these points are in $E[\ell^k]$
+%\end{defi}
+%
+%The set of points of order exactly $\ell^k$ is the disjoint union of
+%the sets $T_{u,v}$ for which either $u$ or $v$ is zero.
+%
+%Take $u,v$ as above. For $R$ in $T_{u,v}$ and $s \ge 0$, we have
+%$\pi^s(R) = c\lambda^s P+ d \mu^s Q$.  Because $\lambda$ and $\mu$ are
+%both equal to $1$ modulo $\ell$, the set $T_{u,v}$ is thus the
+%disjoint union of orbits under the action of $\pi$. For any $R$ as
+%above, the length of its orbit (which is as well the degree of its
+%field of definition over $\F_q$ \todo{replace with $F_1$}) is the least $s>0$ such that $c
+%\lambda^s = c \bmod \ell^k$ and $d \mu^s =d \bmod \ell^k$. It is thus
+%given by $\ell^e$, with $e={\max(k-u-\alpha, k-v-\beta, 0)}$. %if I am
+%%not wrong.
+%
+%\begin{prop} \label{prop:cout-repre}
+%The cost of computing all the representatives of points of order $\ell^k$ is of $O(\M(\ell^{2k})\log(\ell^k))$.
+%\end{prop}
+%
+%\begin{proof}
+%To get representatives of these orbits, we start by computing
+%$\ell^uP$ and $\ell^vQ$. They have respective degrees
+%$\ell^{\max(k-u-\alpha, 0)}$ and $\ell^{\max(k-v-\beta, 0)}$ over
+%$\F_q$, and to simplify matters we assume that they are both given
+%over $\F_{q^{\ell^e}}$. This can be done in $O( \M(\ell^k)
+%\log(\ell^k))$ operations in $\F_q$. \todo{explain, projective
+%  coordinates}. Next, we compute representatives $C_{u,v} \subset
+%U=(\Z/\ell^{k-u}\Z)^{\times} \times (\Z/\ell^{k-v}\Z)^{\times}$ for the cosets
+%modulo $(\lambda, \mu)$; $C_{u,v}$ has cardinality $(\ell-1)^2
+%\ell^{2k-u-v-2-e}$. This is done in a direct manner, by a loop over
+%all elements in $U$ (for any element not marked before, we add it to
+%the representatives and mark all elements in its coset); this takes
+%$O(\ell^{2k-u-v})$ multiplications  in $U$, each of which can be
+%done in quasi-linear bit complexity in $\log(\ell^k)$.
+%
+%Finally, we compute the sequence $R_{u,v}=(R_{u,v,c,d}\ \mid (c,d) \in
+%C_{u,v})$, with $R_{u,v,c,d}=c \ell^u P + d \ell^v Q$; these points
+%are all defined over $\F_{q^{\ell^e}}$ and there are $(\ell-1)^2
+%\ell^{2k-u-v-2-e}$ of them. This takes $O(\ell^{2k-u-v-e}
+%\M(\ell^e)\log(\ell^k))$ operations in $\F_q$, which is $O(\ell^{-u-v}
+%\M(\ell^{2k})\log(\ell^k))$. Summing over all $u,v$ 
+%(with either $u=0$ or $v=0$) leads to a total
+%of $O(\M(\ell^{2k})\log(\ell^k))$.
+%
+%\end{proof}
 
-As before, \todo{really? where?} we assume that $\pi(P)=\lambda P$ and
-$\pi(Q) = \mu Q$, with $\lambda \bmod \ell = \mu \bmod \ell = 1$ and $\lambda \neq \mu \bmod \ell^k$.  We
-further let $\alpha$ and $\beta$ be the respective multiplicative orders %$\ell$-adic valuations 
-of $\lambda$ and $\mu$ as defined in \ref{prop:degree-l-torsion}.%\todo{Wrong it is their $\ell$-adic 
-%valuation of their multiplicative order modulo $\ell^k$ } 
+%We do the same thing on $E'$ using $aP'$ and $bQ'$ instead of $P$ and
+%$Q$, computing points $R'_{u,v}$. Then, we apply the algorithm of 
+%the previous section to each pair $(R_{u,v,c,d},R'_{u,v,c,d})$. \todo{discuss
+%the fact that we take only abscissae; maybe $\ell=2$ needs special case}
+%This takes $O(\M(\ell^e)\log(\ell^e))$ operations in $\F_q$ per point,
+%for a total of $O( \ell^{-u-v} \M(\ell^{2k})\log(\ell^k))$ as above.
+%Summing over all $u,v$ 
+%(with either $u=0$ or $v=0$) leads to a total
+%of $O(\M(\ell^{2k})\log(\ell^k))$.
+%\todo{work out all this stuff precisely, and don't forget the bit complexity of 
+%finding representatives}
+%
+%After we are done with all $u,v$'s, we are left with polynomials
+%$(T_{u,v,c,d},L_{u,v,c,d})$ with coefficients in $\F_q$ that describe
+%the restriction of the mapping we want to recover to the corresponding
+%orbits. We apply the Chinese Remainder Theorem to compute a unique
+%pair $(T,L)$ that describes the action of the putative isogeny over
+%all points of order $\ell^k$. The CRT takes time
+%$O(\M(\ell^{2k})\log(\ell^k))$, since the sum of the lengths of the
+%orbits is less than $\ell^{2k}$.
+%
+%\begin{prop} \label{prop: cout-interp}
+%The cost of computing the polynomials $(T,L)$ is of $O(k\ell\mathsf{M}(\ell^{2k+1})+\mathsf{\ell}\log(q))$ with precomputations of $O(\M(\ell^{2k})\log(\ell^k))$ in $\mathbb{F}_q$
+%\end{prop}
 
-\begin{defi}
-For $u,v$ in $\{0,\dots,k-1,k\}$, we denote by $T_{u,v}$ the set
-of all points on $E$ of the form $R=c P + d Q$, with $(c,d)$ in
-$(\Z/\ell^k\Z)^2$, $c$ and $d$ having respective $\ell$-adic
-valuations $u$ and $v$ (having valuation $k$ means that the
-corresponding element is zero). All these points are in $E[\ell^k]$
-\end{defi}
-
-The set of points of order exactly $\ell^k$ is the disjoint union of
-the sets $T_{u,v}$ for which either $u$ or $v$ is zero.
-
-Take $u,v$ as above. For $R$ in $T_{u,v}$ and $s \ge 0$, we have
-$\pi^s(R) = c\lambda^s P+ d \mu^s Q$.  Because $\lambda$ and $\mu$ are
-both equal to $1$ modulo $\ell$, the set $T_{u,v}$ is thus the
-disjoint union of orbits under the action of $\pi$. For any $R$ as
-above, the length of its orbit (which is as well the degree of its
-field of definition over $\F_q$ \todo{replace with $F_1$}) is the least $s>0$ such that $c
-\lambda^s = c \bmod \ell^k$ and $d \mu^s =d \bmod \ell^k$. It is thus
-given by $\ell^e$, with $e={\max(k-u-\alpha, k-v-\beta, 0)}$. %if I am
-%not wrong.
-
-\begin{prop} \label{prop:cout-repre}
-The cost of computing all the representatives of points of order $\ell^k$ is of $O(\M(\ell^{2k})\log(\ell^k))$.
+\begin{prop}\todo{A mettre dans la section 2 juste après le comptage d'orbites}
+The cost of computing all the representatives of non zero points of $E[\ell^k]$ is of $O(k^2\mathsf{M}(\ell^{2k})\log(\ell))$
 \end{prop}
-
+	
 \begin{proof}
-To get representatives of these orbits, we start by computing
-$\ell^uP$ and $\ell^vQ$. They have respective degrees
-$\ell^{\max(k-u-\alpha, 0)}$ and $\ell^{\max(k-v-\beta, 0)}$ over
-$\F_q$, and to simplify matters we assume that they are both given
-over $\F_{q^{\ell^e}}$. This can be done in $O( \M(\ell^k)
-\log(\ell^k))$ operations in $\F_q$. \todo{explain, projective
-  coordinates}. Next, we compute representatives $C_{u,v} \subset
-U=(\Z/\ell^{k-u}\Z)^{\times} \times (\Z/\ell^{k-v}\Z)^{\times}$ for the cosets
-modulo $(\lambda, \mu)$; $C_{u,v}$ has cardinality $(\ell-1)^2
-\ell^{2k-u-v-2-e}$. This is done in a direct manner, by a loop over
-all elements in $U$ (for any element not marked before, we add it to
-the representatives and mark all elements in its coset); this takes
-$O(\ell^{2k-u-v})$ multiplications  in $U$, each of which can be
-done in quasi-linear bit complexity in $\log(\ell^k)$.
-
-Finally, we compute the sequence $R_{u,v}=(R_{u,v,c,d}\ \mid (c,d) \in
-C_{u,v})$, with $R_{u,v,c,d}=c \ell^u P + d \ell^v Q$; these points
-are all defined over $\F_{q^{\ell^e}}$ and there are $(\ell-1)^2
-\ell^{2k-u-v-2-e}$ of them. This takes $O(\ell^{2k-u-v-e}
-\M(\ell^e)\log(\ell^k))$ operations in $\F_q$, which is $O(\ell^{-u-v}
-\M(\ell^{2k})\log(\ell^k))$. Summing over all $u,v$ 
-(with either $u=0$ or $v=0$) leads to a total
-of $O(\M(\ell^{2k})\log(\ell^k))$.
-
+Since all the points are defined in $\F_{k-\beta}$ the cost of computing one representant is at most $M(\ell^{k-\beta})k\log(\ell))$
 \end{proof}
-
-We do the same thing on $E'$ using $aP'$ and $bQ'$ instead of $P$ and
-$Q$, computing points $R'_{u,v}$. Then, we apply the algorithm of 
-the previous section to each pair $(R_{u,v,c,d},R'_{u,v,c,d})$. \todo{discuss
-the fact that we take only abscissae; maybe $\ell=2$ needs special case}
-This takes $O(\M(\ell^e)\log(\ell^e))$ operations in $\F_q$ per point,
-for a total of $O( \ell^{-u-v} \M(\ell^{2k})\log(\ell^k))$ as above.
-Summing over all $u,v$ 
-(with either $u=0$ or $v=0$) leads to a total
-of $O(\M(\ell^{2k})\log(\ell^k))$.
-\todo{work out all this stuff precisely, and don't forget the bit complexity of 
-finding representatives}
-
-After we are done with all $u,v$'s, we are left with polynomials
-$(T_{u,v,c,d},L_{u,v,c,d})$ with coefficients in $\F_q$ that describe
-the restriction of the mapping we want to recover to the corresponding
-orbits. We apply the Chinese Remainder Theorem to compute a unique
-pair $(T,L)$ that describes the action of the putative isogeny over
-all points of order $\ell^k$. The CRT takes time
-$O(\M(\ell^{2k})\log(\ell^k))$, since the sum of the lengths of the
-orbits is less than $\ell^{2k}$.
-
-\begin{prop} \label{prop: cout-interp}
-The cost of computing the polynomials $(T,L)$ is of $O(k\ell\mathsf{M}(\ell^{2k+1})+\mathsf{\ell}\log(q))$ with precomputations of $O(\M(\ell^{2k})\log(\ell^k))$ in $\mathbb{F}_q$
-\end{prop}
-
  
 %%  We work with the points of order $\ell^k$ on two input
 %% curves $E,E'$  with $k$ fixed.%as in Problem~\ref{prob:isogeny-problem}, that lie on

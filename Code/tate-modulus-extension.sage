@@ -189,12 +189,21 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	suppri5=solv
 	#now we can use the implemented fonction to compute square roots to solve this quadratic equation
 	delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
-	while delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
+	delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
+	while delta_sqrt**2!=b:
 		delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
-		if delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
-			print 'delta_sqrt,delat_sqrt**2',delta_sqrt,delta_sqrt**2
-			print '(solv[1]**2-4*solv[2]*solv[0])',(solv[1]**2-4*solv[2]*solv[0])
-			print Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])**2
+		delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
+		a=delta_sqrt
+		if delta_sqrt**2!=b:
+			print 'a**2,b',a**2,b
+			print 'a.parent(),b.parent()',a.parent(),b.parent()
+			print 'a**2==b',a**2==b
+			delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
+			if delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
+				print 'delta_sqrt,delat_sqrt**2',delta_sqrt,delta_sqrt**2
+				print '(solv[1]**2-4*solv[2]*solv[0])',(solv[1]**2-4*solv[2]*solv[0])
+				print Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])**2
+				print 'delta_sqrt.parent()==(solv[1]**2-4*solv[2]*solv[0]).parent()',delta_sqrt.parent()==(solv[1]**2-4*solv[2]*solv[0]).parent()
 	suppri=delta_sqrt
 	suppri2=solv[1]
 	suppri3=solv[2]
