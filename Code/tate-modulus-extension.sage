@@ -1020,6 +1020,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
 		print "k1,P,k2,Q",k1,P,k2,Q
 		ind=-2
+		h=k2
 	else :
 		ind=Tower.floor(K.random_element())#calcule le niveau ou l on se situe sur la tour
 		K1=FiniteField(Tower._base.cardinality())
@@ -1091,7 +1092,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		#A=Tower.meeting2(E2.a4(),P[0])
 		#B=Tower.meeting2(E2.a6(),P[0])
 		#E2=EllipticCurve([A,B])
-	while h==k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
+	while h>=k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
 		K=E2.base_field()
 		if ind<-2:
 			ind+=2

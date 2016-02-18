@@ -547,12 +547,12 @@ def suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i):
 	Lambda_2=1
 	for j in range(i):
 		R=division_point_qbis(l,P,E,Tower)
-		if 2*R!=P:		
-			print '2*R==P',2*R==P,2*R,P
+		#if 2*R!=P:		
+			#print '2*R==P',2*R==P,2*R,P
 		P=R
 		R=division_point_qbis(l,Q,E,Tower)
-		if 2*R!=Q:		
-			print '2*R==Q',2*R==Q, 2*R,Q		
+		#if 2*R!=Q:		
+			#print '2*R==Q',2*R==Q, 2*R,Q		
 		Q=R
 		#il faut redresser la base et actualiser les valeurs propres
 		P,Lambda_1,Q,Lambda_2=fonction_ent_diago(P,Q,Tower,j+k2+1,Lambda_1, Lambda_2,Tower._base.cardinality(),h)
@@ -595,12 +595,12 @@ def suite_calcul_torsion_max_2(E,P,Q,k1,k2,l,Tower,i,h,Lambda_1,Lambda_2):
 	(4, (85*a + 7 : 78*a + 29 : 1), 3, (83*a + 7 : 91*a + 39 : 1))
 	'''
 	R=division_point_qbis(l,P,E,Tower)
-	if 2*R!=P:
-		print '2*R==P',2*R==P,2*R,P
+	#if 2*R!=P:
+		#print '2*R==P',2*R==P,2*R,P
 	P=R
 	R=division_point_qbis(l,Q,E,Tower)
-	if 2*R!=Q:	
-		print '2*R==Q',2*R==Q, 2*R,Q		
+	#if 2*R!=Q:	
+		#print '2*R==Q',2*R==Q, 2*R,Q		
 	Q=R
 	#il faut redresser la base et actualiser les valeurs propres
 	P,Lambda_1,Q,Lambda_2=fonction_ent_diago(P,Q,Tower,k2+1,Lambda_1, Lambda_2,Tower._base.cardinality(),h)
@@ -1013,6 +1013,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
 		#print "k1,P,k2,Q",k1,P,k2,Q
 		ind=-2
+		h=k2
 	else :
 		ind=Tower.floor(K.random_element())#calcule le niveau ou l on se situe sur la tour
 		K1=FiniteField(Tower._base.cardinality())
@@ -1084,7 +1085,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		#A=Tower.meeting2(E2.a4(),P[0])
 		#B=Tower.meeting2(E2.a6(),P[0])
 		#E2=EllipticCurve([A,B])
-	while h==k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
+	while h>=k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
 		K=E2.base_field()
 		if ind<-2:
 			ind+=2
