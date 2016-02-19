@@ -1245,7 +1245,7 @@ Since all the points are defined in $\F_{k-\beta}$ the cost of computing one rep
 
 
 \todo{complete the complexity}
-%with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
+ To complete the complexity analysis we need to state the complexity of solving a division polynomial of degree $\ell^2$ in the aim of computing a basis of the $\ell$ torsion to apply algorithms of $\ell$ division. It has a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$. %with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
  %Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. 
  \newline
   Now we are able to describe the entire algorithm,   
@@ -1292,10 +1292,6 @@ as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
 the cost of the $\sfdiv(ℓ, P)$ operation is therefore $\mathsf{R} (k)$.
-Since we need for this algorithm a basis of the $\ell$ torsion, we 
-state the complexity of solving a division polynomial of degree $\ell^2$. 
-It has a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, 
-using Cantor-Zassenhauss in $F_1$. 
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
