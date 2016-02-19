@@ -854,8 +854,8 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		#print 'S[0].parent(), T.base()',S[0].parent(), T.base()
 		#K=Tower._base
 		#print '(T([K(-S[0][0])',T([-S[0],1])
-		#print 'E.isogeny(R([K(-S[0]),K(1)]),degree=2)',E.isogeny(T([-S[0],1]),degree=2)
-		phi=E.isogeny(R([-S[0],1]),degree=2)
+		#print 'E.isogeny(R([K(-S[0]),K(1)]),degree=2)',E.isogeny(T([-S[0],1]),degree=2)	
+		phi=E.isogeny([-Tower._base(S[0][0]),1],degree=2)
 		E=phi.codomain()
 		f=phi.rational_maps()[0]
 		g=phi.rational_maps()[1]
@@ -1016,6 +1016,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 	'''
 #on a entrée une courbe E située sur un cratère, une borne b au dessus de laquelle doit se situer la l^k torsion rationelle sur l'extension du corps K, E est définie sur le corps K
 	K=E.base_field()
+	Lambda_1,Lambda_2=1,1
 	if (K==Tower._base):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
 		print "k1,P,k2,Q",k1,P,k2,Q
@@ -1067,6 +1068,8 @@ def tate_module(E,b,Tower,l,conservation=None):
 		print P,Q
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E2,P,Q,k1,k2,l,Tower,c)
 	else :
+		P=l**(k1-k2)*P
+		k1=k2
 		K2=E.base_field()
 		E2=E
 	#a cette étape la courbe définie sur K2 a la torsion rationnelle suffisante par rapport à notre borne
@@ -1093,16 +1096,21 @@ def tate_module(E,b,Tower,l,conservation=None):
 		#B=Tower.meeting2(E2.a6(),P[0])
 		#E2=EllipticCurve([A,B])
 	while h>=k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
+		
 		K=E2.base_field()
-		if ind<-2:
+		if K==Tower._base:
+			K2=Tower._levels[1]
+			ind=Tower.floorfield(K2)		
+		elif ind<-2:
 			ind+=2
+			K2=Tower._levels[ind]
 		else:
 			Tower.add_one_level()
-		K2=Tower._levels[ind]		
+			K2=Tower._levels[ind]		
 		E2,P,Q=construction_lift_betterbis(E2,K,K2,P,Q,Tower)
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max_2(E2,P,Q,k1,k2,l,Tower,1,h,Lambda_1,Lambda_2)
-	if (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101) or (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101) or (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101) or (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101):
-		 print 'Test val propres' (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101), (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101), (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101), (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101)
+	#if (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101) or (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101) or (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101) or (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101):
+		# print 'Test val propres' (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101), (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101), (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101), (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101)	
 	Er,Pr,Lr=straightening_step(E2,P,Q,l,k2,Tower,Lambda_1,h)
 	El,Pl,Ll=straightening_step(E2,Q,P,l,k2,Tower,Lambda_2,h)
 	#determination(Pr,stair,Tower,l**k2)???
