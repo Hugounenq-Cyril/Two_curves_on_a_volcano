@@ -85,7 +85,8 @@
   citecolor={green!70!black},urlcolor={blue!70!black}}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
-\author{Luca De Feo, Cyril Hugounenq, Jérôme Plût, and Éric Schost}
+\author[L. De Feo, C. Hugounenq, J. Plût, É. Schost]%
+  {Luca De Feo, Cyril Hugounenq, Jérôme Plût, and Éric Schost}
 
 \classno{11Y40 (primary), 11G20, 14H52 (secondary)}
 
@@ -1177,7 +1178,7 @@ this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$,
 \emph{i.e.} that $ψ$~is a diagonal matrix;
 however, $ℤ/ℓ^k ℤ$~is not an integral domain
 and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
-so we can only say that~$ψ ∈ (ℤ/ℓ^k ℤ)[π] \pmod{ℓ^{k-h}}$.
+so we can only say that~$ψ ∈ \pmod{ℓ^{k-h}}$ is diagonal.
 If on the other hand we choose \emph{horizontal} bases
 of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
 we know that $ψ$~is a diagonal matrix.
@@ -1187,8 +1188,8 @@ for each matrix~$M$, we try to interpolate
 the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
 The successful interpolation will be our explicit isogeny~$ψ$.
 
-We interpolate using only the abscissas~$x(P)$
-of the $(ℓ^{2k}-1)/2$ abscissas of non-zero points~$P$ of $E[ℓ^k]$.
+We interpolate using
+the $(ℓ^{2k}-1)/2$ abscissas~$x(P)$ of non-zero points~$P$ of $E[ℓ^k]$.
 Since the isogeny~$ψ$ is a rational fraction of degrees~$(r, r-1)$,
 it is defined by $2r$ coefficients.
 According to~\cite[§3.1]{df10},
@@ -1196,6 +1197,9 @@ an $r$-isogeny can be interpolated, and identified,
 from its values on $2r$~abscissas.
 For this method to work, we therefore select the smallest~$k ≥ h+1$
 such that~$ℓ^{2k}-1 > 4r$.
+This means that $ℓ^{2k} = O(r)$.
+(If $h$~is large, which has a small probability,
+then we can simply discard~$ℓ$ and choose another one).
 
 Using the method of section~\ref{sec:interpolation},
 we compute the polynomial~$T$ vanishing on the abscissas of
@@ -1212,57 +1216,29 @@ then we have found the isogeny~$ψ$.
 \begin{thm*}%<<<
 It is possible to solve the “Explicit Isogeny Problem”
 using at most
-\[ O(r · \MM(r) · \log(r) + \todo{\dots})\]
+\[ O(r · \MM(r) · \log(r) + r · \log q)\]
 operations in~$\F_q$.
 % The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$-isogeny is of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ plus a pre-computation of $O(\mathsf{M}(r)\log(r))$
 \end{thm*}%>>>
 
 \begin{proof}%refaire ça avec les notations de Luca
-By Proposition~\ref{prop:classes}~(v),
+Since $k ≥ h ≥ β$, by Proposition~\ref{prop:classes}~(v),
 there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
 This means that we can enumerate these representatives for a cost
-of~$O(k · \MM(ℓ^{2k} \log(ℓ^k))$.
-Therefore, using proposition~\ref{prop:interpol},
+\todo{il y avait un facteur $\log(ℓ^k)$, je ne sais pas d'où il venait}
+of~$O(k · ℓ^{k+β} · \MM(ℓ^{k-β})) ≤ O(k · \MM(ℓ^{2k}))$.
+Then, using proposition~\ref{prop:interpol},
 where the total degree is~$t = (ℓ^{2k}-1)/2$,
 we can compute the polynomials~$T$ and~$L_{a,b}$ with
 complexity~$O(\MM(t) (n + \log s) + \log q)
-= O(k \MM(ℓ^{2k}) + \log q)$.
-% We just have to multiply by $r$ the results obtained from \ref{prop: cout-interp} for the different try for the mapping.
+= O(k · \MM(ℓ^{2k}) + \log q)$.
+The cost of identifying the isogeny is dominated by
+that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
+Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
+must be tried before finding the isogeny.
 \end{proof}
 
-
-
-
-
-\begin{prop}\todo{A mettre dans la section 2 juste après le comptage d'orbites}
-The cost of computing all the representatives of non zero points of $E[\ell^k]$ is of $O(k^2\mathsf{M}(\ell^{2k})\log(\ell))$
-\end{prop}
-	
-\begin{proof}
-Since all the points are defined in $\F_{k-\beta}$ the cost of computing one representant is at most $M(\ell^{k-\beta})k\log(\ell))$
-\end{proof}
-
-
-\todo{complete the complexity}
-  %with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
- %Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. 
- \newline
-  Now we are able to describe the entire algorithm,   
-  as like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
- \begin{enumerate}
-\item Compute horizontal basis $P,Q$ and $P',Q'$ of
-  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\frac{3}{2}\ell^{2k-2} > 4r$ \todo{preciser cette borne ??} ;
-\item\label{alg:modif-couveignes:interp} Choose $(a,b) \in (\mathbb{Z}/\ell^k\mathbb{Z}^*)^2$ and compute the interpolation
-  polynomial $L$ \todo{(verify that notation is consistent
-    with Sec.4)} sending $x(P)$ to $x(aP')$ and $x(Q)$ to $x(bQ')$, and the abscissas of
-  their scalar multiples of order $\ell^k$ accordingly;
-\item\label{alg:modif-couveignes:rational} Deduce a rational fraction
-  congruent to $L$ modulo $T$, and verify that it
-  defines an isogeny of degree $r$. If it does, return it, otherwise
-  replace $P',Q'$ with an other horizontal basis of $E'[\ell^k]$ and go back to
-  Step~\ref{alg:orig-couveignes:interp}.
-\end{enumerate} 
 
 \section{Experimental results}
 \label{sec:implem}
