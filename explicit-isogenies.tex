@@ -85,7 +85,8 @@
   citecolor={green!70!black},urlcolor={blue!70!black}}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
-\author{Luca De Feo, Cyril Hugounenq, Jérôme Plût, and Éric Schost}
+\author[L. De Feo, C. Hugounenq, J. Plût, É. Schost]%
+  {Luca De Feo, Cyril Hugounenq, Jérôme Plût, and Éric Schost}
 
 \classno{11Y40 (primary), 11G20, 14H52 (secondary)}
 
@@ -252,12 +253,89 @@ using $\MM(n)$ operations in $\F_q$, under the assumptions
 of~\cite[Chapter~8.3]{vzGG}. Using FFT multiplication, one can take
 $\MM(n)∈ O(n\log n\loglog n)$.
 
+\subsection{Couveignes' algorithm}
+\label{sec:couv-algor}
+
+Couveignes' isogeny algorithm takes as input two \emph{ordinary}
+elliptic curves $E$ and $E'$, and a positive integer $r$ not
+divisible by $p$, and returns, if it exists, the kernel of an
+$r$-isogeny $ψ:E\to E'$. It is based on the observation that the
+isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
+that is compatible with their group structure. It proceeds in three
+steps:
+\begin{enumerate}
+\item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
+  $E[p^k]$ and $E'[p^k]$ respectively, for $k$ large enough;
+\item\label{alg:orig-couveignes:interp} Compute the interpolation
+  polynomial $L$ sending $x(P)$ to $x(P')$, and the abscissas of
+  their scalar multiples accordingly;
+\item\label{alg:orig-couveignes:rational} Deduce a rational fraction
+  congruent to $L$ modulo $E[p^k]$, and verify that it
+  defines an isogeny of degree $r$. If it does, return it, otherwise
+  replace $P'$ with a scalar multiple of itself and go back to
+  Step~\ref{alg:orig-couveignes:interp}.
+\end{enumerate}
+
+For this algorithm to succeed, enough interpolation points are
+required. Given that the isogeny $ψ$ is defined by a rational fraction
+of degree $(r,r-1)$, it is necessary that $p^k∈O(r)$. However, most of
+the time, those points are not going to be defined in the base field
+$\F_q$, thus Couveignes' algorithm must be based on efficient
+algorithms to construct and compute in towers of extensions of finite
+fields. Indeed, Couveignes and his successors go at great length in
+studying the arithmetic of \emph{Artin-Schreier
+  towers}~\cite{couveignes00,df+schost12}, and the adaptation of the
+fast interpolation algorithm to that setting~\cite{df10}.  Using these
+highly specialized constructions,
+Steps~\ref{alg:orig-couveignes:tower}
+and~\ref{alg:orig-couveignes:interp} are both executed in quasi-linear
+time $\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step
+only succeeds for one pair of torsion points $P,P'$, in general, thus
+$O(r)$ trials are expected on average.
+
+Hence, the overall complexity of Couveignes' algorithm is
+$\tildO(r²p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
+$\log p$. Although the exponent of $\log p$ is relatively small, Couveignes
+algorithm quickly becomes impractical as $p$ grows.
+
+\subsection{Our contributions}
+
+In this paper we
+introduce a variant of Couveignes' algorithm with the same quadratic
+complexity in $r$, and \textbf{no exponential dependency in $\log p$}.
+
+The bottom line of our algorithm is elementary: replace $E[p^k]$ in
+the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
+naïve application of this idea fails to yield a quadratic-time
+algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
+$E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
+be mapped onto two generators of $E'[ℓ^k]$. This can be done in
+$O(ℓ^{4k})$ possible ways \todo{double check this}, thus yielding an
+algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
+
+To avoid this pitfall, we carefully study
+in Section~\ref{sec:isogeny-volcanoes} the structure of
+$E[ℓ^k]$, and its relationship with the Frobenius endomorphism $π$.
+With that knowledge, we can put some restrictions on the generators $P,Q$,
+as explained in Section~\ref{sec:acti-frob-endm},
+thus limiting the number of trials to $O(ℓ^{2k})$.
+In Section~\ref{sec:interpolation}
+we present an interpolation algorithm adapted to the setting of
+$ℓ$-adic towers, and in Section~\ref{sec:complete-algorithm} we put
+all steps together and analyze the full algorithm. Finally in
+Section~\ref{sec:implem} we discuss our implementation and the
+performances of the algorithm.
+\todo{y a-t-il une section 6 finalement ?}
+
+
+%%%%%%%%%%%%%%%
+
 \subsection{Towers of finite fields}
 \label{sub:towers}
 
 The algorithms presented next operate on elements defined in finite
 extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
-fields $\F_q=F₀⊂F₁⊂\cdots⊂F_n$ with $\ell$ dividing $\#F_1-1$, $[F₁:F₀]$
+fields $\F_q=F₀⊂F₁⊂\cdots⊂F_n$ with $\ell$ dividing $\#F_1-1$, $d_1=[F₁:F₀]$
 dividing $ℓ-1$, and $[F_{i+1}:F_i]=ℓ$ for any $i>0$. For $ℓ=2$,
 we build upon the work of Doliskani and Schost~\cite{DoSc12}. For
 general $ℓ$ we use towers of Kummer extensions in a way similar
@@ -348,83 +426,6 @@ Cantor-Zassenhaus algorithm described in \cite[Chapter~14.5]{vzGG}, or
 $\RR(i)=O\bigl((ℓ^{i(ω+1)/2}+\MM(ℓ^{i+1}\log q))i\logℓ\bigr)$
 using~\cite{kaltofen+shoup97}.
 
-
-\subsection{Couveignes' algorithm}
-\label{sec:couv-algor}
-
-Couveignes' isogeny algorithm takes as input two \emph{ordinary}
-elliptic curves $E$ and $E'$, and a positive integer $r$ not
-divisible by $p$, and returns, if it exists, the kernel of an
-$r$-isogeny $ψ:E\to E'$. It is based on the observation that the
-isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
-that is compatible with their group structure. It proceeds in three
-steps:
-\begin{enumerate}
-\item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
-  $E[p^k]$ and $E'[p^k]$ respectively, for $k$ large enough;
-\item\label{alg:orig-couveignes:interp} Compute the interpolation
-  polynomial $L$ sending $x(P)$ to $x(P')$, and the abscissas of
-  their scalar multiples accordingly;
-\item\label{alg:orig-couveignes:rational} Deduce a rational fraction
-  congruent to $L$ modulo $E[p^k]$, and verify that it
-  defines an isogeny of degree $r$. If it does, return it, otherwise
-  replace $P'$ with a scalar multiple of itself and go back to
-  Step~\ref{alg:orig-couveignes:interp}.
-\end{enumerate}
-
-For this algorithm to succeed, enough interpolation points are
-required. Given that the isogeny $ψ$ is defined by a rational fraction
-of degree $(r,r-1)$, it is necessary that $p^k∈O(r)$. However, most of
-the time, those points are not going to be defined in the base field
-$\F_q$, thus Couveignes' algorithm must be based on efficient
-algorithms to construct and compute in towers of extensions of finite
-fields. Indeed, Couveignes and his successors go at great length in
-studying the arithmetic of \emph{Artin-Schreier
-  towers}~\cite{couveignes00,df+schost12}, and the adaptation of the
-fast interpolation algorithm to that setting~\cite{df10}.  Using these
-highly specialized constructions,
-Steps~\ref{alg:orig-couveignes:tower}
-and~\ref{alg:orig-couveignes:interp} are both executed in quasi-linear
-time $\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step
-only succeeds for one pair of torsion points $P,P'$, in general, thus
-$O(r)$ trials are expected on average.
-
-Hence, the overall complexity of Couveignes' algorithm is
-$\tildO(r²p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
-$\log p$. Although the exponent of $\log p$ is relatively small, Couveignes
-algorithm quickly becomes impractical as $p$ grows.
-
-\subsection{Our contributions}
-
-In this paper we
-introduce a variant of Couveignes' algorithm with the same quadratic
-complexity in $r$, and \textbf{no exponential dependency in $\log p$}.
-
-The bottom line of our algorithm is elementary: replace $E[p^k]$ in
-the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
-naïve application of this idea fails to yield a quadratic-time
-algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
-$E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
-be mapped onto two generators of $E'[ℓ^k]$. This can be done in
-$O(ℓ^{4k})$ possible ways \todo{double check this}, thus yielding an
-algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
-
-To avoid this pitfall, we carefully study
-in Section~\ref{sec:isogeny-volcanoes} the structure of
-$E[ℓ^k]$, and its relationship with the Frobenius endomorphism $π$.
-With that knowledge, we can put some restrictions on the generators $P,Q$,
-as explained in Section~\ref{sec:acti-frob-endm},
-thus limiting the number of trials to $O(ℓ^{2k})$.
-In Section~\ref{sec:interpolation}
-we present an interpolation algorithm adapted to the setting of
-$ℓ$-adic towers, and in Section~\ref{sec:complete-algorithm} we put
-all steps together and analyze the full algorithm. Finally in
-Section~\ref{sec:implem} we discuss our implementation and the
-performances of the algorithm.
-\todo{y a-t-il une section 6 finalement ?}
-
-
-%%%%%%%%%%%%%%%
 
 \section{The Frobenius and the volcano}
 \label{sec:isogeny-volcanoes}
@@ -601,11 +602,11 @@ it maps a line~$\chev{R}$ to the lattice~$Λ_R = \chev{R} + ℓ^n T_ℓ(E)$.
 This lattice is also the preimage by the isogeny~$ϕ_R: E → E_R$
 of the lattice~$ℓ^n T_ℓ(E_R)$.
 
-Fix a basis~$(P, Q)$ of~$E[ℓ^n]$ and let~$R = a P + b Q$.
+Fix a basis~$(P, Q)$ of~$E[ℓ^n]$ and let~$R = x P + y Q$.
 The lattice~$Λ_R$ is generated by the columns of the matrix
-$L_R = \smat{ℓ^n & 0 & a\\0 & ℓ^n & b}$.
-Write~$b = ℓ^m b'$ with~$ℓ ∤b'$; the Hermite normal form of~$L_R$
-is $M_R = \smat{ℓ^{n-m} & a/b' \\ 0 & ℓ^m}$,
+$L_R = \smat{ℓ^n & 0 & x\\0 & ℓ^n & y}$.
+Write~$y = ℓ^m y'$ with~$ℓ ∤y'$; the Hermite normal form of~$L_R$
+is $M_R = \smat{ℓ^{n-m} & x/y' \\ 0 & ℓ^m}$,
 and its columns also generate the lattice~$Λ_R$.
 We check that $M_R$ has determinant~$ℓ^n$.
 Since $Λ_R = ϕ_R^{-1} (ℓ^n T_{ℓ} (E_R))$,
@@ -633,7 +634,8 @@ If $π(P) = λ P$ then we say that $ℓ^h P$~has the direction~$λ$.
 \end{prop}
 \begin{proof}
 Fix a basis~$(R, S)$ of~$E[ℓ^n]$ that diagonalizes~$π$.
-We can write $P = x R + y S$; w.l.o.g. we may assume $y=1$.
+We can write $P = x R + y S$;
+without loss of generality we may assume $y=1$.
 Let~$E'$ be the image curve of~$ϕ_{ℓ^h P}$.
 Then $π|T_ℓ(E')$ has the matrix~$\smat{λ& ℓ^{h-n} x (λ-μ)\\ 0&μ}$.
 This matrix is diagonalizable only if~$v_{ℓ}(x) ≥ n - h$.
@@ -1027,6 +1029,7 @@ We can finally proceed with the interpolation itself. First, compute
 $w' = w/T'(v)$ and let $L^{(0)}=w'$.  Next, for $i=0,\dots,n-2$,
 suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
 than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
+\todo{on peut raccourcir ici}
 $$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr),$$
 for $0 \le j \le \ell-1$, and
 $$L^{(i+1)} = \sum_{j=0}^{\ell-1} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}}.$$ The last step $i=n-1$
@@ -1121,14 +1124,27 @@ $\F_q[x]$ at many points of $F_n$.
 
 Our algorithm uses an Elkies prime~$ℓ$.
 According to Chebotarev's density theorem,
-\todo{apparemment selon qu'on transcrit depuis le russe ou l'ukrainien
-son nom change, je voudrais ne pas trop troller le referee si possible}
+% \todo{apparemment selon qu'on transcrit depuis le russe ou l'ukrainien
+% son nom change, je voudrais ne pas trop troller le referee si possible}
 the density of primes~$ℓ$ such that~$(d_K/ℓ) = +1$ is asymptotically~$1/2$,
 so that we need only try a $O(1)$ number of primes~$ℓ$,
 and $ℓ$ itself is~$O(1)$.
 Since~$d_K$ is not assumed to be known yet,
 we need to be able to compute the shape of the crater,
-as well the shortest $ℓ$-isogeny chain from~$E$ to the crater.
+as well as the shortest $ℓ$-isogeny chain from~$E$ to the crater.
+
+We first compute the rational $ℓ^{∞}$-torsion of the curve~$E$
+by a variant of Algorithm~\ref{alg:diagonal},
+then use this knowledge, as in~\cite{MiretMRV05},
+to build an ascending path of $ℓ$-isogenies using
+the group structure of~$E[ℓ^{∞}]$.
+This plus the methods of~\cite{volcano},
+exploring all the chains of $ℓ$-isogenies,
+enable us to find a curve on the crater
+in at most~$O(h)$ steps, where $h ≤ \log_ℓ q$ is the volcano height.
+The total cost is $O(h \RR(1) + h^2 \mathsf{F}(ℓ))$;
+here $\mathsf{F}(ℓ)$ is the cost of computing a root
+of the $ℓ$-modular polynomial, and $\mathsf{F}(ℓ) ≤ O(ℓ^2 + \MM(ℓ) \log q)$.
 
 \todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
 % One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
@@ -1146,8 +1162,6 @@ The classical method from \cite{volcano} is to look for  the length of $(\ell+1)
 For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
  %c est exactement ce qui est fait dans ce papier...
 
-\subsection{Lifting the problem to a cyclic crater}
-
 If the two input curves~$E$, $E'$ of our algorithm
 belong to cyclic $ℓ$-isogenies volcanos but not to their crater,
 then by Proposition~\ref{prop:parallel},
@@ -1159,13 +1173,13 @@ By Proposition~\ref{prop:parallel} (iii),
 the curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous;
 we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
 Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
-
 \todo{Complexité !}
 
- \subsection{Curves which are on the cyclic crater}
 
-Let~$ψ: E→ E'$ be an isogeny between curves
-with $ℓ$-maximal endomorphism rings.
+\subsection{Interpolating the isogeny}
+
+We now assume that both curves~$E, E'$
+have $ℓ$-maximal endomorphism rings.
 We fix bases of~$E[ℓ^k]$, $E'[ℓ^k]$ and write~$π, π'$ for the matrices
 of the Frobenius.
 Since $ψ$~is rational, its matrix satisfies the relation~$π' · ψ = ψ · π$
@@ -1177,7 +1191,7 @@ this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$,
 \emph{i.e.} that $ψ$~is a diagonal matrix;
 however, $ℤ/ℓ^k ℤ$~is not an integral domain
 and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
-so we can only say that~$ψ ∈ (ℤ/ℓ^k ℤ)[π] \pmod{ℓ^{k-h}}$.
+so we can only say that~$ψ ∈ \pmod{ℓ^{k-h}}$ is diagonal.
 If on the other hand we choose \emph{horizontal} bases
 of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
 we know that $ψ$~is a diagonal matrix.
@@ -1187,8 +1201,8 @@ for each matrix~$M$, we try to interpolate
 the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
 The successful interpolation will be our explicit isogeny~$ψ$.
 
-We interpolate using only the abscissas~$x(P)$
-of the $(ℓ^{2k}-1)/2$ abscissas of non-zero points~$P$ of $E[ℓ^k]$.
+We interpolate using
+the $(ℓ^{2k}-1)/2$ abscissas~$x(P)$ of non-zero points~$P$ of $E[ℓ^k]$.
 Since the isogeny~$ψ$ is a rational fraction of degrees~$(r, r-1)$,
 it is defined by $2r$ coefficients.
 According to~\cite[§3.1]{df10},
@@ -1196,6 +1210,9 @@ an $r$-isogeny can be interpolated, and identified,
 from its values on $2r$~abscissas.
 For this method to work, we therefore select the smallest~$k ≥ h+1$
 such that~$ℓ^{2k}-1 > 4r$.
+This means that $ℓ^{2k} = O(r)$.
+(If $h$~is large, which has a small probability,
+then we can simply discard~$ℓ$ and choose another one).
 
 Using the method of section~\ref{sec:interpolation},
 we compute the polynomial~$T$ vanishing on the abscissas of
@@ -1212,57 +1229,29 @@ then we have found the isogeny~$ψ$.
 \begin{thm*}%<<<
 It is possible to solve the “Explicit Isogeny Problem”
 using at most
-\[ O(r · \MM(r) · \log(r) + \todo{\dots})\]
+\[ O(r · \MM(r) · \log(r) + r · \log q)\]
 operations in~$\F_q$.
 % The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$-isogeny is of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ plus a pre-computation of $O(\mathsf{M}(r)\log(r))$
 \end{thm*}%>>>
-
 \begin{proof}%refaire ça avec les notations de Luca
-By Proposition~\ref{prop:classes}~(v),
+\todo{insérer ici la complexité des calculs de 5.1}
+Since $k ≥ h ≥ β$, by Proposition~\ref{prop:classes}~(v),
 there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
 This means that we can enumerate these representatives for a cost
-of~$O(k · \MM(ℓ^{2k} \log(ℓ^k))$.
-Therefore, using proposition~\ref{prop:interpol},
+\todo{il y avait un facteur $\log(ℓ^k)$, je ne sais pas d'où il venait}
+of~$O(k · ℓ^{k+β} · \MM(ℓ^{k-β})) ≤ O(k · \MM(ℓ^{2k}))$.
+Then, using proposition~\ref{prop:interpol},
 where the total degree is~$t = (ℓ^{2k}-1)/2$,
 we can compute the polynomials~$T$ and~$L_{a,b}$ with
 complexity~$O(\MM(t) (n + \log s) + \log q)
-= O(k \MM(ℓ^{2k}) + \log q)$.
-% We just have to multiply by $r$ the results obtained from \ref{prop: cout-interp} for the different try for the mapping.
+= O(k · \MM(ℓ^{2k}) + \log q)$.
+The cost of identifying the isogeny is dominated by
+that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
+Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
+must be tried before finding the isogeny.
 \end{proof}
 
-
-
-
-
-\begin{prop}\todo{A mettre dans la section 2 juste après le comptage d'orbites}
-The cost of computing all the representatives of non zero points of $E[\ell^k]$ is of $O(k^2\mathsf{M}(\ell^{2k})\log(\ell))$
-\end{prop}
-	
-\begin{proof}
-Since all the points are defined in $\F_{k-\beta}$ the cost of computing one representant is at most $M(\ell^{k-\beta})k\log(\ell))$
-\end{proof}
-
-
-\todo{complete the complexity}
-  %with $d$ the order of $q$ in $\mathbb{Z}/\ell\mathbb{Z}^*$.%Cantor Zassenhauss dans F_1
- %Then we use algorithm \ref{alg:diagonal} to obtain a diagonal basis $(P,Q)$ of the $\ell^k$ torsion with a complexity of $O(k(\mathsf{R}(k)+\mathsf{F}(k,0)))$. 
- \newline
-  Now we are able to describe the entire algorithm,   
-  as like the Couveignes' algorithm we proceed in 3 steps to solve problem \ref{prob:isogeny-problem}:
- \begin{enumerate}
-\item Compute horizontal basis $P,Q$ and $P',Q'$ of
-  $E[\ell^k]$ and $E'[\ell^k]$ respectively, for $\frac{3}{2}\ell^{2k-2} > 4r$ \todo{preciser cette borne ??} ;
-\item\label{alg:modif-couveignes:interp} Choose $(a,b) \in (\mathbb{Z}/\ell^k\mathbb{Z}^*)^2$ and compute the interpolation
-  polynomial $L$ \todo{(verify that notation is consistent
-    with Sec.4)} sending $x(P)$ to $x(aP')$ and $x(Q)$ to $x(bQ')$, and the abscissas of
-  their scalar multiples of order $\ell^k$ accordingly;
-\item\label{alg:modif-couveignes:rational} Deduce a rational fraction
-  congruent to $L$ modulo $T$, and verify that it
-  defines an isogeny of degree $r$. If it does, return it, otherwise
-  replace $P',Q'$ with an other horizontal basis of $E'[\ell^k]$ and go back to
-  Step~\ref{alg:orig-couveignes:interp}.
-\end{enumerate} 
 
 \section{Experimental results}
 \label{sec:implem}
@@ -1292,7 +1281,7 @@ as a product of an $ℓ$-isogeny and its dual.
 This brings the polynomial degree down to~$O(ℓ)$.
 According to subsection~\ref{sub:towers},
 the cost of the $\sfdiv(ℓ, P)$ operation is therefore $\mathsf{R} (k)$.
-To complete the complexity analysis we need to state the complexity of solving a division polynomial of degree $\ell^2$ in the aim of computing a basis of the $\ell$ torsion to apply algorithms of $\ell$ division. It has a complexity of $O(M(l)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$.
+To complete the complexity analysis we need to state the complexity of solving a division polynomial of degree $\ell^2$ in the aim of computing a basis of the $\ell$ torsion to apply algorithms of $\ell$ division. It has a complexity of $O(\MM(ℓ)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$.
 %\begin{equation}\label{eq:div-by-l}
 %O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
 %(k + \log q) & \text{if $ℓ = 2$,} \\
@@ -1359,8 +1348,9 @@ then the multiplicative structure of $V(i, c)$
 is that of a principal homogeneous space under~$ℤ/ℓ^i ℤ$.
 We also define~$W(i,j,c,d) = V(i, c) · P \,+\, V(j, d) · Q ⊂ E[ℓ^k]$.
 
-Since~$λ ≡ 1 \pmod{ℓ}$, we may write~$λ = f(0,0,u ℓ^{α-1})$
-for some~$u ∈ ℤ_ℓ^{×}$.
+Since~$λ ≡ 1 \pmod{ℓ}$, we may write~$λ = f(0,0,u\, ℓ^{α-1})$
+and~$μ = f(0,0, v\, ℓ^{β-1})$
+for some~$u, v ∈ ℤ_ℓ^{×}$.
 This implies that the set~$W(i,j,c,d)$ is stable under Galois.
 Moreover, the orbits of~$W(i,j,c,d)$ correspond bijectively to
 points of a fundamental domain of the lattice~$Λ_{i,j}$ generated by

@@ -571,6 +571,10 @@ class Tower_two:
 		'''
 		i=0
 		Test=True
+		if element==self.meeting2(self._levels[1](element[0]),element):
+			i+=1
+			element=self._levels[0](element[0])
+			return element
 		while (Test and i<nb ):
 			i=i+1 
 		#for i in range(nb):	
