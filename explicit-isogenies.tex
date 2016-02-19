@@ -26,6 +26,9 @@
 \newnumbered{exe}{Example}
 \newnumbered{prob}{Problem}
 
+\makeatletter
+\newenvironment{localblock}[1]{\@exmplstar{\relax}{#1}}{\@endexample}
+
 \def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
 \def\smat#1{{\def\arraystretch{.7}\mat{#1}}}
 \def\pa#1{\left(#1\right)}
@@ -82,7 +85,7 @@
   citecolor={green!70!black},urlcolor={blue!70!black}}
 
 \title[Explicit isogenies in any characteristic]{Explicit isogenies in quadratic time in any characteristic}
-\author{Cyril Hugounenq}
+\author{Luca De Feo, Cyril Hugounenq, Jérôme Plût, and Éric Schost}
 
 \classno{11Y40 (primary), 11G20, 14H52 (secondary)}
 
@@ -93,6 +96,18 @@
 \maketitle
 
 \begin{abstract}
+\todo{
+Given two elliptic curves and the knowledge of the existence of
+an isogeny between them, of known degree~$r$,
+we compute this isogeny by using
+the structure of the $ℓ$-torsion of the curves,
+where $ℓ$~is a prime different from the characteristic~$p$ of the base field.
+Our algorithm has a complexity of~$\tildO(r^2)$.
+This is to be compared with Couveignes' algorithm,
+which uses the $p$-torsion, and has a complexity of~$\tildO(r^2 p^{O(1)})$.
+Our algorithm is therefore an interesting alternative
+for the medium- and large-characteristic cases.
+}
 The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ operations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
 \end{abstract}
 
@@ -139,12 +154,12 @@ $E$ and $E'$ such that $j(E)=j$ and $j(E')=j'$. The
 \emph{explicit isogeny} problem has many incarnations. In this paper,
 we are interested in the variant defined below.
 
-\begin{prob}[(Explicit isogeny problem)] \label{prob:isogeny-problem}
+\begin{localblock}{Explicit isogeny problem} \label{prob:isogeny-problem}
   Given two $j$-invariants $j$ and $j'$, and a positive integer
   $r$, determine if they are $r$-isogenous. In that case, compute
   curves $E$, $E'$ with $j(E)=j$ and $j(E')=j'$, and the
   kernel of an $r$-isogeny $ψ:E\to E'$.
-\end{prob}
+\end{localblock}
 
 Once the kernel of the isogeny is computed, the rational maps
 associated to it can be computed in optimal time using Velu's
@@ -199,7 +214,7 @@ $n\gg p/\log p$).
 Note that, although Couveignes-type algorithms do not make use of the
 modular polynomial $\Phi_r$, its computation is still necessary in the
 context of the SEA algorithm. Thus our new algorithm does not improve
-the state of the art on point counting \todo{but maybe benchmarks are
+the \todo{overall complexity} state of the art on point counting \todo{but maybe benchmarks are
   going to show that, at least in practice, we sometimes beat
   Lercier-Sirvent?}. It gives, however, an effective algorithm for
 solving the explicit isogeny problem, with potential applications in
@@ -231,7 +246,7 @@ $\mathbb{F}_q$; the binary costs associated to the algorithms
 presented next are negligible compared to the algebraic costs, and
 will be ignored. We use the Landau notation $O()$ to express
 asymptotic complexities, and the notation $\tildO()$ to neglect
-polylogarithmic factors.  We let $\MM(n)$ be a function such that
+(poly)logarithmic factors.  We let $\MM(n)$ be a function such that
 polynomials in $\F_q[X]$ of degree less than $n$ can be multiplied
 using $\MM(n)$ operations in $\F_q$, under the assumptions
 of~\cite[Chapter~8.3]{vzGG}. Using FFT multiplication, one can take
@@ -348,11 +363,10 @@ steps:
 \item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
   $E[p^k]$ and $E'[p^k]$ respectively, for $k$ large enough;
 \item\label{alg:orig-couveignes:interp} Compute the interpolation
-  polynomial $\mathcal{A}$ \todo{(verify that notation is consistent
-    with Sec.5)} sending $x(P)$ to $x(P')$, and the abscissas of
+  polynomial $L$ sending $x(P)$ to $x(P')$, and the abscissas of
   their scalar multiples accordingly;
 \item\label{alg:orig-couveignes:rational} Deduce a rational fraction
-  congruent to $\mathcal{A}$ modulo $E[p^k]$, and verify that it
+  congruent to $L$ modulo $E[p^k]$, and verify that it
   defines an isogeny of degree $r$. If it does, return it, otherwise
   replace $P'$ with a scalar multiple of itself and go back to
   Step~\ref{alg:orig-couveignes:interp}.
@@ -399,14 +413,15 @@ To avoid this pitfall, we carefully study
 in Section~\ref{sec:isogeny-volcanoes} the structure of
 $E[ℓ^k]$, and its relationship with the Frobenius endomorphism $π$.
 With that knowledge, we can put some restrictions on the generators $P,Q$,
-thus limiting the number of trials to $O(ℓ^{2k})$,
-as explained in Section~\ref{sec:acti-frob-endm}.
+as explained in Section~\ref{sec:acti-frob-endm},
+thus limiting the number of trials to $O(ℓ^{2k})$.
 In Section~\ref{sec:interpolation}
 we present an interpolation algorithm adapted to the setting of
 $ℓ$-adic towers, and in Section~\ref{sec:complete-algorithm} we put
 all steps together and analyze the full algorithm. Finally in
 Section~\ref{sec:implem} we discuss our implementation and the
 performances of the algorithm.
+\todo{y a-t-il une section 6 finalement ?}
 
 
 %%%%%%%%%%%%%%%
@@ -740,7 +755,7 @@ In this part, given an elliptic curve~$E$ belonging to the crater of
 an $ℓ$-isogeny volcano, we explicitly diagonalize the Frobenius
 endomorphism in~$E[ℓ^k]$, where $k ≥ h+1$, in order to identify the
 directions of the two horizontal $ℓ$-isogenies and such that $(\ell^2-1)\ell^{2k-2}>8r$ as explained in \ref{sec:complete-algorithm}.  By
-Proposition~\ref{prop:degree-l-torsion}, there is an
+Proposition~\ref{prop:classes}, there exists an
 extension~$F_{k-\beta}/\F_q$ %of degree~$d_k ≤ ℓ^k$ 
 such that all the points
 of~$E[ℓ^k]$ are rational over~$F_{k-\beta}$.  Algorithm~\ref{alg:diagonal} works
@@ -1184,14 +1199,13 @@ such that $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$
 for all $u, v ∈ ℤ/ℓ^k ℤ$.
 If there exists a rational fraction~$F ≡ L_{a,b} \pmod{T}$
 defining a $r$-isogeny,
-then we have found the isogney~$ψ$.
+then we have found the isogeny~$ψ$.
 
 By Proposition~\ref{prop:classes}~(v),
 there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
-By Proposition~\ref{prop:cout-repre},
-we can enumerate these representatives for a cost
-of~$O(\MM(ℓ^{2k} \log(ℓ^k))$.
+This means that we can enumerate these representatives for a cost
+of~$O(k · \MM(ℓ^{2k} \log(ℓ^k))$.
 Therefore, using proposition~\ref{prop:interpol},
 where the total degree is~$t = (ℓ^{2k}-1)/2$,
 we can compute the polynomials~$T$ and~$L_{a,b}$ with
@@ -1548,6 +1562,14 @@ satisfied.
 % for~$ε ∈ \acco{0, 2^{k-1}}$, we obtain the orbits
 % of point~(ii).
 % \end{proof}%>>>
+%>>>1
+\affiliationone{\todo{Luca et Cyril}}
+\affiliationtwo{Jérôme Plût\\
+ANSSI\\
+51, boulevard de La Tour-Maubourg\\
+75007 Paris\\
+France}
+\affiliationthree{\todo{Éric}}
 \end{document}
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
 %  LocalWords:  cardinality bijection Couveignes automorphism
