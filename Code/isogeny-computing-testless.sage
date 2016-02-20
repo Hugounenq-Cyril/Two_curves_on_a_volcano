@@ -1286,3 +1286,327 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 			T=E1.division_polynomial(2**k1,R.gen())
 			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,T,r,Lambda_1,Lambda_2,Tower)
 
+def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,Tower,interpol=None):
+	'''
+	INPUT:
+	-P1 a primitive l^order-torsion point generating an horizontal l^order-isogeny on the crater
+	-P2 a primitive l^order-torsion point generating an horizontal l^order-isogeny on the crater
+	-Q1 a primitive l^order-torsion point generating an horizontal l^order-isogeny on the crater
+	-Q2 a primitive l^order-torsion point generating an horizontal l^order-isogeny on the crater
+	-l an integer
+	-order an integer
+	-T the l^order division polynomial on the domain curve by the isogeny
+	-d the degree of the isogeny		
+	
+	OUTPUT:
+	An isogeny between the curve which P1 belogns and the curve which P2 belongs
+	'''
+	i=1
+	j=1
+	#M1=creation_matrice(P1,Q1,l,order,R)
+	#M2=creation_matrice(P2,Q2,l,order,R)
+	Test=False
+	#FractionField(R)
+	#L=creation_list_interpolation(M1,M2,i,j,R)
+	o1=valuation(mod(Lambda_1,l**order).multiplicative_order(),l)
+	o2=valuation(mod(Lambda_2,l**order).multiplicative_order(),l)
+	power=Tower._base.cardinality()
+	if o1>o2:
+		(o2,o1,Lambda_2,Lambda_1,Q1,P1,Q2,P2)=(o1,o2,Lambda_1,Lambda_2,P1,Q1,P2,Q2)
+	L=creation_list_interpolation(P1,Q1,o1,o2,Lambda_1,Lambda_2,order,i,j,P2,Q2,Tower)
+	#print 'L',L
+	#print 'len(L[0]),len(L[1]),len(L[2]),L',len(L[0]),len(L[1]),L[0][0],L[1][0]
+	M=initialisation_poly(L,R,Tower)#M ne dependent pas des images choisies il est calcule pour tous les ordres du frobenius
+	#print 'len(L),order,o1,o2,Lambda_1,Lambda_2,power',len(L),order,o1,o2,Lambda_1,Lambda_2,power
+	TA=M[0][1][-1][0]
+	#for r in range(len(L[0])):
+		#if TA(L[0][r][0])!=0:
+			#print 'TA(L[r][0])',TA(L[r][0])
+	#1ere etape pour l ordre maximal
+	L0=L[0]#on ne considere que les points lies a l ordre maximal
+	#print "juste avant le precalcul"
+	V=precalcul_v(M[0][1],L0,R,Tower)
+	Vr=[]
+	Vr.append(V)
+	#print "juste avant l interpolation globale"
+	A=interpolation_global(M[0][1],M[0][0],L0,V,R,Tower)
+	#for r in range(len(L0)):
+		#if A(L0[r][0])!=L0[r][1]:
+			#print 'A(L[0][r][0]),L[i]',r,A(L0[r][0]),L0[r]
+	TAT=M[0][1][-1][0]#a copy of TA for this try of interpolation
+	B=frobenius_polynomial(A,Tower,power**(2**(o2-1)))
+	TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1))) 
+	#print "juste avant le CRT"
+	#print "B,TB",B[0].parent(),TB[0].parent()
+	A,TA,U,V=CRT(A,TAT,B,TB)
+	Lc=[]
+	Lc.append([U,V])#on stocke les coefficients pour le CRT
+	#print "fin de la premiere etape"
+	#for r in range(len(L0)):
+		#if A(L0[r][0])!=L0[r][1]:
+			#print 'A(L[0][i][0]),L[i]',r,A(L0[r][0]),L0[r], 'test normalement deja verifie'
+	#print "test du polynome d interpolation passe"
+	A=red_pol_basis(A,Tower)
+	TA=red_pol_basis(TA,Tower)
+	for r in range(o2-o1-1):#on fait les ordres intermediaires entre o1 et o2 et o1 NON compris
+		Le=[]
+		#print "r,o2,o1,o2-1-r-1",r,o2,o1,o2-1-r-1,o2>o1
+		B=frobenius_polynomial(A,Tower,power**(2**(o2-1-r-1)))
+		TB=frobenius_polynomial(TA,Tower,power**(2**(o2-1-r-1)))
+		A,TA,U,V=CRT(A,TA,B,TB)
+		A=red_pol_basis(A,Tower)
+		TA=red_pol_basis(TA,Tower)
+		Le.append([U,V])
+		L0=L[r+1]#on ne considere que les points lies a l ordre intermediaire
+		#print 'L[r+1]',L[r+1],'M[r+1][1]',M[r+1][1]
+		V=precalcul_v(M[r+1][1],L0,R,Tower)
+		#print "deuxieme precalcul passe,r",r
+		Vr.append(V)
+		Aj=interpolation_global(M[r+1][1],M[r+1][0],L0,V,R,Tower)#on cree le poly interpol associe
+		#for s in range(len(L0)):
+			#if Aj(L0[s][0])!=L0[s][1]:
+				#print 'A(L[i][0]),L[i]',s,Aj(L0[s][0]),L0[s]
+		B=frobenius_polynomial(Aj,Tower,power**(2**(o2-1-r-1))) #on calcule son conjugue
+		TAT=M[r+1][1][-1][0] # le modulus associe au poly ajoute
+		TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1-r-1)))
+		B,TB,U,V=CRT(Aj,TAT,B,TB)#pour le polynome ajoute
+		B=red_pol_basis(B,Tower)
+		TB=red_pol_basis(TB,Tower)
+		Le.append([U,V])
+		A,TA,U,V=CRT(A,TA,B,TB)		
+		#for s in range(len(L[0])):
+			#if A[0].parent()!=
+			#if A(L[0][s][0])!=L[0][s][1]:
+				#print 'A(L[i][0]),L[i]',s,A(L[0][s][0]),L[0][s]
+		#for s in range(len(L[1])):
+			#if A(L[1][s][0])!=L[1][s][1]:
+				#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s]
+		Le.append([U,V])
+		Lc.append(Le) # ou Lc.append([Le])
+	#ordre o1
+	if o1>0: #on refait la boucle précédente normalement dans ce cas A FINIR !!!
+		#print "on commence la boucle o1>0"
+		Le=[]
+		B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
+		TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
+		A,TA,U,V=CRT(A,TA,B,TB)
+		A=red_pol_basis(A,Tower)
+		TA=red_pol_basis(TA,Tower)
+		Le.append([U,V])
+		L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
+		#print 'L[o2-o1]',L[o2-o1],'M[o2-o1][1]',M[o2-o1][1],'M[o2-o1][1][-1][0]',M[o2-o1][1][-1][0]#, M[o2-o1][1][-1][0].factor()		
+		V=precalcul_v(M[o2-o1][1],L0,R,Tower)
+		Vr.append(V)
+		Aj=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,V,R,Tower)#on cree le poly interpol associe	
+		#for s in range(len(L0)):
+			#if Aj(L0[s][0])!=L0[s][1]:
+				#print 'A(L[i][0]),L[i]',s,Aj(L0[s][0]),L0[s]
+		B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
+		TAT=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
+		TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
+		B,TB,U,V=CRT(Aj,TAT,B,TB)#pour le polynome ajoute
+		B=red_pol_basis(B,Tower)
+		TB=red_pol_basis(TB,Tower)
+		Le.append([U,V])
+		A,TA,U,V=CRT(A,TA,B,TB)	
+		#print "A[0].parent()",A[0].parent()
+		#print "L[0][0][0].parent()",L[0][0][0].parent()	
+		#for s in range(len(L[0])):
+			#if A(L[0][s][0])!=L[0][s][1]:
+				#print 'A(L[i][0]),L[i]',s,A(L[0][s][0]),L[0][s]
+		#for s in range(len(L[1])):
+			#if A(L[1][s][0])!=L[1][s][1]:
+				#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s]
+		Le.append([U,V])
+		Lc.append(Le)
+	else :#du coup on ne fait pas agir le Frobenius...
+		Le=[]		
+		#print "L[o2-o1]",L[o2-o1]		
+		#B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
+		#TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
+		#A,TA,U,V=CRT(A,TA,B,TB)
+		#A=red_pol_basis(A,Tower)
+		#TA=red_pol_basis(TA,Tower)
+		#Le.append([U,V])
+		L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
+		#for s in range(len(L[o2-o1])):
+			#if A(L[o2-o1][s][0])!=L[o2-o1][s][1]:
+				#print 's,A(L[o2-o1][s][0]),L[o2-o1][s]',s,A(L[o2-o1][s][0]),L[o2-o1][s],'o1=0','avant CRT'
+		V=precalcul_v(M[o2-o1][1],L0,R,Tower)
+		Vr.append(V)
+		B=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,V,R,Tower)#on cree le poly interpol associe
+		#for s in range(len(L0)):
+			#if B(L0[s][0])!=L0[s][1]:
+				#print 'B(L[o2-o1][0]),L[i]',s,B(L0[s][0]),L0[s]
+		#B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
+		TB=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
+		#TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
+		#B,TB,U,V=CRT(Aj,TAT,B,TB)#pour le polynome ajoute
+		#B=red_pol_basis(Aj,Tower)
+		#TB=red_pol_basis(TAT,Tower)
+		#Le.append([U,V])
+		#print 'A.degree(),TA.degree(),B.degree(),TB.degree()',A.degree(),TA.degree(),B.degree(),TB.degree()
+		#for s in range(len(L[o2-o1-1])):
+			#if A(L[o2-o1-1][s][0])!=L[o2-o1-1][s][1]:
+				#print 'A(L[o2-o1-1][0]),L[i]',s,A(L[o2-o1-1][s][0]),L[o2-o1-1][s],'o1=0','premier essai avant CRT'
+		A,TA,U,V=CRT(A,TA,B,TB)		
+		#for s in range(len(L[o2-o1])):
+			#if A(L[o2-o1][s][0])!=L[o2-o1][s][1]:
+				#print 'A(L[o2-o1][0]),L[i]',s,A(L[o2-o1][s][0]),L[0][s],'o1=0','deuxieme essai apres CRT'
+		#for s in range(len(L[o2-o1-1])):
+			#if A(L[o2-o1-1][s][0])!=L[o2-o1-1][s][1]:
+				#print 'A(L[o2-o1-1][0]),L[o2-o1-1]',s,A(L[o2-o1-1][s][0]),L[o2-o1-1][s],'o1=0','deuxieme essai different apres CRT'
+		Lc.append([U,V])		
+		#Lc.append(Le)		
+	for r in range(o1-1):
+		B=frobenius_polynomial(A,Tower,power**(2**(o1-2-r)))
+		TB=frobenius_polynomial(TA,Tower,power**(2**(o1-2-r)))
+		A,TA,U,V=CRT(A,TA,B,TB)
+		A=red_pol_basis(A,Tower)
+		TA=red_pol_basis(TA,Tower)
+		Lc.append([U,V])
+	return P2,Q2,Tower,L,M,Lc,Vr,o2,o1
+
+def calcul_isogenie_etape(P2,Q2,Tower,L,M,Lc,Vr,o2,o1):
+	i=1
+	j=1
+	Test=False
+	R=PolynomialRing(P2[0].parent(),name='x')
+	while (Test==False and j<16):
+		while(Test==False and i<16 and j%l!=0):
+			if i%l==0:
+				i+=1
+				#computation with pre computations
+				#1ere etape pour l ordre maximal
+			L0=modif_list_interpolation(L[0],i,j,P2,Q2,Tower)#on ne considere que les points lies a l ordre maximal
+			#print 'L0',L0
+			A=interpolation_global(M[0][1],M[0][0],L0,Vr[0],R,Tower)
+			#for s in range(len(L0)):
+				#if A(L0[s][0])!=L0[s][1]:
+					#print 'A(L0[i][0]),L0[i]',A(L0[s][0]),L0[s]
+			TAT=M[0][1][-1][0]#a copy of TA for this try of interpolation
+			B=frobenius_polynomial(A,Tower,power**(2**(o2-1)))
+			TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1)))
+			#print "u0",Lc[0][0],"v0",Lc[0][1]
+			#print "1 ere occurence"
+			A,TA=CRTm(A,TAT,B,TB,Lc[0][0],Lc[0][1]) # on fait le CRT avec les valeurs pre calculees
+			#for s in range(len(L0)):
+				#if A(L0[s][0])!=L0[s][1]:
+					#print 'A(L0[i][0]),L0[i]',A(L0[s][0]),L0[s]
+			A=red_pol_basis(A,Tower)
+			#for s in range(len(L0)):
+				#if A(L0[s][0])!=L0[s][1]:
+					#print 'A(L0[i][0]),L0[i]',A(L0[s][0]),L0[s], 'test après redpol'			
+			TA=red_pol_basis(TA,Tower)
+			for r in range(o2-o1-1):#on fait les ordres intermediaires entre o1 et o2
+				Le=[]
+				B=frobenius_polynomial(A,Tower,power**(2**(o2-1-r-1)))
+				TB=frobenius_polynomial(TA,Tower,power**(2**(o2-1-r-1)))
+				#print "r+1",r+1,"u0",Lc[r+1][0][0],"v0",Lc[r+1][0][1]
+				#print "2 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[r+1][0][0],Lc[r+1][0][1])
+				#for s in range(len(L0)):
+					#if A(L0[s][0])!=L0[s][1]:
+						#print 'A(L0[i][0]),L0[i]',A(L0[s][0]),L0[s]
+				A=red_pol_basis(A,Tower)
+				TA=red_pol_basis(TA,Tower)
+				#L1=L0 # a supprimer juste pout tests
+				L0=modif_list_interpolation(L[r+1],i,j,P2,Q2,Tower)#on ne considere que les points lies a l ordre intermediaire
+				Aj=interpolation_global(M[r+1][1],M[r+1][0],L0,Vr[r+1],R,Tower)#on cree le poly interpol associe
+				B=frobenius_polynomial(Aj,Tower,power**(2**(o2-1-r-1))) #on calcule son conjugue
+				TAT=M[r+1][1][-1][0] # le modulus associe au poly ajoute
+				TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1-r-1)))
+				#print "r+1",r+1,"u0",Lc[r+1][2][0],"v0",Lc[r+1][2][1]				
+				#print "3 eme occurence"				
+				B,TB=CRTm(Aj,TAT,B,TB,Lc[r+1][1][0],Lc[r+1][1][1])#pour le polynome ajoute
+				#for s in range(len(L0)):
+					#if B(L0[s][0])!=L0[s][1]:
+						#print 'B(L[i][0]),L[i]',s,B(L0[s][0]),L0[s]
+				B=red_pol_basis(B,Tower)
+				TB=red_pol_basis(TB,Tower)
+				#print "r+1",r+1,"u0",Lc[r+1][2][0],"v0",Lc[r+1][2][1]
+				#print "4 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[r+1][2][0],Lc[r+1][2][1])
+				#for s in range(len(L0)):
+					#if A(L0[s][0])!=L0[s][1]:
+						#print 'A(L[0][i][0]),L[1][i]',s,A(L0[s][0]),L0[s]
+				#for s in range(len(L1)):
+				#	if A(L1[s][0])!=L1[s][1]:
+				#		print 'A(L[1][i][0]),L[1][i]',s,A(L1[s][0]),L1[s]
+				#ordre o1
+			if o1>0: #on refait la boucle précédente normalement dans ce cas 
+				#Le=[]
+				B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
+				TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
+				#print "o2-o1",r+1,"u0",Lc[o2-o1][0][0],"v0",Lc[o2-o1][0][1]				
+				#print "5 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1][0][0],Lc[o2-o1][0][1])
+				A=red_pol_basis(A,Tower)
+				TA=red_pol_basis(TA,Tower)
+				#Le.append([U,V])
+				#L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
+				L0=modif_list_interpolation(L[o1-o2],i,j,P2,Q2,Tower)#on ne considere que les points lies a l ordre intermediaire
+				#print 'L0',L0				
+				Aj=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,Vr[o2-o1],R,Tower)#on cree le poly interpol associe
+				#print "Aj[0].parent()",Aj[0].parent()
+				#print "L0[0][0].parent()",L0[0][0].parent()
+				#for s in range(len(L0)):
+					#if Aj(L0[s][0])!=L0[s][1]:
+						#print 'Aj(L[i][0]),L[i]',s,Aj(L0[s][0]),L0[s]
+				B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
+				TAT=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
+				TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
+				#print "6 eme occurence"				
+				B,TB=CRTm(Aj,TAT,B,TB,Lc[o2-o1][1][0],Lc[o2-o1][1][1])#pour le polynome ajoute
+				B=red_pol_basis(B,Tower)
+				TB=red_pol_basis(TB,Tower)
+				#Le.append([U,V])
+				#print "7 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1][2][0],Lc[o2-o1][2][1])
+				#for s in range(len(L0)):
+					#if A(L0[s][0])!=L0[s][1]:
+						#print 'A(L[i][0]),L[i]',s,A(L0[s][0]),L0[s],'o1>0 recu'
+				#for s in range(len(L[1])):
+					#if A(L[1][s][0])!=L[1][s][1]:
+						#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s],'o1>0 recu'
+				#Le.append([U,V])
+				#Lc.append(Le)
+			else :#du coup on ne fait pas agir le Frobenius... CRT A FINIR !!!
+				#Le=[]
+				#B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
+				#TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
+				#A,TA,U,V=CRT(A,TA,B,TB)
+				#A=red_pol_basis(A,Tower)
+				#TA=red_pol_basis(TA,Tower)
+				#Le.append([U,V])
+				#L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
+				L0=modif_list_interpolation(L[o2-o1],i,j,P2,Q2,Tower)#on ne considere que les points lies a l ordre intermediaire				
+				#print 'i,j,L[0] modif reccurence',i,j,L[0]
+				B=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,Vr[o2-o1],R,Tower)#on cree le poly interpol associe
+				#for s in range(len(L0)):
+					#if Aj(L0[s][0])!=L0[s][1]:
+						#print 'Aj(L[o2-o1][0]),L[o2-o1]',s,Aj(L0[s][0]),L0[s],'probleme interpolation'
+				#B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
+				TB=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
+				#TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
+				#B,TB,U,V=CRT(Aj,TAT,B,TB)#pour le polynome ajoute
+				#B=red_pol_basis(Aj,Tower)#necessaire ???
+				#TB=red_pol_basis(TAT,Tower)
+				#Le.append([U,V])
+				A,TA=CRTm(A,TA,B,TB,Lc[-1][0],Lc[-1][1])		
+				#A,TA,U,V=CRT(A,TA,B,TB)			
+				#for s in range(len(L0)):
+					#if A(L0[s][0])!=L0[s][1]:
+						#print 'A(L0[s][0]),L0[s]',s,A(L0[s][0]),L0[s],'o1=0','reccurrence'
+				#Le.append([U,V])
+				#Lc.append(Le)	
+			for r in range(o1-1):
+				B=frobenius_polynomial(A,Tower,power**(2**(o1-2-r)))
+				TB=frobenius_polynomial(TA,Tower,power**(2**(o1-2-r)))
+				#print "9 eme occurence"				
+				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1+r+1][0],Lc[o2-o1+r+1][1])
+				A=red_pol_basis(A,Tower)
+				TA=red_pol_basis(TA,Tower)
+			#print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
+			Test=fonction_test_iso(A,TA,R2,d,Tower)
+			return A,TA
