@@ -807,6 +807,7 @@ O(k(\mathsf{R}(k-\beta)).
 
 \end{prop}
 \begin{proof}
+The cost of computing a basis of the $\ell$ torsion is of $O(\mathsf{M}(\ell^2)\log(\ell)\log(\ell^2q))$ dominated by computation of roots of the $\ell$ division polynomial of degree $\ell^2$ using the variant of the Cantor-Zassenhaus algorithm described in \cite[Chapter~14.5]{vzGG}. 
 The cost of Algorithm~\ref{alg:diagonal} is dominated
 by $k$~times the cost of the last execution of the loop in step~2.
 We give in Appendix~\ref{ap:division} an algorithm
@@ -1144,21 +1145,21 @@ The total cost is $O(h \RR(1) + h^2 \mathsf{F}(ℓ))$;
 here $\mathsf{F}(ℓ)$ is the cost of computing a root
 of the $ℓ$-modular polynomial, and $\mathsf{F}(ℓ) ≤ O(ℓ^2 + \MM(ℓ) \log q)$.
 
-\todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-% One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
-%   \newline
-As we will need to compute the $\ell^{\infty}$ rational torsion of the curve, we start by doing it using algorithm like \ref{alg:diagonal}, and then we take advantage of this knowledge like in \cite{MireMRV05} \todo{check this quote} to build an ascending path until we reach a level of stability where there is no more link between the structure of the $\ell^{\infty}$ rational torsion of a curve and its level in the volcano. After this we use methods like in \cite{volcano} to find a curve on the crater by exploring all the chain of $\ell$-isogenies. In the case where the volcano has no level of stabilty (said regular) then we have a cost of $O(\frac{\log(q)}{\log(\ell}) \mathsf{R}(1) )$ otherwise it is of  $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. 
-\newline
+%\todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
+%% One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
+%%   \newline
+%As we will need to compute the $\ell^{\infty}$ rational torsion of the curve, we start by doing it using algorithm like \ref{alg:diagonal}, and then we take advantage of this knowledge like in \cite{MireMRV05} \todo{check this quote} to build an ascending path until we reach a level of stability where there is no more link between the structure of the $\ell^{\infty}$ rational torsion of a curve and its level in the volcano. After this we use methods like in \cite{volcano} to find a curve on the crater by exploring all the chain of $\ell$-isogenies. In the case where the volcano has no level of stabilty (said regular) then we have a cost of $O(\frac{\log(q)}{\log(\ell}) \mathsf{R}(1) )$ otherwise it is of  $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. 
+%\newline
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
 Since the height~$h$ of the volcano is known,
 using Algorithm~\ref{alg:diagonal} we can compute a matrix of $π|E[ℓ^{h+1}]$.
 If this matrix has two distinct eigenvalues then the crater is cyclic,
 otherwise it is not.
-The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})\ell \mathcal{F}(\ell) )$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
-\newline 
-For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
- %c est exactement ce qui est fait dans ce papier...
+%The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})\ell \mathcal{F}(\ell) )$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
+%\newline 
+%For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
+% %c est exactement ce qui est fait dans ce papier...
 
 If the two input curves~$E$, $E'$ of our algorithm
 belong to cyclic $ℓ$-isogenies volcanos but not to their crater,
@@ -1232,7 +1233,7 @@ operations in~$\F_q$.
 % The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$-isogeny is of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ plus a pre-computation of $O(\mathsf{M}(r)\log(r))$
 \end{thm*}%>>>
 \begin{proof}%refaire ça avec les notations de Luca
-\todo{insérer ici la complexité des calculs de 5.1}
+\todo{insérer ici la complexité des calculs de 5.1} The cost of computing an horizontal basis of the elliptic curves is of $O(\mathsf{R}(k-\beta)k)$ according to section \ref{sec:acti-frob-endm}, thus for $\ell=2$ we got $O(\mathsf{R}(k-\beta)k) \leqslant O(\mathsf{M}(\ell^{k-\beta})k \log(q)) $, for $\ell \neq 2$ we got $O(\mathsf{R}(k-\beta)k) \leqslant O((\ell^{(k-\beta)(w+1)/2}+\mathsf{M}(\ell^{k-\beta+1}\log(q)))k \log(\ell)) $ \todo{eventuellement epurer les $\beta$}
 Since $k ≥ h ≥ β$, by Proposition~\ref{prop:classes}~(v),
 there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
 and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
