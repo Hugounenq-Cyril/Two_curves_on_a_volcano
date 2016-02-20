@@ -334,7 +334,8 @@ performances of the algorithm.
 The algorithms presented next operate on elements defined in finite
 extensions of $\F_q$. Specifically, we define a \emph{tower} of finite
 fields $\F_q=F₀⊂F₁⊂\cdots⊂F_n$ with $\ell$ dividing $\#F_1-1$, $d_1=[F₁:F₀]$
-dividing $ℓ-1$, and $[F_{i+1}:F_i]=ℓ$ for any $i>0$. For $ℓ=2$,
+dividing $ℓ-1$, and $[F_{i+1}:F_i]=ℓ$ for any $i>0$ \todo{proposition de modification de notation: $\F_q⊂F₀⊂F₁⊂\cdots⊂F_n$ with $\ell$ dividing $\#F_0-1$, $d_0=[F₀:F_q]$
+dividing $ℓ-1$, and $[F_{i+1}:F_i]=ℓ$ for any $i \geqslant 0$}. For $ℓ=2$,
 we build upon the work of Doliskani and Schost~\cite{DoSc12}. For
 general $ℓ$ we use towers of Kummer extensions in a way similar
 to~\cite[\S~2]{DeDoSc13}.  Both constructions represent elements of
@@ -714,9 +715,9 @@ $d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
 \item If $ℓ=2$ then $d_2 ∈ \acco{1,2}$ and, for all~$k ≥ 2$,
 $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
 \item For any~$n$, the group $E[ℓ^{∞}](F_n)$
-is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
+is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$. \todo{avec la proposition de notation dans la section 1 c'est bon}
 \item The group~$E[ℓ^k]$ contains at most
-$k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
+$k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$. \todo{si on fait le changement de notation, ça devient$F_0 = \F_{q^{d_0}}$}
 \end{enumerate}
 \end{prop}
 \begin{proof}
