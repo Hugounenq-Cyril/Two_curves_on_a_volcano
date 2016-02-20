@@ -1468,10 +1468,11 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 	return P2,Q2,Tower,L,M,Lc,Vr,o2,o1
 
 def calcul_isogenie_etape(P2,Q2,Tower,L,M,Lc,Vr,o2,o1,l):
-	i=1
-	j=1
+	i=3
+	j=3
 	Test=False
 	R=PolynomialRing(P2[0].parent(),name='x')
+	power=Tower._base.cardinality()	
 	while (Test==False and j<16):
 		while(Test==False and i<16 and j%l!=0):
 			if i%l==0:
@@ -1607,6 +1608,7 @@ def calcul_isogenie_etape(P2,Q2,Tower,L,M,Lc,Vr,o2,o1,l):
 				A,TA=CRTm(A,TA,B,TB,Lc[o2-o1+r+1][0],Lc[o2-o1+r+1][1])
 				A=red_pol_basis(A,Tower)
 				TA=red_pol_basis(TA,Tower)
-			#print "A.degree()",A.degree(),"TA.degree()",TA.degree()			
+			#print "A.degree()",A.degree(),"TA.degree()",TA.degree()
+			R2=A.parent()			
 			Test=fonction_test_iso(A,TA,R2,d,Tower)
-			return A,TA
+			return Test
