@@ -139,7 +139,7 @@ non-constant rational maps preserving the point at infinity. They are
 also algebraic group morphisms. Isogeny computations play a central
 role in the algorithmic theory of elliptic curves. They are notably
 used to speed up Schoof's point counting
-algorithm\cite{schoof85,atkin88,elkies92,schoof95,elkies98}. They are
+algorithm~\cite{schoof85,atkin88,elkies92,schoof95,elkies98}. They are
 also widely applied in cryptography, where they are used to speed up
 point multiplication~\cite{gallant+lambert+vanstone01,birkner+sica11},
 to perform cryptanalysis~\cite{mauer+menezes+teske01}, and to
@@ -191,7 +191,7 @@ the computation of the modular polynomial $\Phi_r$, which is an object
 of (binary) size $O(r^3\log r)$. Later Bröker, Lauter and
 Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
 computation in the context of the SEA
-algorithm. Finally Lercier and Sirvent\cite{lercier+sirvent08,1602.00244}
+algorithm. Finally Lercier and Sirvent~\cite{lercier+sirvent08,1602.00244}
 generalized Elkies' algorithm to work in any characteristic. Despite
 these advances, the overall cost of Elkies' algorithm and its
 variants is still at least cubic in $r$.
@@ -215,11 +215,10 @@ $n\gg p/\log p$).
 Note that, although Couveignes-type algorithms do not make use of the
 modular polynomial $\Phi_r$, its computation is still necessary in the
 context of the SEA algorithm. Thus our new algorithm does not improve
-the \todo{overall complexity} state of the art on point counting \todo{but maybe benchmarks are
-  going to show that, at least in practice, we sometimes beat
-  Lercier-Sirvent?}. It gives, however, an effective algorithm for
-solving the explicit isogeny problem, with potential applications in
-other contexts, e.g., cryptography.
+the \todo{overall complexity} state of the art on point counting. It
+gives, however, an effective algorithm for solving the explicit
+isogeny problem, with potential applications in other contexts, e.g.,
+cryptography.
 
 \subsection{Notations}
 
@@ -248,7 +247,7 @@ presented next are negligible compared to the algebraic costs, and
 will be ignored. We use the Landau notation $O()$ to express
 asymptotic complexities, and the notation $\tildO()$ to neglect
 (poly)logarithmic factors.  We let $\MM(n)$ be a function such that
-polynomials in $\F_q[X]$ of degree less than $n$ can be multiplied
+polynomials in $\F_q[x]$ of degree less than $n$ can be multiplied
 using $\MM(n)$ operations in $\F_q$, under the assumptions
 of~\cite[Chapter~8.3]{vzGG}. Using FFT multiplication, one can take
 $\MM(n)∈ O(n\log n\loglog n)$.
@@ -306,12 +305,12 @@ complexity in $r$, and \textbf{no exponential dependency in $\log p$}.
 
 The bottom line of our algorithm is elementary: replace $E[p^k]$ in
 the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
-naïve application of this idea fails to yield a quadratic-time
+naive application of this idea fails to yield a quadratic-time
 algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
 $E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
 be mapped onto two generators of $E'[ℓ^k]$. This can be done in
-$O(ℓ^{4k})$ possible ways \todo{double check this}, thus yielding an
-algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$.
+$O(ℓ^{4k})$ possible ways, thus yielding an
+algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$ at best.
 
 To avoid this pitfall, we carefully study
 in Section~\ref{sec:isogeny-volcanoes} the structure of
@@ -325,7 +324,6 @@ $ℓ$-adic towers, and in Section~\ref{sec:complete-algorithm} we put
 all steps together and analyze the full algorithm. Finally in
 Section~\ref{sec:implem} we discuss our implementation and the
 performances of the algorithm.
-\todo{y a-t-il une section 6 finalement ?}
 
 
 %%%%%%%%%%%%%%%
