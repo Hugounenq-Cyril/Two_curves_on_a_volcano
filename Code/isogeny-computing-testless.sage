@@ -1270,7 +1270,7 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 		#B=sqrt(r).round()
 		#if B**2<r:
 			#B+=1
-		B=6*(r)
+		B=5.4*(r)
 		if E2.base_field()!=K:
 			raise TypeError('the curves must be defined on the same field')
 		else :
