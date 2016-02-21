@@ -1227,7 +1227,15 @@ operations in~$\F_q$.
 
 \section{Experimental results}
 \label{sec:implem}
-We implement the algorithm on SageMath, we run the test on SageMath v7.0 only for $\ell=2$. We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$. Since the main cost of the algorithm comes from the repetition of the interpolation, we observe some floor for the r-isogenies with the same $k$ such that $2^{2k-2}/3>4r$. Moreover with curves with a great rational torsion for $p=1033$ and $p=521$ we observes also some floor due to the fact that we need to repeat $O(h)$ times the interpolation. 
+We implement the algorithm on SageMath, we run the tests on SageMath v7.0 only for $\ell=2$, the source code is available on the github project : \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
+We implement on Sage the $2$-adic contruction of tower of Doliskani and Schost \cite{DoSc12}, we have designed an algorithm to work only for curves located on cyclic crater of volcano of $2$-isogeny. 
+ We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$. 
+ \newline 
+The choice of the height of the $2$-adic tower is done according to the rational structure of the tower and $r$ prior to all the other computations. The algorithm computes horizontal basis in a similar way than it is described in section \ref{sec:acti-frob-endm}, 
+\newline
+The interpolation part of the algorithm is different from section \ref{sec:interpolation} in a way that it mixes points of different orbits under the Frobenius action. The algorithm combines points defined in the same level in the tower with Chinese Remainder Techniques before using Frobenius on them to have an interpolation polynomial defined one level below in the $2$-adic tower, then it takes into account new points defined in this level with Chinese Remainder techniques. Precomputations for the Chinese Remainder are done since the modulus do not depend of the mapping. Thus we have a difference between the first guess for the mapping of horizontal basis and the other ones. The algorithm then do a rational reconstruction and check if the result gave us a good result by looking the degrees and checking if we got a square at the denominator.
+ \newline
+  Since the main cost of the algorithm comes from the repetition of the interpolation, we observe some floor for the $r$-isogenies for which we got the same $k$ such that $2^{2k-2}/3>4r$. Moreover with curves with a great rational torsion as in the examples for $p=1033$ and $p=521$ we observes also some floor due to the fact that we got $h$ bigger than $4r$ for the interpolation. 
 \todo{Describe implementation and show benchmarks. Possibly compare
   with Lercier-Sirvent (Luca has an implementation somewhere).}
 
