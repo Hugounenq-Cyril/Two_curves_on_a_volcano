@@ -293,7 +293,7 @@ only succeeds for one pair of torsion points $P,P'$, in general, thus
 $O(r)$ trials are expected on average.
 
 Hence, the overall complexity of Couveignes' algorithm is
-$\tildO(r²p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
+$\tildO(r^2p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
 $\log p$. Although the exponent of $\log p$ is relatively small, Couveignes
 algorithm quickly becomes impractical as $p$ grows.
 
@@ -307,7 +307,7 @@ The bottom line of our algorithm is elementary: replace $E[p^k]$ in
 the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
 naive application of this idea fails to yield a quadratic-time
 algorithm. Indeed, in the worst case one has $ℓ^{2k}∈O(r)$, with
-$E[ℓ^k]≃(ℤ/ℓ^kℤ)²$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
+$E[ℓ^k]≃(ℤ/ℓ^kℤ)^2$. Hence, two generators $P,Q$ of $E[ℓ^k]$ must
 be mapped onto two generators of $E'[ℓ^k]$. This can be done in
 $O(ℓ^{4k})$ possible ways, thus yielding an
 algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$ at best.
@@ -1077,7 +1077,7 @@ $\F_q[x]$ at many points of $F_n$.
     all $i$
   \end{itemize}
   can be computed using
-  $O\bigl(\MM(t)\log(s) + nℓ\bigl(\MM(ℓ²t) +
+  $O\bigl(\MM(t)\log(s) + nℓ\bigl(\MM(ℓ^2t) +
   \MM(ℓ)\log(q)\bigr)\bigr)$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
@@ -1092,7 +1092,7 @@ $\F_q[x]$ at many points of $F_n$.
   algebraic cost, then we compute $T_i$ as explained previously at a
   cost of $O(nℓ\MM(ℓ^{n_i+2}))$ operations. Bounding $ℓ^{n_i}$ by
   $t_i$, summing over all $i$, and using the superlinearity of $\MM$,
-  we obtain a total cost of $O(nℓ\MM(ℓ²t))$ operations.
+  we obtain a total cost of $O(nℓ\MM(ℓ^2t))$ operations.
   Simultaneously, we compute all the polynomials $L_i$ such that
   $L_i(v_i)=w_i$, at the same cost.
 
@@ -1142,10 +1142,10 @@ crater, as well as the shortest $ℓ$-isogeny chain from~$E$ to the
 crater.
 
 The algorithms of Fouquet and Morain~\cite{volcano} compute the height
-$h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh²)$
+$h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
 $Φ_ℓ$ is computed using $\tildO(ℓ³\logℓ)$ binary operations and
-$O(\MM(ℓ²)\log q)$ operations in $\F_q$, then each factorization costs
+$O(\MM(ℓ^2)\log q)$ operations in $\F_q$, then each factorization costs
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
 using~\cite[Chapter~14.5]{vzGG}. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
@@ -1229,7 +1229,7 @@ endomorphism ring proceeds as follows:
 \begin{thm*}
 It is possible to solve the “Explicit Isogeny Problem”
 using at most
-\[ O(r · \MM(r) · \log²(r) + r · \log(r) · \log(q))\]
+\[ O(r · \MM(r) · \log^2(r) + r · \log(r) · \log(q))\]
 operations in~$\F_q$.
 \end{thm*}
 \begin{proof}
@@ -1259,12 +1259,12 @@ operations in~$\F_q$.
   computed from the basis $(P,Q)$ using point multiplication by two
   scalars $≤ℓ^k$ in the field $F_n$, which costs
   $O(\MM(ℓ^n)\log(ℓ^k))$ operations. We thus have a total cost of
-  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log²(r))$ to compute all such representatives.
+  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log^2(r))$ to compute all such representatives.
 
   Then, using proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
-  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log²(r) + \log(r)\log(q))$.
+  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log^2(r) + \log(r)\log(q))$.
   The cost of computing $F_{a,b}$, and identifying the isogeny is
   dominated by that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
   Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
