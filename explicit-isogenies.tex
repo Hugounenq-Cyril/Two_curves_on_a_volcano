@@ -420,7 +420,7 @@ the case $ℓ=2$, hence we introduce the following notations:
 For $\ell=2$, Doliskani and Schost show that
 $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
 $\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\logℓ\log(ℓq))$ using the variant of the
-Cantor-Zassenhaus algorithm described in \cite[Chapter~14.5]{vzGG}, or
+Cantor-Zassenhaus algorithm described in~\cite[Chapter~14.5]{vzGG}, or
 $\RR(i)=O\bigl((ℓ^{i(ω+1)/2}+\MM(ℓ^{i+1}\log q))i\logℓ\bigr)$
 using~\cite{kaltofen+shoup97}.
 
@@ -667,10 +667,10 @@ Let~$ψ: E → E'$ be an isogeny of degree~$r$ prime to~$ℓ$.
 \begin{enumerate}
 \item The curves~$E$ and~$E'$ have the same depth
 in their $ℓ$-isogeny volcanoes.
-\item For any point~$P ∈ E[ℓ^k]$,
+\item\label{prop:parallel:func} For any point~$P ∈ E[ℓ^k]$,
 the isogenies with kernel $\chev{P}$ and~$\chev{ψ(P)}$ have the same type
 (ascending, descending, or horizontal with the same direction).
-\item If $P ∈ E[ℓ]$ and $P' ∈ E'[ℓ]$ are both ascending,
+\item\label{prop:parallel:ascent} If $P ∈ E[ℓ]$ and $P' ∈ E'[ℓ]$ are both ascending,
 or both horizontal with the same direction,
 then $E/P$ and~$E'/P'$ are again $r$-isogenous.
 \end{enumerate}
@@ -715,7 +715,7 @@ $d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
 $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
 \item For any~$n$, the group $E[ℓ^{∞}](F_n)$
 is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
-\item The group~$E[ℓ^k]$ contains at most
+\item\label{prop:classes:count} The group~$E[ℓ^k]$ contains at most
 $k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
 \end{enumerate}
 \end{prop}
@@ -798,7 +798,7 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
 \RETURN $(P_{k},Q_{k},λ,μ)$
 \end{algorithmic}
 \end{algorithm}
-\begin{prop}
+\begin{prop}\label{th:diagonal}
 Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
 with a complexity of at most \vskip -20pt
 \begin{equation*}
@@ -897,7 +897,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
   (\mathsf{divide}( ℓ^{k-(h+1)}, P_{k-1}) )$. 
 \end{algorithmic}
 \end{algorithm}
-\begin{prop}
+\begin{prop}\label{th:horizontal}
 Algorithm~\ref{alg:horizontal} is correct and has a complexity of
 % The computation complexity of algorithm \ref{alg:diagonal} is
 %\begin{equation*}
@@ -1117,62 +1117,58 @@ $\F_q[x]$ at many points of $F_n$.
 
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
+
+We finally come the description of the full algorithm. As stated in
+the introduction, we are given two elliptic curves $E$ and $E'$, and
+an integer $r$, and we want to compute an isogeny $ψ:E→E'$ of degree
+$r$.
+
+Since the algorithms of Section~\ref{sec:acti-frob-endm} only apply to
+curves on top of volcanoes with cyclic crater, we first need to
+determine a small Elkies prime $ℓ$ for $E$ and $E'$, and then reduce
+to an explicit isogeny problem on the crater of the
+$ℓ$-volcanoes. These steps are discussed and analyzed next.
+
 %%%%%%%%%%%%%%%
 \subsection{Finding a suitable $ℓ$-volcano}
 \label{sub:shape-volcano}
 
-Our algorithm uses an Elkies prime~$ℓ$.
-According to Chebotarev's density theorem,
-% \todo{apparemment selon qu'on transcrit depuis le russe ou l'ukrainien
-% son nom change, je voudrais ne pas trop troller le referee si possible}
-the density of primes~$ℓ$ such that~$(d_K/ℓ) = +1$ is asymptotically~$1/2$,
-so that we need only try a $O(1)$ number of primes~$ℓ$,
-and $ℓ$ itself is~$O(1)$.
-Since~$d_K$ is not assumed to be known yet,
-we need to be able to compute the shape of the crater,
-as well as the shortest $ℓ$-isogeny chain from~$E$ to the crater.
+Our algorithm uses an Elkies prime~$ℓ$.  According to Chebotarev's
+density theorem, the density of primes~$ℓ$ such that~$(d_K/ℓ) = +1$ is
+asymptotically~$1/2$, so that we need only try a $O(1)$ number of
+primes~$ℓ$.  Since~$d_K$ is not assumed to be known yet, we need to be
+able to compute the height $h$ of the volcano, the shape of its
+crater, as well as the shortest $ℓ$-isogeny chain from~$E$ to the
+crater.
 
-We first compute the rational $ℓ^{∞}$-torsion of the curve~$E$
-by a variant of Algorithm~\ref{alg:diagonal},
-then use this knowledge, as in~\cite{MiretMRV05},
-to build an ascending path of $ℓ$-isogenies using
-the group structure of~$E[ℓ^{∞}]$.
-This plus the methods of~\cite{volcano},
-exploring all the chains of $ℓ$-isogenies,
-enable us to find a curve on the crater
-in at most~$O(h)$ steps, where $h ≤ \log_ℓ q$ is the volcano height.
-The total cost is $O(h \RR(1) + h^2 \mathsf{F}(ℓ))$;
-here $\mathsf{F}(ℓ)$ is the cost of computing a root
-of the $ℓ$-modular polynomial, and $\mathsf{F}(ℓ) ≤ O(ℓ^2 + \MM(ℓ) \log q)$.
+The algorithms of Fouquet and Morain~\cite{volcano} compute the height
+$h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh²)$
+factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
+$Φ_ℓ$ is computed using $\tildO(ℓ³\logℓ)$ binary operations and
+$O(\MM(ℓ²)\log q)$ operations in $\F_q$, then each factorization costs
+$O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
+using~\cite[Chapter~14.5]{vzGG}. More efficient methods for special
+instances of volcanoes are presented in~\cite{MiretMRV05} and
+in~\cite{IonicaJ10}, but we ignore them .
 
-%\todo{Eventually explicit the complexity of computing a shape of the volcano i.e. $\mathcal{F}(\ell)$}
-%% One crucial point before starting to use methods described above is to determine if the input curves of problem \ref{prob:isogeny-problem} are located on a cylic crater of a volcano and if it is not the case compute a the shortest chain of $\ell$-isogeny to a curve on the crater. 
-%%   \newline
-%As we will need to compute the $\ell^{\infty}$ rational torsion of the curve, we start by doing it using algorithm like \ref{alg:diagonal}, and then we take advantage of this knowledge like in \cite{MireMRV05} \todo{check this quote} to build an ascending path until we reach a level of stability where there is no more link between the structure of the $\ell^{\infty}$ rational torsion of a curve and its level in the volcano. After this we use methods like in \cite{volcano} to find a curve on the crater by exploring all the chain of $\ell$-isogenies. In the case where the volcano has no level of stabilty (said regular) then we have a cost of $O(\frac{\log(q)}{\log(\ell}) \mathsf{R}(1) )$ otherwise it is of  $O( ( \frac{\log(q)}{\log(\ell})^2 \mathcal{F}(\ell) )$, with $h=O(( \frac{\log(q)}{\log(\ell}))$ the height of the volcano (not known a priori) and $\mathcal{F}(\ell)$ the cost of computing roots of a $\ell$ modular polynomial of $O(\ell^2+M(\ell)\log(q))$. 
-%\newline
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
 Since the height~$h$ of the volcano is known,
 using Algorithm~\ref{alg:diagonal} we can compute a matrix of $π|E[ℓ^{h+1}]$.
 If this matrix has two distinct eigenvalues then the crater is cyclic,
 otherwise it is not.
-%The classical method from \cite{volcano} is to look for  the length of $(\ell+1)$ descending chain of $\ell$-isogenies on the volcano, if there is two paths of length greater than the others then the crater is cyclic, if not the crater is not cyclic. This is done in a complexity of $O( ( \frac{\log(q)}{\log(\ell})\ell \mathcal{F}(\ell) )$. We can also mention methods used in \cite{IonicaJ10} which are done in a complexity of $O(h(\ell^3+\ell \mathsf{M}(\ell) \log(q)))=O(( \frac{\log(q)}{\log(\ell})(\ell^3+\ell \mathsf{M}(\ell) \log(q)))$ and take advantage of the structure of the $\ell$ torsion when it is linked with the level in volcano with pairings that determine ascending or horizontal $\ell$-isogenies. %when the curve is not located over a stability level.
-%\newline 
-%For $\ell=2$ we can use methods like in \cite{MiretMRV05}. The height and the shape of the volcano can be computed with a complexity of $O(\log^6(q))$ which computes an ascending path and can determine the shape of the crater by taking advantage of the torsion structure when it is linked with the level in volcano otherwise it uses methods similar to \cite{volcano}.
-% %c est exactement ce qui est fait dans ce papier...
 
-If the two input curves~$E$, $E'$ of our algorithm
-belong to cyclic $ℓ$-isogenies volcanos but not to their crater,
-then by Proposition~\ref{prop:parallel},
-their depth below the craters is the same.
-Using the methods of~\ref{sub:shape-volcano},
+By Proposition~\ref{prop:parallel},
+the depth of~$E$ and $E'$ below their respective craters is the same.
+Using the methods of Section~\ref{sub:shape-volcano},
 we can compute the shortest path of $ℓ$-isogenies~$α: E → E_{\max}$,
 $α': E' → E'_{\max}$ linking the curves~$E, E'$ to the craters.
-By Proposition~\ref{prop:parallel} (iii),
+By Proposition~\ref{prop:parallel}~\ref{prop:parallel:ascent},
 the curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous;
 we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
-Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny.
-\todo{Complexité !}
+Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny; its
+kernel can be computed in $O(h\MM(r)\log(r))$ operations by evaluating
+$α^{-1}$ on the kernel of $ψ_{\max}$ via a sequence of resultants.
 
 
 \subsection{Interpolating the isogeny}
@@ -1184,71 +1180,95 @@ of the Frobenius.
 Since $ψ$~is rational, its matrix satisfies the relation~$π' · ψ = ψ · π$
 in $ℤ_ℓ^{2×2}$ and hence in~$(ℤ/ℓ^k ℤ)^{2 × 2}$.
 
-If diagonal bases of~$E[ℓ^k], E'[ℓ^k]$ are used then,
+If diagonal bases of~$E[ℓ^k], E'[ℓ^k]$ are used, then,
 since $π$~is a cyclic endomorphism of~$ℤ_ℓ^2$,
-this condition seems to ensure that~$ψ ∈ (ℤ/ℓ^k ℤ)[π]$,
-\emph{i.e.} that $ψ$~is a diagonal matrix;
+this condition seems to ensure that $ψ$~is a diagonal matrix;
 however, $ℤ/ℓ^k ℤ$~is not an integral domain
 and $π$~is congruent, modulo~$ℓ^h$, to the scalar matrix~$λ$,
-so we can only say that~$ψ ∈ \pmod{ℓ^{k-h}}$ is diagonal.
+so we can only say that~$ψ\pmod{ℓ^{k-h}}$ is diagonal.
 If on the other hand we choose \emph{horizontal} bases
-of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~(ii),
+of~$E[ℓ^k], E'[ℓ^k]$ then, by Proposition~\ref{prop:parallel}~\ref{prop:parallel:func},
 we know that $ψ$~is a diagonal matrix.
 
-We then enumerate all the $ℓ^{2k-2}$ invertible diagonal matrices;
-for each matrix~$M$, we try to interpolate
-the action of~$M$ on~$E[ℓ^k]$ as a $r$-isogeny.
-The successful interpolation will be our explicit isogeny~$ψ$.
+We then enumerate all the $ℓ^{2k-2}$ invertible diagonal matrices; for
+each matrix~$M$, we interpolate the action of~$M$ on~$E[ℓ^k]$ as a
+rational fraction, and verify that it is an $r$-isogeny. The
+successful interpolation will be our explicit isogeny~$ψ$.
 
-We interpolate using
-the $(ℓ^{2k}-1)/2$ abscissas~$x(P)$ of non-zero points~$P$ of $E[ℓ^k]$.
-Since the isogeny~$ψ$ is a rational fraction of degrees~$(r, r-1)$,
-it is defined by $2r$ coefficients.
-According to~\cite[§3.1]{df10},
-an $r$-isogeny can be interpolated, and identified,
-from its values on $2r$~abscissas.
-For this method to work, we therefore select the smallest~$k ≥ h+1$
-such that~$ℓ^{2k}-1 > 4r$.
-This means that $ℓ^{2k} = O(r)$.
-(If $h$~is large, which has a small probability,
-then we can simply discard~$ℓ$ and choose another one).
+We interpolate using the abscissas of non-zero points of $E[ℓ^k]$;
+there are $(ℓ^{2k}-1)/2$ distinct such abscissas (or $2^{2k-1}+1$ when
+$ℓ=2$).  Since the isogeny~$ψ$ is a rational fraction of
+degrees~$(r, r-1)$, it is defined by $2r$ coefficients.  For this
+method to work, we therefore select the smallest~$k ≥ h+1$ such
+that~$ℓ^{2k}-1 > 4r$.
 
-Using the method of section~\ref{sec:interpolation},
-we compute the polynomial~$T$ vanishing on the abscissas of
-the points of order~$ℓ^k$,
-as well as, for each $a, b ∈ (ℤ/ℓ^k ℤ)^×$
-(representing the diagonal coefficients of our candidate matrix $ψ$),
-the interpolation polynomial~$L_{a,b}$
-such that $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$
-for all $u, v ∈ ℤ/ℓ^k ℤ$.
-If there exists a rational fraction~$F ≡ L_{a,b} \pmod{T}$
-defining a $r$-isogeny,
-then we have found the isogeny~$ψ$.
+Summarizing, our algorithm for two curves having $ℓ$-maximal
+endomorphism ring proceeds as follows:
+\begin{enumerate}
+\item\label{alg:ours:horizontal} Use Algorithms~\ref{alg:diagonal}
+  and~\ref{alg:horizontal} to compute horizontal bases $(P,Q)$ of
+  $E[ℓ^k]$ and $(P',Q')$ of $E'[ℓ^k]$;
+\item\label{alg:ours:T} Compute the polynomial~$T$ vanishing
+  on the abscissas of $\langle P,Q\rangle$ using the method of
+  Section~\ref{sec:interpolation};
+\item\label{alg:ours:for} For each invertible diagonal matrix
+  $\smat{a&0\\0&b}$ in $(ℤ/ℓ^k ℤ)^{2×2}$:
+  \begin{enumerate}
+  \item\label{alg:ours:interp} compute the interpolation polynomial
+    $L_{a,b}$ such that
+    $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$ for all
+    $u, v ∈ ℤ/ℓ^k ℤ$;
+  \item\label{alg:ours:cauchy} Use the \emph{Cauchy interpolation
+      algorithm} of~\cite[Chapter~5.8]{vzGG} to compute a rational
+    fraction $F_{a,b}≡L_{a,b}\pmod{T}$ of degrees~$(r, r-1)$;
+  \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
+    stop.
+  \end{enumerate}
+\end{enumerate}
 
-\begin{thm*}%<<<
+\begin{thm*}
 It is possible to solve the “Explicit Isogeny Problem”
 using at most
-\[ O(r · \MM(r) · \log(r) + r · \log q)\]
+\[ O(r · \MM(r) · \log²(r) + r · \log(r) · \log(q))\]
 operations in~$\F_q$.
-% The complexity of solving problem \ref{prob:isogeny-problem} for two elliptic curves located on a cyclic crater of volcano of $\ell$-isogeny is of $O(rM(r)\log(r))$ in $\mathbb{F}_q$ plus a pre-computation of $O(\mathsf{M}(r)\log(r))$
-\end{thm*}%>>>
-\begin{proof}%refaire ça avec les notations de Luca
-\todo{insérer ici la complexité des calculs de 5.1} The cost of computing an horizontal basis of the elliptic curves is of $O(\mathsf{R}(k-\beta)k)$ according to section \ref{sec:acti-frob-endm}, thus for $\ell=2$ we got $O(\mathsf{R}(k-\beta)k) \leqslant O(\mathsf{M}(\ell^{k-\beta})k \log(q)) $, for $\ell \neq 2$ we got $O(\mathsf{R}(k-\beta)k) \leqslant O((\ell^{(k-\beta)(w+1)/2}+\mathsf{M}(\ell^{k-\beta+1}\log(q)))k \log(\ell)) $ \todo{eventuellement epurer les $\beta$}
-Since $k ≥ h ≥ β$, by Proposition~\ref{prop:classes}~(v),
-there are at most~$s = O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$,
-and each one contains a point with coordinates in~$F_n$ for~$n = k-β$.
-This means that we can enumerate these representatives for a cost
-\todo{il y avait un facteur $\log(ℓ^k)$, je ne sais pas d'où il venait}
-of~$O(k · ℓ^{k+β} · \MM(ℓ^{k-β})) ≤ O(k · \MM(ℓ^{2k}))$.
-Then, using proposition~\ref{prop:interpol},
-where the total degree is~$t = (ℓ^{2k}-1)/2$,
-we can compute the polynomials~$T$ and~$L_{a,b}$ with
-complexity~$O(\MM(t) (n + \log s) + \log q)
-= O(k · \MM(ℓ^{2k}) + \log q)$.
-The cost of identifying the isogeny is dominated by
-that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
-Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
-must be tried before finding the isogeny.
+\end{thm*}
+\begin{proof}
+  We expect to find a small Elkies prime $ℓ$ after $O(1)$ trials. Also
+  note that the height $h$~of the volcano of $ℓ$-isogenies is small
+  with very high probability; in case it is not, we can simply
+  discard~$ℓ$ and choose another one. Hence, we treat both $h$ and $ℓ$
+  as constants for the purpose of this theorem.
+
+  First we reduce the problem to one on $ℓ$-maximal curves. This costs
+  $O(\log(q) + \MM(r)\log(r))$, as outlined in
+  Section~\ref{sub:shape-volcano}.  Then we pick $k$ with
+  $ℓ^{2k} ∈ O(r)$, and we apply the algorithm outlined above. By
+  Proposition~\ref{prop:classes}, there is a $β<h$ such that $E[ℓ^k]$
+  is contained in $E(F_n)$ with $n=k-β$.
+
+  Step~\ref{alg:ours:horizontal} costs $O(k\RR(k-\beta))$ according to
+  Propositions~\ref{th:diagonal} and~\ref{th:horizontal}. Using the
+  estimates of Section~\ref{sub:towers}, we see that this cost is
+  bounded by $O(\MM(\sqrt{r})\log(rq))$ if $ℓ=2$, or by
+  $O(r +\MM(\sqrt{r}\log(q))\log(r))$ otherwise.
+
+  By Proposition~\ref{prop:classes}~\ref{prop:classes:count}, there
+  are at most~$O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$. In order to
+  apply the algorithms of Section~\ref{sec:interpolation}, we need to
+  compute a representative for each class. Each representative is
+  computed from the basis $(P,Q)$ using point multiplication by two
+  scalars $≤ℓ^k$ in the field $F_n$, which costs
+  $O(\MM(ℓ^n)\log(ℓ^k))$ operations. We thus have a total cost of
+  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log²(r))$ to compute all such representatives.
+
+  Then, using proposition~\ref{prop:interpol}, where the total degree
+  is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
+  is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
+  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log²(r) + \log(r)\log(q))$.
+  The cost of computing $F_{a,b}$, and identifying the isogeny is
+  dominated by that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
+  Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
+  must be tried before finding the isogeny.
 \end{proof}
 
 
@@ -1424,4 +1444,4 @@ France}
 
 % vim: ts=2:
 %  LocalWords:  Frobenius endomorphism precomputation morphism
-%  LocalWords:  subproduct
+%  LocalWords:  subproduct factorizations
