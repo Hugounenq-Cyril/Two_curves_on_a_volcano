@@ -260,9 +260,9 @@ $\MM(n)∈ O(n\log(n)\loglog(n))$.
 
 Couveignes' isogeny algorithm takes as input two \emph{ordinary}
 elliptic curves $E$ and $E'$ defined over $\F_q$, and given in Weierstrass form
-\todo{check} and a positive integer $r$ not
+\todo{check} \todo{Couveignes ne précise pas dans son article, dans l'implantation on se sert des formes de Weierstrass} and a positive integer $r$ not
 divisible by $p$, and returns, if it exists, the kernel of an
-$r$-isogeny $ψ:E\to E'$.\todo{Aren't we taking only the $j$-invariants as input?} It is based on the observation that the
+$r$-isogeny $ψ:E\to E'$.\todo{Aren't we taking only the $j$-invariants as input?} \todo{ Couveignes dans son article prend des courbes, donc autant faire pareil} It is based on the observation that the
 isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
 that is compatible with their structure of cyclic groups. 
 It proceeds in three steps:
@@ -1292,7 +1292,7 @@ operations in~$\F_q$.
 
 \section{Experimental results}
 \label{sec:implem}
-We implement the algorithm on SageMath, we run the test on SageMath v7.0. We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$.
+We implement the algorithm on SageMath, we run the test on SageMath v7.0 only for $\ell=2$. We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$. Since the main cost of the algorithm comes from the repetition of the interpolation, we observe some floor for the r-isogenies with the same $k$ such that $2^{2k-2}/3>4r$. Moreover with curves with a great rational torsion for $p=1033$ and $p=521$ we observes also some floor due to the fact that we need to repeat $O(h)$ times the interpolation. 
 \todo{Describe implementation and show benchmarks. Possibly compare
   with Lercier-Sirvent (Luca has an implementation somewhere).}
 
