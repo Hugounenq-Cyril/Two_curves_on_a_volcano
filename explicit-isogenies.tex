@@ -319,7 +319,7 @@ be mapped onto two generators of $E'[ℓ^k]$. This can be done in
 $O(ℓ^{4k})$ possible ways, with a best possible cost of $O(\ell^{2k})$
 per trial,
 thus yielding an
-algorithm of complexity $\tildO(ℓ^{6k})=\tildO(r³)$ at best.
+algorithm of complexity $O(ℓ^{6k})=O(r³)$ at best.
 
 To avoid this pitfall, we carefully study
 in Section~\ref{sec:isogeny-volcanoes} the structure of
@@ -443,14 +443,17 @@ linear and quadratic in the degree $\ell^{i}$.
 \section{The Frobenius and the volcano}
 \label{sec:isogeny-volcanoes}
 
-\todo{In this section, we do \dots blablabla \dots}
+In this section we explore some fundamental properties of ordinary
+elliptic curves over finite fields: the structure of their isogeny
+classes, its relationship with the rational $ℓ^∞$-torsion points, and
+with the Frobenius endomorphism $π$.
 
 \subsection{Isogeny volcanoes}
 
 For an extensive introduction to isogeny volcanoes we address the
 reader to~\cite{sutherland2013isogeny}.  We recall here, without their
 proof, two results about $ℓ$-isogenies between ordinary elliptic
-curves. \todo{over finite fields; should we say it again?}
+curves.
 
 \begin{prop}[{\cite[Proposition~21]{Kohel}}] \label{prop:isogeny-asc-desc}
 Let~$ϕ: E → E'$ be an $ℓ$-isogeny between ordinary elliptic curves
@@ -774,40 +777,40 @@ Summing this over all~$i$ proves~(v).
 \end{proof}
 \section{Computing the action of the Frobenius endomorphism}
 \label{sec:acti-frob-endm}
+
+We continue here our study on the action of the Frobenius $π$ on
+$E[ℓ^k]$.  Given an elliptic curve~$E$ with $ℓ$-maximal endomorphism
+ring, we explicitly compute diagonal and horizontal bases of $E[ℓ^k]$
+as defined in the previous section.  We will use the latter basis of
+$E[ℓ^k]$ in Section~\ref{sub:final-interp}, to put restrictions on the
+interpolation problem of our algorithm.
+
+By Proposition~\ref{prop:classes}, there exists a Kummer tower
+$F₀⊂\cdots⊂F_{k-\beta}$ such that all the points of~$E[ℓ^k]$ are
+rational over~$F_{k-\beta}$. The algorithms presented next assume that
+the tower has already been computed.
+
 \subsection{Computation of a diagonal basis}
 \label{ss:diagonal}
 
-In this part, given an elliptic curve~$E$ belonging to the crater of
-an $ℓ$-isogeny volcano, we explicitly diagonalize the Frobenius
-endomorphism in~$E[ℓ^k]$, where $k ≥ h+1$, in order to identify the
-directions of the two horizontal $ℓ$-isogenies and such that $(\ell^2-1)\ell^{2k-2}>8r$ as explained in \ref{sec:complete-algorithm}.  By
-Proposition~\ref{prop:classes}, there exists an
-extension~$F_{k-\beta}/\F_q$ %of degree~$d_k ≤ ℓ^k$ 
-such that all the points
-of~$E[ℓ^k]$ are rational over~$F_{k-\beta}$.  Algorithm~\ref{alg:diagonal} works
-in this extension~$F_{k-\beta}$. \todo{We could save a log by not working in $F$
-  from the beginning, but given that we then run Algo 2, this might
-  not be so important.}  All the complexities are given as a number of
-operations in the base field~$\mathbb F_q$.
-
-In the following algorithm we describe how to compute eigenvalues of
-the Frobenius $\bmod \ell^k$ and
-corresponding eigenvectors in the $\ell^{k}$-torsion subgroup.
-% For a point $P \in E$ we will denote by $P \leftarrow P/\ell$ the computation of a preimage of multiplication by $\ell$ of a point, when such a preimage exists.
-
+In Algorithm~\ref{alg:diagonal} below, we describe how to compute
+eigenvalues of the Frobenius $\bmod \ell^k$ and corresponding
+eigenvectors in the $\ell^{k}$-torsion subgroup.  We
+write~$Q ← \sfdiv(ℓ, P)$ for the computation of a preimage of~$P$ by
+multiplication by~$ℓ$.
 
 \begin{algorithm}
 \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
-\REQUIRE $(P_1, Q_1 )$: a basis of $E[\ell]$;
-$k$: an integer.
+\REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve; $k$: an integer.
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
+\STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
 \STATE $h:=1, u:=1$
 \FOR {$i=1$  to  $k-1$}
-\STATE $P' \leftarrow \mathsf{divide}(\ell, P_i)$; $Q' \leftarrow \mathsf{divide}(\ell, Q_i)$.
-\STATE compute $\pi|(P',Q')=\left( \begin{array}{cc}
+\STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
+\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{array}{cc}
 λ + a\ell^{i} & b\ell^{i}\\
 c\ell^{i} & μ + d\ell^{i}
 \end{array} \right) \pmod {\ell^{i+1}}$
@@ -825,88 +828,48 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}\label{th:diagonal}
-Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
-with a complexity of at most \vskip -20pt
-\begin{equation*}
-O(k(\mathsf{R}(k-\beta)).
-\end{equation*}
-
+  Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
+  using
+  $O(\RR(k-\beta) + ℓ^2\MM(ℓ^{k-β}) + ℓ\MM(\ell^2)\log(\ell)\log(\ell
+  q))$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
-The cost of computing a basis of the $\ell$ torsion is of $O(\mathsf{M}(\ell^2)\log(\ell)\log(\ell^2q))$ dominated by computation of roots of the $\ell$ division polynomial of degree $\ell^2$ using the variant of the Cantor-Zassenhaus algorithm described in \cite[Chapter~14.5]{vzGG}. 
-The cost of Algorithm~\ref{alg:diagonal} is dominated
-by $k$~times the cost of the last execution of the loop in step~2.
-We give in Appendix~\ref{ap:division} an algorithm
-performing the division by~$ℓ$ of step~3 at a cost of~$\mathsf R(k-\beta)$.
-Computing the Frobenius~$π(P)$ in step~4 has a cost of~$O(\ell^{k-\beta}\mathsf{M}(\ell)+\mathsf{M}(\ell^{k-\beta}))$ plus $O(\ell \mathbf{M}(\ell) \log(q))$ precomputations.
-%if $ℓ = 2$ then this is bounded~\cite[2.3]{DoSc12} by~$O(ℓ^k + \log q)$, and therefore dominated by the cost of step~3.
-Writing~$π(P)$ as a linear combination~$α P + β Q$
-needs at most~$ℓ^2$ point additions, with a cost of~$ℓ^2 \mathsf{M}(ℓ^{k-\beta})$.
-This is %again 
-negligible compared to step~3.
-Finally, all steps after step~5 only involve field arithmetic.
+  \todo{correctness}
+
+  To bootstrap the algorithm, we need to compute a basis of $E[ℓ]$
+  over the field $F_1$. We do this by factoring the $ℓ$-division
+  polynomial at a cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
+  operations using the Cantor-Zassenhaus algorithm.
+
+  Once $E[ℓ]$ has been computed, we can factor the
+  multiplication-by-$ℓ$ map as a product of two $ℓ$-isogenies. Then,
+  for any $P$ defined in $E(F_{i-β})$, the computation of
+  $\sfdiv(ℓ, P)$ at Step~\ref{alg:diagonal:divide} costs $O(\RR(i-β+1))$
+  operations.
+
+  Evaluating~$π(P')$ in Step~\ref{alg:diagonal:frobenius} has a cost
+  of~$O(\ell^{i-\beta+1}\MM(\ell)+\MM(\ell^{i-\beta+1}))$.
+  Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
+  most~$ℓ^2$ point additions, with a cost
+  of~$ℓ^2 \mathsf{M}(ℓ^{i-\beta+1})$.  Finally, all other steps are
+  negligible.
+
+  Since the cost of each loop grows geometrically, the last loop
+  dominates all others, and gives the stated complexity.
 \end{proof}
 
 \subsection{Computation of a horizontal basis}
 \label{ss:horizontal}
 
-By section~\ref{ss:diagonal},
+Using the previous algorithm
 we can compute a diagonal basis of~$E[ℓ^{h+1}]$.
 By Proposition~\ref{prop:diagonal-horizontal},
 this gives us a horizontal basis of~$E[ℓ]$.
-By Proposition~\ref{prop:push-horizontal},
-we can use this information to improve horizontal points of~$E[ℓ^k]$
-into horizontal points of~$E[ℓ^{k+1}]$.
-This is what Algorithm~\ref{alg:horizontal} does.
+Thanks to Proposition~\ref{prop:push-horizontal},
+we can use this information to improve horizontal points of~$E[ℓ^i]$
+into horizontal points of~$E[ℓ^{i+1}]$, as illustrated in
+Algorithm~\ref{alg:horizontal}.
 
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=1]
-\coordinate (A) at (245:10);
-\coordinate (B) at (255:10);
-\coordinate (B') at (255:11);
-\coordinate (B1) at (256:10.3);
-\coordinate (C) at (265:10);
-\coordinate (C') at (265:11);
-\coordinate (D) at (275:10);
-\coordinate (D') at (275:11);
-\coordinate (E) at (285:10);
-\coordinate (E') at (285:11);
-\coordinate (F) at (295:10);
-\coordinate (F') at (295:11);
-\coordinate (G) at (305:10);
-\coordinate (B2) at (258:9.7);
-\coordinate (C1) at (266:10.3);
-\coordinate (C2) at (267:9.7);
-\coordinate (encre) at (273:10.5);
-\draw (A) arc(245:255:10)[dashed];
-\draw (B) arc(255:275:10);
-\draw (D) arc(275:285:10)[dashed];
-\draw (E) arc(285:295:10)[dashed];
-\draw (B) node[above] {$E'$} node{$\bullet$};
-\draw (C) node[above] {$E$} node{$\bullet$};
-\draw (D) node[above] {$E^*$} node{$\bullet$};
-\draw (E) node[above] {$\nicefrac{E}{\langle Q \rangle }$} node{$\bullet$};
-\draw (encre) node {$\varphi$};
-\draw (B)--(B');
-\draw (C)--(C');
-\draw (D)--(D');
-\draw (E)--(E');
-\draw (B1) arc(256:264:10.3) [->] node[below,midway] {$\psi$}; %flèche représentant \psi
-\draw (B2) arc(258:263:9.7) [<-] node[above,midway] {$\lambda_1, \phi$}; %flèche représentant 
-\draw (C2) arc(267:272:9.7) [->] node[above,midway] {$\lambda_2$}; %flèche représentant 
-% \draw (C1) arc(266:284:10.3) [->];% node[below,midway,fill=white] {$\varphi $};
-
-%\draw (260:10.75) node{}
-%\draw (0,0) arc (245:255:10)[dashed] node[above] {$C$} node{$\bullet$} --(0:1.5);
-%\draw (0,0) arc (245:255:10)[dashed] arc (255:265:10) node[above] {$E^i$} node{$\bullet$} --(0:1.5);
-%\draw (-1,0) arc (245:255:10) node[above] {$C2$} node{$\bullet$} --(90:1)[color=yellow];
-%\draw (-1,0) arc (245:255:10) node[above] {$C$} node{$\bullet$} --(310:1.5)[color=red];
-%\draw (0,0) arc (245:255:10)[color=white] node[above] {$C$} node{$\bullet$} arc (255:265:10) node[above] {$E^i$} node{$\bullet$} arc (265:275:10) node[above] {$E$} node{$\bullet$} arc (275:285:10) node[above] {$F$} node{$\bullet$} arc (285:295:10) node[above] {$G$} node{$\bullet$} ; 
-\end{tikzpicture}
-\end{center}
-\caption{ Example for the case $\ell=2$ } 
-\end{figure}
 \begin{algorithm}
 \caption{\label{alg:horizontal}Computing a horizontal point of order~$ℓ^k$}
 \begin{algorithmic}[1]
@@ -915,27 +878,18 @@ This is what Algorithm~\ref{alg:horizontal} does.
 \FOR{$i = 1$ to~$k-1$}
 \STATE $ϕ_i \gets $ isogeny with kernel~$\chev{ℓ^{h} P_{i-1}}$
 \STATE $Q_{i} \gets ϕ_i(Q_{i-1})$
-\STATE $P' \gets \mathsf{divide}(\ell, ϕ_i(P_{i-1}))$.
-\STATE Write~$π(P') = λ P' + b Q_i$ for~$b ∈ ℤ/ℓℤ$ and
+\STATE\label{alg:horizontal:divide} $P' \gets \sfdiv(\ell, ϕ_i(P_{i-1}))$.
+\STATE\label{alg:horizontal:frob} Write~$π(P') = λ P' + b Q_i$ for~$b ∈ ℤ/ℓℤ$ and
 let $P_{i} \gets P' - (b/μ) Q_i$.
 \ENDFOR
-\RETURN $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1}
-  (\mathsf{divide}( ℓ^{k-(h+1)}, P_{k-1}) )$. 
+\RETURN\label{alg:horizontal:final} $R = \widehat{ϕ}_1 ∘ … ∘ \widehat{ϕ}_{k-1}
+  (\sfdiv( ℓ^{k-(h+1)}, P_{k-1}) )$. 
 \end{algorithmic}
 \end{algorithm}
 \begin{prop}\label{th:horizontal}
-Algorithm~\ref{alg:horizontal} is correct and has a complexity of
-% The computation complexity of algorithm \ref{alg:diagonal} is
-%\begin{equation*}
-%\begin{array}{ll}
-%O\pa{\cout{M}(ℓ^k) · k · (k + \log q)}, &\text{if $ℓ = 2$;}\\
-%O\pa{\cout{M}(ℓ^k) · ℓ^k · k^2 · \log ℓ · \log q
-%  \;+\; k · \cout{F}(q, ℓ^k)}, &\text{if $ℓ ≠ 2$.}
-%\end{array}
-%\end{equation*}
-\begin{equation*}
-O(k(\mathsf{R}(k-\beta)))
-\end{equation*}
+  Algorithm~\ref{alg:horizontal} is correct and computes its output
+  using $O(\RR(k-\beta) + k\RR(h-β+1) + kℓ^2\MM(ℓ^{h-β+1}))$
+  operations in $\F_q$.
 \end{prop}
 \begin{proof}
 We check that at step~$i$ of the loop,
@@ -943,31 +897,20 @@ the points~$(P_i, Q_i)$ form a diagonal basis of~$E_i[ℓ^{h+1}]$,
 and $ϕ_i$~has direction~$λ$.
 The fact that $R$~is horizontal is then a consequence
 of Proposition~\ref{prop:push-horizontal}.
-% the point $ℓ^{n-i} R_i$ is horizontal with direction~$μ$,
-% using Proposition~\ref{prop:push-horizontal} for the induction step.
-% Since $ϕ_{i+1}$ is horizontal with direction~$λ$,
-% according to Proposition~\ref{prop:push-horizontal},
-% $ℓ^{n-i-1} R_{i+1} = ϕ_{i+1} (ℓ^{n-i-1} R_i)$ is also horizontal
-% with direction~$μ$.
-The complexity analysis %of Algorithm~\ref{alg:horizontal}
-is exactly the same as for Algorithm~\ref{alg:diagonal}.
+
+The two most expensive operations in the loop are
+Steps~\ref{alg:horizontal:divide} and~\ref{alg:horizontal:frob},
+costing respectively $O(\RR(h-β+1))$ and $O(ℓ^2\MM(ℓ^{h-β+1}))$, as
+discussed in the proof of Proposition~\ref{th:diagonal}. They are
+repeated $k$ times. Finally, Step~\ref{alg:horizontal:final} is
+dominated by the last $\sfdiv$ operation, which costs $O(\RR(k-β))$.
 \end{proof}
 
-% After execution of Algorithm~\ref{alg:horizontal},
-% the point~$P_n$ is horizontal
-% 
-% In practice, we shall use Algorithm~\ref{alg:horizontal}
-% in the case where~$R = Q_{k}$ as output from Algorithm~\ref{alg:diagonal}.
-% In that case, since $Q_k$~is diagonal, $ℓ^{h} Q_k$~is horizontal,
-% so that we may use~$n=h$.
 One application of Algorithm~\ref{alg:diagonal} (with input~$k ← h+1$)
 and two applications of Algorithm~\ref{alg:horizontal} allow us
 to compute a horizontal basis of~$E[ℓ^k]$.
 This could be done directly with Algorithm~\ref{alg:diagonal} instead,
 but that would require computing in an extension $F_{k+h-\beta}$.
-%of degree up to~$ℓ^{k+h}$.
-
-%Algorithme necessaire, surement pour enfoncer le clou...
 
 
 %%%%%%%%%%%%%%%
@@ -1025,8 +968,7 @@ last step $i=n-1$, we proceed in a similar way by defining
 
 \begin{lem}\label{lemma:interpolation:minpoly}
   The cost of computing $T^{(n)}=T$ is bounded by $O(nℓ\MM(ℓ^{n+1}))$
-  operations in $\F_q$, plus a precomputation of $O(nℓ\MM(ℓ)\log(q))$
-  operations.
+  operations in $\F_q$.
 \end{lem}
 
 \begin{proof}
@@ -1036,10 +978,6 @@ last step $i=n-1$, we proceed in a similar way by defining
   $O\bigl(ℓ^i\bigl(ℓ^{n-i}\MM(ℓ)+\MM(ℓ^{n-i})\bigr)\bigr)$ operations,
   which we simplify to a total of $O(ℓ\MM(ℓ^{n+1}))$ for all $O(\ell)$
   of them.
-
-  At each step, we must also account for the precomputation required
-  by Lemma~\ref{lemma:frob-ell}, which costs $O(ℓ\MM(ℓ)\log(q))$
-  operations.
 
   From the $T^{(i,j)}$'s we compute $T^{(i+1)}$ using a subproduct
   tree, as in~\cite[Lemma~10.4]{vzGG}. The result has degree
@@ -1054,7 +992,6 @@ We can finally proceed with the interpolation itself. First, compute
 $w' = w/T'(v)$ and let $L^{(0)}=w'$.  Next, for $i=0,\dots,n-2$,
 suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
 than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
-\todo{on peut raccourcir ici}
 $$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr),$$
 for $0 \le j \le \ell-1$, and
 $$L^{(i+1)} = \sum_{j=0}^{\ell-1} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}}.$$ The last step $i=n-1$
@@ -1065,8 +1002,7 @@ polynomial $L$ we are looking for.
   Given elements $v,w∈F_n\setminus F_{n-1}$, the cost of computing the
   minimal polynomial $T∈\F_q[x]$ of $v$, and the interpolating
   polynomial $L∈\F_q[x]$ such that $L(v)=w$, is of $O(nℓ\MM(ℓ^{n+1}))$
-  operations in $\F_q$, plus a precomputation of $O(nℓ\MM(ℓ)\log(q))$
-  operations.
+  operations in $\F_q$.
 \end{prop}
 \begin{proof}
   After the polynomials $T^{(i)}$ have been computed, we need to
@@ -1103,16 +1039,11 @@ $\F_q[x]$ at many points of $F_n$.
     all $i$
   \end{itemize}
   can be computed using
-  $O\bigl(\MM(t)\log(s) + nℓ\bigl(\MM(ℓ^2t) +
-  \MM(ℓ)\log(q)\bigr)\bigr)$ operations in $\F_q$.
+  $O\bigl(\MM(t)\log(s) + nℓ\MM(ℓ^2t)\bigr)$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
   The polynomial $T$ is simply the product of all the minimal
-  polynomials $T_i$. We first do the precomputations required by
-  Lemma~\ref{lemma:interpolation:minpoly}, at a cost of
-  $O(nℓ\MM(ℓ)\log(q))$ operations.
-
-  Now, let $n_i=v_ℓ(t_i)$, so that
+  polynomials $T_i$. Let $n_i=v_ℓ(t_i)$, so that
   $v_i,w_i∈F_{n_i+1}\setminus F_{n_i}$, and $ℓ^{n_i}≤t_i<ℓ^{n_i+1}$.
   We convert $(v_i,w_i)$ to a pair of elements of $F_{n_i+1}$ at no
   algebraic cost, then we compute $T_i$ as explained previously at a
@@ -1123,17 +1054,10 @@ $\F_q[x]$ at many points of $F_n$.
   $L_i(v_i)=w_i$, at the same cost.
 
   Then we arrange the $T_i$'s into a binary subproduct tree and
-  multiply them together. Since the degrees $t_i$ are not necessarily
-  all equal, the optimum tree shape is obtained by using a
-  Huffman-coding-like scheme: pop from the list of all $T_i$ the two
-  polynomials of lowest degree, multiply them together, put the result
-  back in the list, and start again. By keeping track of each
-  multiplication, we build a binary product tree. A balanced binary
-  tree, though not necessarily optimal, would have a depth of
-  $O(\log (s))$, and would cost $O(\MM(t))$ operations per level. Thus
-  the cost of the Huffman scheme is bounded by $O(\MM(t)\log(s))$, and
-  we remark that it attains the bound when all $t_i$'s are (nearly)
-  equal.
+  multiply them together. A balanced binary
+  tree, though not necessarily optimal, has a depth of
+  $O(\log (s))$, and requires $O(\MM(t))$ operations per level. Thus
+  we can bound the cost of computing $T$ by $O(\MM(t)\log(s))$.
 
   Finally, using the same subproduct tree structure, we apply the
   Chinese remainder algorithm of~\cite[Chapter~10]{vzGG} to compute
@@ -1173,7 +1097,7 @@ factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
 $Φ_ℓ$ is computed using $\tildO(ℓ³\logℓ)$ binary operations and
 $O(\MM(ℓ^2)\log q)$ operations in $\F_q$, then each factorization costs
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
-using~\cite[Chapter~14.5]{vzGG}. More efficient methods for special
+using the Cantor-Zassenhaus algorithm. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
 in~\cite{IonicaJ10}, but we ignore them .
 
@@ -1198,6 +1122,7 @@ $α^{-1}$ on the kernel of $ψ_{\max}$ via a sequence of resultants.
 
 
 \subsection{Interpolating the isogeny}
+\label{sub:final-interp}
 
 We now assume that both curves~$E, E'$
 have $ℓ$-maximal endomorphism rings.
@@ -1270,7 +1195,9 @@ operations in~$\F_q$.
   Section~\ref{sub:shape-volcano}.  Then we pick $k$ with
   $ℓ^{2k} ∈ O(r)$, and we apply the algorithm outlined above. By
   Proposition~\ref{prop:classes}, there is a $β<h$ such that $E[ℓ^k]$
-  is contained in $E(F_n)$ with $n=k-β$.
+  is contained in $E(F_n)$ with $n=k-β$. We thus construct the Kummer
+  tower $F₀⊂\cdots⊂F_n$, and we do the precomputations required by
+  Lemma~\ref{lemma:frob-ell} at a cost of $O(\log(r)\log(q))$.
 
   Step~\ref{alg:ours:horizontal} costs $O(k\RR(k-\beta))$ according to
   Propositions~\ref{th:diagonal} and~\ref{th:horizontal}. Using the
@@ -1290,7 +1217,7 @@ operations in~$\F_q$.
   Then, using proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
-  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log^2(r) + \log(r)\log(q))$.
+  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log^2(r))$.
   The cost of computing $F_{a,b}$, and identifying the isogeny is
   dominated by that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
   Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
@@ -1313,46 +1240,7 @@ We implement the algorithm on SageMath, we run the test on SageMath v7.0 only fo
 
 
 \appendix
-\section{Division of a point by~$\ell$}
-\label{ap:division}
 
-We write~$Q ← \sfdiv(ℓ, P)$ for the computation of a preimage of~$P$
-by multiplication by~$ℓ$.
-The obvious way to compute~$\sfdiv(ℓ, P)$ would be to use
-the $ℓ$-division polynomial.
-However, this polynomial has a degree~$O(ℓ^2)$.
-Instead, we factor the multiplication-by-$ℓ$ map
-as a product of an $ℓ$-isogeny and its dual.
-This brings the polynomial degree down to~$O(ℓ)$.
-According to subsection~\ref{sub:towers},
-the cost of the $\sfdiv(ℓ, P)$ operation is therefore $\mathsf{R} (k)$.
-To complete the complexity analysis we need to state the complexity of solving a division polynomial of degree $\ell^2$ in the aim of computing a basis of the $\ell$ torsion to apply algorithms of $\ell$ division. It has a complexity of $O(\MM(ℓ)\log(\ell) \ell^5 \log(\ell^2) \log(q))$, using Cantor-Zassenhauss in $F_1$.
-%\begin{equation}\label{eq:div-by-l}
-%O \pa{\cout{M}(ℓ^k) \,· \,\left\lbrace\begin{array}{ll}
-%(k + \log q) & \text{if $ℓ = 2$,} \\
-%(ℓ^k · k · \log ℓ · \log q) & \text{if $ℓ ≠ 2$.}
-%\end{array}\right\rbrace}.
-%\end{equation}
-% \begin{equation}\label{eq:div-by-l}
-% \mathsf{R}(k)
-% \end{equation}
-
-\begin{algorithm}
-\caption{\label{ldivision}Compute the preimage of $Q$ by the multiplication by $\ell$.}
-\begin{algorithmic}[1]
-\REQUIRE  $(P_1,P_2)$ a basis of $E[\ell]$;\\
-$Q$: a point on $E$ such that there exist a $\ell$ division point of $Q$.
-\ENSURE $Q_1$: a point on $E$ such that $\ell Q_1 = Q$.
-%\STATE compute $ (P_1,P_2)$ a basis of $ E[\ell]$
-\STATE $\phi_1$ $\leftarrow$ the isogeny with kernel~$\chev{P_1}$.
-\STATE $\phi_2$ $\leftarrow$ the isogeny with kernel~$\chev{\phi_1(P_2)}$.
-\STATE $Q_2 \leftarrow$ preimage of $Q$ by $\phi_2$
-\STATE $Q_1 \leftarrow$ preimage of $Q_2$ by $\phi_1$
-\RETURN $Q_1$
-\end{algorithmic}
-\end{algorithm}
-
-\goodbreak
 \section{Galois classes in~$E[ℓ^k]$}
 \label{ap:galois}
 
