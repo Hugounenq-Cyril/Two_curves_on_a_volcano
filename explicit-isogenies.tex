@@ -162,12 +162,14 @@ we are interested in the variant defined below.
   Given two $j$-invariants $j$ and $j'$, and a positive integer
   $r$, determine if they are $r$-isogenous. In that case, compute
   curves $E$, $E'$ with $j(E)=j$ and $j(E')=j'$, and the
-  kernel of an $r$-isogeny $ψ:E\to E'$.
+  rational fractions defining an $r$-isogeny $ψ:E\to E'$.
 \end{localblock}
 
-Once the kernel of the isogeny is computed, the rational maps
-associated to it can be computed in optimal time using Velu's
-formulas~\cite{velu71} \todo{Proposition de solution kernel vs rational fraction: thus we will consider equivalently the problem of computing the rational fraction $g(x)/h(x)$ that send abscissas of points of one curve on the other and computing the kernel of the isogeny}.
+Thanks to Velu's formulas~\cite{velu71}, it is enough to know the
+polynomial $h$ vanishing on the abscissas of $\kerψ$, in order to
+compute the rational fractions defining $ψ$ in optimal time. Thus, we
+often say that we have computed $ψ$ whenever we have computed $h$, and
+reciprocally.
 
 This paper focuses on the explicit isogeny problem for \emph{ordinary}
 elliptic curves over finite fields. A famous theorem by Tate states
@@ -181,7 +183,7 @@ isogeny problem is customarily solved without prior knowledge of the
 cardinality of $E$. We will abide by this convention here.
 
 A good measure of the computational difficulty of the problem is given
-by the isogeny degree~$r$. Indeed the output \todo{rational functions? kernel?} is represented by
+by the isogeny degree~$r$. Indeed the output is represented by
 $O(r)$ base field elements, hence an asymptotically optimal algorithm
 would solve the problem using $O(r)$ field operations. Many algorithms
 have been suggested over the years to solve the explicit isogeny
@@ -218,7 +220,8 @@ $n\gg p/\log (p)$).
 Note that, although Couveignes-type algorithms do not make use of the
 modular polynomial $\Phi_r$, its computation is still necessary in the
 context of the SEA algorithm. Thus our new algorithm does not improve
-the \todo{overall complexity} state of the art on point counting. It
+the overall complexity of point counting, though it may provide a 
+speed-up in some cases. It
 gives, however, an effective algorithm for solving the explicit
 isogeny problem, with potential applications in other contexts, e.g.,
 cryptography.
@@ -259,10 +262,9 @@ $\MM(n)∈ O(n\log(n)\loglog(n))$.
 \label{sec:couv-algor}
 
 Couveignes' isogeny algorithm takes as input two \emph{ordinary}
-elliptic curves $E$ and $E'$ defined over $\F_q$, and given in Weierstrass form
-\todo{check} \todo{Couveignes ne précise pas dans son article, dans l'implantation on se sert des formes de Weierstrass} and a positive integer $r$ not
-divisible by $p$, and returns, if it exists, the kernel of an
-$r$-isogeny $ψ:E\to E'$.\todo{Aren't we taking only the $j$-invariants as input?} \todo{ Couveignes dans son article prend des courbes, donc autant faire pareil} It is based on the observation that the
+$j$-invariants $j,j'∈\F_q$, and a positive integer $r$ not
+divisible by $p$, and returns, if it exists, an
+$r$-isogeny $ψ:E\to E'$, with $j(E)=j$ and $j(E')=j'$. It is based on the observation that the
 isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
 that is compatible with their structure of cyclic groups. 
 It proceeds in three steps:
@@ -274,16 +276,14 @@ It proceeds in three steps:
   their scalar multiples accordingly;
 \item\label{alg:orig-couveignes:rational} Deduce a rational fraction $g(x)/h(x)$
   that coincides with $L$ at all points of $E[p^k]$, and verify that
-  it defines the first component of an isogeny of degree $r$. If it
-  does, return it \todo{shouldn't we return $h$, to be consistent?}, 
-otherwise replace $P'$ with a scalar multiple of
+  it defines the $x$-component of an isogeny of degree $r$. If it
+  does, return it otherwise replace $P'$ with a scalar multiple of
   itself and go back to Step~\ref{alg:orig-couveignes:interp}.
 \end{enumerate}
 
 For this algorithm to succeed, enough interpolation points are
-required. Given that the isogeny $ψ$ is defined by a rational fraction
-of degree $(r,r-1)$ \todo{not clear, there should be 2 components; explain better, or give Velu's 
-formulas somewhere}, it is necessary that $p^k∈\Omega(r)$. However, most of
+required. Given that the $x$-component of $ψ$ is defined by $O(r)$ coefficients,
+it is necessary that $p^k∈O(r)$. However, most of
 the time, those points are not going to be defined in the base field
 $\F_q$, thus Couveignes' algorithm must be based on efficient
 algorithms to construct and compute in towers of extensions of finite
@@ -293,8 +293,7 @@ studying the arithmetic of \emph{Artin-Schreier
 fast interpolation algorithm to that setting~\cite{df10}.  Using these
 highly specialized constructions,
 Steps~\ref{alg:orig-couveignes:tower}
-and~\ref{alg:orig-couveignes:interp} are both executed in quasi-linear
-\todo{? in what?}
+and~\ref{alg:orig-couveignes:interp} are both executed in 
 time $\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step
 only succeeds for one pair of torsion points $P,P'$, in general, thus
 $O(r)$ trials are expected on average.
@@ -495,7 +494,7 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\begin{figure}[h]
 		\begin{center}
 		
-        \begin{tikzpicture}[scale=0.3]
+        \begin{tikzpicture}[scale=0.2]
         \coordinate (A) at (0,0);
 		\coordinate (B) at (230:5);
 		\coordinate (C) at (270:4);
@@ -509,7 +508,7 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\draw (A)--(C);
 		\draw (A)--(D);
 		
-		\begin{scope}[xshift=10cm]
+		\begin{scope}[xshift=20cm]
 		\coordinate (A) at (0,0);
 		\coordinate (B) at (5.5,0);
 		\coordinate (C) at (240:4.2);
@@ -524,7 +523,7 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\draw (A)--(D);
 		\end{scope}
 		
-		\begin{scope}[xshift=15.5cm]
+		\begin{scope}[xshift=25.5cm]
 		\coordinate (A) at (0,0);
 		\coordinate (C) at (240:4.2);
 		\coordinate (D) at (300:4.2);
@@ -535,7 +534,7 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\draw (A)--(D);
 		\end{scope}
 		
-		\begin{scope}[xshift=25cm]
+		\begin{scope}[xshift=45cm]
 		\node (A) at (-3,0) {$\bullet$};
 		\node (B) at (3,0) {$\bullet$};
 		\node (C) at (270:1.2) {$\bullet$};
@@ -831,7 +830,8 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
   q))$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
-  \todo{correctness}
+  A straightforward calculation shows that after each loop the basis
+  $(P_{i+1},Q_{i+1})$ is diagonal.
 
   To bootstrap the algorithm, we need to compute a basis of $E[ℓ]$
   over the field $F_1$. We do this by factoring the $ℓ$-division
@@ -1066,9 +1066,9 @@ $\F_q[x]$ at many points of $F_n$.
 \label{sec:complete-algorithm}
 
 We finally come the description of the full algorithm. As stated in
-the introduction, we are given two elliptic curves $E$ and $E'$, and
-an integer $r$, and we want to compute an isogeny $ψ:E→E'$ of degree
-$r$.
+the introduction, we are given two $j$-invariants, defining two
+elliptic curves $E$ and $E'$, and an integer $r$, and we want to
+compute an isogeny $ψ:E→E'$ of degree $r$.
 
 Since the algorithms of Section~\ref{sec:acti-frob-endm} only apply to
 curves on top of volcanoes with cyclic crater, we first need to
