@@ -968,7 +968,6 @@ last step $i=n-1$, we proceed in a similar way by defining
   $T^{(i,j)}$ using Lemma~\ref{lemma:frob-ell}. The cost for a single
   polynomial $T^{(i,j)}$ is of $O(ℓ^iℓ^{n-i-1}\MM(ℓ))$ operations,
   \emph{i.e.} $O(ℓ^n\MM(ℓ))$ for all $O(\ell)$ of them.
-
   From the $T^{(i,j)}$'s we compute $T^{(i+1)}$ using a subproduct
   tree, as in~\cite[Lemma~10.4]{vzGG}. The result has degree
   $O(ℓ^{i+1})$ and coefficients in $F_{n-i}$, thus the overall cost is
@@ -1089,7 +1088,7 @@ $O(\MM(ℓ^2)\log q)$ operations in $\F_q$, then each factorization costs
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
 using the Cantor-Zassenhaus algorithm. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
-in~\cite{IonicaJ10}, but we ignore them .
+in~\cite{IonicaJ10}, but we do not discuss them.
 
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
