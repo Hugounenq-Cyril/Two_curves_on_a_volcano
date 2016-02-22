@@ -92,26 +92,26 @@
 \classno{11Y40 (primary), 11G20, 14H52 (secondary)}
 
 \extraline{This work was partially supported by the
-  \href{http://www.digiteo.fr/}{DIGITEO} grant 2013-0531D (ARGC).}
+  \href{http://www.digiteo.fr/}{DIGITEO} grant 2013-0531D (ARGC) and NSERC.}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-\todo{
-Given two elliptic curves and the knowledge of the existence of
-an isogeny between them, of known degree~$r$,
-we compute this isogeny by using
-the structure of the $ℓ$-torsion of the curves,
-where $ℓ$~is a prime different from the characteristic~$p$ of the base field.
-\todoblue{say that we are working over a finite field}
-Our algorithm has a complexity of~$\tildO(r^2)$ operations in the base field.
-\todoblue{dependency in $\log(q)$ missing}
-This is to be compared with Couveignes' algorithm,
-which uses the $p$-torsion, and has a complexity of~$\tildO(r^2 p^{O(1)})$.
-Our algorithm is therefore an interesting alternative
-for the medium- and large-characteristic cases.
-}
+  Consider two elliptic curves $E,E'$ defined over the finite field
+  $\F_q$, and suppose that there exists an isogeny $\psi$ between $E$
+  and $E'$.  We propose an algorithm that determines $\psi$ from the
+  knowledge of $E$, $E'$ and of its degree $r$, by using the
+  structure of the $ℓ$-torsion of the curves (where $ℓ$~is a prime
+  different from the characteristic~$p$ of the base field).  
+
+  Our approach is inspired by a previous algorithm due to Couveignes,
+  that involved computations using the $p$-torsion on the curves. 
+  The most refined version of that algorithm, due to De Feo, 
+  has a complexity of~$\tildO(r^2) p^{O(1)}$ base field operations.
+  On the other hand, the cost of our algorithm is $\tildO(r^2 + \sqrt{r} \log(q))$;
+  this makes it an interesting alternative
+  for the medium- and large-characteristic cases.
 %% The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ operations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
 \end{abstract}
 
@@ -1376,7 +1376,10 @@ ANSSI\\
 51, boulevard de La Tour-Maubourg\\
 75007 Paris\\
 France}
-\affiliationthree{\todo{Éric}}
+\affiliationthree{Éric Schost\\
+Cheriton School of Computer Science\\
+University of Waterloo\\
+Canada}
 \end{document}
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
 %  LocalWords:  cardinality bijection Couveignes automorphism
