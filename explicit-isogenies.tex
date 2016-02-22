@@ -780,8 +780,8 @@ $F₀⊂\cdots⊂F_{k-\beta}$ such that all the points of~$E[ℓ^k]$ are
 rational over~$F_{k-\beta}$. The algorithms presented next assume that
 the tower has already been computed.
 
-%% \subsection{Computation of a diagonal basis}
-%% \label{ss:diagonal}
+\subsection{Computation of a diagonal basis}
+\label{ss:diagonal}
 
 In Algorithm~\ref{alg:diagonal} below, we describe how to compute
 eigenvalues of the Frobenius $\bmod \ell^k$ and corresponding
@@ -847,8 +847,8 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
   all others, and gives the stated complexity.
 \end{proof}
 
-%% \subsection{Computation of a horizontal basis}
-%% \label{ss:horizontal}
+\subsection{Computation of a horizontal basis}
+\label{ss:horizontal}
 
 Using the previous algorithm
 we can compute a diagonal basis of~$E[ℓ^{h+1}]$.
@@ -916,7 +916,7 @@ interpolation problem. The algorithm has already appeared
 in~\cite{df10} and~\cite{enge+morain03}; we recall it here, and adapt
 the complexity analysis to our setting.
 
-%% \subsection{Rational interpolation}
+\subsection{Rational interpolation}
 
 We start by tackling a simpler problem. We suppose we have constructed
 a tower of Kummer extensions $\F_q=F_0⊂F_1⊂\cdots⊂F_n$, with
@@ -1216,7 +1216,7 @@ operations in~$\F_q$.
 
 \section{Experimental results}
 \label{sec:implem}
-We implement the algorithm on SageMath, we run the tests on SageMath v7.0 only for $\ell=2$, the source code is available on the github project : \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
+We implement the algorithm on SageMath, we run the tests on SageMath v7.0 only for $\ell=2$ on an Intel Xeon CPU 2,4GHz. The source code is available on the github project : \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
 We implement on Sage the $2$-adic contruction of tower of Doliskani and Schost \cite{DoSc12}, we have designed an algorithm to work only for curves located on cyclic crater of volcano of $2$-isogeny. 
  We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$. 
  \newline 
