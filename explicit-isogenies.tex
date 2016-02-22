@@ -165,8 +165,8 @@ we are interested in the variant defined below.
   rational fractions defining an $r$-isogeny $ψ:E\to E'$.
 \end{localblock}
 
-Thanks to Velu's formulas~\cite{velu71}, it is enough to know the
-polynomial $h$ vanishing on the abscissas of $\kerψ$, in order to
+Thanks to V\'elu's formulas~\cite{velu71}, it is enough to know the
+polynomial $h$ vanishing on the abscissas of $\kerψ$ to
 compute the rational fractions defining $ψ$ in optimal time. Thus, we
 often say that we have computed $ψ$ whenever we have computed $h$, and
 reciprocally.
@@ -919,7 +919,7 @@ algorithm; it uses original ideas from~\cite{enge+morain03}. We recall
 this algorithm here, and adapt the complexity analysis to our setting 
 of Kummer extensions.
 
-\subsection{Rational interpolation}
+%% \subsection{Rational interpolation}
 
 We start by tackling a simpler problem. We suppose we have constructed
 a tower of Kummer extensions $\F_q=F_0⊂F_1⊂\cdots⊂F_n$, with
@@ -968,7 +968,6 @@ last step $i=n-1$, we proceed in a similar way by defining
   $T^{(i,j)}$ using Lemma~\ref{lemma:frob-ell}. The cost for a single
   polynomial $T^{(i,j)}$ is of $O(ℓ^iℓ^{n-i-1}\MM(ℓ))$ operations,
   \emph{i.e.} $O(ℓ^n\MM(ℓ))$ for all $O(\ell)$ of them.
-
   From the $T^{(i,j)}$'s we compute $T^{(i+1)}$ using a subproduct
   tree, as in~\cite[Lemma~10.4]{vzGG}. The result has degree
   $O(ℓ^{i+1})$ and coefficients in $F_{n-i}$, thus the overall cost is
@@ -1084,12 +1083,12 @@ crater.
 The algorithms of Fouquet and Morain~\cite{volcano} compute the height
 $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
-$Φ_ℓ$ is computed using $\tildO(ℓ³\logℓ)$ binary operations and
-$O(\MM(ℓ^2)\log q)$ operations in $\F_q$, then each factorization costs
+$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations and
+$O(\MM(ℓ^2)\log (q))$ operations in $\F_q$, then each factorization costs
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
 using the Cantor-Zassenhaus algorithm. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
-in~\cite{IonicaJ10}, but we ignore them .
+in~\cite{IonicaJ10}, but we do not discuss them.
 
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
@@ -1135,11 +1134,12 @@ We then enumerate all the $ℓ^{2k-2}$ invertible diagonal matrices; for
 each matrix~$M$, we interpolate the action of~$M$ on~$E[ℓ^k]$ as a
 rational fraction, and verify that it is an $r$-isogeny. The
 successful interpolation will be our explicit isogeny~$ψ$.
-
-We interpolate using the abscissas of non-zero points of $E[ℓ^k]$;
+Precisely, we interpolate using the abscissas of non-zero points of $E[ℓ^k]$;
 there are $(ℓ^{2k}-1)/2$ distinct such abscissas (or $2^{2k-1}+1$ when
-$ℓ=2$).  Since the isogeny~$ψ$ is a rational fraction of
-degrees~$(r, r-1)$, it is defined by $2r$ coefficients.  For this
+$ℓ=2$).  The isogeny~$ψ$ acts on abscissas as a rational fraction of
+degrees~$(r, r-1)$, which is thus defined by $2r$ coefficients; 
+knowing this rational function allows us to find the kernel of $\psi$,
+and recover $\psi$ itself using V\'elu's formulas in linear time. For this
 method to work, we therefore select the smallest~$k ≥ h+1$ such
 that~$ℓ^{2k}-1 > 4r$.
 
@@ -1217,21 +1217,59 @@ operations in~$\F_q$.
 
 \section{Experimental results}
 \label{sec:implem}
-We implement the algorithm on SageMath, we run the tests on SageMath v7.0 only for $\ell=2$ on an Intel Xeon CPU 2,4GHz. The source code is available on the github project : \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
-We implement on Sage the $2$-adic contruction of tower of Doliskani and Schost \cite{DoSc12}, we have designed an algorithm to work only for curves located on cyclic crater of volcano of $2$-isogeny. 
- We place ourselves in the optimal case of \cite{DoSc12} with $p = 1 \bmod 4$. 
- \newline 
-The choice of the height of the $2$-adic tower is done according to the rational structure of the tower and $r$ prior to all the other computations. The algorithm computes horizontal basis in a similar way than it is described in section \ref{sec:acti-frob-endm}, 
-\newline
-The interpolation part of the algorithm is different from section \ref{sec:interpolation} in a way that it mixes points of different orbits under the Frobenius action. The algorithm combines points defined in the same level in the tower with Chinese Remainder Techniques before using Frobenius on them to have an interpolation polynomial defined one level below in the $2$-adic tower, then it takes into account new points defined in this level with Chinese Remainder techniques. Precomputations for the Chinese Remainder are done since the modulus do not depend of the mapping. Thus we have a difference between the first guess for the mapping of horizontal basis and the other ones. The algorithm then do a rational reconstruction and check if the result gave us a good result by looking the degrees and checking if we got a square at the denominator.
- \newline
+
+We implemented a simplified version of our main algorithm using
+SageMath v7.0~\cite{sage}. In our current implementation, we only
+handle the case $\ell=2$ and we work only with curves located on
+cyclic crater of a volcano of $2$-isogenies. We implemented the
+contruction of towers of Doliskani and Schost \cite{DoSc12}, in the
+favorable case where $p = 1 \bmod 4$. The source code is available on
+the github project:
+\url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
+
+
+The choice of the height of the $2$-adic tower is done according to
+the rational structure of the tower and $r$ prior to all the other
+computations. The algorithm computes horizontal basis in a similar way
+than it is described in section \ref{sec:acti-frob-endm},
+
+The interpolation part of the algorithm is different from section
+\ref{sec:interpolation} in a way that it mixes points of different
+orbits under the Frobenius action. The algorithm combines points
+defined in the same level in the tower with Chinese Remainder
+Techniques before using Frobenius on them to have an interpolation
+polynomial defined one level below in the $2$-adic tower, then it
+takes into account new points defined in this level with Chinese
+Remainder techniques. Precomputations for the Chinese Remainder are
+done since the modulus do not depend of the mapping. Thus we have a
+difference between the first guess for the mapping of horizontal basis
+and the other ones. The algorithm then do a rational reconstruction
+and check if the result gave us a good result by looking the degrees
+and checking if we got a square at the denominator.
+
 \begin{figure}\label{fig:p=101}
 \centering
 \includegraphics[scale=1]{Code/creat.eps}
 \caption{Computations for p=101}
 \end{figure}
 
-On \ref{fig:p=101} we can observe that asymptotically we verify that we got the computation done in $O(r^2)$. However since the main cost of the algorithm comes from the repetition of the interpolation, we can observe some floor for the $r$-isogenies for which we got the same $k$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$  .
+\begin{figure}
+\centering\label{fig:several p}
+\includegraphics[scale=1]{Code/creat2.eps}
+\caption{Computations for several p}
+\end{figure}
+
+Timings were obtained on an 2.4GHz Intel Xeon CPU.
+On \ref{fig:p=101} we can observe that asymptotically we verify that
+we got the computation done in $O(r^2)$. However since the main cost
+of the algorithm comes from the repetition of the interpolation, we
+can observe some floor for the $r$-isogenies for which we got the same
+$k$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ , thus the measurements have
+been done for \ref{fig:p=101} to avoid such case, we took measurements
+for the least $r$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ . Moreover with
+curves with a great rational torsion as in the examples for $p=1033$
+and $p=521$ in \ref{fig:several p} we observes also some floor due to
+the fact that we got $h$ bigger than $4r$ for the interpolation.
 
 \bibliographystyle{alpha}
 \bibliography{refs}
