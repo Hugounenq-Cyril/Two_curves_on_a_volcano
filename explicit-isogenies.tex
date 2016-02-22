@@ -1218,34 +1218,27 @@ operations in~$\F_q$.
 \section{Experimental results}
 \label{sec:implem}
 
+
 We implemented a simplified version of our main algorithm using
 SageMath v7.0~\cite{sage}. In our current implementation, we only
-handle the case $\ell=2$ and we work only with curves located on
+handle the case $\ell=2$ and we work only with curves located on the
 cyclic crater of a volcano of $2$-isogenies. We implemented the
-contruction of towers of Doliskani and Schost \cite{DoSc12}, in the
+contruction of towers of finite fields from~\cite{DoSc12}, in the
 favorable case where $p = 1 \bmod 4$. The source code is available on
-the github project:
+the github project
 \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
 
+The interpolation part of the algorithm is slightly different from
+what is described in Section~\ref{sec:interpolation}, in that it
+handles at once points lying in different orbits of the Frobenius
+action: we combine points defined in a same extension of the base
+field by Chinese Remaindering, before using the techniques of Section
+\ref{sec:interpolation} on all these points at once. Several
+quantities used in the Chinese Remainder algorithm are precomputed and
+used across subsequent calls to our  interpolation routine, as they
+do not depend on the choice of the constants $(a,b)$ appearing in
+Step~\ref{alg:ours:for} of the main algorithm.
 
-The choice of the height of the $2$-adic tower is done according to
-the rational structure of the tower and $r$ prior to all the other
-computations. The algorithm computes horizontal basis in a similar way
-than it is described in section \ref{sec:acti-frob-endm},
-
-The interpolation part of the algorithm is different from section
-\ref{sec:interpolation} in a way that it mixes points of different
-orbits under the Frobenius action. The algorithm combines points
-defined in the same level in the tower with Chinese Remainder
-Techniques before using Frobenius on them to have an interpolation
-polynomial defined one level below in the $2$-adic tower, then it
-takes into account new points defined in this level with Chinese
-Remainder techniques. Precomputations for the Chinese Remainder are
-done since the modulus do not depend of the mapping. Thus we have a
-difference between the first guess for the mapping of horizontal basis
-and the other ones. The algorithm then do a rational reconstruction
-and check if the result gave us a good result by looking the degrees
-and checking if we got a square at the denominator.
 
 \begin{figure}\label{fig:p=101}
 \centering
