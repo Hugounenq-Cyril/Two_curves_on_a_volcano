@@ -590,7 +590,8 @@ has two distinct roots~$λ, μ$ in~$ℤ_ℓ$,
 so that the $ℓ$-isogeny volcano has a cyclic crater.
 Then there exists a unique $a ∈ \llbracket 0, ℓ^h - 1 \rrbracket$
 such that $π|T_ℓ(E)$~is conjugate, over~$ℤ_ℓ$,
-to the matrix $\smat{λ & a\\ 0 & μ}$.
+to the matrix $\left ( \begin{smallmatrix}λ & a\\ 0 & μ
+\end{smallmatrix}\right )$.
 % where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
 Moreover $a = 0$ if~$E$ lies on the crater,
 and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
@@ -598,8 +599,9 @@ and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
 \begin{proof}
 Since the characteristic polynomial of~$π$ splits over~$ℤ_ℓ$,
 the matrix of~$π|T_ℓ(E)$ is trigonalizable.
-Conjugating the matrix $\smat{λ & a\\0 & μ}$
-by~$\smat{1 & b\\0 & 1}$ replaces~$a$ by~$a + b (λ - μ)$,
+Conjugating the matrix $\left ( \begin{smallmatrix}λ & a\\0 & μ
+\end{smallmatrix}\right )$ by~$\left ( \begin{smallmatrix}1 & b\\0 & 1
+\end{smallmatrix} \right )$ replaces~$a$ by~$a + b (λ - μ)$,
 so that $a$~is well-defined modulo~$ℓ^h$.
 Finally, by Tate's theorem~\cite[Isogeny theorem 7.7 (a)]{Sil},
 $\mathcal O ⊗ ℤ_ℓ$~is isomorphic to the order in~$ℚ_ℓ[π_ℓ]$
@@ -622,7 +624,7 @@ showing the link between two related notions of diagonalization.
 \begin{prop} \label{prop:diagonal-horizontal}
 Let~$E$ be a curve lying on the crater and~$P$ be a point of~$E[ℓ^k]$.
 Then $ℓ^h P$~is horizontal if, and only if, $P$~is an eigenvector for~$π$.
-If $π(P) = λ P$ then we say that $ℓ^h P$~has the direction~$λ$.
+If $π(P) = λ P$ then we say that $ℓ^h P$~has direction~$λ$.
 \end{prop}
 Let $R$ be a point of $E$ of order~$ℓ^k$, let $ϕ$ be the isogeny 
 with kernel~$\chev{R}$, and let $E'$ be its image. The subgroup~$\chev{R}$ defines a point in
@@ -675,7 +677,7 @@ it allows us to compute a horizontal point of order~$ℓ^{k+1}$.
 \begin{prop}\label{prop:push-horizontal}
 Let~$ψ: E → E'$ be a horizontal $ℓ$-isogeny with direction~$λ$.
 For any point~$Q ∈ E[ℓ^∞]$,
-if $ℓ · Q$~is horizontal with direction~$μ$,
+if $ℓ Q$~is horizontal with direction~$μ$,
 then $ψ(Q)$ is horizontal with direction~$μ$.
 \end{prop}
 (Since $Q$~has direction $μ$,
@@ -711,13 +713,14 @@ we must have~$P' = ψ(P)$.
 
 %%%%%%%%%%%%%%%
 \subsection{Galois classes in the $ℓ$-torsion}
-Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.
-If $ℓ$~is odd, let~$α = v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$;
-if $ℓ=2$, let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$,
-and assume without loss of generality that $α ≥ β$.
-Since $λ ≢ μ \pmod{ℓ^{h+1}}$, it is impossible that $λ ≡ μ ≡ 1 \pmod{h}$,
-so that one at least of the two valuations~$α, β$ is~$≤ h$,
-and therefore~$β ≤ h$.
+Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.  The
+following proposition summarizes the properties of $E[\ell^k]$ that we
+will need for our main interpolation algorithm.  If $ℓ$~is odd, let~$α
+= v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$; if $ℓ=2$,
+let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$, and assume without loss
+of generality that $α ≥ β$.  Since $λ ≢ μ \pmod{ℓ^{h+1}}$, it is
+impossible that $λ ≡ μ ≡ 1 \pmod{h}$, so that one at least of the two
+valuations~$α, β$ is~$≤ h$, and therefore~$β ≤ h$.
 \label{sub:classes}
 \begin{prop}\label{prop:classes}
 For any~$k$, let~$d_k$ be the degree of the smallest field extension $F/\F_q$
@@ -797,10 +800,11 @@ such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 \STATE $h:=1, u:=1$
 \FOR {$i=1$  to  $k-1$}
 \STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
-\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{array}{cc}
+\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
 λ + a\ell^{i} & b\ell^{i}\\
 c\ell^{i} & μ + d\ell^{i}
-\end{array} \right) \pmod {\ell^{i+1}}$
+\end{smallmatrix}
+\right) \pmod {\ell^{i+1}}$
 with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
 \STATE \textbf{if} {$λ \neq μ$} \textbf{then}
 $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
@@ -823,7 +827,6 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
 \begin{proof}
   A straightforward calculation shows that after each loop the basis
   $(P_{i+1},Q_{i+1})$ is diagonal.
-
   To bootstrap the algorithm, we need to compute a basis of $E[ℓ]$
   over the field $F_1$. We do this by factoring the $ℓ$-division
   polynomial at a cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
@@ -838,12 +841,10 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
   Evaluating~$π(P')$ in Step~\ref{alg:diagonal:frobenius} has a cost
   of~$O(\ell^{i-\beta+1}\MM(\ell)+\MM(\ell^{i-\beta+1}))$.
   Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
-  most~$ℓ^2$ point additions, with a cost
-  of~$ℓ^2 \mathsf{M}(ℓ^{i-\beta+1})$.  Finally, all other steps are
-  negligible.
-
-  Since the cost of each loop grows geometrically, the last loop
-  dominates all others, and gives the stated complexity.
+  most~$ℓ^2$ point additions, with a cost of~$ℓ^2
+  \mathsf{M}(ℓ^{i-\beta+1})$; all other steps are negligible.  Since
+  the cost of each loop grows geometrically, the last loop dominates
+  all others, and gives the stated complexity.
 \end{proof}
 
 \subsection{Computation of a horizontal basis}
