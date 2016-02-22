@@ -398,7 +398,7 @@ following generalization of~\cite[\S2.3]{DoSc12} shows.
   $O(ℓ^{i-1}\MM(ℓ))$. Finally the monomials $a_ky^k$ are combined
   together to form a polynomial in $(x_1,x_i)$ of degree less than
   $(d_1,d)$, and then brought to a canonical form in $F_i$ via another
-  rearrangement of coefficiens.
+  rearrangement of coefficients.
 \end{proof}
 
 Summarizing, the following computations can be performed
@@ -425,7 +425,7 @@ terms of operations in $\F_q$.
 For one fundamental operation, we only have an efficient algorithm in
 the case $ℓ=2$, hence we introduce the following notation:
 \begin{itemize}
-\item $\RR(i)$ is the cost of finding a root of a polynomial of degree
+\item $\RR(i)$ is a bound on the expected cost of finding a root of a polynomial of degree
   $ℓ$ in $F_i[x]$.
 \end{itemize}
 For $\ell=2$, Doliskani and Schost show that
@@ -820,7 +820,7 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
 \end{algorithm}
 \begin{prop}\label{th:diagonal}
   Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
-  using
+  using an expected
   $O(\RR(k-\beta) + ℓ^2\MM(ℓ^{k-β}) + ℓ\MM(\ell^2)\log(\ell)\log(\ell
   q))$ operations in $\F_q$.
 \end{prop}
@@ -877,7 +877,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
 \end{algorithm}
 \begin{prop}\label{th:horizontal}
   Algorithm~\ref{alg:horizontal} is correct and computes its output
-  using $O(\RR(k-\beta) + k\RR(h-β+1) + kℓ^2\MM(ℓ^{h-β+1}))$
+  using an expected $O(\RR(k-\beta) + k\RR(h-β+1) + kℓ^2\MM(ℓ^{h-β+1}))$
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
@@ -886,7 +886,6 @@ the points~$(P_i, Q_i)$ form a diagonal basis of~$E_i[ℓ^{h+1}]$,
 and $ϕ_i$~has direction~$λ$.
 The fact that $R$~is horizontal is then a consequence
 of Proposition~\ref{prop:push-horizontal}.
-
 The two most expensive operations in the loop are
 Steps~\ref{alg:horizontal:divide} and~\ref{alg:horizontal:frob},
 costing respectively $O(\RR(h-β+1))$ and $O(ℓ^2\MM(ℓ^{h-β+1}))$, as
@@ -1057,7 +1056,7 @@ $\F_q[x]$ at many points of $F_n$.
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
 
-We finally come the description of the full algorithm. As stated in
+We finally come to the description of the full algorithm. As stated in
 the introduction, we are given two $j$-invariants, defining two
 elliptic curves $E$ and $E'$, and an integer $r$, and we want to
 compute an isogeny $ψ:E→E'$ of degree $r$.
@@ -1085,6 +1084,7 @@ $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
 $Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations and
 $O(\MM(ℓ^2)\log (q))$ operations in $\F_q$, then each factorization costs
+an expected
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
 using the Cantor-Zassenhaus algorithm. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
@@ -1169,7 +1169,7 @@ endomorphism ring proceeds as follows:
 
 \begin{thm*}
 It is possible to solve the “Explicit Isogeny Problem”
-using at most
+using an expected
 \[ O\bigl(r\MM(r)\log^2(r) + \MM\bigl(\sqrt{r}\log(q)\bigr)\log(r)\bigr)\]
 operations in~$\F_q$.
 \end{thm*}
@@ -1243,7 +1243,7 @@ in the computations varied from $2^3$ to $2^6$.
 Figure~\ref{fig:p=101} shows the running time for the computation of
 the horizontal basis of $E[ℓ^k]$, and that for one execution of the
 interpolation step. Total running times are multiplied by an average
-factor of $r$, as expected. The stepping behavior of our algorithm is
+factor of $r$, as expected. The staircase behavior of our algorithm is
 apparent from the plot. Although the data points are limited, we can
 also guess the quasi-linear growth of the running times. Finally, we
 remark that, though asymptotically negligible, the diagonalization
