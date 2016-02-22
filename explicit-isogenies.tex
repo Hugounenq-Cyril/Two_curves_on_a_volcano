@@ -371,37 +371,37 @@ following generalization of~\cite[\S2.3]{DoSc12} shows.
 \begin{lem}\label{lemma:frob-ell}
   Let $F_0⊂\cdots⊂F_n$ be a Kummer tower as defined above, and let
   $a∈F_i$ for some $0≤i≤n$. For any integer $j$, we can compute the
-  $(\#F_j)$-th power of $a$ using $O(ℓ^i\MM(ℓ) + \MM(ℓ^i))$ operations
-  in $\F_q$, after a precomputation independent of $a$ that uses
+  $(\#F_j)$-th power of $a$ using $O(ℓ^{i-1}\MM(ℓ))$ operations in
+  $\F_q$, after a precomputation independent of $a$ that uses
   $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$.
 \end{lem}
 \begin{proof}
   Without loss of generality, we can assume that $j<i$; otherwise, the
-  output is simply $a$ itself. Let $τ=\#F_i$ and $σ=\#F_j$. By
-  assumption, $a$ is written as
-  $a =a_0 + a_1 x + \cdots + a_{τ-1} x^{τ-1}$, for some $x$ that
-  satisfies $x^{\ell^{i-1}}=x_1$, where $x₁∈F₁$ is a root of $P₁$.
+  output is simply $a$ itself.  Let $σ=\#F_j$, and let
+  $d=[F_i:F_1]=ℓ^{i-1}$. Let $x_i$ be the image of $x$ in
+  $F_i=\F_q[x]/P_i(x)$, so that $x_i^d=x_1$.
 
-  The first step, independently of $a$, is to compute $y=x^σ$. Writing
-  $σ = u \ell^{i-1} + r$, with $r < \ell^{i-1}$, we see that $y$ is
-  given by $x₁^{u \bmod \#F₁}x^r$. We compute $x₁^{u\bmod\#F₁}$ using
-  $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$, and we keep this element
-  as a monomial of $F₁[x]$.
+  The first step, independently of $a$, is to compute
+  $y=x_i^σ$. Writing $σ = ud + r$, with $r<d$, we see that $y$ is
+  given by $x₁^{u \bmod \#F₁}x_i^r$. We compute $x₁^{u\bmod\#F₁}$
+  using $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$, and we keep this
+  element as a monomial of $F₁[x_i]$.
 
-  Finally, once we know $y$, we compute $a(y)$ by a Horner scheme. All
-  powers $y^i$ we need are themselves monomials in $F₁[x]$, each
-  computed from the previous one using $O(\MM(ℓ))$ operations in
-  $\F_q$, for a total of $O(ℓ^i\MM(ℓ))$. Finally the monomials
-  $a_iy^i$ are combined together to form a polynomial in $x$ of degree
-  $O(ℓ^i)$, and then brought to a canonical form in $F_i$ via a
-  modular reduction at a cost of $O(\MM(ℓ^i))$ operations.
-  \todo{?? Why do we need a reduction? We compute all $y_i$'s reduced modulo 
-    $x^{\ell^{i-1}}-x_1$; they are still monomials after reduction.}
+  By assumption, $a$ is represented as a polynomial in $x_i$ of degree
+  less than $[F_i:F_0]$. We rewrite it as
+  $a =a_0 + a_1 x_i + \cdots + a_{d-1} x_i^{d-1}$, with $a_i∈F₁$. This
+  is done by a simple rearrangement of the coefficients of $a$.
+
+  Finally, we compute $a(y)$ by a Horner scheme. All powers $y^k$ we
+  need are themselves monomials in $F₁[x_i]$, each computed from the
+  previous one using $O(\MM(ℓ))$ operations in $\F_q$, for a total of
+  $O(ℓ^{i-1}\MM(ℓ))$. Finally the monomials $a_ky^k$ are combined
+  together to form a polynomial in $(x_1,x_i)$ of degree less than
+  $(d_1,d)$, and then brought to a canonical form in $F_i$ via another
+  rearrangement of coefficiens.
 \end{proof}
 
-Note that the complexity of the previous algorithm can be
-significantly improved when $F₁=F₀$, as shown in~\cite{DoSc12} for the
-case $ℓ=2$ \todo{?}.  Summarizing, the following computations can be performed
+Summarizing, the following computations can be performed
 in a Kummer tower at the indicated asymptotic costs, all expressed in 
 terms of operations in $\F_q$.
 \begin{itemize}
@@ -417,9 +417,9 @@ terms of operations in $\F_q$.
   at most $d$ in $F_i[x]$ using $O(\MM(dℓ^i))$ operations, via
   Kronecker's
   substitution, as already done in e.g.~\cite{vzgathen+shoup92};
-\item computing a $(\#F_j)$-th power in $F_i$ using
-  $O(ℓ^i\MM(ℓ) + \MM(ℓ^i))$ operations, after a precomputation that
-  uses $O(ℓ\MM(ℓ)\log(q))$ operations.
+\item computing a $(\#F_j)$-th power in $F_i$ using $O(ℓ^{i-1}\MM(ℓ))$
+  operations, after a precomputation that uses $O(ℓ\MM(ℓ)\log(q))$
+  operations.
 \end{itemize}
 
 For one fundamental operation, we only have an efficient algorithm in
@@ -769,13 +769,13 @@ Summing this over all~$i$ proves~(v).
 
 
 We continue here our study on the action of the Frobenius $π$ on
-$E[ℓ^k]$ \todo{proposition: with $k \geqslant h$ as suggested by \ref{prop:diagonal-horizontal}}.  Given an elliptic curve~$E$ with $ℓ$-maximal endomorphism
+$E[ℓ^k]$.  Given an elliptic curve~$E$ with $ℓ$-maximal endomorphism
 ring, we explicitly compute diagonal and horizontal bases of $E[ℓ^k]$
 as defined in the previous section.  We will use the latter basis of
 $E[ℓ^k]$ in Section~\ref{sub:final-interp}, to put restrictions on the
 interpolation problem of our algorithm.
 
-By Proposition~\ref{prop:classes}, there exists a Kummer tower
+We suppose that $k \geqslant h$. By Proposition~\ref{prop:classes}, there exists a Kummer tower
 $F₀⊂\cdots⊂F_{k-\beta}$ such that all the points of~$E[ℓ^k]$ are
 rational over~$F_{k-\beta}$. The algorithms presented next assume that
 the tower has already been computed.
@@ -839,7 +839,7 @@ $u \leftarrow (λ -μ)/\ell^h$ \textbf{endif}
   operations.
 
   Evaluating~$π(P')$ in Step~\ref{alg:diagonal:frobenius} has a cost
-  of~$O(\ell^{i-\beta+1}\MM(\ell)+\MM(\ell^{i-\beta+1}))$.
+  of~$O(\ell^{i-\beta}\MM(\ell))$.
   Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
   most~$ℓ^2$ point additions, with a cost of~$ℓ^2
   \mathsf{M}(ℓ^{i-\beta+1})$; all other steps are negligible.  Since
@@ -907,14 +907,17 @@ but that would require computing in an extension $F_{k+h-\beta}$.
 \section{Interpolation step}
 \label{sec:interpolation}
 
+
 After constructing bases $(P,Q)$ of $E[ℓ^k]$ and $(P',Q')$ of
 $E'[ℓ^k]$ using the algorithms of the previous section, our algorithm
-computes the polynomial with coefficients in $\F_q$ sending
-$x(P)↦x(P')$, $x(Q)↦x(Q')$, and the other abscissas accordingly.  In
+computes the polynomial with coefficients in $\F_q$ mapping $x(P)$ to
+$x(P')$, $x(Q)$ to $x(Q')$, and the other abscissas accordingly.  In
 this section we give an efficient algorithm for this specific
-interpolation problem. The algorithm has already appeared
-in~\cite{df10} and~\cite{enge+morain03}; we recall it here, and adapt
-the complexity analysis to our setting.
+interpolation problem. The algorithm appeared in~\cite{df10} in the
+context of the Artin-Schreier extensions used in Couveignes' isogeny
+algorithm; it uses original ideas from~\cite{enge+morain03}. We recall
+this algorithm here, and adapt the complexity analysis to our setting 
+of Kummer extensions.
 
 \subsection{Rational interpolation}
 
@@ -956,24 +959,21 @@ last step $i=n-1$, we proceed in a similar way by defining
 \end{equation*}
 
 \begin{lem}\label{lemma:interpolation:minpoly}
-  The cost of computing $T^{(n)}=T$ is bounded by $O(nℓ\MM(ℓ^{n+1}))$
+  The cost of computing $T$ is bounded by $O(n\MM(ℓ^{n+1})\log(ℓ))$
   operations in $\F_q$.
 \end{lem}
 
 \begin{proof}
   At each step $i$, from the knowledge of $T^{(i)}$ we compute all
   $T^{(i,j)}$ using Lemma~\ref{lemma:frob-ell}. The cost for a single
-  polynomial $T^{(i,j)}$ is of
-  $O\bigl(ℓ^i\bigl(ℓ^{n-i}\MM(ℓ)+\MM(ℓ^{n-i})\bigr)\bigr)$ operations,
-  which we simplify to a total of $O(ℓ\MM(ℓ^{n+1}))$ for all $O(\ell)$
-  of them.
+  polynomial $T^{(i,j)}$ is of $O(ℓ^iℓ^{n-i-1}\MM(ℓ))$ operations,
+  \emph{i.e.} $O(ℓ^n\MM(ℓ))$ for all $O(\ell)$ of them.
 
   From the $T^{(i,j)}$'s we compute $T^{(i+1)}$ using a subproduct
   tree, as in~\cite[Lemma~10.4]{vzGG}. The result has degree
   $O(ℓ^{i+1})$ and coefficients in $F_{n-i}$, thus the overall cost is
   $O(\MM(ℓ^{n+1})\log(ℓ))$. After $T^{(i+1)}$ is computed this way, we
   can convert its coefficients to $F_{n-i-1}$ at no algebraic cost.
-
   Summing over all $i$, we obtain the stated complexity.
 \end{proof}
 
@@ -990,7 +990,7 @@ polynomial $L$ we are looking for.
 \begin{prop}
   Given elements $v,w∈F_n\setminus F_{n-1}$, the cost of computing the
   minimal polynomial $T∈\F_q[x]$ of $v$, and the interpolating
-  polynomial $L∈\F_q[x]$ such that $L(v)=w$, is of $O(nℓ\MM(ℓ^{n+1}))$
+  polynomial $L∈\F_q[x]$ such that $L(v)=w$, is of $O(n\MM(ℓ^{n+1})\log(ℓ))$
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
@@ -1006,11 +1006,12 @@ polynomial $L$ we are looking for.
   $w' = w/T'(v)$ takes $O(\MM(\ell^n)\log(\ell^n))$ operations.
 
   Finally, at each step $i$, the polynomials $L^{(i,j)}$ are computed
-  at a cost of $O(ℓ\MM(ℓ^{n+1}))$, as in the proof of
+  at a cost of $O(ℓ^n\MM(ℓ))$, as in the proof of
   Lemma~\ref{lemma:interpolation:minpoly}.  The computation of
-  $T^{(i)}$ requires $O(ℓ)$ additions, multiplications and divisions
-  of polynomials of degree $O(ℓ^{i+1})$ with coefficients in
-  $F_{n-i}$, again at a cost of $O(ℓ\MM(ℓ^{n+1}))$. Summing over all
+  $L^{(i+1)}$ uses the same subproduct tree as for the computation of
+  $T^{(i)}$, requiring $O(\log ℓ)$ additions, multiplications and
+  divisions of polynomials of degree $O(ℓ^{i+1})$ with coefficients in
+  $F_{n-i}$, for a total of $O(\MM(ℓ^{n+1})\log(ℓ))$. Summing over all
   $i$, the complexity statement follows readily.
 \end{proof}
 
@@ -1028,7 +1029,7 @@ $\F_q[x]$ at many points of $F_n$.
     all $i$
   \end{itemize}
   can be computed using
-  $O\bigl(\MM(t)\log(s) + nℓ\MM(ℓ^2t)\bigr)$ operations in $\F_q$.
+  $O\bigl(\MM(t)\log(s) + n\MM(ℓ^2t)\log(ℓ)\bigr)$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
   The polynomial $T$ is simply the product of all the minimal
@@ -1036,9 +1037,9 @@ $\F_q[x]$ at many points of $F_n$.
   $v_i,w_i∈F_{n_i+1}\setminus F_{n_i}$, and $ℓ^{n_i}≤t_i<ℓ^{n_i+1}$.
   We convert $(v_i,w_i)$ to a pair of elements of $F_{n_i+1}$ at no
   algebraic cost, then we compute $T_i$ as explained previously at a
-  cost of $O(nℓ\MM(ℓ^{n_i+2}))$ operations. Bounding $ℓ^{n_i}$ by
+  cost of $O(n\MM(ℓ^{n_i+2})\log(ℓ))$ operations. Bounding $ℓ^{n_i}$ by
   $t_i$, summing over all $i$, and using the superlinearity of $\MM$,
-  we obtain a total cost of $O(nℓ\MM(ℓ^2t))$ operations.
+  we obtain a total cost of $O(n\MM(ℓ^2t)\log(ℓ))$ operations.
   Simultaneously, we compute all the polynomials $L_i$ such that
   $L_i(v_i)=w_i$, at the same cost.
 
@@ -1169,7 +1170,7 @@ endomorphism ring proceeds as follows:
 \begin{thm*}
 It is possible to solve the “Explicit Isogeny Problem”
 using at most
-\[ O(r · \MM(r) · \log^2(r) + r · \log(r) · \log(q))\]
+\[ O\bigl(r\MM(r)\log^2(r) + \MM\bigl(\sqrt{r}\log(q)\bigr)\log(r)\bigr)\]
 operations in~$\F_q$.
 \end{thm*}
 \begin{proof}
@@ -1188,8 +1189,8 @@ operations in~$\F_q$.
   tower $F₀⊂\cdots⊂F_n$, and we do the precomputations required by
   Lemma~\ref{lemma:frob-ell} at a cost of $O(\log(r)\log(q))$.
 
-  Step~\ref{alg:ours:horizontal} costs $O(k\RR(k-\beta))$ according to
-  Propositions~\ref{th:diagonal} and~\ref{th:horizontal}. Using the
+  Step~\ref{alg:ours:horizontal} costs $O(\RR(k-\beta))$ according to
+  Proposition~\ref{th:horizontal}. Using the
   estimates of Section~\ref{sub:towers}, we see that this cost is
   bounded by $O(\MM(\sqrt{r})\log(rq))$ if $ℓ=2$, or by
   $O(r +\MM(\sqrt{r}\log(q))\log(r))$ otherwise.
@@ -1206,7 +1207,7 @@ operations in~$\F_q$.
   Then, using proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
-  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log^2(r))$.
+  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log(r))$.
   The cost of computing $F_{a,b}$, and identifying the isogeny is
   dominated by that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
   Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
