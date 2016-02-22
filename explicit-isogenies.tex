@@ -1225,17 +1225,14 @@ The choice of the height of the $2$-adic tower is done according to the rational
 \newline
 The interpolation part of the algorithm is different from section \ref{sec:interpolation} in a way that it mixes points of different orbits under the Frobenius action. The algorithm combines points defined in the same level in the tower with Chinese Remainder Techniques before using Frobenius on them to have an interpolation polynomial defined one level below in the $2$-adic tower, then it takes into account new points defined in this level with Chinese Remainder techniques. Precomputations for the Chinese Remainder are done since the modulus do not depend of the mapping. Thus we have a difference between the first guess for the mapping of horizontal basis and the other ones. The algorithm then do a rational reconstruction and check if the result gave us a good result by looking the degrees and checking if we got a square at the denominator.
  \newline
-\begin{figure}\label{fig:p=101}
+\begin{figure}
 \centering
-\includegraphics[scale=1]{Code/creat.eps}
-\caption{Computations for p=101}
+\includegraphics[scale=1]{benchmarks/101.eps}
+\caption{Comparison of diagonalization and interpolation phases, for a
+  curves defined over $\F_{101}$, and increasing $r$.}
+\label{fig:p=101}
 \end{figure}
 
-\begin{figure}
-\centering\label{fig:several p}
-\includegraphics[scale=1]{Code/creat2.eps}
-\caption{Computations for several p}
-\end{figure}
 On \ref{fig:p=101} we can observe that asymptotically we verify that we got the computation done in $O(r^2)$. However since the main cost of the algorithm comes from the repetition of the interpolation, we can observe some floor for the $r$-isogenies for which we got the same $k$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ , thus the measurements have been done for \ref{fig:p=101} to avoid such case, we took measurements for the least $r$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ . Moreover with curves with a great rational torsion as in the examples for $p=1033$ and $p=521$ in \ref{fig:several p} we observes also some floor due to the fact that we got $h$ bigger than $4r$ for the interpolation. 
 
 \bibliographystyle{alpha}
