@@ -1223,42 +1223,31 @@ We implemented a simplified version of our main algorithm using
 SageMath v7.0~\cite{sage}. In our current implementation, we only
 handle the case $\ell=2$ and we work only with curves located on the
 cyclic crater of a volcano of $2$-isogenies. We implemented the
-contruction of towers of finite fields from~\cite{DoSc12}, in the
-favorable case where $p = 1 \bmod 4$. The source code is available on
-the github project
-\url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/tree/master/Code}.
-
-The interpolation part of the algorithm is slightly different from
-what is described in Section~\ref{sec:interpolation}, in that it
-handles at once points lying in different orbits of the Frobenius
-action: we combine points defined in a same extension of the base
-field by Chinese Remaindering, before using the techniques of Section
-\ref{sec:interpolation} on all these points at once. Several
-quantities used in the Chinese Remainder algorithm are precomputed and
-used across subsequent calls to our  interpolation routine, as they
-do not depend on the choice of the constants $(a,b)$ appearing in
-Step~\ref{alg:ours:for} of the main algorithm.
-
+construction of towers of finite fields from~\cite{DoSc12}, in the
+favorable case where $p = 1 \bmod 4$. The source code is available in
+the GitHub project
+\url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/}.
 
 \begin{figure}\label{fig:p=101}
 \centering
 \includegraphics[scale=1]{benchmarks/101.eps}
 \caption{Comparison of diagonalization and interpolation phases, for a
-  curves defined over $\F_{101}$, and increasing $r$.}
+  curves defined over $\F_{101}$, and increasing $r$. Plot in logarithmic scale.}
 \label{fig:p=101}
 \end{figure}
 
-Timings were obtained on an 2.4GHz Intel Xeon CPU.
-On \ref{fig:p=101} we can observe that asymptotically we verify that
-we got the computation done in $O(r^2)$. However since the main cost
-of the algorithm comes from the repetition of the interpolation, we
-can observe some floor for the $r$-isogenies for which we got the same
-$k$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ , thus the measurements have
-been done for \ref{fig:p=101} to avoid such case, we took measurements
-for the least $r$ such that $2^{2k-2}/3>4r>2^{2k-4}/3$ . Moreover with
-curves with a great rational torsion as in the examples for $p=1033$
-and $p=521$ in \ref{fig:several p} we observes also some floor due to
-the fact that we got $h$ bigger than $4r$ for the interpolation.
+We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
+fixed a base field $\F_{101}$ and ran our algorithm on isogenous
+elliptic curves of increasing degree $r$. The torsion groups involved
+in the computations varied from $2^3$ to $2^6$.
+Figure~\ref{fig:p=101} shows the running time for the computation of
+the horizontal basis of $E[ℓ^k]$, and that for one execution of the
+interpolation step. Total running times are multiplied by an average
+factor of $r$, as expected. The stepping behavior of our algorithm is
+apparent from the plot. Although the data points are limited, we can
+also guess the quasi-linear growth of the running times. Finally, we
+remark that, though asymptotically negligible, the diagonalization
+step dominates one interpolation step for the tested parameters.
 
 \bibliographystyle{alpha}
 \bibliography{refs}
