@@ -1,5 +1,5 @@
 set terminal post eps color enhanced font "Times,16" size 21cm,6cm
-set out "creat.eps"
+set out "creat-log.eps"
 
 #set logscale y 2
 set key right bottom
@@ -13,9 +13,9 @@ set ylabel "seconds" #offset 5
 set xlabel "$r^2$" #offset -15,1.5
 set xtics 0, 1
 set ytics 0, 1
-plot [0:10][0:10] 'result-log.dat' index 0 using 1:2 with line lt 1 lw 3 title "p=101",\
-'result-log.dat' index 1 using 1:2 with line lt 2 lw 3 title "p=269",\
-'result-log.dat' index 2 using 1:2 with line lt 3 lw 3 title "p=512",\
-'result-log.dat' index 3 using 1:2 with line lt 4 lw 3 title "p=1033"
+plot [0:11][0:11] 'result-log.dat' index 0 using 1:2 with line lt 1 lw 3 title "101",\
+'result-log.dat' index 1 using 1:2 with line lt 2 lw 3 title "269",\
+'result-log.dat' index 2 using 1:2 with line lt 3 lw 3 title "512",\
+'result-log.dat' index 3 using 1:2 with line lt 4 lw 3 title "1033"
 unset ylabel
 unset xlabel
