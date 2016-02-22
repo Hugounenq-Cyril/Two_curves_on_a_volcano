@@ -907,14 +907,17 @@ but that would require computing in an extension $F_{k+h-\beta}$.
 \section{Interpolation step}
 \label{sec:interpolation}
 
+
 After constructing bases $(P,Q)$ of $E[ℓ^k]$ and $(P',Q')$ of
 $E'[ℓ^k]$ using the algorithms of the previous section, our algorithm
-computes the polynomial with coefficients in $\F_q$ sending
-$x(P)↦x(P')$, $x(Q)↦x(Q')$, and the other abscissas accordingly.  In
+computes the polynomial with coefficients in $\F_q$ mapping $x(P)$ to
+$x(P')$, $x(Q)$ to $x(Q')$, and the other abscissas accordingly.  In
 this section we give an efficient algorithm for this specific
-interpolation problem. The algorithm has already appeared
-in~\cite{df10} and~\cite{enge+morain03}; we recall it here, and adapt
-the complexity analysis to our setting.
+interpolation problem. The algorithm appeared in~\cite{df10} in the
+context of the Artin-Schreier extensions used in Couveignes' isogeny
+algorithm; it uses original ideas from~\cite{enge+morain03}. We recall
+this algorithm here, and adapt the complexity analysis to our setting 
+of Kummer extensions.
 
 \subsection{Rational interpolation}
 
