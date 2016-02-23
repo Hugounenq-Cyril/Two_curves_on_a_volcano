@@ -773,7 +773,7 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 
  		'''
 		K=E1.base_field()
-		B=5.4*(r)
+		B=(16.0/3)*(r)
 		if E2.base_field()!=K:
 			raise TypeError('the curves must be defined on the same field')
 		else :
