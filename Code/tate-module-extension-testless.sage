@@ -77,25 +77,12 @@ def antecedent_2_mutliplication(E,Q,Tower):
 	R=calcul_antecedent_2_isogenie(Pl(Q),phi2,Tower)
 	if phi2(R)!=Pl(Q):
 		R=-R
-	#print "R==phi2(Pl(Q))",R==phi2(Pl(Q))
-	#if phi2(R)!=Pl(Q):
-		#print "R",R		
-		#print "Q",Q
-		#print "Pl(Q)",Pl(Q)	
-		#print "phi2(R)==Pl(Q)",phi2(R)==Pl(Q)
-		#print "phi2(R),Pl(Q)",phi2(R),Pl(Q)
-	# le return n est pas encore tout a fait exact il faut calculer l ordonnee du point
 	R2=R
 	R= calcul_antecedent_2_isogenie(R,phi1,Tower)
 	if phi1(R)!=R2:
 		R=-R
-	#print "R==phi1(Pl(Q))",R==phi1(Pl(Q))
-	#if phi1(R)!=R2:
-		#print "phi1(R)==R2",phi1(R)==R2	
-		#print "phi1(R),R2",phi1(R),R2
 	if 2*R!=Q:
 		R=E(R[0],-R[1])
-		#print "2*R==Q",2*R==Q
 	return  R
 
 def calcul_2_isogenie_antecedent(E,Tower):
@@ -119,36 +106,15 @@ def calcul_2_isogenie_antecedent(E,Tower):
 	P1=L[1]
 	P2=L[2]
 	phi1=E.isogeny(R([K(-P1[0]),1]),degree=2)
-	#phi1=E.isogeny(P1)
 	Q2=phi1(P2)
 	E1=phi1.codomain()	
-	#phi2=E1.isogeny(Q2)
 	phi2=E1.isogeny(R([K(-Q2[0][0]),1]),degree=2)	
 	E2=phi2.codomain()
 	A2=K(E2.a4()[0])
 	B2=K(E2.a6()[0])
 	E2bis=EllipticCurve([K(A2),K(B2)])
-	#phi2
-	#R=PolynomialRing(K,'u')
-	#P=R([K(B),K(A),K(0),K(1)])
-	#print P
-	#L=P.roots()
-	#print L
-	#P1=E(L[0][0],0)
-	#P2=E(L[1][0],0)
-	#print P1,P2
-	#L=E(0).division_points(2)[1:4]
-	#PR=PolynomialRing(E.base_field(),'x')
-	#phi1=E.isogeny(R([K(-P1[0]),1]),degree=2)
-	#E1=phi1.codomain()
-	#Q2=phi1(P2)
-	#phi2=E1.isogeny(R([K(-Q2[0]),1]),degree=2)
 	Pm=wm.isomorphisms(Ebis,E2bis,True) #on recupere les coefficients u,r,s,t pour revenir a la courbe de depart
-	#print 'Ebis iso ' ,Ebis	
-	#print 'E2bis iso',E2bis
-	#Pm=wm.isomorphisms(E,phi2.codomain(),True) #on recupere les coefficients u,r,s,t pour revenir a la courbe de depart	
 	Pl=wm.WeierstrassIsomorphism(E, Pm ,phi2.codomain())#on recupere l isomorphisme
-	#return phi1,phi2,Pm,phi2.codomain()
 	return phi1,phi2,Pl
 	
 
@@ -169,17 +135,6 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	b2=E.a6()
 	K=Tower._base
 	#we get the rational maps for the x, since we are intersted ine the abscissas of the points
-	#if f.numerator()[0].parent()!=Q[0].parent():
-		#num=f.numerator().coefficients()
-		#num0=Tower.meeting2(num[2],Q[0])	
-		#num1=Tower.meeting2(num[1],Q[0])
-		#num2=Tower.meeting2(num[0],Q[0])		
-		#num=PR2([num0,num1,num2])
-		#den=f.denominator().coefficients()
-		#den0=Tower.meeting2(den[1],Q[0])
-		#den1=Tower.meeting2(den[0],Q[0])
-		#den=PR2([den0,den1])
-		#print 'num',num, f.numerator(),'den',den,f.denominator()
 	num=f.numerator()
 	den=f.denominator()
 	#we have to tell sage that this is a polynomial and not a rational function
@@ -193,18 +148,12 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	while delta_sqrt**2!=b:
 		delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
 		delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
-		#if delta_sqrt**2!=(solv[1]**2-4*solv[2]*solv[0]):
-			#print 'delta_sqrt,delat_sqrt**2',delta_sqrt,delta_sqrt**2
-			#print '(solv[1]**2-4*solv[2]*solv[0])',(solv[1]**2-4*solv[2]*solv[0])
-			#print Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])**2
 	suppri=delta_sqrt
 	suppri2=solv[1]
 	suppri3=solv[2]
 	delta_sqrt,solv1=Tower.meeting(delta_sqrt,solv[1])
 	#to be sure that the square root is at the good level in the tower
 	delta_sqrt,solv2=Tower.meeting(delta_sqrt,solv[2])
-	#if delta_sqrt.parent()!=solv1.parent():
-		#print delta_sqrt.parent(),solv1.parent()
 	#ditto
 	if delta_sqrt.parent()!=solv[2].parent():
 		PR2=PolynomialRing(delta_sqrt.parent(),'x')	
@@ -214,35 +163,12 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	A2,b2=Tower.meeting(A2,b2)
 	B=Tower.root_computing(A2**3+a2*A2+b2)
 	A2,B=Tower.meeting(A2,B)
-	#print "A2,solv,solv(A2)",suppri4,suppri5,suppri5(suppri4)
 	if E.base_field()!=A2.parent():
 		a2,A2=Tower.meeting(a2,A2)
 		b2,A2=Tower.meeting(b2,A2)
 		E=EllipticCurve([a2,b2])
 	
-	#if E!=phi.domain():
-		#print "E",E
-		#f=phi.rational_maps()[0].denominator()
-		#print "f,1",f
-		#f=PolynomialRing(K,'x')([f.coefficients()[0],f.coefficients()[1]])
-		#print "f,2",f
-		#f=f.gcd(f.diff())
-		#print "f,3",f,f**2
-		#phi=E.isogeny(f)
-		#print "phi.domain()",phi.domain()	
-		#print "A2,B",A2,B
-		#print "Q",Q.curve(),Q
-		#print  "phi(E(A2,B))",phi(E(A2,B))
-		#print "phi(E(A2,B))!=Q", phi(E(A2,B))!=Q
-		#phi2=E.isogeny()
 	if phi(E(A2,B))!=Q :
-		#if phi(E(A2,- B))!=Q :
-			#print "phi(E(A2,-B))!=Q",phi(E(A2,-B))!=Q
-			#print "phi(E(A2,-B)),Q",phi(E(A2,-B)),Q
-			#print "phi(E(A2,B)",phi(E(A2,B))
-			#print "E==phi.domain(),Q.curve()==phi.codomain()",E==phi.domain(),Q.curve()==phi.codomain()
-			#print "delta_sqrt.parent(),solv[1].parent(),solv[2].parent()",suppri.parent(), suppri2.parent(), suppri3.parent()
-			#print "A2,solv,solv(A2)",suppri4,suppri5,suppri5(suppri4)
 		return E(A2,-B)
 	else :
 		return E(A2,B)
@@ -451,7 +377,6 @@ def calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1, Lambda_2,power):
 	elif (A==((R+2**(rs-1)*Q)[0]) and B==((R+2**(rs-1)*Q)[1])):
 		a=0; b=1;
 	else:
-		#print 'Dernier cas P,rs,Lambda_1',rs,Lambda_1,(R+2**(rs-1)*(P+Q))[0]
 		a=1; b=1;
 	A=Tower.frobenius_computation(Q[0],power)
 	B=Tower.frobenius_computation(Q[1],power)
@@ -463,7 +388,6 @@ def calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1, Lambda_2,power):
 	elif (A==((R+2**(rs-1)*P)[0]) and B==((R+2**(rs-1)*P)[1])):
 		c=1; d=0;
 	else:
-		#print 'Dernier cas Q,rs,Lambda_2',rs,Lambda_2,(R+2**(rs-1)*(P+Q))[0]
 		c=1; d=1;
 	return a,b,c,d
 
@@ -547,12 +471,8 @@ def suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i):
 	Lambda_2=1
 	for j in range(i):
 		R=division_point_qbis(l,P,E,Tower)
-		#if 2*R!=P:		
-			#print '2*R==P',2*R==P,2*R,P
 		P=R
-		R=division_point_qbis(l,Q,E,Tower)
-		#if 2*R!=Q:		
-			#print '2*R==Q',2*R==Q, 2*R,Q		
+		R=division_point_qbis(l,Q,E,Tower)	
 		Q=R
 		#il faut redresser la base et actualiser les valeurs propres
 		P,Lambda_1,Q,Lambda_2=fonction_ent_diago(P,Q,Tower,j+k2+1,Lambda_1, Lambda_2,Tower._base.cardinality(),h)
@@ -595,12 +515,8 @@ def suite_calcul_torsion_max_2(E,P,Q,k1,k2,l,Tower,i,h,Lambda_1,Lambda_2):
 	(4, (85*a + 7 : 78*a + 29 : 1), 3, (83*a + 7 : 91*a + 39 : 1))
 	'''
 	R=division_point_qbis(l,P,E,Tower)
-	#if 2*R!=P:
-		#print '2*R==P',2*R==P,2*R,P
 	P=R
-	R=division_point_qbis(l,Q,E,Tower)
-	#if 2*R!=Q:	
-		#print '2*R==Q',2*R==Q, 2*R,Q		
+	R=division_point_qbis(l,Q,E,Tower)	
 	Q=R
 	#il faut redresser la base et actualiser les valeurs propres
 	P,Lambda_1,Q,Lambda_2=fonction_ent_diago(P,Q,Tower,k2+1,Lambda_1, Lambda_2,Tower._base.cardinality(),h)
@@ -708,8 +624,6 @@ def construction_lift_betterbis(E1,k,K,P,Q,Tower):
         	a=E1.a4()[0]
 		b=E1.a6()[0]
 	r=K.random_element()
-	#a=Tower._base(a) inutile
-	#b=Tower._base(b)
 	E2=EllipticCurve(K,[Tower._base(a),Tower._base(b)])
 	P0=Tower.meeting2(P[0],r)
 	Q0=Tower.meeting2(Q[0],r)
@@ -763,31 +677,11 @@ def centering_frob(E,P,Q,Tower,l,o,Lambda_1,h,stair=None):
 	8
 	'''
 
-	#q=K.cardinality() calcul inutile
-	#if stair=='Top':
-	#	q=sqrt(Tower._top_cardinal())#on suppose ici que l'on tavaille sur le plus haut etage de la tour! Detail important ici!	
-	#elif stair==None:
-	#	i=Tower.floor(Q[0])
-	#	if i%2==1:
-	#		q=Tower.cardinality_field(Tower._levels[i-2])
-	#	else:	
-	#		q=Tower.cardinality_field(Tower._levels[i-1])
-	#else :
-	#	q=stair	
-	#m=q%o
-	#Qfx=Q.xy()[0]**q
 	Pfx=Tower.frobenius_computation(P[0],Tower._base.cardinality())
 	Pmx=Lambda_1*P
 	Pfy=Tower.frobenius_computation(P[1],Tower._base.cardinality())
 	if (Pfx != Pmx[0]) or (Pfy != Pmx[1])  :
 		P=P+l**(o-1-h)*Q
-		#Qfx=Q.xy()[0]**q
-		#Qfx=Tower.frobenius_computation(Q[0],q)		
-		#Qmx=(m*Q)[0]
-	#print 'Qfx==Qmx',Qfx==Qmx
-	#Qfy=Tower.frobenius_computation(Q[1],q)
-	#Qmy=(m*Q)[1]
-	#print 'Qfy==Qmy',Qfy==Qmy
 	return P
 
 def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
@@ -839,15 +733,9 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 	#phi=E.isogeny(l**(k-1)*P,codomain=None, degree=l, model=None, check=False) ne marche pas a cause du calcul de l ordre du point 
 	Q2=l**(k-1)*Q
 	L=[]
-	#R=PolynomialRing(Q2[0].parent(),'x2')
 	R=PolynomialRing(E.base_field(),'x')
 	for i in range(k-1):
 		S=l**(k-1)*P
-		#print 'S,2*S,S[0]',S,2*S, S[0]
-		#print 'S[0].parent(), T.base()',S[0].parent(), T.base()
-		#K=Tower._base
-		#print '(T([K(-S[0][0])',T([-S[0],1])
-		#print 'E.isogeny(R([K(-S[0]),K(1)]),degree=2)',E.isogeny(T([-S[0],1]),degree=2)
 		phi=E.isogeny(R([-S[0],1]),degree=2)
 		E=phi.codomain()
 		f=phi.rational_maps()[0]
@@ -1012,7 +900,6 @@ def tate_module(E,b,Tower,l,conservation=None):
 	Lambda_1,Lambda_2=1,1
 	if (K==Tower._base):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
-		#print "k1,P,k2,Q",k1,P,k2,Q
 		ind=-2
 		h=k2
 	else :
@@ -1023,7 +910,6 @@ def tate_module(E,b,Tower,l,conservation=None):
 		E,P,Q=construction_lift_better(E3,K1,E.base_field(),P,Q)
 		i=valuation(valuation(Tower.cardinality_field(K),Tower._base.cardinality()),2)		
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i)
-		#print 'k1,P.order(),P,k2,Q.order(),Q',k1,k2, 2**(k1)*P,2**(k2)*Q ,2**(k1-1)*P,2**(k2-1)*Q
 		
 	if k2==0:
 		print("probleme choix courbe")
@@ -1065,29 +951,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		k1=k2
 		K2=E.base_field()
 		E2=E
-	#a cette étape la courbe définie sur K2 a la torsion rationnelle suffisante par rapport à notre borne
-	#K3=K2.extension(2,conway=True, prefix='z',name='c')
-	#if ind>-3:
-	#	Tower.add_one_level()
-	#	K3=Tower._levels[-1] #bivarie c est mieux pour le frobenius mais on ne peut construire la courbe qu en univarie
-	#else:
-	#	ind+=2
-	#	K3=Tower._levels[ind]	
-	#E3,P,Q=construction_lift_betterbis(E2,K2,K3,P,Q,Tower)
-	#print 'on a passe l elevation de la courbe'
-	#P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E2,P,Q,k1,k2,l,Tower,1)#le calcul de k1 et de P est ici inutile pour la suite si ce n est pour determiner Pm 
-	#i=Tower.floor(Q[0])
-	#if i%2==1:
-	#	stair=Tower.cardinality_field(Tower._levels[i-2])
-	#else:	
-	#	stair=Tower.cardinality_field(Tower._levels[i-1])
-	#stair contient la puissance que l on va utiliser pour le frobenius d ou son utilisation uniquement avec Q	
-	#Q=centering_right(E3,Pm,Q,Tower,l**k2,stair)
-	#if P[0].parent()!=E2.base_field():
-		#print 'P,E2',P[0].parent(),E2.base_field()
-		#A=Tower.meeting2(E2.a4(),P[0])
-		#B=Tower.meeting2(E2.a6(),P[0])
-		#E2=EllipticCurve([A,B])
+
 	while h>=k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
 		
 		K=E2.base_field()
@@ -1102,22 +966,10 @@ def tate_module(E,b,Tower,l,conservation=None):
 			K2=Tower._levels[ind]		
 		E2,P,Q=construction_lift_betterbis(E2,K,K2,P,Q,Tower)
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max_2(E2,P,Q,k1,k2,l,Tower,1,h,Lambda_1,Lambda_2)
-	#if (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101) or (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101) or (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101) or (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101):
-		# print 'Test val propres' (Lambda_1*P)[0]!=Tower.frobenius_computation(P[0],101), (Lambda_1*P)[1]!=Tower.frobenius_computation(P[1],101), (Lambda_2*Q)[0]!=Tower.frobenius_computation(Q[0],101), (Lambda_2*Q)[1]!=Tower.frobenius_computation(Q[1],101)
 	Er,Pr,Lr=straightening_step(E2,P,Q,l,k2,Tower,Lambda_1,h)
 	El,Pl,Ll=straightening_step(E2,Q,P,l,k2,Tower,Lambda_2,h)
-	#determination(Pr,stair,Tower,l**k2)???
-	#print 'on est vraiment determine'
 	P=way_back(Pr,Lr)
 	Q=way_back(Pl,Ll)
-	#A=Tower._base(E2.a4()[0])
-	#B=Tower._base(E2.a6()[0])
-	#E2=EllipticCurve([A,B])
-	#A=Tower._base(P.curve().a4()[0])
-	#B=Tower._base(P.curve().a6()[0])
-	#E=EllipticCurve([A,B])
-	#Pm=wm.isomorphisms(E,E2,True) #on recupere les coefficients u,r,s,t pour revenir a la courbe de depart
-        #Pl=wm.WeierstrassIsomorphism(E, Pm, E2)#on recupere l isomorphisme
 	if conservation==None:
 		return E2,P,Q,k2,Lambda_1,Lambda_2
 	else:	

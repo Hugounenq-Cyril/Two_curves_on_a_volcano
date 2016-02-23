@@ -1,34 +1,3 @@
-def creation_matrice(P,Q,l,order,PR):
-		#not useful since we have implemented an other function
-		'''
-		Functions that tabulates linear combinations of P and Q
-
-		INPUT
-		-P a primitive l^order torsion point on an elliptic curve E
-		-Q a primitive l^order torsion point on an elliptic curve E
-		-PR the polynomial ring under which further calculations will be made
-
-		OUTPUT:
-		A list of abscissas of multiples of the point P and Q
-		'''
-		L=[]
-		R=P
-		S=P.curve()(0)
-		M=[]
-		M.append(0)
-		for j in range(0,l**(order-1)+1):			
-			R+=S			
-			for i in range(0,l**order-1):
-				M.append(PR(R[0]))
-				R+=P	
-			L.append(M)
-			R=P
-			S+=Q
-			M=[]
-			M.append(S[0])
-		return L
-
-
 def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 	'''
 	Fonction qui calcule la liste à interpoler avec a et b les coefficients d'interpolation
