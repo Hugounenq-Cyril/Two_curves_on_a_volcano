@@ -11,7 +11,7 @@ def Calcul_j_invariant_cratere_isogenes(p,r,j4,p1):
 	'''
 	if volcan_cyclique(p,r,j4):
 		j4=Construction_Montante(p,r,j4)
-		return volcan_cyclique_et_courbes_isogenes(p,r,j4,p1)e
+		return volcan_cyclique_et_courbes_isogenes(p,r,j4,p1),j4
 	else: 
 		print "volcan pas cyclique"
 		return False
@@ -184,6 +184,4 @@ def Conversion(t,p,r): # fonction auxilaire qui permet de prendre au hasard un √
 		else :
 			t=l[1]
 	return res
-
-u=2*573479 * 1281201289 #valeur test√©e
 	
