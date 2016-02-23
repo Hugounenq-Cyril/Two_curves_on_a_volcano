@@ -27,230 +27,7 @@ def creation_matrice(P,Q,l,order,PR):
 			M=[]
 			M.append(S[0])
 		return L
-'''
-def creation_list_interpolation(M1,M2,b,d,R):
-		#not useful since we have implemented other fonctions to do this according to the frobenius
-		
-		INPUT:
-		-M1 a 2 dimension list of abscissas of points of an elliptic curve
-		-M2 a 2 dimension list of abscissas of points of an elliptic curve
-		-b an integer prime to the order of the primitive points who spanned M1 and M2
-		-d an integer prime to the order of the primitive points who spanned M1 and M2
 
-		OUPUT:
-		An interpolation list who has for first entry a point of M1 and second entry a
-		point of M2 according to their index and b and d
-		
-		L=[]
-		L0=len(M1[0])
-		i=0
-		for j in range(1,L0/2+1):
-				L.append([M1[0][j],M2[0][s]])
-		for i in range(1,L0/2):
-			for j in range(0,L0):
-				r=i*b%L0
-				s=j*d%L0
-				if r>L0/2:
-					L.append([M1[i][j],M2[L0-r][-s]])
-				else :
-					L.append([M1[i][j],M2[r][s]])
-		r=(L0/2)*b%L0
-		for j in range(0,L0/2+1):
-			s=j*d%L0
-			if r>L0/2:
-				L.append([M1[L0/2][j],M2[L0-r][-s]])
-			else:
-				L.append([M1[L0/2][j],M2[r][s]])
-		return L
-'''
-'''
-def modif_list_interpolation(L,M1,M2,b,d,R):
-		#fonction inutile une autre a ete implante
-
-		INPUT:
-		-M1 a 2 dimension list of abscissas of points of an elliptic curve
-		-M2 a 2 dimension list of abscissas of points of an elliptic curve
-		-b an integer prime to the order of the primitive points who spanned M1 and M2
-		-d an integer prime to the order of the primitive points who spanned M1 and M2
-
-		OUPUT:
-		An interpolation polynomial who sents the entries of M1 on the entries of M2 according to their index and b and d
-
-		L0=len(M1[0])
-		i=0
-		c=0
-		for j in range(1,L0/2+1):
-				r=i*b%L0
-				s=j*d%L0
-				if r>L0/2:
-					L[c][1]=M2[L0-r][-s]
-				else :
-					L[c][1]=M2[r][s]
-				c+=1
-		for i in range(1,L0/2):
-			for j in range(0,L0):
-				r=i*b%L0
-				s=j*d%L0
-				if r>L0/2:
-					L[c][1]=M2[L0-r][-s]
-				else :
-					L[c][1]=M2[r][s]
-				c+=1
-		i=L0/2
-		for j in range(0,L0/2+1):
-			r=i*b%L0
-			s=j*d%L0
-			if r>L0/2:
-				L[c][1]=M2[L0-r][-s]
-			else:
-				L[c][1]=M2[r][s]
-			c+=1
-		return L
-
-'''
-'''
-def creation_liste(P,l,order):#devenu obsolete puisque l on cree directement un tableau a deux dimensions
-		
-		INPUT:
-		-P a primitive l^order torsion point on an elliptic curve E
-		-l an integer
-		-order an integer
-
-		OUPUT:
-		A list of abscissas of multiples of the point P
-		
-		L=[P.xy()[0]]
-		Q=P
-		for i in range(1,l**order):
-			L.append(Q.xy()[0])
-			Q+=P
-		return L
-'''
-'''
-def creation_poly_interpolation_old(L1,L2,b,L3,L4,d,R): #devenu obsolete vu que l on travaille avec des tableaux de dimension 2
-		
-		INPUT:
-		-L1 a list of abscissas of multiples of point corresponding to it's abscissa in the first entry 
-		-L2 a list of abscissas of multiples of point corresponding to it's abscissa in the first entry 
-		-R the polynomial ring in which we work
-
-		OUPTUT:
-		An interpolation polynomial that sends the elements of the first list L1 on elements of the second list according to the index
- 		
-		L=[]
-		L0=len(L1)
-		for i in range(1,L0/2+1):
-			L.append([L1[i],L2[(b*i)%L0]])
-			L.append([L3[i],L4[(d*i)%L0]])
-		return R.lagrange_polynomial(L)
-'''
-
-'''
-def creation_poly_interpolation_bis(L1,L2,b,R,l):
-	
-	INPUT:
-	-L1 a list of abscissas of multiples of point corresponding to it's abscissa in the first entry 
-	-L2 a list of abscissas of multiples of point corresponding to it's abscissa in the first entry 
-	-R the polynomial ring in which we work
-
-	OUPTUT:
-	An interpolation polynomial that sends the elements of the first list L1 on elements of the second list according to the index
- 	
-	L=[]
-	L0=len(L1)
-	for i in range(1,L0):
-		L.append([L1[i],L2[(b*i)%L0]])
-	return interpolation_global(L,R)	
-
-def initialisation_P(L,R):
-	
-	Initialisation of ploynomials Pij and the list V
-
-	INPUT:
-	-L a list of points and images of length a power of 2
-	-R the Polynomial Ring we are working on
-
-	OUTPUT:
-	The polynomials Pij and the list of coefficients V 
-	
-	n=len(L)
-	k=0
-	while 2**k<n :
-		k+=1
-	P=[[]]
-	x=R.gen()
-	V=[]
-	for j in range(n):
-		P[0].append(x-L[j][0])
-	u=n
-	kb=k
-	while (u>2):
-		P.append([])
-		for j in range(0,2**(kb-1),2):
-			P[-1].append(P[-2][j]*P[-2][j+1])
-		j=2**(kb-1)		
-		if (u-j)>j/2:
-			while (j+1)<u:
-				P[-1].append(P[-2][j]*P[-2][j+1])
-				j+=2
-			if j<u:
-				P[-1].append(P[-2][j])
-		elif kb>0 :
-			while j<u and u>2:
-				P[-1].append(P[-2][j])
-				j+=1
-		u=len(P[-1])
-		kb-=1
-	if u==2:
-		P.append([])
-		P[-1].append(P[-2][0]*P[-2][1])
-		
-	for i in range(n):
-		V.append((P[-1][0].diff()(L[i][0]))**(-1)*L[i][1])
-	return P,V,k
-'''
-'''
-def collage(L1,L2):
-	P=[]
-	n1=len(L1)
-	print L2,2**(k-1),n
-	n2=len(L2)
-	for i in range(1,n2+1):
-		M=L1[-i]+L2[-i]
-		P.append(M)
-	for i in range(n2+1,n1+1):
-		P.append(L1[-i])
-	return P.reverse()	
-'''
-'''
-def transformation_liste_bis(L,n):
-	M=[]
-	b=bin(n).count('1')
-	for i in range(b-1):
-		m=L.index(0)
-		c=len(L)
-		M.append(L[0:m])               
-		L=L[m+1:c]
-	M.append(L)
-	L=M[0]
-	for i in range(b-2):
-		for j in range(len(M[i+1])):
-			L[-i-2-j]=L[-i-2-j]+M[i+1][-j-1]
-	for j in range(len(M[b-1])):
-		L[-b-j+1]=L[-b-j+1]+M[b-1][-j-1]
-	for i in range(b-1):
-		L[-b+2+i]=L[-b+2+i]+[L[-b+1+i][-1]*L[-b+1+i][-2]]
-	L.append([L[-1][-1]*L[-1][-2]])			
-	return L
-'''
-
-#def creation_poly_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb):
-	#'''
-	#Fonction qui calcule le polynome d'interpolation avec a et b les coefficients d'interpolation
-	#'''
-	#L=creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb)
-	#return pol_inter_creation(L) 
-	#return L
 
 def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 	'''
@@ -273,15 +50,12 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 	T=[]
 	C=[]
 	M=[0]*(o2-o1+1)
-	#print 'k2',k2
 	for i in range(2**k2): 
 		for j in range(2**k2):
 			if (i%2==1)or(j%2==1 ):
 				C.append((i*P+j*Q)[0])
-				#print 'i,j,i*P+j*Q',i,j,i*P+j*Q
 			else:
 				C.append(False)
-				#C.append((i*P+j*Q)[0])
 		T.append(C)
 
 		C=[]
@@ -291,7 +65,6 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 				if T[i][2**h*j]!=False and j%2==1:
 					i1=Tower.pushD(T[i][2**h*j],h)#we consider the elements in the lowest level tower where they are defined
 					j1=Tower.pushD((a*i*Pb+b*2**h*j*Qb)[0],h)#we consider the elements in the lowest level tower where they are defined
-					#print "h,i1.parent()",h,i1.parent()
 					C.append([i1,j1,i,2**h*j])
 					#il faut aussi enlever les opposés
 					T[i][2**h*j]=False
@@ -305,9 +78,8 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 						T[-i1%2**k2][-j1%2**k2]=False
 			j=0
 		M[h]=C		
-		#M.append([C])#chaque colonne de la matrice correspondra a un ordre
 		C=[]
-	if o1==o2:#cas ou les ordres sont egaux ne devrait pas arriver en fait...
+	if o1==o2:#cas ou les ordres sont egaux
 		for i in range(2**k2):
 			for j in range(2**k2):
 				if T[i][j]!=False and (i%2==1 or j%2==1):
@@ -344,13 +116,6 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 						T[i1][j1]=False
 						T[-i1%2**k2][-j1%2**k2]=False
 		M[o2-o1]=C	
-	#M.append([C])
-	#on a alors fini les ordres
-	#print 'len(C),o1,o2,k2,Lambda_1,Lambda_2',len(C),o1,o2,k2,Lambda_1,Lambda_2	
-	#for c in C:	
-		#print c[-1],c[-2]
-	#print 'M[0]',len(M[0]),M[0]
-	#print 'M[1]',len(M[1]),M[1]
 	return	M
 
 def modif_list_interpolation(C,a,b,Pb,Qb,Tower):
@@ -412,8 +177,6 @@ def initialisation_recu(L,R,x,Tower):
 	while 2**k<n :
 		k+=1
 	if 2**k!=n :
-		#L1=initialisation_recu(L[0:2**(k-1)],R)
-		#L2=initialisation_recu(L[2**(k-1):n],R)
 		return initialisation_recu(L[0:2**(k-1)],R,x,Tower)+[0]+initialisation_recu(L[2**(k-1):n],R,x,Tower)
 		#we use this format for the parsing of the output
 	else:
@@ -432,11 +195,7 @@ def initialisation_recu(L,R,x,Tower):
 		while (u>1):
 			P.append([])
 			for j in range(0,u,2):
-				#if P[-2][j][0].parent()!=P[-2][j+1][0].parent():
-					#print 'P[-2][j]',P[-2][j]
-					#print  'P[-2][j+1]',P[-2][j+1]
-				P[-1].append(P[-2][j]*P[-2][j+1])
-				#faire ici un push down sur le polynome si c'est possible...		
+				P[-1].append(P[-2][j]*P[-2][j+1])		
 			u=u/2
 		return P
 
@@ -964,17 +723,16 @@ def test_square(P,Tower):
 		-Tower a 2-adic tower
 
 		Output:
-		A boolean value saying if P is a square
+		A boolean value saying if P is a square, and the square root if
+		 it exists
 		'''
 		DP=P.diff()
 		P2=P.gcd(DP)
 		P3=P.quo_rem(P2**2)
 		if P3[0].degree()==0 and P3[1]==0 and P2.degree()==(P.degree()/2):
-			#print 'P3[0],P3[0][0]',P3[0],P3[0][0]
 			return [True,Tower.root_computing(P3[0][0])*P2,P3[0][0]]
 		else:
 			return [False]
-		#calcul du pgcd de P et DP pour savoir si c'est un carre
 
 def fonction_test_iso(A,T,R,d,Tower):
 		'''
@@ -990,7 +748,6 @@ def fonction_test_iso(A,T,R,d,Tower):
 		The "denominator" of the l-isogeny that respects A
 		'''
 		q0,r0=T,A
-		#q1,r1=divmod(T,A)
 		q1,r1=T.quo_rem(A)		
 		u1=R(0)
 		u0=R(1)
@@ -1007,24 +764,14 @@ def fonction_test_iso(A,T,R,d,Tower):
 			v0=i
 			i=r1
 			r2=r0
-			#q1,r1=divmod(r1,r0)
 			(q1,r1)=r0.quo_rem(r1)
-			#j=r0
-			#print "r1,r2",r1,r2
 			r0=i
 			deg=R(v0).degree()
-			#on peut eventuellement retourner r0
 		if (deg==d-1):
 			test=test_square(v0,Tower)#v0.is_square(True) not implemented for all the polynomials
 			if test[0]==True:			
-				#I=F(j/v0)
-				#phi=test[1]/test[1].leading_coefficient()
-				#phi=EllipticCurveIsogeny(E,phi.list())
-				r2=r2/test[2]
-				#print "test[1],r2",test[1],r2				
+				r2=r2/test[2]			
 				return test[1],r2 
-			#tester si r0 est un carre sage le fait betement par une factorisation
-			#computation of I the possible isogeny
 			else :
 				return test[0]
 		else :
@@ -1057,9 +804,6 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 
  		'''
 		K=E1.base_field()
-		#B=sqrt(r).round()
-		#if B**2<r:
-			#B+=1
 		B=5.4*(r)
 		if E2.base_field()!=K:
 			raise TypeError('the curves must be defined on the same field')
@@ -1071,8 +815,6 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 			elif Lambda_1 != Lambda_12 or Lambda_2 != Lambda_22 :
 				print "probleme valeur propres,Lambda_1, Lambda_12, Lambda_2, Lambda_22" ,Lambda_1, Lambda_12, Lambda_2, Lambda_22 
 			R=PolynomialRing(P1[0].parent(),name='x')
-			#if (Lambda_1*P1)[0]!=Tower.frobenius_computation(P1[0],101) or (Lambda_1*P2)[0]!=Tower.frobenius_computation(P2[0],101) or (Lambda_2*Q1)[0]!=Tower.frobenius_computation(Q1[0],101) or (Lambda_2*Q2)[0]!=Tower.frobenius_computation(Q2[0],101) :
-				#print (Lambda_1*P1)[0]!=Tower.frobenius_computation(P1[0],101), (Lambda_1*P2)[0]!=Tower.frobenius_computation(P2[0],101), (Lambda_2*Q1)[0]!=Tower.frobenius_computation(Q1[0],101), (Lambda_2*Q2)[0]!=Tower.frobenius_computation(Q2[0],101) 
 			T=E1.division_polynomial(2**k1,R.gen())
 			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,T,r,Lambda_1,Lambda_2,Tower)
 
@@ -1093,54 +835,31 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 	'''
 	i=1
 	j=1
-	#M1=creation_matrice(P1,Q1,l,order,R)
-	#M2=creation_matrice(P2,Q2,l,order,R)
 	Test=False
-	#FractionField(R)
-	#L=creation_list_interpolation(M1,M2,i,j,R)
 	o1=valuation(mod(Lambda_1,l**order).multiplicative_order(),l)
 	o2=valuation(mod(Lambda_2,l**order).multiplicative_order(),l)
 	power=Tower._base.cardinality()
 	if o1>o2:
 		(o2,o1,Lambda_2,Lambda_1,Q1,P1,Q2,P2)=(o1,o2,Lambda_1,Lambda_2,P1,Q1,P2,Q2)
 	L=creation_list_interpolation(P1,Q1,o1,o2,Lambda_1,Lambda_2,order,i,j,P2,Q2,Tower)
-	#print 'L',L
-	#print 'len(L[0]),len(L[1]),len(L[2]),L',len(L[0]),len(L[1]),L[0][0],L[1][0]
 	M=initialisation_poly(L,R,Tower)#M ne dependent pas des images choisies il est calcule pour tous les ordres du frobenius
-	#print 'len(L),order,o1,o2,Lambda_1,Lambda_2,power',len(L),order,o1,o2,Lambda_1,Lambda_2,power
 	TA=M[0][1][-1][0]
-	#for r in range(len(L[0])):
-		#if TA(L[0][r][0])!=0:
-			#print 'TA(L[r][0])',TA(L[r][0])
 	#1ere etape pour l ordre maximal
 	L0=L[0]#on ne considere que les points lies a l ordre maximal
-	#print "juste avant le precalcul"
 	V=precalcul_v(M[0][1],L0,R,Tower)
 	Vr=[]
 	Vr.append(V)
-	#print "juste avant l interpolation globale"
 	A=interpolation_global(M[0][1],M[0][0],L0,V,R,Tower)
-	#for r in range(len(L0)):
-		#if A(L0[r][0])!=L0[r][1]:
-			#print 'A(L[0][r][0]),L[i]',r,A(L0[r][0]),L0[r]
 	TAT=M[0][1][-1][0]#a copy of TA for this try of interpolation
 	B=frobenius_polynomial(A,Tower,power**(2**(o2-1)))
 	TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1))) 
-	#print "juste avant le CRT"
-	#print "B,TB",B[0].parent(),TB[0].parent()
 	A,TA,U,V=CRT(A,TAT,B,TB)
 	Lc=[]
 	Lc.append([U,V])#on stocke les coefficients pour le CRT
-	#print "fin de la premiere etape"
-	#for r in range(len(L0)):
-		#if A(L0[r][0])!=L0[r][1]:
-			#print 'A(L[0][i][0]),L[i]',r,A(L0[r][0]),L0[r], 'test normalement deja verifie'
-	#print "test du polynome d interpolation passe"
 	A=red_pol_basis(A,Tower)
 	TA=red_pol_basis(TA,Tower)
 	for r in range(o2-o1-1):#on fait les ordres intermediaires entre o1 et o2 et o1 NON compris
 		Le=[]
-		#print "r,o2,o1,o2-1-r-1",r,o2,o1,o2-1-r-1,o2>o1
 		B=frobenius_polynomial(A,Tower,power**(2**(o2-1-r-1)))
 		TB=frobenius_polynomial(TA,Tower,power**(2**(o2-1-r-1)))
 		A,TA,U,V=CRT(A,TA,B,TB)
@@ -1148,14 +867,9 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 		TA=red_pol_basis(TA,Tower)
 		Le.append([U,V])
 		L0=L[r+1]#on ne considere que les points lies a l ordre intermediaire
-		#print 'L[r+1]',L[r+1],'M[r+1][1]',M[r+1][1]
 		V=precalcul_v(M[r+1][1],L0,R,Tower)
-		#print "deuxieme precalcul passe,r",r
 		Vr.append(V)
 		Aj=interpolation_global(M[r+1][1],M[r+1][0],L0,V,R,Tower)#on cree le poly interpol associe
-		#for s in range(len(L0)):
-			#if Aj(L0[s][0])!=L0[s][1]:
-				#print 'A(L[i][0]),L[i]',s,Aj(L0[s][0]),L0[s]
 		B=frobenius_polynomial(Aj,Tower,power**(2**(o2-1-r-1))) #on calcule son conjugue
 		TAT=M[r+1][1][-1][0] # le modulus associe au poly ajoute
 		TB=frobenius_polynomial(TAT,Tower,power**(2**(o2-1-r-1)))
@@ -1164,13 +878,6 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 		TB=red_pol_basis(TB,Tower)
 		Le.append([U,V])
 		A,TA,U,V=CRT(A,TA,B,TB)		
-		#for s in range(len(L[0])):
-			#if A[0].parent()!=
-			#if A(L[0][s][0])!=L[0][s][1]:
-				#print 'A(L[i][0]),L[i]',s,A(L[0][s][0]),L[0][s]
-		#for s in range(len(L[1])):
-			#if A(L[1][s][0])!=L[1][s][1]:
-				#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s]
 		Le.append([U,V])
 		Lc.append(Le) # ou Lc.append([Le])
 	#ordre o1
@@ -1184,13 +891,9 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 		TA=red_pol_basis(TA,Tower)
 		Le.append([U,V])
 		L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
-		#print 'L[o2-o1]',L[o2-o1],'M[o2-o1][1]',M[o2-o1][1],'M[o2-o1][1][-1][0]',M[o2-o1][1][-1][0]#, M[o2-o1][1][-1][0].factor()		
 		V=precalcul_v(M[o2-o1][1],L0,R,Tower)
 		Vr.append(V)
 		Aj=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,V,R,Tower)#on cree le poly interpol associe	
-		#for s in range(len(L0)):
-			#if Aj(L0[s][0])!=L0[s][1]:
-				#print 'A(L[i][0]),L[i]',s,Aj(L0[s][0]),L0[s]
 		B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
 		TAT=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
 		TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
@@ -1199,53 +902,16 @@ def calcul_isogenie_initialisation(P1,Q1,P2,Q2,R,l,order,T,d,Lambda_1,Lambda_2,T
 		TB=red_pol_basis(TB,Tower)
 		Le.append([U,V])
 		A,TA,U,V=CRT(A,TA,B,TB)	
-		#print "A[0].parent()",A[0].parent()
-		#print "L[0][0][0].parent()",L[0][0][0].parent()	
-		#for s in range(len(L[0])):
-			#if A(L[0][s][0])!=L[0][s][1]:
-				#print 'A(L[i][0]),L[i]',s,A(L[0][s][0]),L[0][s]
-		#for s in range(len(L[1])):
-			#if A(L[1][s][0])!=L[1][s][1]:
-				#print 'A(L[i][0]),L[i]',s,A(L[1][s][0]),L[1][s]
 		Le.append([U,V])
 		Lc.append(Le)
 	else :#du coup on ne fait pas agir le Frobenius...
 		Le=[]		
-		#print "L[o2-o1]",L[o2-o1]		
-		#B=frobenius_polynomial(A,Tower,power**(2**(o1-1)))
-		#TB=frobenius_polynomial(TA,Tower,power**(2**(o1-1)))
-		#A,TA,U,V=CRT(A,TA,B,TB)
-		#A=red_pol_basis(A,Tower)
-		#TA=red_pol_basis(TA,Tower)
-		#Le.append([U,V])
 		L0=L[o2-o1]#on ne considere que les points lies a l ordre intermediaire
-		#for s in range(len(L[o2-o1])):
-			#if A(L[o2-o1][s][0])!=L[o2-o1][s][1]:
-				#print 's,A(L[o2-o1][s][0]),L[o2-o1][s]',s,A(L[o2-o1][s][0]),L[o2-o1][s],'o1=0','avant CRT'
 		V=precalcul_v(M[o2-o1][1],L0,R,Tower)
 		Vr.append(V)
 		B=interpolation_global(M[o2-o1][1],M[o2-o1][0],L0,V,R,Tower)#on cree le poly interpol associe
-		#for s in range(len(L0)):
-			#if B(L0[s][0])!=L0[s][1]:
-				#print 'B(L[o2-o1][0]),L[i]',s,B(L0[s][0]),L0[s]
-		#B=frobenius_polynomial(Aj,Tower,power**(2**(o1-1))) #on calcule son conjugue
 		TB=M[o2-o1][1][-1][0] # le modulus associe au poly ajoute
-		#TB=frobenius_polynomial(TAT,Tower,power**(2**(o1-1)))
-		#B,TB,U,V=CRT(Aj,TAT,B,TB)#pour le polynome ajoute
-		#B=red_pol_basis(Aj,Tower)
-		#TB=red_pol_basis(TAT,Tower)
-		#Le.append([U,V])
-		#print 'A.degree(),TA.degree(),B.degree(),TB.degree()',A.degree(),TA.degree(),B.degree(),TB.degree()
-		#for s in range(len(L[o2-o1-1])):
-			#if A(L[o2-o1-1][s][0])!=L[o2-o1-1][s][1]:
-				#print 'A(L[o2-o1-1][0]),L[i]',s,A(L[o2-o1-1][s][0]),L[o2-o1-1][s],'o1=0','premier essai avant CRT'
 		A,TA,U,V=CRT(A,TA,B,TB)		
-		#for s in range(len(L[o2-o1])):
-			#if A(L[o2-o1][s][0])!=L[o2-o1][s][1]:
-				#print 'A(L[o2-o1][0]),L[i]',s,A(L[o2-o1][s][0]),L[0][s],'o1=0','deuxieme essai apres CRT'
-		#for s in range(len(L[o2-o1-1])):
-			#if A(L[o2-o1-1][s][0])!=L[o2-o1-1][s][1]:
-				#print 'A(L[o2-o1-1][0]),L[o2-o1-1]',s,A(L[o2-o1-1][s][0]),L[o2-o1-1][s],'o1=0','deuxieme essai different apres CRT'
 		Lc.append([U,V])				
 	for r in range(o1-1):
 		B=frobenius_polynomial(A,Tower,power**(2**(o1-2-r)))
