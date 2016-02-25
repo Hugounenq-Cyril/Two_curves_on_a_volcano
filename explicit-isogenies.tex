@@ -142,9 +142,9 @@ non-constant rational maps preserving the point at infinity. They are
 also algebraic group morphisms. Isogeny computations play a central
 role in the algorithmic theory of elliptic curves. They are notably
 used to speed up Schoof's point counting
-algorithm~\cite{schoof85,atkin88,elkies92,schoof95,elkies98}. They are
+algorithm~\cite{schoof85,atkin88,schoof95,elkies98}. They are
 also widely applied in cryptography, where they are used to speed up
-point multiplication~\cite{gallant+lambert+vanstone01,birkner+sica11},
+point multiplication~\cite{gallant+lambert+vanstone01,longa+sica14},
 to perform cryptanalysis~\cite{mauer+menezes+teske01}, and to
 construct new
 cryptosystems~\cite{teske06,charles+lauter+goren09,Stol,defeo+jao+plut12,jao+soukharev2014-signatures}.
@@ -172,7 +172,7 @@ often say that we have computed $ψ$ whenever we have computed $h$, and
 reciprocally.
 
 This paper focuses on the explicit isogeny problem for \emph{ordinary}
-elliptic curves over finite fields. A famous theorem by Tate states
+elliptic curves over finite fields. A famous theorem by Tate~\cite{tate1966endomorphisms} states
 that two curves are isogenous over a finite field if and only if they
 have the same cardinality over that field. The explicit isogeny
 problem stated here appears naturally in the Schoof-Elkies-Atkin point
@@ -189,14 +189,14 @@ would solve the problem using $O(r)$ field operations. Many algorithms
 have been suggested over the years to solve the explicit isogeny
 problem. Early algorithms were due to Atkin~\cite{atkin91} and
 Charlap, Coley and
-Robbins~\cite{charlap1991enumeration}. Elkies'~\cite{elkies92,elkies98,Bostan}
+Robbins~\cite{charlap1991enumeration}. Elkies'~\cite{elkies98,Bostan}
 was the first algorithm targeted to finite fields (of large enough
 characteristic). Assuming $r$ is prime, its complexity is dominated by
 the computation of the modular polynomial $\Phi_r$, which is an object
 of (binary) size $O(r^3\log(r))$. Later Bröker, Lauter and
 Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
 computation in the context of the SEA
-algorithm. Finally Lercier and Sirvent~\cite{lercier+sirvent08,1602.00244}
+algorithm~\cite{sutherland2013evaluation}. Finally Lercier and Sirvent~\cite{lercier+sirvent08,1602.00244}
 generalized Elkies' algorithm to work in any characteristic. Despite
 these advances, the overall cost of Elkies' algorithm and its
 variants is still at least cubic in $r$.
@@ -1103,7 +1103,7 @@ an expected
 $O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
 using the Cantor-Zassenhaus algorithm. More efficient methods for special
 instances of volcanoes are presented in~\cite{MiretMRV05} and
-in~\cite{IonicaJ10}, but we do not discuss them.
+in~\cite{ionica+joux13}, but we do not discuss them.
 
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
