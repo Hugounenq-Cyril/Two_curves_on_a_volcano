@@ -1,66 +1,5 @@
 import sage.schemes.elliptic_curves.weierstrass_morphism as wm
 
-def division_point_q(l,P,E):
-	'''
-	This function computes an l-division point of P if it exists on the 
-	field where the elliptic curve E is defined. If there do not exist 
-	l-division point of P the function returns the same point P. The choice
-	of the l-division is arbitrary, the function returns the first 
-	l-division point computed.
-
-	INPUT:
-
-	- l an integer
-	- P a point that belongs to E
-	- E an elliptic curve defined over a field
-	
-	OUTPUT:
-	A l-division point of P if it exists, if it does not exist it returns 
-	the point P.
-
-	EXAMPLE:
-	sage: k=FiniteField(101)
-	sage: E1=EllipticCurve(j=k(65)).quadratic_twist();
-	sage: P=E1.random_point(); P=2*P; P
-	(52 : 74 : 1)
-	sage: P.order()
-	12
-	sage: Q=division_point_q(2,P,E1); print Q,Q.order()
-	(43 : 14 : 1) 24
-	'''
-	ans=[]
-	nP=-P
-        P_is_2_torsion = (P == -P)
-        g = E._multiple_x_numerator(l) - P[0]*E._multiple_x_denominator(l)
-        if P_is_2_torsion:
-            if l % 2 == 0:
-                g = g.gcd(g.derivative())*g.leading_coefficient().sqrt()
-
-            else: #sert à rien en pratique....
-                g0 = g.variables()[0] - P[0]
-                g = g // g0
-                g = g.gcd(g.derivative())*g.leading_coefficient().sqrt()
-                g = g0*g
-        L=g.roots(multiplicities=False); i=0;
-        while (len(ans)==0 and i<len(L)):
-            x=L[i]; i=i+1;
-            if E.is_x_coord(x):
-                Q = E.lift_x(x)
-                nQ = -Q
-                lQ = l*Q
-                if P_is_2_torsion:
-                    if lQ == P:
-                        ans.append(Q)
-                        if nQ != Q:
-                            ans.append(nQ)
-                else:
-                    if lQ == P:
-                        ans.append(Q)
-                    elif lQ == nP:
-                        ans.append(nQ)
-	if (i==len(L) and len(ans)==0):
-		return P
-        return ans[0]
 
 def antecedent_2_mutliplication(E,Q,Tower):
 	'''
@@ -73,10 +12,17 @@ def antecedent_2_mutliplication(E,Q,Tower):
 	Output:
 	-R a point of E such that 2*R=Q
 	'''
+	#we compute the 2 2isogenies from which we will compute pre image and
+	#also the weierstrass ismorphism which permit us to have the same 
+	#representation of points
 	phi1,phi2,Pl=calcul_2_isogenie_antecedent(E,Tower)
+	#we compute a pre image of the image of Q by the weierstrass 
+	#isomorphism
 	R=calcul_antecedent_2_isogenie(Pl(Q),phi2,Tower)
 	if phi2(R)!=Pl(Q):
 		R=-R
+	#we store the value of R to be able to check later if we got the good
+	#pre image
 	R2=R
 	R= calcul_antecedent_2_isogenie(R,phi1,Tower)
 	if phi1(R)!=R2:
@@ -101,6 +47,9 @@ def calcul_2_isogenie_antecedent(E,Tower):
 	R=PolynomialRing(E.base_field(),'x')
 	A=K(E.a4()[0])
 	B=K(E.a6()[0])
+	#we work only on the base field for the construction of the isogeny
+	#because Sage is not able to construct them on an other level of the
+	#2 adic tower
 	Ebis=EllipticCurve([K(A),K(B)])
 	L=Ebis(0).division_points(2)
 	P1=L[1]
@@ -112,9 +61,12 @@ def calcul_2_isogenie_antecedent(E,Tower):
 	E2=phi2.codomain()
 	A2=K(E2.a4()[0])
 	B2=K(E2.a6()[0])
+	#we construct E2bis for the same reason as for Ebis
 	E2bis=EllipticCurve([K(A2),K(B2)])
-	Pm=wm.isomorphisms(Ebis,E2bis,True) #on recupere les coefficients u,r,s,t pour revenir a la courbe de depart
-	Pl=wm.WeierstrassIsomorphism(E, Pm ,phi2.codomain())#on recupere l isomorphisme
+	#the next 2 lines are only for the computation of the Weierstass 
+	#isomorphism
+	Pm=wm.isomorphisms(Ebis,E2bis,True) 
+	Pl=wm.WeierstrassIsomorphism(E, Pm ,phi2.codomain())
 	return phi1,phi2,Pl
 	
 
@@ -129,36 +81,36 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 	Preimage of Q by phi
 	'''
 	E=phi.domain()
+	#we get the rational maps for the x, since we are only intersted in 
+	#the abscissas of the points		
 	f=phi.rational_maps()[0]
 	PR2=PolynomialRing(Q[0].parent(),'x')	
 	a2=E.a4()
 	b2=E.a6()
 	K=Tower._base
-	#we get the rational maps for the x, since we are intersted ine the abscissas of the points
 	num=f.numerator()
 	den=f.denominator()
 	#we have to tell sage that this is a polynomial and not a rational function
 	num=PR2([num.coefficients()[2],num.coefficients()[1],num.coefficients()[0]])
 	den=PR2([den.coefficients()[1],den.coefficients()[0]])
 	solv=num-den*Q[0]
-	suppri5=solv
-	#now we can use the implemented fonction to compute square roots to solve this quadratic equation
+	#now we can use the implemented fonction to compute square roots to solve 
+	#this quadratic equation
 	delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
+	#we make sure they are defined in the same level of the 2-adic tower to 
+	#be able to compare them	
 	delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
 	while delta_sqrt**2!=b:
 		delta_sqrt=Tower.root_computing(solv[1]**2-4*solv[2]*solv[0])
 		delta_sqrt,b=Tower.meeting(delta_sqrt,solv[1]**2-4*solv[2]*solv[0])
-	suppri=delta_sqrt
-	suppri2=solv[1]
-	suppri3=solv[2]
+	#to make sure that the square root is at the good level in the tower	
 	delta_sqrt,solv1=Tower.meeting(delta_sqrt,solv[1])
-	#to be sure that the square root is at the good level in the tower
 	delta_sqrt,solv2=Tower.meeting(delta_sqrt,solv[2])
-	#ditto
+	#to make sure that we work in the good polynomial ring
 	if delta_sqrt.parent()!=solv[2].parent():
 		PR2=PolynomialRing(delta_sqrt.parent(),'x')	
 	A2=PR2((-solv1+delta_sqrt)/(2*solv2))[0]
-	suppri4=A2
+	#to make sure that the square root is at the good level in the tower		
 	A2,a2=Tower.meeting(A2,a2)
 	A2,b2=Tower.meeting(A2,b2)
 	B=Tower.root_computing(A2**3+a2*A2+b2)
@@ -167,7 +119,7 @@ def calcul_antecedent_2_isogenie(Q,phi,Tower):
 		a2,A2=Tower.meeting(a2,A2)
 		b2,A2=Tower.meeting(b2,A2)
 		E=EllipticCurve([a2,b2])
-	
+	#we test if we have the good point or its oppposite
 	if phi(E(A2,B))!=Q :
 		return E(A2,-B)
 	else :
@@ -187,8 +139,6 @@ def division_point_qbis(l,P,E,Tower):
 	- l an integer
 	- P a point that belongs to E
 	- E an elliptic curve defined over a field
-	- PR the polynomial ring in x with the same base field as the 
-	coordinates of P
 	- Tower the 2-adic tower under which E is defined
 	
 	OUTPUT:
@@ -207,6 +157,7 @@ def division_point_qbis(l,P,E,Tower):
 	'''
 	if l==2 :
 		return antecedent_2_mutliplication(E,P,Tower)
+	#not useful since we work only with 2 torsion	
 	else :
         	ans=[]
         	nP=-P
@@ -260,7 +211,7 @@ def division_point_qbis(l,P,E,Tower):
 def calcul_torsion_max(E,l):
 	'''
 	This function computes the maximal rationnal l-torsion and returns 
-	the rationnal generator point(s) of this l-torsion with the power 
+	the rational generator point(s) of this l-torsion with the power 
 	of the l rationnal torsion of each point returned.
 
 	INPUTS:
@@ -279,8 +230,7 @@ def calcul_torsion_max(E,l):
 	sage: [k1,P,k2,Q]=calcul_torsion_max(E1,2); print k1,P,P.order().factor(),"k2",k2,Q,Q.order().factor()
 	3 (95 : 91 : 1) 2^3 k2 2 (82 : 47 : 1) 2^2
 	'''
-
-	#il faut d'abord définir le rang de la l-torsion rationelle
+	#we first define the rank of the rational l-torsion
 	M=[]
         g = E.division_polynomial(l)
         for x in g.roots(multiplicities=False):
@@ -290,7 +240,9 @@ def calcul_torsion_max(E,l):
                 if lQ == E(0):
                     M.append(Q)
         L=M; j=1;
-	if len(M) != 1 : #si la l-torsion rationnelle n'est pas de rang 1 alors on cherche à déterminer deux points qui n'engendrent pas le même groupe pour cela on se sert du couplage de Weil
+	if len(M) != 1 :
+	#if the rational torsion is not of rank 1 then we determine two points
+	# that do not generate the same group, for this we use the weil pairing	 
 		if l==2:
 			L=[L[0],L[j]]
 		else :
@@ -309,7 +261,11 @@ def calcul_torsion_max(E,l):
 			L[1]=Q
 			Q=division_point_q(l,L[1],E)
 			k2=k2+1
-		if k1==k2: #on regarde ici si on ne peut pas aller plus loin, car il est possible que l'un des deux points générateurs soit celui qui engendre l'isogénie descendante, on doit alors se ramener au point qui n'engendre pas une isogénie descendante et calculer alors les points de division de ce point.
+		if k1==k2:
+		#we look here if we can go further, it is possible that one of 
+		#the two generator points is the generator of a descending 
+		#isogeny, then we have to get this point to one who is not a 
+		#generator of a descending isogeny 
 			R=P+Q
 			j=1
 			P=division_point_q(l,R,E)		
@@ -317,14 +273,17 @@ def calcul_torsion_max(E,l):
 				R=R+Q
 				P=division_point_q(l,R,E)
 				j=j+1
-			while ( l*P==R):#ici on voit que la fonction ne marche que sur les cratères car la boucle précédente nous assure juste de pouvoir déterminer un point de l-division à la puissane supérieure, donc si on n'est pas sur le cratère il faudrait répéter cette étape pour pouvoir déterminer la structure exacte de la l-torsion
+			#here we assume that we are on a crater
+			while ( l*P==R):
 				R=P
 				P=division_point_q(l,R,E)
 				k1=k1+1
 		if k2>k1:
 			[k1,P,k2,Q]=[k2,Q,k1,P]
 		return k1,P,k2,Q
-	else : #si on est dans ce cas-là c'est qu'il y a une erreur sur le choix de la courbe, au mieux on est à la base d'un volcan avec cratère cyclique
+	#in the following case we have made a bad choice for the curve since it
+	#only has cyclic l-torsion
+	else : 
 		k1=1
 		P=division_point_q(l,L[0],E)
 		while (P!=L[0] ):
@@ -348,7 +307,11 @@ def fonction_ent_diago(P,Q,Tower,rs,Lambda_1, Lambda_2,power,h):
 	Output:
 	P, Q, Lambda_1, Lambda_1 such that \pi(P)=Lambda_1P \pi(Q)=Lambda_2Q	
 	'''
+	#we compute the coefficients of the matrix of the Frobenius in the 
+	#basis P,Q 
 	a,b,c,d=calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1,Lambda_2,power)
+	#we return then a diagonalized basis P,Q for the Frobenius and the new
+	#values of the Lambda
 	return fonction_diagonalisation(P,Q,a,b,c,d,Lambda_1,Lambda_2 , rs,h);
 
 def calcul_coeff_diagonalisation(P,Q,Tower,rs,Lambda_1, Lambda_2,power):
@@ -415,7 +378,6 @@ def fonction_diagonalisation(P,Q,a,b,c,d,Lambda_1, Lambda_2 , rs,h):
 				return P,Lambda_1+2**(rs-1)*a, Q, Lambda_2+2**(rs-1)*d
 			if c==0:
 				P=2**(rs-1-h)*Q+P
-				#cette etape peut couter cher a la longue autant ajouter un des 3 points de 2 torsion et passer au suivant a chaque etape cela coutera beaucoup moins, mais cela peut changer d ou a, il faudrait alors recalculer ces coefficients... ou sinon on memorise les points de 2 torsion
 				return P,Lambda_1+2**(rs-1)*a, Q, Lambda_2+2**(rs-1)*d
 		else:
 		#the matrix is nor trigonalized nor diagonalized
@@ -459,6 +421,7 @@ def suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i):
 	sage: suite_calcul_torsion_max(E1b,P,Q,k1,k2,2)
 	(4, (85*a + 7 : 78*a + 29 : 1), 3, (83*a + 7 : 91*a + 39 : 1))
 	'''
+	#here we make sure to have P and Q of same torsion
 	if k1!=k2:
 		if k1>k2:
 			P=2**(k1-k2)*P
@@ -467,6 +430,7 @@ def suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i):
 			Q=2**(k2-k1)*P
 			k2=k1
 	h=k1
+	#we initialise the eigenvalue for the Frobenius
 	Lambda_1=1
 	Lambda_2=1
 	for j in range(i):
@@ -474,7 +438,8 @@ def suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i):
 		P=R
 		R=division_point_qbis(l,Q,E,Tower)	
 		Q=R
-		#il faut redresser la base et actualiser les valeurs propres
+		#at each step we diagonlaized the basis and we update the value
+		#of the eigenvalues
 		P,Lambda_1,Q,Lambda_2=fonction_ent_diago(P,Q,Tower,j+k2+1,Lambda_1, Lambda_2,Tower._base.cardinality(),h)
 		if Lambda_1==Lambda_2:
 			h+=1
@@ -499,6 +464,7 @@ def suite_calcul_torsion_max_2(E,P,Q,k1,k2,l,Tower,i,h,Lambda_1,Lambda_2):
 	- k1 an integer such that P is a point of l^k1 torsion
 	- k2 an integer such that Q is a point of l^k1 torsion
 	- i is an integer and is for the number of steps we want to do
+	- h is the 2 adic valuation of the difference between Lambda_1 and Lambda_2
 
 	OUTPUT:
 	The l-th power of the generator points with the generator points		
@@ -676,7 +642,6 @@ def centering_frob(E,P,Q,Tower,l,o,Lambda_1,h,stair=None):
 	sage: P.order()
 	8
 	'''
-
 	Pfx=Tower.frobenius_computation(P[0],Tower._base.cardinality())
 	Pmx=Lambda_1*P
 	Pfy=Tower.frobenius_computation(P[1],Tower._base.cardinality())
@@ -730,11 +695,14 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 	sage: print P,P.order(),Q,Q.order(), Q.xy()[0]^101==(5*Q).xy()[0]
 	(67 : 53 : 1) 8 (41*a + 33 : 46*a + 68 : 1) 8 True
 	'''
-	#phi=E.isogeny(l**(k-1)*P,codomain=None, degree=l, model=None, check=False) ne marche pas a cause du calcul de l ordre du point 
+	#we compute an l-torsion point which will allow us to compute later 
+	#horizontal l-iosgeny
 	Q2=l**(k-1)*Q
 	L=[]
 	R=PolynomialRing(E.base_field(),'x')
 	for i in range(k-1):
+		#we compute an l-torsion point which will allow us to compute 
+		#later horizontal l-iosgeny
 		S=l**(k-1)*P
 		phi=E.isogeny(R([-S[0],1]),degree=2)
 		E=phi.codomain()
@@ -744,20 +712,27 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		Q1=g(Q[0],Q[1])
 		Q=E(Q0,Q1)
 		Q2=phi(Q2)
+		#here we compute the dual isogeny of phi
 		psi=E.isogeny(R([-Q2[0],1]),degree=2)
 		K=Tower._base
+		#we compute also the weierstrass isomorphism to make all those
+		#isogeny constructed compatible
 		E2bis=EllipticCurve([K(phi.domain().a4()[0]),K(phi.domain().a6()[0])])	
 		Ebis=EllipticCurve([K(psi.codomain().a4()[0]),K(psi.codomain().a6()[0])])
 		Pm=wm.isomorphisms(Ebis,E2bis,True)
 		E1=psi.codomain()
 		E2=phi.domain()
 		Pl=wm.WeierstrassIsomorphism(E1,Pm,E2)
+		#here we stock the isogeny and it's weierstrass isomorphism
 		L.append([psi,Pl])
+		#we push P
 		P=E(f(P[0],P[1]),g(P[0],P[1])) #or P=phi(P) but this writing don t work with sage
+		#we compute a pre image of P		
 		R2=division_point_qbis(l,P,E,Tower)		
 		if 2*R2!=P:
 			print 	'2*R2,phi(P)',2*R2,P
-		P=R2		
+		P=R2
+		#we diagonalise the basis with P		
 		P=centering_frob(E,P,Q,Tower,l,k,Lambda_1,h,stair) 
 	return E,P,L
 
@@ -805,34 +780,6 @@ def way_back(P,L):#fonction qui fait le sens inverse pour nous donner une partie
 		P=E(P0,P1)#or P=phi(P) but this don t work with sage
 		P=Pl(P)
 	return P
-
-def fonction_test_point_redresse(P,l,k):
-	'''
-	Just a function to check if the point obtained of order l**k is a 
-	generator of a l**k isogeny
-	
-	Input:
-	-P a point on an elliptic curve of order l**k
-	-l a prime integer
-	-k an integer
-
-	Ouput:
-	The list of the j-invariants obtained by computing the successive l**r
-	isogenies with 1<=r<=k-1
-
-	Example:
-		
-	'''
-	
-	E=P.curve()
-	R=PolynomialRing(E.base_field(),x)	
-	for i in range(k-1):
-		S=2**(k-1-i)*P
-		phi=E.isogeny(R([-S[0],1]),degree=2)
-		P=phi(P)
-		E=phi.codomain()
-		print E.j_invariant()
-	return E.j_invariant()
 
 def tate_module(E,b,Tower,l,conservation=None):
 	'''
@@ -974,3 +921,102 @@ def tate_module(E,b,Tower,l,conservation=None):
 		return E2,P,Q,k2,Lambda_1,Lambda_2
 	else:	
 		return E2,P,Q,k2,Lambda_1,Lambda_2,Tower
+'''
+----------------------------------------------------------------
+The rest of the functions were designed for l!=2 but not implemented yet 
+efficiently with l-adic tower they were working with sage construction
+'''
+def division_point_q(l,P,E):
+	'''
+	This function is not use for the case l=2, it was made for the eventual
+	cases of l different from 2 
+
+	This function computes an l-division point of P if it exists on the 
+	field where the elliptic curve E is defined. If there do not exist 
+	l-division point of P the function returns the same point P. The choice
+	of the l-division is arbitrary, the function returns the first 
+	l-division point computed.
+
+	INPUT:
+
+	- l an integer
+	- P a point that belongs to E
+	- E an elliptic curve defined over a field
+	
+	OUTPUT:
+	A l-division point of P if it exists, if it does not exist it returns 
+	the point P.
+
+	EXAMPLE:
+	sage: k=FiniteField(101)
+	sage: E1=EllipticCurve(j=k(65)).quadratic_twist();
+	sage: P=E1.random_point(); P=2*P; P
+	(52 : 74 : 1)
+	sage: P.order()
+	12
+	sage: Q=division_point_q(2,P,E1); print Q,Q.order()
+	(43 : 14 : 1) 24
+	'''
+	ans=[]
+	nP=-P
+        P_is_2_torsion = (P == -P)
+        g = E._multiple_x_numerator(l) - P[0]*E._multiple_x_denominator(l)
+        if P_is_2_torsion:
+            if l % 2 == 0:
+                g = g.gcd(g.derivative())*g.leading_coefficient().sqrt()
+
+            else: #sert à rien en pratique....
+                g0 = g.variables()[0] - P[0]
+                g = g // g0
+                g = g.gcd(g.derivative())*g.leading_coefficient().sqrt()
+                g = g0*g
+        L=g.roots(multiplicities=False); i=0;
+        while (len(ans)==0 and i<len(L)):
+            x=L[i]; i=i+1;
+            if E.is_x_coord(x):
+                Q = E.lift_x(x)
+                nQ = -Q
+
+                lQ = l*Q
+                if P_is_2_torsion:
+                    if lQ == P:
+                        ans.append(Q)
+                        if nQ != Q:
+                            ans.append(nQ)
+                else:
+                    if lQ == P:
+                        ans.append(Q)
+                    elif lQ == nP:
+                        ans.append(nQ)
+	if (i==len(L) and len(ans)==0):
+		return P
+        return ans[0]
+
+
+def fonction_test_point_redresse(P,l,k):
+	'''
+	Just a function to check if the point obtained of order l**k is a 
+	generator of a l**k isogeny is horizontal
+	
+	Input:
+	-P a point on an elliptic curve of order l**k
+	-l a prime integer
+	-k an integer
+
+	Ouput:
+	The list of the j-invariants obtained by computing the successive l**r
+	isogenies with 1<=r<=k-1
+
+	Example:
+		
+	'''
+	
+	E=P.curve()
+	R=PolynomialRing(E.base_field(),x)	
+	for i in range(k-1):
+		S=2**(k-1-i)*P
+		phi=E.isogeny(R([-S[0],1]),degree=2)
+		P=phi(P)
+		E=phi.codomain()
+		print E.j_invariant()
+	return E.j_invariant()
