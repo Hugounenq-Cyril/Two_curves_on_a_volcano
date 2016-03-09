@@ -729,3 +729,68 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 				print "probleme valeur propres,Lambda_1, Lambda_12, Lambda_2, Lambda_22" ,Lambda_1, Lambda_12, Lambda_2, Lambda_22 
 			R=PolynomialRing(P1[0].parent(),name='x')
 			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower)
+'''
+---------------------------------------
+The rest of the code is just made for Timing, it is just some code cut at some points to make timing at precise moments
+'''
+
+def calcul_isogenie_init(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower):
+	'''
+	A truncated function of calcul_isogenie just made to do some timing on
+	computations necessary for the initialisation of the entire computation.
+	The function returns all the necessary data to pursue the computations.
+	'''
+		#we set the interpolation coefficient mapping both to 1	
+	i=1
+	j=1
+	#we set the boolean value to test if we have found the isogeny to 
+	#false
+	Test=False
+	#we compute the 2-adic valuation of the eigenvalues for the Frobenius
+	o1=valuation(mod(Lambda_1,l**order).multiplicative_order(),l)
+	o2=valuation(mod(Lambda_2,l**order).multiplicative_order(),l)
+	power=Tower._base.cardinality()
+	#we just swap the eigenvalues to have the convention that o2>o1
+	if o1>o2:
+		(o2,o1,Lambda_2,Lambda_1,Q1,P1,Q2,P2)=(o1,o2,Lambda_1,Lambda_2,P1,Q1,P2,Q2)
+	#we compute the abscissas we want to interpolate
+	L=creation_list_interpolation(P1,Q1,o1,o2,Lambda_1,Lambda_2,order,i,j,P2,Q2,Tower)
+	#we tabulate all the different T associated to different 
+	#representatives of orbits	
+	M=initialisation_T(L,o2,Tower)
+	#we compute  all the different interpolation polynomials L associated
+	#to the different representatives	
+	N=interpolation_L(M,o2,o1,Tower,P2,Q2,i,j)
+	#we combine all the different interpolation polynomials and we get the
+	#polynomials A and TA to do a rational reconstruction, Lc is a 
+	#precomputed list for the next occurrences
+	A,TA,Lc=mult_tableau_interpola(N,Tower)
+	R2=PolynomialRing(A[0].parent(),R.gen())
+	#we test if the polynomials obtained are good one if so the function 
+	#return the rational function otherwise Test stays equal to False
+	Test=fonction_test_iso(A,TA,R2,d,Tower)
+	if Test!=False:
+		print "computation of the isogeny almost done"
+		return Test
+	else:
+		return M,Lc,P2,Q2,o2,o1,Tower,d
+
+
+def calcul_isogenie_step(M,Lc,P2,Q2,o2,o1,Tower,d):
+	'''
+	A truncated part of calcul_isogenie that computes the step which is 
+	repeated for the interpolation tries. Made only for timing here.
+	'''
+	i=3
+	j=1
+	Test=False
+	#we compute new interpolation polynomials according to 
+	#the new mapping coefficients
+	N=interpolation_L(M,o2,o1,Tower,P2,Q2,i,j)
+	A,TA=mult_tableau_interpola_pre(N,Tower,Lc)
+	Test=fonction_test_iso(A,TA,R2,d,Tower)
+	if Test!=False:
+		print "computation of the isogeny almost done"
+		return Test
+	else:
+		return Test
