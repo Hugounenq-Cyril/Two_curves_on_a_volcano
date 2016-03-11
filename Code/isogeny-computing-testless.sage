@@ -24,7 +24,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 	T=[]
 	C=[]
 	M=[0]*(o2-o1+1)
-	print 'k2',k2
+	#print 'k2',k2
 	for i in range(2**k2): 
 		for j in range(2**k2):
 			if (i%2==1)or(j%2==1 ):
@@ -34,7 +34,7 @@ def creation_list_interpolation(P,Q,o1,o2,Lambda_1,Lambda_2,k2,a,b,Pb,Qb,Tower):
 		T.append(C)
 
 		C=[]
-	print "o1,o2",o1,o2
+	#print "o1,o2",o1,o2
 	#we consider all the orders o1<oi<=o2
 	for h in range(o2-o1):
 		for i in range(2**k2):
@@ -529,8 +529,6 @@ def CRTm(A,TA,B,TB,u0,v0):
 	'''
 	S=TA*TB
 	R=(A*v0+B*u0)%S
-	#if (R%TA!=A%TA or R%TB!=B%TB):
-		#print 'R%TA!=A%TA R%TB!=B%TB',R%TA!=A%TA, R%TB!=B%TB
 	return (R,S)
 
 def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,d,Lambda_1,Lambda_2,Tower,interpol=None):
@@ -588,7 +586,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,d,Lambda_1,Lambda_2,Tower,interpol=Non
 			N=interpolation_L(M,o2,o1,Tower,P2,Q2,i,j)
 			A,TA=mult_tableau_interpola_pre(N,Tower,Lc)
 			Test=fonction_test_iso(A,TA,R2,d,Tower)
-			print 'i,j',i,j		
+			#print 'i,j',i,j		
 			i+=1
 		i=1
 		j+=1
@@ -625,11 +623,16 @@ def test_square(P,Tower):
 		A boolean value saying if P is a square and also the root 
 		polynomial of P
 		'''
+		#we get rid off the leading coefficient to not work in a tower
+		#extension for the root computing, we return then the leading
+		#coefficient to take this modification into account
+		Lc=P.leading_coefficient()
+		P=P/Lc
 		DP=P.diff()
 		P2=P.gcd(DP)
 		P3=P.quo_rem(P2**2)
-		if P3[0].degree()==0 and P3[1]==0 and P2.degree()==(P.degree()/2):
-			return [True,Tower.root_computing(P3[0][0])*P2,P3[0][0]]
+		if P3[0].degree()==0 and P3[1]==0 and P3[0][0]==Tower._levels[0](1) and P2.degree()==(P.degree()/2):
+			return [True,P2,P3[0][0]*Lc]
 		else:
 			return [False]
 
@@ -671,9 +674,11 @@ def fonction_test_iso(A,T,R,d,Tower):
 		if (deg==d-1):
 			#we test if we have a square
 			test=test_square(v0,Tower)
+			#if we have a square we return the elements of the
+			#rational function
 			if test[0]==True:
-				#if we have a square we return the elements of 
-				#the rational function			
+				#we take here into account account the leading
+				#coefficient that we put aside in test_square		
 				r2=r2/test[2]
 				return test[1],r2 
 			else :
