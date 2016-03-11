@@ -531,7 +531,7 @@ def CRTm(A,TA,B,TB,u0,v0):
 	R=(A*v0+B*u0)%S
 	return (R,S)
 
-def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,d,Lambda_1,Lambda_2,Tower,interpol=None):
+def calcul_isogenie(P1,Q1,P2,Q2,l,order,d,Lambda_1,Lambda_2,Tower,interpol=None):
 	'''
 	INPUT:
 	-P1 a primitive l^order-torsion point generating an horizontal l^order-isogeny on the crater
@@ -541,7 +541,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,d,Lambda_1,Lambda_2,Tower,interpol=Non
 	-l an integer
 	-order an integer
 	-T the l^order division polynomial on the domain curve by the isogeny
-	-d the degree of the isogeny		
+	-d the degree of the isogeny we want to compute	
 	
 	OUTPUT:
 	An isogeny between the curve which P1 belogns and the curve which P2 belongs
@@ -571,7 +571,7 @@ def calcul_isogenie(P1,Q1,P2,Q2,R,l,order,d,Lambda_1,Lambda_2,Tower,interpol=Non
 	#polynomials A and TA to do a rational reconstruction, Lc is a 
 	#precomputed list for the next occurrences
 	A,TA,Lc=mult_tableau_interpola(N,Tower)
-	R2=PolynomialRing(A[0].parent(),R.gen())
+	R2=PolynomialRing(A[0].parent(),'x')
 	#we test if the polynomials obtained are good one if so the function 
 	#return the rational function otherwise Test stays equal to False
 	Test=fonction_test_iso(A,TA,R2,d,Tower)
@@ -732,14 +732,13 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 				P2,Q2=Q2,P2	
 			elif Lambda_1 != Lambda_12 or Lambda_2 != Lambda_22 :
 				print "probleme valeur propres,Lambda_1, Lambda_12, Lambda_2, Lambda_22" ,Lambda_1, Lambda_12, Lambda_2, Lambda_22 
-			R=PolynomialRing(P1[0].parent(),name='x')
-			return calcul_isogenie(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower)
+			return calcul_isogenie(P1,Q1,P2,Q2,2,k1,r,Lambda_1,Lambda_2,Tower)
 '''
 ---------------------------------------
 The rest of the code is just made for Timing, it is just some code cut at some points to make timing at precise moments
 '''
 
-def calcul_isogenie_init(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower):
+def calcul_isogenie_init(P1,Q1,P2,Q2,l,order,d,Lambda_1,Lambda_2,Tower):
 	'''
 	A truncated function of calcul_isogenie just made to do some timing on
 	computations necessary for the initialisation of the entire computation.
@@ -770,7 +769,7 @@ def calcul_isogenie_init(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower):
 	#polynomials A and TA to do a rational reconstruction, Lc is a 
 	#precomputed list for the next occurrences
 	A,TA,Lc=mult_tableau_interpola(N,Tower)
-	R2=PolynomialRing(A[0].parent(),R.gen())
+	R2=PolynomialRing(A[0].parent(),'x')
 	#we test if the polynomials obtained are good one if so the function 
 	#return the rational function otherwise Test stays equal to False
 	Test=fonction_test_iso(A,TA,R2,d,Tower)
@@ -778,10 +777,10 @@ def calcul_isogenie_init(P1,Q1,P2,Q2,R,2,k1,r,Lambda_1,Lambda_2,Tower):
 		print "computation of the isogeny almost done"
 		return Test
 	else:
-		return M,Lc,P2,Q2,o2,o1,Tower,d
+		return M,Lc,P2,Q2,R2,o2,o1,Tower,d
 
 
-def calcul_isogenie_step(M,Lc,P2,Q2,o2,o1,Tower,d):
+def calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,d):
 	'''
 	A truncated part of calcul_isogenie that computes the step which is 
 	repeated for the interpolation tries. Made only for timing here.

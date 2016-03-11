@@ -736,7 +736,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		P=centering_frob(E,P,Q,Tower,l,k,Lambda_1,h,stair) 
 	return E,P,L
 
-def way_back(P,L):#fonction qui fait le sens inverse pour nous donner une partie du l-module de Tate
+def way_back(P,L):
 	'''
 	Returns the image of the point P by the successive isogenies contained 
 	in the list L
@@ -783,27 +783,24 @@ def way_back(P,L):#fonction qui fait le sens inverse pour nous donner une partie
 
 def tate_module(E,b,Tower,l,conservation=None):
 	'''
-	Return a basis of the l-tate modulus on an isomorphic curve to E or on 
-	a lift of a curve of E according on the boundary b. The precision will 
-	be of the height h of the volcano of l-isogeny if the boundary 
-	b<l^(2*h), else we will consider a lift of the elliptic curve on an 
-	extension field of degree l until we have on this new volcano of 
-	l-isogeny the height h' enough high to satisfy the inequality 
-	b<l^(2*h').
-
-
+	Return an horizontal basis (P,Q) of E with P,Q of order l**k such that
+	l**{2k}>b. 
+	
 	INPUTS:
-	-E an ellptic curve defined over a finite field K and such that E is on the cyclic crater of a volcano of l-isogeny
-	-b an integer
+	-E an ellptic curve defined over a finite field K and such that E is 
+	on the cyclic crater of a volcano of l-isogeny
+	-b an integer bound 
 	-Tower a 2-adic tower over a prime field
 	-l a prime number
 	-conservation a boolean variable to know if the algorithm outputs the 
-	2-adic tower under the algorithm has worked
+	2-adic tower under the algorithm has worked, useful to have compatible
+	representations of elements of a same finite field
 
 	OUTPUTS:
-	The same elliptic as the input curve E with two points P,Q on 
-	E of l^k2 order which are two different generators of the l-Tate module
-	with precision k2.
+	The same elliptic curve as the input curve E with an horizontal basis 
+	(P,Q) of E with P,Q of order l**k such that l**{2k}>b.  and if 
+	conservation is true it returns the tower under which are defined 
+	points of the elliptic curve E.
 	
 	EXAMPLE:
 	sage: k=FiniteField(101)
@@ -842,25 +839,50 @@ def tate_module(E,b,Tower,l,conservation=None):
 
 
 	'''
-#on a entrée une courbe E située sur un cratère, une borne b au dessus de laquelle doit se situer la l^k torsion rationelle sur l'extension du corps K, E est définie sur le corps K
 	K=E.base_field()
+	if Tower.cardinality_field(Tower._levels[1])!=Tower.cardinality_field(Tower._levels[0])**2:
+		#we made a Tower compatible with the one in 
+		#input, with all the intermediary levels
+		if (K!=Tower._base):
+			K=FiniteField(Tower._base.cardinality())
+			E=EllipticCurve(K,[E.a4()[0],E.a6()[0]])		
+		i=valuation(valuation(Tower._top_cardinal,Tower._base.cardinality()),2)		
+		Tower=Tower_two(E.base_field(),1,Tower._name,Tower._alpha)
+		for r in range(i):
+			Tower.add_one_level()
+	
+	#we set the eigenvalues of the Frobenius to 1	
 	Lambda_1,Lambda_2=1,1
+	#we compute in the 2 following blocs the rational torsion of the 
+	#elliptic curve, it will be useful to know how many levels above
+	#in the tower we will be working and it will permit us to have a basis
+	# of the rational torsion of the elliptic curve that we will use to 
+	#compute first diagonal basis and then horizontal basis 
 	if (K==Tower._base):
 		k1,P,k2,Q=calcul_torsion_max(E,l)
 		ind=-2
 		h=k2
 	else :
-		ind=Tower.floor(K.random_element())#calcule le niveau ou l on se situe sur la tour
+		#we compute which level we are working in the tower
+		ind=Tower.floor(K.random_element())
+		#we compute a basis in the prime finite field 		
 		K1=FiniteField(Tower._base.cardinality())
 		E3=EllipticCurve(K1,[E.a4()[0],E.a6()[0]])
 		k1,P,k2,Q=calcul_torsion_max(E3,l)
+		#we convert the basis in the initial base field of the input 
+		#curve 
 		E,P,Q=construction_lift_better(E3,K1,E.base_field(),P,Q)
+		#we evaluate how many times we will have to increase the 2-adic
+		# value of the basis P,Q just before doing it
 		i=valuation(valuation(Tower.cardinality_field(K),Tower._base.cardinality()),2)		
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E,P,Q,k1,k2,l,Tower,i)
 		
 	if k2==0:
 		print("probleme choix courbe")
-	if l**(2*k2)<b:#calcul de borne pas optimal pour l=2 et base field corps premier
+		raise TypeError('the curve must have some rational 2 torsion to work on!')
+	#here we evaluate if the rational torsion is sufficient relatively to
+	#the bound b
+	if l**(2*k2)<b:
 		i=1
 		r=l**(2*k2)
 		while (r*l**2<b):
@@ -874,32 +896,47 @@ def tate_module(E,b,Tower,l,conservation=None):
 			O=N.valuation(M)
 			M=O.valuation(2)
 			if i>M:
+				#we add the necessary levels in the tower 
+				#relatively to the 2-torsion we want to work on
 				while M<i:
 					Tower.add_one_level()
 					M+=1
-			elif M>i:		
-				Tower=Tower_two(E.base_field(),i,Tower._name,Tower._alpha)
-				#on fait ainsi une construction compatible avec celle proposee en entree de l algorithme
+			elif M>i:
+				if Tower.cardinality_field(Tower._levels[1])!=Tower.cardinality_field(Tower._levels[0])**2:
+				#we made a Tower compatible with the one in 
+				#input, with all the intermediary levels		
+					Tower=Tower_two(E.base_field(),1,Tower._name,Tower._alpha)
+					for r in range(i):
+						Tower.add_one_level()
 			ind=-1
+			#we store the highest level in the tower, where we will
+			#work
 			K2=Tower._levels[-1]
 		else:
 			while ind<-2 and i>0:
-				i-=1
+				i-=1 
 				ind+=2
 			if i>0:
 				for j in range(i):
 					Tower.add_one_level()
+			#we store the highest level in the tower, where we will
+			#work			
 			K2=Tower._levels[ind]		
+		#we express the base point and the elliptic curve in the level
+		# in the tower where we will work accoring to the bound		
 		E2,P,Q=construction_lift_betterbis(E,K,K2,P,Q,Tower)
 		#print P,Q
+		#we compute the diagonal basis of the frobenius with the 
+		#eigenvalues
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max(E2,P,Q,k1,k2,l,Tower,c)
 	else :
 		P=l**(k1-k2)*P
 		k1=k2
 		K2=E.base_field()
 		E2=E
-
-	while h>=k2:#si les valeurs propres sont identiques on ne peut rien déterminer pour le moment...
+	#if the eigenvalues are identical then we need to increase the torsion
+	# we work on to reach a 2**(h+1) torsion
+	while h>=k2:
 		
 		K=E2.base_field()
 		if K==Tower._base:
@@ -913,8 +950,12 @@ def tate_module(E,b,Tower,l,conservation=None):
 			K2=Tower._levels[ind]		
 		E2,P,Q=construction_lift_betterbis(E2,K,K2,P,Q,Tower)
 		P,Lambda_1,Q,Lambda_2,k1,k2,h=suite_calcul_torsion_max_2(E2,P,Q,k1,k2,l,Tower,1,h,Lambda_1,Lambda_2)
+	#we compute here diagonal points Pr,Pl on curves on the crater with 
+	#list of horizontal isogenies that permits to go back to E and do not 
+	#change the order of Pr and Pl but make their images horizontal	
 	Er,Pr,Lr=straightening_step(E2,P,Q,l,k2,Tower,Lambda_1,h)
 	El,Pl,Ll=straightening_step(E2,Q,P,l,k2,Tower,Lambda_2,h)
+	#we compute the horizontal images of Pr and Pl
 	P=way_back(Pr,Lr)
 	Q=way_back(Pl,Ll)
 	if conservation==None:
