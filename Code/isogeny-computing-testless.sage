@@ -122,6 +122,7 @@ def initialisation_T(L,o2,Tower):
 	for i in range(len(L)):
 		for l in L[i]:
 			C=[]
+			l[0]=Tower.determination_level(l[0])[0]
 			R=PolynomialRing(l[0].parent(),'x')
 			P=R.gen()-l[0]
 			for r in range(o2-i):
@@ -140,6 +141,7 @@ def initialisation_T(L,o2,Tower):
 			P=red_pol_basis(P,Tower,True)
 			DP=P.diff()(l[0])
 			DP2=R(DP**(-1))[0]
+			DP2=Tower.determination_level(DP2)[0]
 			C.append(DP2)
 			l.append(C)
 	#in the end we return the Polynomials T^(i,j) associated to 
