@@ -122,6 +122,8 @@ def initialisation_T(L,o2,Tower):
 	for i in range(len(L)):
 		for l in L[i]:
 			C=[]
+			#we work in the lowest level possible of the 2-adic
+			#tower
 			l[0]=Tower.determination_level(l[0])[0]
 			R=PolynomialRing(l[0].parent(),'x')
 			P=R.gen()-l[0]
