@@ -24,7 +24,7 @@ for end in range(2,24):
 	#Fichier=open('~/Documents/github-3/Code/test-script-101.txt','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
-L=[3,31,41,47,71,71]
+L=[3,31,41,47,71]
 E3=EllipticCurve(j=F(65))
 if E3.cardinality()!=96:
 	E3=E3.quadratic_twist()
