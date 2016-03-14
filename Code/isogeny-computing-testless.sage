@@ -735,7 +735,7 @@ def Couveignes_algorithme(E1,E2,r,Tower):
 			if Lambda_1==Lambda_22 and Lambda_2==Lambda_12:
 				P2,Q2=Q2,P2	
 			elif Lambda_1 != Lambda_12 or Lambda_2 != Lambda_22 :
-				print "probleme valeur propres,Lambda_1, Lambda_12, Lambda_2, Lambda_22" ,Lambda_1, Lambda_12, Lambda_2, Lambda_22 
+				raise TypeError("probleme valeur propres,Lambda_1, Lambda_12, Lambda_2, Lambda_22" ,Lambda_1, Lambda_12, Lambda_2, Lambda_22) 
 			return calcul_isogenie(P1,Q1,P2,Q2,2,k1,r,Lambda_1,Lambda_2,Tower)
 '''
 ---------------------------------------
