@@ -103,6 +103,18 @@ def volcan_cyclique(p,r,j0):
 
 
 def Construction_Descente(p,r,b,u):
+	'''
+	Input:
+	-p the characteristic of the Field we are working on
+	-r an integer such that the Fiield we are working on has cardinality p^r
+	-b a boolean value, if true we start from an elliptic curve with 
+	j-invariant equals to u, otherwise we take a random value
+	-u the j-invariant of the elliptic curve we want to work on
+
+	Output:
+	A (eventually more) descending path and others path in a volcano of 2
+	isogeny
+	'''
 	k.<a>=FiniteField(p^r)
 	if b : #b est donc un booléen pour indiquer si on le fait à partir d'une courbe aléatoire ou choisie d'après son j-invariant u
 		E=EllipticCurve(j=k(u)) 
