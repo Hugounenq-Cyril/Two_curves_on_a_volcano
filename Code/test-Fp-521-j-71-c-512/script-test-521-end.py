@@ -60,7 +60,7 @@ if E3.cardinality()!=512:
 	E3=E3.quadratic_twist()
 L=[5,7,19,41,59,71]
 for l in L:
-	deg=end**2
+	deg=l
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
 	a,b2,c2,d,e,f,g=tate_module(E3,((16.0)/3)*deg,K,2,conservation=True)
 	if calcul_isogenie_init(b,c,b2,c2,2,d,deg,e,f,g)[0]==True:
