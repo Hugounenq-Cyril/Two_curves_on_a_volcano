@@ -138,9 +138,8 @@ def initialisation_T(L,o2,Tower):
 				#one level in the 2-adic tower
 				P=red_pol_basis(P,Tower)
 				C.append([P2,P3])
-			P=red_pol_basis(P,Tower)
-			C.append([P])
 			P=red_pol_basis(P,Tower,True)
+			C.append([P])
 			DP=P.diff()(l[0])
 			DP2=R(DP**(-1))[0]
 			DP2=Tower.determination_level(DP2)[0]
@@ -203,7 +202,7 @@ def interpolation_L(L,o2,o1,Tower,Pb,Qb,a,b):
 			#we make sure that sage do not represent it as a 
 			#rational fraction
 			L0=(L1+L2).numerator()
-			L0=red_pol_basis(L0,Tower)
+			L0=red_pol_basis(L0,Tower,True)
 			P.append([L0,l[-1][-2][0]])
 			#il faudrait peut etre rajouter le polynome T
 		N.append(P)
@@ -235,7 +234,7 @@ def interpolation_L(L,o2,o1,Tower,Pb,Qb,a,b):
 			L1=M[0]*A/l[-1][o2-i-1][0]
 			L2=M[1]*A/l[-1][o2-i-1][1]
 			L0=(L1+L2).numerator()
-			L0=red_pol_basis(L0,Tower)
+			L0=red_pol_basis(L0,Tower,True)
 			P.append([L0,l[-1][-2][0]])
 	else:
 		#in this loop we work without the frobenius since we consider
@@ -243,6 +242,7 @@ def interpolation_L(L,o2,o1,Tower,Pb,Qb,a,b):
 		for l in L[len(L)-1]:		
 			w=(l[2]*a*Pb+l[3]*b*Qb)[0]
 			w=w*l[-1][-1]
+			w=red_pol_basis(w,Tower,True)
 			P.append([w,l[-1][-2][0]])
 	N.append(P)
 	P=[]
@@ -268,13 +268,10 @@ def mult_tableau_interpola(N,Tower):
 	while len(N)>1:
 		l=len(N[0])		
 		for i in range(len(N[-1])):
-			#we reduce eventually the base field of the polynomial 
-			#ring to have the polynomials defined on the base field
-			#of the 2-adic tower
-			A=red_pol_basis(N[-1][i][0],Tower,True)
-			B=red_pol_basis(N[-1][i][1],Tower,True)
-			C=red_pol_basis(N[0][c%l][0],Tower,True)
-			D=red_pol_basis(N[0][c%l][1],Tower,True)
+			A=N[-1][i][0]
+			B=N[-1][i][1]
+			C=N[0][c%l][0]
+			D=N[0][c%l][1]
 			A,B,U,V=CRT(A,B,C,D)
 			#we store the results in the first row since we wont 
 			#remove it
@@ -293,10 +290,10 @@ def mult_tableau_interpola(N,Tower):
 		k+=1
 	for j in range(k):		 
 		for i in range(2**(k-j-1)):
-			A=red_pol_basis(N[0][i][0],Tower,True)
-			B=red_pol_basis(N[0][i][1],Tower,True)
-			C=red_pol_basis(N[0][-i-1][0],Tower,True)
-			D=red_pol_basis(N[0][-i-1][1],Tower,True)
+			A=N[0][i][0]
+			B=N[0][i][1]
+			C=N[0][-i-1][0]
+			D=N[0][-i-1][1]
 			A,B,U,V=CRT(A,B,C,D)
 			N[0][i][0]=A
 			N[0][i][1]=B			
