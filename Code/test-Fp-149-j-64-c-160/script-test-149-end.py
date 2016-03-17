@@ -12,7 +12,7 @@ E=EllipticCurve(j=F(64))
 if E.cardinality()!=160:
 	E=E.quadratic_twist()
 print E
-for end in range(2,24):
+for end in range(2,56):
 	deg=end**2
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
 	a,b2,c2,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
