@@ -17,11 +17,11 @@ for end in range(7,13):
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
 	a,b2,c2,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
 	if calcul_isogenie_init(b,c,b2,c2,2,d,deg,e,f,g)[0]==True:
-		M,Lc,P2,Q2,R2,o2,o1,Tower,deg=calcul_isogenie_init_bis(b,c,b2,c2,2,d,deg,e,f,g)
+		M,Lc,P2,Q2,R2,o2,o1,Tower,deg=calcul_isogenie_init_bis(b,c,b,c,2,d,deg,e,f,g)
 		C=timeit('calcul_isogenie_init_bis(b,c,b,c,2,d,deg,e,f,g)',number=10,repeat=5,seconds=True,preparse=True)
 		A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=10,repeat=5,seconds=True,preparse=True)		
 	else:
-		M,Lc,P2,Q2,R2,o2,o1,Tower,deg=calcul_isogenie_init(b,c,b2,c2,2,d,deg,e,f,g)
+		M,Lc,P2,Q2,R2,o2,o1,Tower,deg=calcul_isogenie_init(b,c,b,c,2,d,deg,e,f,g)
 		C=timeit('calcul_isogenie_init(b,c,b,c,2,d,deg,e,f,g)',number=10,repeat=5,seconds=True,preparse=True)		
 		if calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)[0]==True:
 			A=timeit('calcul_isogenie_step_bis(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=10,repeat=5,seconds=True,preparse=True)
