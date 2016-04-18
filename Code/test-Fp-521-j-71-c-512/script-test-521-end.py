@@ -1,9 +1,6 @@
-load('/data/cyril/github/Code/isogeny-computing-testless.sage')
-load('/data/cyril/github/Code/tate-module-extension-testless.sage')
-load('/data/cyril/github/Code/extension_corps.sage')
-#load('~/Documents/github-3/Code/isogeny-computing-testless.sage')
-#load('~/Documents/github-3/Code/tate-module-extension-testless.sage')
-#load('~/Documents/github-3/Code/extension_corps.sage')
+load('../isogeny-computing-testless.sage')
+load('../tate-module-extension-testless.sage')
+load('../extension_corps.sage')
 
 F=FiniteField(521)
 K=Tower_two(F,1)
@@ -28,8 +25,7 @@ for end in range(2,56):
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('/data/cyril/github/Code/test-script-521-ter.txt','a')
-	#Fichier=open('~/Documents/github-3/Code/test-script-521.txt','a')
+	Fichier = open('../../benchmarks/test-script-521.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 L=[31,47,67]
@@ -49,8 +45,7 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('/data/cyril/github/Code/test-script-521-ter.txt','a')
-	#Fichier=open('~/Documents/github-3/Code/test-script-521.txt','a')
+	Fichier = open('../../benchmarks/test-script-521.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
@@ -75,7 +70,6 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('/data/cyril/github/Code/test-script-521-ter.txt','a')
-	#Fichier=open('~/Documents/github-3/Code/test-script-521.txt','a')
+	Fichier = open('../../benchmarks/test-script-521.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()

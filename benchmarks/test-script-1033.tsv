@@ -1,3 +1,8 @@
+#This test has been run on a curve of with the following j-invariant j=998 and defined on the Finite Field of cardinality p=1033, we took the curve of cardinality 1024. 
+#p=1033 j=998 cardinality=1024
+#timing is in s, k is max(height+1 of the 2-volcano, (16/3)*r=O(r)) it represents the valuation of the 2 torsion we had to compute for the algorithm. 
+#The timing has been decomposed in 3 steps the two first one (tate and initialisation) are precomputations, the last one is the interpolation try which is repeated O(2**(2*k)) times, thus the most relevant for the analysis.
+#r	tate		initialisation	interp		k	
 4	0.776359987259	1.77546758652	0.503073406219	4
 9	0.759976736705	2.06848530769	0.530216868718	4
 16	0.766845655441	2.03865220547	0.520606390635	4
