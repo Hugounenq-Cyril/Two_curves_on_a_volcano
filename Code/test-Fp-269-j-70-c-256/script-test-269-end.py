@@ -9,7 +9,7 @@ E=EllipticCurve(j=F(70))
 if E.cardinality()!=256:
 	E=E.quadratic_twist()
 print E
-for end in range(2,56):
+for end in range(2,443):
 	deg=end**2
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
 	a,b2,c2,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
@@ -25,7 +25,7 @@ for end in range(2,56):
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('../../benchmarks/test-script-269.tsv','a')
+	Fichier = open('../../benchmarks/test-script-269-bis.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
@@ -50,7 +50,7 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('../../benchmarks/test-script-269.tsv','a')
+	Fichier = open('../../benchmarks/test-script-269-bis.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 E3=EllipticCurve(j=F(195))
@@ -74,7 +74,7 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=15,repeat=10,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=15,repeat=10,seconds=True,preparse=True)
-	Fichier = open('../../benchmarks/test-script-269.tsv','a')
+	Fichier = open('../../benchmarks/test-script-269-bis.tsv','a')
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
