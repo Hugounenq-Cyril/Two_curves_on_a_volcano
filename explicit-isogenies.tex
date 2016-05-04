@@ -588,21 +588,27 @@ Let~$E$ be an ordinary elliptic curve with Frobenius endomorphism~$π$.
 Assume that the characteristic polynomial of~$π$
 has two distinct roots~$λ, μ$ in~$ℤ_ℓ$,
 so that the $ℓ$-isogeny volcano has a cyclic crater.
-Then there exists a unique $a ∈ \llbracket 0, ℓ^h - 1 \rrbracket$
+Then there exists a unique $e ∈ \llbracket 0, h\rrbracket$
 such that $π|T_ℓ(E)$~is conjugate, over~$ℤ_ℓ$,
-to the matrix $\left ( \begin{smallmatrix}λ & a\\ 0 & μ
+to the matrix $\left ( \begin{smallmatrix}λ & ℓ^e \\ 0 & μ
 \end{smallmatrix}\right )$.
 % where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
-Moreover $a = 0$ if~$E$ lies on the crater,
-and else $h - v_{ℓ}(a)$~is the depth of~$E$ in the volcano.
+Moreover $e = h$ if~$E$ lies on the crater,
+and else $h - e$~is the depth of~$E$ in the volcano.
 \end{prop}
+
+We note here that the matrices $\left(\begin{smallmatrix} λ & ℓ^h \\ 0 &
+μ \end{smallmatrix}\right)$ is conjugate over~$ℤ_ℓ$
+to $\left(\begin{smallmatrix} λ & 0 \\ 0 & μ\end{smallmatrix}\right)$.
 \begin{proof}
 Since the characteristic polynomial of~$π$ splits over~$ℤ_ℓ$,
 the matrix of~$π|T_ℓ(E)$ is trigonalizable.
 Conjugating the matrix $\left ( \begin{smallmatrix}λ & a\\0 & μ
 \end{smallmatrix}\right )$ by~$\left ( \begin{smallmatrix}1 & b\\0 & 1
 \end{smallmatrix} \right )$ replaces~$a$ by~$a + b (λ - μ)$,
-so that $a$~is well-defined modulo~$ℓ^h$.
+and conjugating by~$\left(\begin{smallmatrix} c & 0 \\ 0 &
+1\end{smallmatrix}\right)$ replaces~$a$ by~$c · a$,
+so that the valuation of~$a$ is well-defined.
 Finally, by Tate's theorem~\cite[Isogeny theorem 7.7 (a)]{Sil},
 $\mathcal O ⊗ ℤ_ℓ$~is isomorphic to the order in~$ℚ_ℓ[π_ℓ]$
 of matrices with integer coefficients,
@@ -713,9 +719,9 @@ and of the fact that $ψ$, being rational and of degree prime to~$ℓ$,
 induces an isomorphism between the Tate modules of~$E$ and~$E'$,
 commuting to the Frobenius endomorphisms.
 For point~(iii), we just note that
-since there exists a unique point of order~$ℓ$
+since there exists a unique subgroup of order~$ℓ$ which
 either ascending or horizontal with a given direction,
-we must have~$P' = ψ(P)$.
+we must have~$\chev{P'} = \chev{ψ(P)}$.
 \end{proof}
 
 %%%%%%%%%%%%%%%
