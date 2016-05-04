@@ -622,7 +622,8 @@ showing the link between two related notions of diagonalization.
 \end{defi}
 
 \begin{prop} \label{prop:diagonal-horizontal}
-Let~$E$ be a curve lying on the crater and~$P$ be a point of~$E[ℓ^k]$.
+Let~$E$ be a curve lying on the crater and~$P$ be a point of~$E[ℓ^k]$
+such that $ℓ^h P$~is an eigenvector of~$E$.
 Then $ℓ^h P$~is horizontal if, and only if, $P$~is an eigenvector for~$π$.
 If $π(P) = λ P$ then we say that $ℓ^h P$~has direction~$λ$.
 \end{prop}
@@ -663,7 +664,9 @@ Fix a basis~$(R, S)$ of~$E[ℓ^k]$ that diagonalizes~$π$.
 We can write $P = x R + y S$;
 without loss of generality we may assume $y=1$.
 Let~$ϕ$ be the isogeny determined by~$ℓ^h P$, and let~$E'$ be its image.
-Then $π|T_ℓ(E')$ has matrix~$\left ( \begin{smallmatrix}λ& ℓ^{h-k} x (λ-μ)\\ 0&μ
+Since $ℓ^h P$~is an eigenvector of~$π$, $ϕ$~is a rational isogeny.
+According to the preceding discussion,
+$π|T_ℓ(E')$ has matrix~$\left ( \begin{smallmatrix}λ& ℓ^{h-k} x (λ-μ)\\ 0&μ
 \end{smallmatrix}\right )$.
 This matrix is diagonalizable only if~$v_{ℓ}(x) ≥ k - h$.
 On the other hand, we can compute~$(π - μ) P = x (λ - μ) R$,
