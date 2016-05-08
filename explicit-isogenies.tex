@@ -98,7 +98,7 @@
 \maketitle
 
 \begin{abstract}
-  Consider two elliptic curves $E,E'$ defined over the finite field
+  Consider two ordinary elliptic curves $E,E'$ defined over a finite field
   $\F_q$, and suppose that there exists an isogeny $\psi$ between $E$
   and $E'$.  We propose an algorithm that determines $\psi$ from the
   knowledge of $E$, $E'$ and of its degree $r$, by using the
@@ -201,7 +201,7 @@ generalized Elkies' algorithm to work in any characteristic. Despite
 these advances, the overall cost of Elkies' algorithm and its
 variants is still at least cubic in $r$.
 
-Another line of work to solve the explicit isogeny problem was
+Another line of work to solve the explicit isogeny problem for ordinary curves was
 initiated by Couveignes~\cite{couveignes94,couveignes96,couveignes00},
 and later improved by De Feo and Schost~\cite{df10,df+schost12}. These
 algorithms use an interpolation approach combined with ad-hoc
@@ -210,7 +210,8 @@ complexity is quasi-quadratic in $r$, but exponential in $\log(p)$,
 hence they are only practical for very small characteristic.
 
 In this paper we present a variant of Couveignes' algorithm with
-complexity polynomial in $\log(p)$ and quasi-quadratic in $r$. Together
+complexity polynomial in $\log(p)$ and quasi-quadratic in $r$. Like the original 
+algorithm, it is limited to computing isogenies of ordinary curves. Together
 with the Lercier-Sirvent algorithm, they are the only polynomial-time
 isogeny computation algorithms working in any characteristic, hence
 they are especially relevant for counting points in \emph{medium}
