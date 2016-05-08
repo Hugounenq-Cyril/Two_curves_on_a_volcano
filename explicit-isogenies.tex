@@ -138,7 +138,7 @@
 \label{sec:introduction}
 
 Isogenies are non-zero morphisms of elliptic curves, that is,
-non-constant rational maps preserving the point at infinity. They are
+non-constant rational maps preserving the identity element. They are
 also algebraic group morphisms. Isogeny computations play a central
 role in the algorithmic theory of elliptic curves. They are notably
 used to speed up Schoof's point counting
@@ -162,30 +162,36 @@ we are interested in the variant defined below.
   Given two $j$-invariants $j$ and $j'$, and a positive integer
   $r$, determine if they are $r$-isogenous. In that case, compute
   curves $E$, $E'$ with $j(E)=j$ and $j(E')=j'$, and the
-  rational fractions defining an $r$-isogeny $ψ:E\to E'$.
+  rational functions defining an $r$-isogeny $ψ:E\to E'$.
 \end{localblock}
 
-Thanks to V\'elu's formulas~\cite{velu71}, it is enough to know the
-polynomial $h$ vanishing on the abscissas of $\kerψ$ to
-compute the rational fractions defining $ψ$ in optimal time. Thus, we
-often say that we have computed $ψ$ whenever we have computed $h$, and
-reciprocally.
+A good measure of the computational difficulty of the problem is given
+by the isogeny degree~$r$. Indeed the output is represented by $O(r)$
+base field elements, hence an asymptotically optimal algorithm would
+solve the problem using $O(r)$ field operations. Even though the input
+size is logarithmic in $r$, by a slight abuse we say that an algorithm
+solves the isogeny problem in polynomial time if it does so in the
+size of the output. Thanks to V\'elu's formulas~\cite{velu71}, in
+particular the version appearing in~\cite[§2.4]{kohel}, we can compute
+$ψ$ from the knowledge of the polynomial $h$ vanishing on the
+abscissas of the points in $\kerψ$, at the cost of a constant number
+of multiplications of polynomials of degree $O(r)$. Given that all
+known algorithms to compute $h$ require more than a few polynomial
+multiplications, we often say that we have computed $ψ$ whenever we
+have computed $h$, and reciprocally.
 
 This paper focuses on the explicit isogeny problem for \emph{ordinary}
 elliptic curves over finite fields. A famous theorem by Tate~\cite{tate1966endomorphisms} states
 that two curves are isogenous over a finite field if and only if they
 have the same cardinality over that field. The explicit isogeny
 problem stated here appears naturally in the Schoof-Elkies-Atkin point
-counting algorithm (SEA). There, $E$ is the curve of which we want to
-compute the cardinality, and $E'$ is an $r$-isogenous curve, with $r$
-a prime of size approximately $\log(\#E)$. For this reason, the explicit
+counting algorithm (SEA). There, $E$ is the curve whose rational points
+we wish to count, and $E'$ is an $r$-isogenous curve, with $r$
+a prime of size approximately $\log(q)$. For this reason, the explicit
 isogeny problem is customarily solved without prior knowledge of the
-cardinality of $E$. We will abide by this convention here.
+cardinality of $E(\F_q)$. We will abide by this convention here.
 
-A good measure of the computational difficulty of the problem is given
-by the isogeny degree~$r$. Indeed the output is represented by
-$O(r)$ base field elements, hence an asymptotically optimal algorithm
-would solve the problem using $O(r)$ field operations. Many algorithms
+Many algorithms
 have been suggested over the years to solve the explicit isogeny
 problem. Early algorithms were due to Atkin~\cite{atkin91} and
 Charlap, Coley and
@@ -455,7 +461,7 @@ reader to~\cite{sutherland2013isogeny}.  We recall here, without their
 proof, two results about $ℓ$-isogenies between ordinary elliptic
 curves.
 
-\begin{prop}[{\cite[Proposition~21]{Kohel}}] \label{prop:isogeny-asc-desc}
+\begin{prop}[{\cite[Proposition~21]{kohel}}] \label{prop:isogeny-asc-desc}
 Let~$ϕ: E → E'$ be an $ℓ$-isogeny between ordinary elliptic curves
 and~$\mathcal O, \mathcal O'$ be their endomorphism rings.
 Then one of the three following cases is true:
@@ -468,7 +474,7 @@ in which case we call $ϕ$ \emph{descending};
 in which case we call $ϕ$ \emph{horizontal}.
 \end{enumerate}
 \end{prop}
-\begin{prop}[{\cite[Proposition~23]{Kohel}; \cite[Lemma~6]{sutherland2013isogeny}}] \label{prop:isogeny-count}
+\begin{prop}[{\cite[Proposition~23]{kohel}; \cite[Lemma~6]{sutherland2013isogeny}}] \label{prop:isogeny-count}
 Let~$E$ be an ordinary elliptic curve with endomorphism ring~$\mathcal O$.
 \begin{enumerate}
 \item If $\mathcal O$~is $ℓ$-maximal then
