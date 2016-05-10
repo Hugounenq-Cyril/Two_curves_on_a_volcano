@@ -249,7 +249,7 @@ $E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the reunion of all $E[ℓ^k]$,
 and $T_ℓ(E) = \varprojlim E[ℓ^k]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$.
 The factorization of the characteristic polynomial of~$π$
-in~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
+over~$ℤ_ℓ$ is determined by the Kronecker symbol~$(d_K/ℓ)$.
 If $(d_K/ℓ) = +1$ then we also define $λ,μ$ as
 the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
 where $v_ℓ$ is the $ℓ$-adic valuation.
@@ -384,12 +384,12 @@ following generalization of~\cite[\S2.3]{DoSc12} shows.
 \end{lem}
 \begin{proof}
   Without loss of generality, we can assume that $j<i$; otherwise, the
-  output is simply $a$ itself.  Let $σ=\#F_j$, and let
+  output is simply $a$ itself.  Let $s=\#F_j$, and let
   $d=[F_i:F_1]=ℓ^{i-1}$. Let $x_i$ be the image of $x$ in
   $F_i=\F_q[x]/P_i(x)$, so that $x_i^d=x_1$.
 
   The first step, independently of $a$, is to compute
-  $y=x_i^σ$. Writing $σ = ud + r$, with $r<d$, we see that $y$ is
+  $y=x_i^s$. Writing $s = ud + r$, with $r<d$, we see that $y$ is
   given by $x₁^{u \bmod \#F₁}x_i^r$. We compute $x₁^{u\bmod\#F₁}$
   using $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$, and we keep this
   element as a monomial of $F₁[x_i]$.
@@ -456,7 +456,7 @@ with the Frobenius endomorphism $π$.
 
 \subsection{Isogeny volcanoes}
 
-For an extensive introduction to isogeny volcanoes we address the
+For an extensive introduction to isogeny volcanoes we refer the
 reader to~\cite{sutherland2013isogeny}.  We recall here, without their
 proof, two results about $ℓ$-isogenies between ordinary elliptic
 curves.
@@ -738,7 +738,7 @@ will need for our main interpolation algorithm.  If $ℓ$~is odd, let~$α
 = v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$; if $ℓ=2$,
 let~$α=v_2(λ^2-1)-1$ and~$β = v_2(μ^2-1)-1$, and assume without loss
 of generality that $α ≥ β$.  Since $λ ≢ μ \pmod{ℓ^{h+1}}$, it is
-impossible that $λ ≡ μ ≡ 1 \pmod{h}$, so that one at least of the two
+impossible that $λ ≡ μ ≡ 1 \pmod{ℓ^h}$, so that one at least of the two
 valuations~$α, β$ is~$≤ h$, and therefore~$β ≤ h$.
 \label{sub:classes}
 \begin{prop}\label{prop:classes}
