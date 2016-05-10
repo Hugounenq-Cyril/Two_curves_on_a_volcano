@@ -701,8 +701,6 @@ For any point~$Q ∈ E[ℓ^∞]$,
 if $ℓ Q$~is horizontal with direction~$μ$,
 then $ψ(Q)$ is horizontal with direction~$μ$.
 \end{prop}
-(Since $Q$~has direction $μ$,
-its image~$ψ(Q)$ has the same multiplicative order as~$Q$).
 \begin{proof}
 Let~$Q' = ψ(Q)$ and~$\widehat{ψ}$ be the isogeny dual to~$ψ$.
 Since both $\widehat{ψ}$~and~$\widehat{ψ}(Q') = ℓ Q$ are horizontal
@@ -790,7 +788,7 @@ Summing this over all~$i$ proves~(v).
 
 
 We continue here our study on the action of the Frobenius $π$ on
-$E[ℓ^k]$.  Given an elliptic curve~$E$ with $ℓ$-maximal endomorphism
+$E[ℓ^k]$.  Given an ordinary elliptic curve~$E$ with $ℓ$-maximal endomorphism
 ring, we explicitly compute diagonal and horizontal bases of $E[ℓ^k]$
 as defined in the previous section.  We will use the latter basis of
 $E[ℓ^k]$ in Section~\ref{sub:final-interp}, to put restrictions on the
@@ -1238,10 +1236,10 @@ endomorphism ring proceeds as follows:
 
 In the previous sections we have obtained an algorithm with an
 interesting asymptotic complexity. In particular, for fixed $ℓ$ and
-$h$, it has an expected running time quasi-quadratic in the isogeny
+$h$, it has an expected running time which is quasi-quadratic in the isogeny
 degree $r$ and quasi-linear in $\log q$. Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
-algorithm. At least, when small parameters $ℓ$ and $h$ can be found
+algorithm, at least when small parameters $ℓ$ and $h$ can be found
 quickly. These parameters do indeed affect the overall running time in
 several ways: 
 \begin{itemize}
@@ -1261,13 +1259,13 @@ several ways:
 For these reasons, it is wisest in practice to set small \emph{a
   priori} bounds on $ℓ$ and $h$, and only run our algorithms when
 parameters within these bounds can be found. Fortunately, the
-asymptotic density of Elkies primes is $1/2$, and the height $h$ is
+asymptotic density of Elkies primes is $1/2$, and the height~$h$
 small with very high probability \todo{give some refs}. Thus we expect
 to find good parameters for most curves.
 
 For completeness we give some more formal bounds on the general
 complexity of our algorithm. First, we note that by definition
-$h∈O(\log(q))$, and that under the Generalize Riemann Hypothesis $ℓ$
+$h∈O(\log(q))$, and that under the Generalized Riemann Hypothesis $ℓ$
 can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
 large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
 asymptotical complexity of our algorithm is quite simply
