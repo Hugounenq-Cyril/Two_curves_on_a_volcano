@@ -245,7 +245,7 @@ number field, $\mathcal O_K$ is its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
 For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
 we denote by~$E[ℓ^k]$ the group of $ℓ^k$-torsion points of~$E$,
-$E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the reunion of all $E[ℓ^k]$,
+$E[ℓ^{∞}] = \varinjlim E[ℓ^k]$ the union of all $E[ℓ^k]$,
 and $T_ℓ(E) = \varprojlim E[ℓ^k]$ the $ℓ$-adic Tate module~\cite[III.7]{Sil},
 which is free of rank~two over~$ℤ_ℓ$.
 The factorization of the characteristic polynomial of~$π$
@@ -273,7 +273,7 @@ $j$-invariants $j,j'∈\F_q$, and a positive integer $r$ not
 divisible by $p$, and returns, if it exists, an
 $r$-isogeny $ψ:E\to E'$, with $j(E)=j$ and $j(E')=j'$. It is based on the observation that the
 isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
-that is compatible with their structure of cyclic groups. 
+that is compatible with their structure as cyclic groups.
 It proceeds in three steps:
 \begin{enumerate}
 \item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
@@ -284,7 +284,7 @@ It proceeds in three steps:
 \item\label{alg:orig-couveignes:rational} Deduce a rational fraction $g(x)/h(x)$
   that coincides with $L$ at all points of $E[p^k]$, and verify that
   it defines the $x$-component of an isogeny of degree $r$. If it
-  does, return it otherwise replace $P'$ with a scalar multiple of
+  does, return it; otherwise, replace $P'$ with a scalar multiple of
   itself and go back to Step~\ref{alg:orig-couveignes:interp}.
 \end{enumerate}
 
@@ -354,8 +354,8 @@ we build upon the work of Doliskani and Schost~\cite{DoSc12}, whereas for
 general $ℓ$ we use towers of Kummer extensions in a way similar
 to~\cite[\S2]{DeDoSc13}.  Both constructions represent elements of
 $F_i$ as univariate polynomials with coefficients in $\F_q$, thus
-basic arithmetic operations can be performed with classic modular
-polynomial arithmetic. While constructing the tower, we also enforce
+basic arithmetic operations can be performed using modular
+polynomial arithmetic over~$\F_q$. While constructing the tower, we also enforce
 special relations between the generators of each level, so that moving
 elements up and down the tower, and testing membership, can be done at
 negligible cost.
@@ -1390,7 +1390,7 @@ we find that the covolume of~$Λ_{i,j}$ is~$ℓ^{ν(i,j)}$,
 hence the point~(i) of the proposition.
 (The case~$i = j = 0$ yields singleton classes in~$E[ℓ]$).
 
-The reunion of all the sets~$W(j,i,c,d)$
+The union of all the sets~$W(j,i,c,d)$
 is exactly the set of all~$x P + y Q$ for~$x, y ≠ 0$.
 We obtain the classes of~(ii) by considering
 the sets~$V(i, c) · P$ and~$V(j,d) · Q$.
