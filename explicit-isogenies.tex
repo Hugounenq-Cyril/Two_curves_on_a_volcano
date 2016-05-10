@@ -1093,31 +1093,28 @@ $ℓ$-volcanoes. These steps are discussed and analyzed next.
 \subsection{Finding a suitable $ℓ$-volcano}
 \label{sub:shape-volcano}
 
-Our algorithm uses an Elkies prime~$ℓ$.  According to Chebotarev's
-density theorem, the density of primes~$ℓ$ such that~$(d_K/ℓ) = +1$ is
-asymptotically~$1/2$, so that we need only try a $O(1)$ number of
-primes~$ℓ$.  Since~$d_K$ is not assumed to be known yet, we need to be
-able to compute the height $h$ of the volcano, the shape of its
-crater, as well as the shortest $ℓ$-isogeny chain from~$E$ to the
-crater.
+Our algorithm uses an Elkies prime~$ℓ$.  Since~$d_K$ is not assumed to
+be known yet, we need to be able to compute the height $h$ of the
+volcano, the shape of its crater, as well as the shortest $ℓ$-isogeny
+chain from~$E$ to the crater.
 
 The algorithms of Fouquet and Morain~\cite{volcano} compute the height
 $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
-$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations and
-$O(\MM(ℓ^2)\log (q))$ operations in $\F_q$, then each factorization costs
-an expected
-$O(\MM(ℓ)\log(ℓ)\log(ℓq))$ operations
-using the Cantor-Zassenhaus algorithm. More efficient methods for special
-instances of volcanoes are presented in~\cite{MiretMRV05} and
-in~\cite{ionica+joux13}, but we do not discuss them.
+$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations, then
+each factorization costs an expected $O(\MM(ℓ)\log(ℓ)\log(ℓq))$
+operations using the Cantor-Zassenhaus algorithm. More efficient
+methods for special instances of volcanoes are presented
+in~\cite{MiretMRV05} and in~\cite{ionica+joux13}, but we do not
+discuss them.
 
 Once we know a curve on the crater,
 we still have to determine the shape of the crater.
 Since the height~$h$ of the volcano is known,
 using Algorithm~\ref{alg:diagonal} we can compute a matrix of $π|E[ℓ^{h+1}]$.
 If this matrix has two distinct eigenvalues then the crater is cyclic,
-otherwise it is not.
+otherwise it is not. Note that these computations do not depend on the isogeny
+degree $r$ and can be reused to compute many isogenies on $E$.
 
 By Proposition~\ref{prop:parallel},
 the depth of~$E$ and $E'$ below their respective craters is the same.
@@ -1161,7 +1158,7 @@ there are $(ℓ^{2k}-1)/2$ distinct such abscissas (or $2^{2k-1}+1$ when
 $ℓ=2$).  The isogeny~$ψ$ acts on abscissas as a rational fraction of
 degrees~$(r, r-1)$, which is thus defined by $2r$ coefficients; 
 knowing this rational function allows us to find the kernel of $\psi$,
-and recover $\psi$ itself using V\'elu's formulas in linear time. For this
+and recover $\psi$ itself using V\'elu's formulas. For this
 method to work, we therefore select the smallest~$k ≥ h+1$ such
 that~$ℓ^{2k}-1 > 4r$.
 
@@ -1189,33 +1186,32 @@ endomorphism ring proceeds as follows:
   \end{enumerate}
 \end{enumerate}
 
-\begin{thm*}
-It is possible to solve the “Explicit Isogeny Problem”
-using an expected
-\[ O\bigl(r\MM(r)\log^2(r) + \MM\bigl(\sqrt{r}\log(q)\bigr)\log(r)\bigr)\]
-operations in~$\F_q$.
-\end{thm*}
+\begin{prop}
+  \label{prop:full-complexity}
+  Assuming that $ℓ\in o(r)$ and $2h<\log_ℓ(r)$, the algorithm outlined
+  above \todo{(shall we make a proper float for the algorithm?)}
+  computes an isogeny $ψ:E→E'$ using an expected
+  \[O\bigl(r\MM(rℓ^2)\log(r)\log(ℓ) + \MM(\sqrt{r}\log(q))\log^2(r) +
+    ℓ\MM(ℓ)\log(q)\bigr)\]
+  operations in $\F_q$.
+\end{prop}
 \begin{proof}
-  We expect to find a small Elkies prime $ℓ$ after $O(1)$ trials. Also
-  note that the height $h$~of the volcano of $ℓ$-isogenies is small
-  with very high probability; in case it is not, we can simply
-  discard~$ℓ$ and choose another one. Hence, we treat both $h$ and $ℓ$
-  as constants for the purpose of this theorem.
+  Thanks to the hypotheses, we can pick the integer $k$ so that
+  $ℓ^{2k} ∈ O(r)$ on average. \todo{Is this clear enough?}
 
-  First we reduce the problem to one on $ℓ$-maximal curves. This costs
-  $O(\log(q) + \MM(r)\log(r))$, as outlined in
-  Section~\ref{sub:shape-volcano}.  Then we pick $k$ with
-  $ℓ^{2k} ∈ O(r)$, and we apply the algorithm outlined above. By
-  Proposition~\ref{prop:classes}, there is a $β<h$ such that $E[ℓ^k]$
-  is contained in $E(F_n)$ with $n=k-β$. We thus construct the Kummer
-  tower $F₀⊂\cdots⊂F_n$, and we do the precomputations required by
-  Lemma~\ref{lemma:frob-ell} at a cost of $O(\log(r)\log(q))$.
+  By Proposition~\ref{prop:classes}, there is a $β<h$ such that
+  $E[ℓ^k]$ is contained in $E(F_n)$ with $n=k-β$. We thus construct
+  the Kummer tower $F₀⊂\cdots⊂F_n$, and we do the precomputations
+  required by Lemma~\ref{lemma:frob-ell} at a cost of
+  $O(ℓ\MM(ℓ)\log(q))$.
 
-  Step~\ref{alg:ours:horizontal} costs $O(\RR(k-\beta))$ according to
-  Proposition~\ref{th:horizontal}. Using the
-  estimates of Section~\ref{sub:towers}, we see that this cost is
-  bounded by $O(\MM(\sqrt{r})\log(rq))$ if $ℓ=2$, or by
-  $O(r +\MM(\sqrt{r}\log(q))\log(r))$ otherwise.
+  Bounding $h$ by $k-1$, Step~\ref{alg:ours:horizontal} costs
+  $O(k\RR(k-\beta) + kℓ^2\MM(\sqrt{r}))$ according to
+  Proposition~\ref{th:horizontal}. Using the estimates of
+  Section~\ref{sub:towers}, we see that this cost is bounded by
+  $O(\MM(\sqrt{r})\log(r)(ℓ^2 + \log(rq)))$ if $ℓ=2$, or by
+  $O(r\log(r) +\MM(\sqrt{r}\log(q))\log^2(r) +
+  ℓ^2\MM(\sqrt{r})\log(r))$ otherwise.
 
   By Proposition~\ref{prop:classes}~\ref{prop:classes:count}, there
   are at most~$O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$. In order to
@@ -1226,14 +1222,79 @@ operations in~$\F_q$.
   $O(\MM(ℓ^n)\log(ℓ^k))$ operations. We thus have a total cost of
   $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log^2(r))$ to compute all such representatives.
 
-  Then, using proposition~\ref{prop:interpol}, where the total degree
+  Then, using Proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
-  and~$L_{a,b}$ at a cost of~$O(\MM(r)\log(r))$.
-  The cost of computing $F_{a,b}$, and identifying the isogeny is
-  dominated by that of computing~$L_{a,b}$~\cite[§3.3]{df10}.
-  Finally, in general approximately $ℓ^{2k} ≈ r$~candidate matrices
-  must be tried before finding the isogeny.
+  and~$L_{a,b}$ at a cost of~$O(\MM(rℓ^2)\log(r)\log(ℓ))$.  The cost
+  of computing $F_{a,b}$, and identifying the isogeny is dominated by
+  that of computing~$L_{a,b}$~\cite[§3.3]{df10}.  Finally, in general
+  approximately $ℓ^{2k} ≈ r$~candidate matrices must be tried before
+  finding the isogeny.
+\end{proof}
+
+\subsection{Asymptotic complexity}
+\label{sub:complexity}
+
+In the previous sections we have obtained an algorithm with an
+interesting asymptotic complexity. In particular, for fixed $ℓ$ and
+$h$, it has an expected running time quasi-quadratic in the isogeny
+degree $r$ and quasi-linear in $\log q$. Thus we expect it to be
+practical, and a substantial improvement over Couveignes' original
+algorithm. At least, when small parameters $ℓ$ and $h$ can be found
+quickly. These parameters do indeed affect the overall running time in
+several ways: 
+\begin{itemize}
+\item To bootstrap the algorithm as described in
+  Section~\ref{sub:shape-volcano}, all modular polynomials up to $Φ_ℓ$
+  must be computed or retrieved from tables. This costs $Ω(ℓ^4)$ at
+  best.
+\item If the height $h$ is not small enough, all parameters
+  $r<(ℓ^{2h+2}-1)/4$ will require the same computational effort, because
+  the parameter $k$ must be chosen greater than $h$.
+\item All parameters $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require
+  essentially the same computational effort, thus resulting in a
+  \emph{staircase behavior} when $r$ increases. The larger $ℓ$, the
+  larger the staircase steps, and thus the more resources are wasted.
+\end{itemize}
+
+For these reasons, it is wisest in practice to set small \emph{a
+  priori} bounds on $ℓ$ and $h$, and only run our algorithms when
+parameters within these bounds can be found. Fortunately, the
+asymptotic density of Elkies primes is $1/2$, and the height $h$ is
+small with very high probability \todo{give some refs}. Thus we expect
+to find good parameters for most curves.
+
+For completeness we give some more formal bounds on the general
+complexity of our algorithm. First, we note that by definition
+$h∈O(\log(q))$, and that under the Generalize Riemann Hypothesis $ℓ$
+can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
+large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
+asymptotical complexity of our algorithm is quite simply
+$O(r\MM(r)\log(r))$.
+
+For a more general bound, a result of Shparlinski and
+Sutherland~\cite{shparlinski2014distribution} tells us that for almost
+all primes $q$ and curves $E/\F_q$ asymptotically half of the primes
+in the interval $[1,L[$ are Elkies' primes, for $L>\log(q)^ε$ for any
+fixed $ε>0$. Even discarding those Elkies primes for which the height
+$h$ is too large, this leaves enough small primes to run our algorithm
+\todo{this is rather vague}. Thus we can state the following theorem.
+
+\begin{thm*}
+  For almost all primes $q$ and curves $E,E'$ over $\F_q$, and for any
+  $ε>0$, it is possible to solve the “Explicit Isogeny Problem” using
+  an expected
+  \[O\bigl(r\MM(r)\log(r)\log(q)^ε + \MM(\sqrt{r}\log(q))\log^2(r) +
+    \log(q)^{1+ε}\bigr)\]
+  operations in~$\F_q$.
+\end{thm*}
+\begin{proof}
+  By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
+  The search for $ℓ$ described in Section~\ref{sub:shape-volcano}
+  takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
+  for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
+  analysis follows readily from
+  Proposition~\ref{prop:full-complexity}.
 \end{proof}
 
 
@@ -1407,4 +1468,4 @@ Canada}
 
 % vim: ts=2:
 %  LocalWords:  Frobenius endomorphism precomputation morphism
-%  LocalWords:  subproduct factorizations
+%  LocalWords:  subproduct factorizations asymptotical
