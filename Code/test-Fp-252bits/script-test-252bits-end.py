@@ -4,7 +4,8 @@ load('../extension_corps.sage')
 
 n=15
 r=10
-Fichier = open('../../benchmarks/test-script-252bits-bis.tsv','a')
+fichier='../../benchmarks/test-script-252bits-bis.tsv'
+
 
 p=7237005577332262213973186563042994240829374041602535252466099000494570602917
 F=FiniteField(p)
@@ -30,6 +31,7 @@ for end in range(2,443):
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=n,repeat=r,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=n,repeat=r,seconds=True,preparse=True)
+	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 

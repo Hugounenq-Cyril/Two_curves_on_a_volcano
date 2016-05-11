@@ -4,7 +4,8 @@ load('../extension_corps.sage')
 
 n=15
 r=10
-Fichier = open('../../benchmarks/test-script-1033-bis.tsv','a')
+fichier='../../benchmarks/test-script-1033-bis.tsv'
+
 
 
 F=FiniteField(1033)
@@ -30,6 +31,7 @@ for end in range(2,443):
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=n,repeat=r,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=n,repeat=r,seconds=True,preparse=True)
+	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
@@ -53,6 +55,7 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=n,repeat=r,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=n,repeat=r,seconds=True,preparse=True)
+	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
@@ -76,6 +79,7 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=n,repeat=r,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=n,repeat=r,seconds=True,preparse=True)
+	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
 
@@ -99,5 +103,6 @@ for l in L:
 		else:
 			A=timeit('calcul_isogenie_step(M,Lc,P2,Q2,R2,o2,o1,Tower,deg)',number=n,repeat=r,seconds=True,preparse=True)
 	B=timeit('tate_module(E,((16.0)/3)*deg,K,2,conservation=True)',number=n,repeat=r,seconds=True,preparse=True)
+	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
