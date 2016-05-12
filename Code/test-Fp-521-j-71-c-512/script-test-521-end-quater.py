@@ -4,7 +4,7 @@ load('../extension_corps.sage')
 
 n=15
 r=10
-fichier='../../benchmarks/test-script-521-5.tsv'
+fichier='../../benchmarks/test-script-521-6.tsv'
 
 
 F=FiniteField(521)
@@ -14,6 +14,7 @@ E=EllipticCurve(j=F(71))
 if E.cardinality()!=512:
 	E=E.quadratic_twist()
 print E
+'''
 for end in range(2,32):
 	deg=end**2
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
@@ -33,7 +34,7 @@ for end in range(2,32):
 	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
-
+'''
 
 for end in range(51,60):
 	deg=end**2

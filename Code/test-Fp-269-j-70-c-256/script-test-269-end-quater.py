@@ -2,9 +2,9 @@ load('../isogeny-computing-testless.sage')
 load('../tate-module-extension-testless.sage')
 load('../extension_corps.sage')
 
-n=8
-r=12
-fichier='../../benchmarks/test-script-269-5.tsv'
+n=12
+r=8
+fichier='../../benchmarks/test-script-269-6.tsv'
 
 
 
@@ -15,6 +15,7 @@ E=EllipticCurve(j=F(70))
 if E.cardinality()!=256:
 	E=E.quadratic_twist()
 print E
+'''
 for end in range(2,32):
 	deg=end**2
 	a,b,c,d,e,f,g=tate_module(E,((16.0)/3)*deg,K,2,conservation=True)
@@ -34,7 +35,7 @@ for end in range(2,32):
 	Fichier = open(fichier,'a')	
 	Fichier.write( str(deg) +'\t'+ str(B) +'\t'+ str(C) +'\t'+ str(A) + '\t'+ str(d) +'\n')
 	Fichier.close()
-
+'''
 
 for end in range(51,60):
 	deg=end**2
