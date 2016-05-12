@@ -813,42 +813,23 @@ multiplication by~$ℓ$.
 \begin{algorithmic}[1]
 \item \textbf{\color{red}CET ALGORITHME EST UNE SUGGESTION DE CORRECTION}
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$; $(P_1, Q_1)$: a basis of~$E[ℓ]$.
+$k$: an integer~$≥ h$;\\ $(P_1, Q_1)$: a rational basis of~$E[ℓ]$.
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 % \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
+\STATE{$λ ← 1$; $μ ← 1$.}
 \FOR {$i=2$  to  $k$}
 \STATE $P' ← \sfdiv(\ell, P_{i-1})$; $Q' ← \sfdiv (\ell, Q_{i-1})$.
-\STATE \textbf{if} $i ≤ h-1$ \textbf{then} $(P_i, Q_i) ← (P', Q')$;
-\textbf{next}; \textbf{end if}.
 \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
 λ + a\ell^{i} & b\ell^{i}\\
-c\ell^{i} & μ + d\ell^{i}
-\end{smallmatrix} \right) \pmod {\ell^{i+1}}$
-\IF{$i = h$} \STATE{$x ←$ root in~$\F_ℓ$ of $b x^2 + (a-d) x - c = 0$}
-\STATE{$P_{i} ← P' + x Q'$; $Q_{i} ← -b/c P' + Q'$}
-\STATE{$λ ← λ + ℓ^i (a + b x)$; $μ ← μ + ℓ^i (d - b x)$}
-\ELSE \STATE{\textbf{\color{red} ???}}
-\ENDIF
+c\ell^{i} & μ + d\ell^{i} \end{smallmatrix} \right) \pmod {\ell^{i+1}}$
+\STATE{$x ←$ root in~$\F_ℓ$
+  of $b x^2 + (a-d + ℓ^i/(λ-μ)) x - c = 0$}; $y ← -bx/c$.
+\STATE{$P_i ← P' + y Q'$; $Q_i ← x P' + Q'$}
+\STATE{$λ ← λ + ℓ^i (a + bx)$; $μ ← μ + ℓ^i (d + cy)$.}
 \ENDFOR
-% \STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
-% \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-% λ + a\ell^{i} & b\ell^{i}\\
-% c\ell^{i} & μ + d\ell^{i}
-% \end{smallmatrix}
-% \right) \pmod {\ell^{i+1}}$
-% with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
-% \STATE \textbf{if} {$λ \neq μ$} \textbf{then}
-% $u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
-% \STATE $(λ, μ) \gets
-%   (λ + a\ell^i, μ + d\ell^i)$
-% \STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
-% \STATE $(P_{i+1},Q_{i+1}) \gets
-%   (P'+\ell^{i-1-h'}b' Q',\;Q'+\ell^{i-1-h'}c' P')$
-% \STATE \textbf{if} {$λ = μ$} \textbf{then} $h' \leftarrow h'+1$ \textbf{endif}
-% \ENDFOR
-% \RETURN $(P_{k},Q_{k},λ,μ)$
+\RETURN $(P_{k},Q_{k},λ,μ)$
 \end{algorithmic}
 \end{algorithm}
 \begin{algorithm}
