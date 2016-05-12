@@ -2,8 +2,8 @@ load('../isogeny-computing-testless.sage')
 load('../tate-module-extension-testless.sage')
 load('../extension_corps.sage')
 
-n=5
-r=10
+n=6
+r=12
 fichier='../../benchmarks/test-script-62bits-5.tsv'
 
 
