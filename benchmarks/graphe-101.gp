@@ -6,5 +6,5 @@ set ylabel "seconds" offset 5
 set xlabel "r"
 set logscale y 2
 set logscale x 2
-plot 'test-script-101.tsv' using 1:($2+$3) with line lt 1 lw 3 title "diagonalization", \
-     'test-script-101.tsv' using 1:4 with line lt 2 lw 3 title "interpolation"
+plot 'test-script-101-bis.tsv' using 1:($2+$3) with line lt 1 lw 3 title "diagonalization", \
+     'test-script-101-bis.tsv' using 1:4 with line lt 2 lw 3 title "interpolation"

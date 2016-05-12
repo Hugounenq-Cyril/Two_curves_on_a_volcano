@@ -1327,34 +1327,46 @@ $h$ is too large, this leaves enough small primes to run our algorithm
 
 
 We implemented a simplified version of our main algorithm using
-SageMath v7.0~\cite{sage}. In our current implementation, we only
+SageMath v7.1~\cite{sage}. In our current implementation, we only
 handle the case $\ell=2$ and we work only with curves located on the
-cyclic crater of a volcano of $2$-isogenies. We implemented the
-construction of towers of finite fields from~\cite{DoSc12}, in the
-favorable case where $p = 1 \bmod 4$. The source code is available in
+cyclic crater of a volcano of $2$-isogenies. We worked with always the
+same curve for a fixed characteristic with the greatest rational torsion.
+We implemented the construction of towers of finite fields from~\cite{DoSc12}
+, in the favorable case where $p = 1 \bmod 4$. The source code is available in
 the GitHub project
 \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/}.
 
-\begin{figure}\label{fig:p=101}
+\begin{figure}%\label{fig:p=101}
 \centering
-\includegraphics[scale=1]{benchmarks/101.eps}
+\includegraphics[scale=1]{benchmarks/graphe-101.eps}
 \caption{Comparison of diagonalization and interpolation phases, for a
   curves defined over $\F_{101}$, and increasing $r$. Plot in logarithmic scale.}
 \label{fig:p=101}
 \end{figure}
 
+
+\begin{figure}%\label{fig:p=101-149-269}
+\centering
+\includegraphics[scale=1]{benchmarks/graphe-101-149-269.eps}
+\caption{Comparison interpolation phases, for
+  curves defined resepectly over $\F_{101}$, $\F_{149}$, $\F_{269}$,$\F_{521}$, $\F_{1033}$ and two base fields of size $62$ and $252$ bits; and increasing $r$. Plot in logarithmic scale.}
+\label{fig:p=101-149-269}
+\end{figure}
+
+
 We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
-fixed a base field $\F_{101}$ and ran our algorithm on isogenous
-elliptic curves of increasing degree $r$. The torsion groups involved
-in the computations varied from $2^3$ to $2^6$.
+fixed a base field $\F_{101}$ and ran our algorithm on multiplication by $r$, with increasing $r$. 
+The torsion groups involved in the computations varied from $2^3$ to $2^7$.
 Figure~\ref{fig:p=101} shows the running time for the computation of
 the horizontal basis of $E[ℓ^k]$, and that for one execution of the
 interpolation step. Total running times are multiplied by an average
-factor of $r$, as expected. The staircase behavior of our algorithm is
-apparent from the plot. Although the data points are limited, we can
-also guess the quasi-linear growth of the running times. Finally, we
-remark that, though asymptotically negligible, the diagonalization
-step dominates one interpolation step for the tested parameters.
+factor of $r$, as expected. The stepping behavior of our algorithm is
+apparent from the plot. We remark that, though asymptotically negligible, the diagonalization
+step dominates one interpolation step for the tested parameters. Since 
+the interpolation step is asymptotically dominating we focus on this step 
+to compare the running time for different base field. Figure ~\ref{fig:p=101-149-269}
+shows that the running time does not have an exponential dependancy in 
+the characteristic.
 
 \bibliographystyle{alpha}
 \bibliography{refs}
