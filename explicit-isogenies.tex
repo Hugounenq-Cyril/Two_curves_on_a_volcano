@@ -824,8 +824,10 @@ such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
 λ + a\ell^{i} & b\ell^{i}\\
 c\ell^{i} & μ + d\ell^{i} \end{smallmatrix} \right) \pmod {\ell^{i+1}}$
-\STATE{$x ←$ root in~$\F_ℓ$
-  of $b x^2 + (a-d + ℓ^i/(λ-μ)) x - c = 0$}; $y ← -bx/c$.
+\STATE{\textbf{if} $c = 0$ \textbf{then} $x ← 0$;
+$y ← $ root in~$\F_ℓ$ of~$b + (a-d + ℓ^i/(λ-μ)) y = 0$; }
+\STATE{\textbf{else} $x ←$ root in~$\F_ℓ$
+  of $b x^2 + (a-d + ℓ^i/(λ-μ)) x - c = 0$; $y ← -bx/c$; \textbf{end if}}
 \STATE{$P_i ← P' + y Q'$; $Q_i ← x P' + Q'$}
 \STATE{$λ ← λ + ℓ^i (a + bx)$; $μ ← μ + ℓ^i (d + cy)$.}
 \ENDFOR
@@ -1211,16 +1213,15 @@ endomorphism ring proceeds as follows:
 
 \begin{prop}
   \label{prop:full-complexity}
-  Assuming that $ℓ\in o(r)$ and $2h<\log_ℓ(r)$, the algorithm outlined
+  Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm outlined
   above \todo{(shall we make a proper float for the algorithm?)}
   computes an isogeny $ψ:E→E'$ using an expected
-  \[O\bigl(r\MM(rℓ^2)\log(r)\log(ℓ) + \MM(\sqrt{r}\log(q))\log^2(r) +
+  \[O\bigl(r ℓ^2\MM(rℓ^4)\log(r)\log(ℓ) + \MM(\sqrt{r} ℓ \log(q))\log^2(r) +
     ℓ\MM(ℓ)\log(q)\bigr)\]
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
-  Thanks to the hypotheses, we can pick the integer $k$ so that
-  $ℓ^{2k} ∈ O(r)$ on average. \todo{Is this clear enough?}
+By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
 
   By Proposition~\ref{prop:classes}, there is a $β<h$ such that
   $E[ℓ^k]$ is contained in $E(F_n)$ with $n=k-β$. We thus construct
@@ -1228,13 +1229,13 @@ endomorphism ring proceeds as follows:
   required by Lemma~\ref{lemma:frob-ell} at a cost of
   $O(ℓ\MM(ℓ)\log(q))$.
 
-  Bounding $h$ by $k-1$, Step~\ref{alg:ours:horizontal} costs
+  Bounding $h$ by $k-1$, Step~\ref{alg:ours:horizontal} costs on average
   $O(k\RR(k-\beta) + kℓ^2\MM(\sqrt{r}))$ according to
   Proposition~\ref{th:horizontal}. Using the estimates of
   Section~\ref{sub:towers}, we see that this cost is bounded by
-  $O(\MM(\sqrt{r})\log(r)(ℓ^2 + \log(rq)))$ if $ℓ=2$, or by
-  $O(r\log(r) +\MM(\sqrt{r}\log(q))\log^2(r) +
-  ℓ^2\MM(\sqrt{r})\log(r))$ otherwise.
+%   $O(\MM(\sqrt{r})\log(r)(ℓ^2 + \log(rq)))$ if $ℓ=2$, or by
+  $O(r\log(r) +\MM(\sqrt{r} ℓ \log(q))\log^2(r) +
+  ℓ^2\MM(\sqrt{r} ℓ)\log(r))$.% otherwise.
 
   By Proposition~\ref{prop:classes}~\ref{prop:classes:count}, there
   are at most~$O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$. In order to
@@ -1246,12 +1247,12 @@ endomorphism ring proceeds as follows:
   $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log^2(r))$ to compute all such representatives.
 
   Then, using Proposition~\ref{prop:interpol}, where the total degree
-  is~$t = (ℓ^{2k}-1)/2∈O(r)$, and the number of interpolation points
+  is~$t = (ℓ^{2k}-1)/2∈O(r ℓ^2)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
-  and~$L_{a,b}$ at a cost of~$O(\MM(rℓ^2)\log(r)\log(ℓ))$.  The cost
+  and~$L_{a,b}$ at a cost of~$O(\MM(r ℓ^4)\log(r)\log(ℓ))$.  The cost
   of computing $F_{a,b}$, and identifying the isogeny is dominated by
   that of computing~$L_{a,b}$~\cite[§3.3]{df10}.  Finally, in general
-  approximately $ℓ^{2k} ≈ r$~candidate matrices must be tried before
+  approximately $ℓ^{2k} ≈ r ℓ^2$~candidate matrices must be tried before
   finding the isogeny.
 \end{proof}
 
@@ -1260,7 +1261,7 @@ endomorphism ring proceeds as follows:
 
 In the previous sections we have obtained an algorithm with an
 interesting asymptotic complexity. In particular, for fixed $ℓ$ and
-$h$, it has an expected running time which is quasi-quadratic in the isogeny
+$h$, it is expected to run in a time quasi-quadratic in the isogeny
 degree $r$ and quasi-linear in $\log q$. Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
 algorithm, at least when small parameters $ℓ$ and $h$ can be found
