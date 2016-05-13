@@ -102,6 +102,34 @@ def volcan_cyclique(p,r,j0):
 		return False
 
 
+def volcan_cycliquebis(p,r,j0):
+	'''
+	Input:
+	-j0 le j invariant d'une courbe définie sur Fp^r
+	-p un nombre premier
+	-r un entier
+
+	Output:
+	Dit si le volcan est cyclique ou pas 
+	'''
+	F.<a>=FiniteField(p^r)
+	E=EllipticCurve(j=F(j0))
+	t=E.trace_of_frobenius()
+	D=t^2-4*(p^r)
+	N=D/(2^6)
+	#if (D/2^(6))%2==1:
+		#print D.factor()
+	while (D%4)==0:
+		D=D/4
+	if D%8==1:
+		#print 'D%8==',D%8
+		print N.factor()
+		return True
+	else:
+		#print 'D%8==',D%8
+		return False
+
+
 def Construction_Descente(p,r,b,u):
 	'''
 	Input:

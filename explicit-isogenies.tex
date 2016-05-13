@@ -820,52 +820,57 @@ $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 % \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
 \STATE{$λ ← 0$; $μ ← 0$; $P_0, Q_0 ← $ neutral element of~$E[ℓ]$.}
-\FOR {$i=1$  to  $k$}
-\STATE $P' ← \sfdiv(\ell, P_{i-1})$; $Q' ← \sfdiv (\ell, Q_{i-1})$.
-\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-λ + a\ell^{i-1} & b\ell^{i-1}\\
-c\ell^{i-1} & μ + d\ell^{i-1} \end{smallmatrix} \right) \pmod {\ell^{i}}$
-\STATE{\textbf{if} $b = 0$ \textbf{then} $x ← 0$;
-solve equation~$c + (d-a + μ-λ) y = 0$; }
-\STATE{\textbf{else} solve equation
-  $c x^2 + (d-a+ μ-λ) x - b = 0$;
-  $y ← -cx/b$; \textbf{end if}}
-\STATE{$P_i ← P' + y Q'$; $Q_i ← x P' + Q'$}
-\STATE{$λ ← λ + ℓ^i (a + bx)$; $μ ← μ + ℓ^i (d + cy)$.}
+\FOR {$i=0$  to  $k-1$}
+\STATE\label{alg:diagonal:divide}
+  $P' ← \sfdiv(\ell, P_{i})$; $Q' ← \sfdiv (\ell, Q_{i})$.
+\STATE\label{alg:diagonal:frobenius}
+  compute $\pi|(P',Q')=\left( \begin{smallmatrix}
+λ + aℓ^{i} & bℓ^{i}\\
+cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
+\STATE\label{alg:diagonal:solve1}
+  \textbf{if} $b = 0$ \textbf{then} $x ← 0$;
+  solve equation~$c ℓ^{i} + ((d-a) ℓ^{i} + μ-λ) y = 0$;
+\STATE\label{alg:diagonal:solve2}
+  \textbf{else} solve equation
+  $c ℓ^{i} x^2 + ((d-a) ℓ^{i}+ μ-λ) x - b ℓ^{i} = 0$;
+  $y ← -cx/b$; \textbf{end if}.
+\STATE\label{alg:diagonal:upd-P}
+  $P_{i+1} ← P' + y Q'$; $Q_{i+1} ← x P' + Q'$.
+\STATE{$λ ← λ + ℓ^{i} (a + bx)$; $μ ← μ + ℓ^{i} (d + cy)$.}
 \ENDFOR
-\RETURN $(P_{k},Q_{k},λ,μ)$
+\RETURN $(P_{k},Q_{k},λ,μ).$
 \end{algorithmic}
 \end{algorithm}
-\begin{algorithm}
-\caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
-\begin{algorithmic}[1]
-\REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$.
-\ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
-$λ, μ ∈ ℤ/ℓ^k ℤ$
-such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
-\STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
-\STATE $h':=1, u:=1$
-\FOR {$i=1$  to  $k-1$}
-\STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
-\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-λ + a\ell^{i} & b\ell^{i}\\
-c\ell^{i} & μ + d\ell^{i}
-\end{smallmatrix}
-\right) \pmod {\ell^{i+1}}$
-with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
-\STATE \textbf{if} {$λ \neq μ$} \textbf{then}
-$u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
-\STATE $(λ, μ) \gets
-  (λ + a\ell^i, μ + d\ell^i)$
-\STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
-\STATE $(P_{i+1},Q_{i+1}) \gets
-  (P'+\ell^{i-1-h'}b' Q',\;Q'+\ell^{i-1-h'}c' P')$
-\STATE \textbf{if} {$λ = μ$} \textbf{then} $h' \leftarrow h'+1$ \textbf{endif}
-\ENDFOR
-\RETURN $(P_{k},Q_{k},λ,μ)$
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}%<<<
+% \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
+% \begin{algorithmic}[1]
+% \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
+% $k$: an integer~$≥ h$.
+% \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
+% $λ, μ ∈ ℤ/ℓ^k ℤ$
+% such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
+% \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
+% \STATE $h':=1, u:=1$
+% \FOR {$i=1$  to  $k-1$}
+% \STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
+% \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
+% λ + a\ell^{i} & b\ell^{i}\\
+% c\ell^{i} & μ + d\ell^{i}
+% \end{smallmatrix}
+% \right) \pmod {\ell^{i+1}}$
+% with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
+% \STATE \textbf{if} {$λ \neq μ$} \textbf{then}
+% $u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
+% \STATE $(λ, μ) \gets
+%   (λ + a\ell^i, μ + d\ell^i)$
+% \STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
+% \STATE $(P_{i+1},Q_{i+1}) \gets
+%   (P'+\ell^{i-1-h'}b' Q',\;Q'+\ell^{i-1-h'}c' P')$
+% \STATE \textbf{if} {$λ = μ$} \textbf{then} $h' \leftarrow h'+1$ \textbf{endif}
+% \ENDFOR
+% \RETURN $(P_{k},Q_{k},λ,μ)$
+% \end{algorithmic}
+% \end{algorithm}%>>>
 \begin{prop}\label{th:diagonal}
   Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
   using an expected
@@ -873,13 +878,19 @@ $u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
   q))$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
-  A straightforward calculation shows that after each loop the basis
-  $(P_{i+1},Q_{i+1})$ is diagonal.
-  To bootstrap the algorithm, we need to compute a basis of $E[ℓ]$
-  over the field $F_1$. We do this by factoring the $ℓ$-division
-  polynomial at a cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
-  operations using the Cantor-Zassenhaus algorithm.
+The equation at lines~\ref{alg:diagonal:solve1} and~\ref{alg:diagonal:solve2}
+is first divided out by the largest power of~$ℓ$ possible,
+which is~$ℓ^{\min (h, i)}$.
+For~$i ≤ h-1$, since~$a = d$ and~$b = c = 0$,
+the solutions are~$x = y = 0$, and
+steps~\ref{alg:diagonal:solve1} to~\ref{alg:diagonal:upd-P} do nothing.
+A straightforward calculation shows that after each loop the basis
+$(P_{i+1},Q_{i+1})$ is diagonal.
 
+For~$i = 0$, the basis of~$E[ℓ](F_1)$ at step~\ref{alg:diagonal:divide}
+is computed by factoring the $ℓ$-division polynomial
+at an expected cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
+operations using the Cantor-Zassenhaus algorithm.
   Once $E[ℓ]$ has been computed, we can factor the
   multiplication-by-$ℓ$ map as a product of two $ℓ$-isogenies. Then,
   for any $P$ defined in $E(F_{i-β})$, the computation of
@@ -1527,3 +1538,4 @@ Canada}
 % vim: ts=2:
 %  LocalWords:  Frobenius endomorphism precomputation morphism
 %  LocalWords:  subproduct factorizations asymptotical
+
