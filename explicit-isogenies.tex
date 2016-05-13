@@ -255,7 +255,7 @@ the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
 where $v_ℓ$ is the $ℓ$-adic valuation.
 
 We measure all computational complexities in terms of operations in
-$\mathbb{F}_q$; the binary costs associated to the algorithms
+$\mathbb{F}_q$; the boolean costs associated to the algorithms
 presented next are negligible compared to the algebraic costs, and
 will be ignored. We use the Landau notation $O(\ )$ to express
 asymptotic complexities, and the notation $\tildO(\ )$ to neglect
@@ -813,7 +813,6 @@ multiplication by~$ℓ$.
 \begin{algorithm}
 \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
-\item \textbf{\color{red}CET ALGORITHME EST UNE SUGGESTION DE CORRECTION}
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
 $k$: an integer~$≥ h$;
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
@@ -1140,7 +1139,7 @@ chain from~$E$ to the crater.
 The algorithms of Fouquet and Morain~\cite{volcano} compute the height
 $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
-$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations, then
+$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ boolean operations, then
 each factorization costs an expected $O(\MM(ℓ)\log(ℓ)\log(ℓq))$
 operations using the Cantor-Zassenhaus algorithm. More efficient
 methods for special instances of volcanoes are presented
@@ -1232,7 +1231,6 @@ endomorphism ring proceeds as follows:
   \label{prop:full-complexity}
   Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
   of subsection~\ref{sub:final-interp}
-  above \todo{(shall we make a proper float for the algorithm?)}
   computes an isogeny $ψ:E→E'$ using an expected
   \[O\bigl(r ℓ^2\MM(rℓ^4)\log(r)\log(ℓ) + \MM(\sqrt{r} ℓ \log(q))\log^2(r) +
     ℓ\MM(ℓ)\log(q)\bigr)\]
@@ -1268,17 +1266,18 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
   is~$t = (ℓ^{2k}-1)/2∈O(r ℓ^2)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
   and~$L_{a,b}$ at a cost of~$O(\MM(r ℓ^4)\log(r)\log(ℓ))$.  The cost
-  of computing $F_{a,b}$, and identifying the isogeny is dominated by
+  of computing $F_{a,b}$, and identifying the isogeny, is dominated by
   that of computing~$L_{a,b}$~\cite[§3.3]{df10}.  Finally, in general
-  approximately $ℓ^{2k} ≈ r ℓ^2$~candidate matrices must be tried before
+  approximately $ℓ^{2k} = O(r ℓ^2)$~candidate matrices must be tried before
   finding the isogeny.
 \end{proof}
 
 % For completeness we give some more formal bounds on the general
 % complexity of our algorithm.
-We now eliminate the dependency on~$ℓ$ and~$h$ in the algorithm.
-First, we note that for fixed~$q$, since $ℓ$, $h$ do not depend on~$r$,
-the asymptotic complexity of our algorithm is simply~$O(r \MM(r) \log(r))$.
+% We now eliminate the dependency on~$ℓ$ and~$h$ in the algorithm.
+% First, we note that for fixed~$q$, since $ℓ$, $h$ do not depend on~$r$,
+% the asymptotic complexity of our algorithm is simply~$O(r \MM(r)
+% \log(r))$, which is quasi-quadratic in~$r$.
 % $h∈O(\log(q))$, and that under the Generalized Riemann Hypothesis $ℓ$
 % can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
 % large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
@@ -1287,34 +1286,53 @@ the asymptotic complexity of our algorithm is simply~$O(r \MM(r) \log(r))$.
 
 We now give a bound depending on~$r$ and~$q$.
 By a result of Shparlinski and
-Sutherland~\cite{shparlinski2014distribution},
-for all primes $q$ and curves $E/\F_q$
-and for~$L > \log(q)^ε$ for any~$ε > 0$,
-asymptotically half of the primes in the interval $[1,L[$ are Elkies' primes.
-Even discarding those Elkies primes for which the height
-$h$ is too large, this leaves enough small primes to run our algorithm
-\todo{this is rather vague}. Thus we can state the following theorem.
+Sutherland~\cite[Corollary~2]{shparlinski2014distribution},
+for any~$ε > 0$, for almost all primes $q$ and curves $E/\F_q$
+asymptotically a fixed proportion of the primes $ℓ ≤ \log(q)^{ε}$
+are Elkies primes.
+For any such~$ℓ$, the corresponding height~$h = h_ℓ$
+is~$h_ℓ = \frac 12 v_ℓ(d_K)$,
+so that the condition~$ℓ^h < √r$
+discards at most a number~$O(\log q)$ of Elkies primes~$ℓ$.
+Therefore in the worst case~$ℓ = O(\log(q)^{1+ε})$.
+% whereas in the median case~$ℓ = O(1)$.
 
 \begin{thm*}
   For almost all primes $q$ and curves $E,E'$ over $\F_q$, and for any
   $ε>0$, it is possible to solve the “Explicit Isogeny Problem” using
   an expected
-  \[O\bigl(r\MM(r)\log(r)\log(q)^ε + \MM(\sqrt{r}\log(q))\log^2(r) +
-    \log(q)^{1+ε}\bigr)\]
+  \begin{equation}\label{eq:thm-complexity}
+  O\bigl(r \MM(r) \log(r) \log(q)^{6+ε}\bigr)
+  \end{equation}
   operations in~$\F_q$.
 \end{thm*}
+
+For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
+
 \begin{proof}
-  By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
+%   By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
   The search for $ℓ$ described in Section~\ref{sub:shape-volcano}
-  takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
-  for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
-  analysis follows readily from
-  Proposition~\ref{prop:full-complexity}.
+  is dominated by the computation of the modular polynomials~$Φ_ℓ$,
+  and thus bounded by~$O(\log(q)^{4+ε})$.
+  The complexity~\eqref{eq:thm-complexity} follows from
+  substituting~$ℓ = O(\log(q)^{1+ε})$
+  in Proposition~\ref{prop:full-complexity}.
+%   takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
+%   for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
+%   analysis follows readily from
+%   Proposition~\ref{prop:full-complexity}.
 \end{proof}
+
+\section{Experimental results}
+\label{sec:implem}
+
 In the previous sections we have obtained an algorithm with an
-interesting asymptotic complexity. In particular, for fixed $ℓ$ and
-$h$, it is expected to run in a time quasi-quadratic in the isogeny
-degree $r$ and quasi-linear in $\log q$. Thus we expect it to be
+interesting asymptotic complexity.
+In particular, since in the median case we have~$ℓ = O(1)$,
+the median running time of the algorithm
+is quasi-quadratic in the isogeny degree~$r$
+and quasi-linear in~$\log q$.
+Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
 algorithm, at least when small parameters $ℓ$ and $h$ can be found
 quickly. These parameters do indeed affect the overall running time in
@@ -1341,9 +1359,6 @@ small with very high probability \todo{give some refs}. Thus we expect
 to find good parameters for most curves.
 
 
-
-\section{Experimental results}
-\label{sec:implem}
 
 
 We implemented a simplified version of our main algorithm using
