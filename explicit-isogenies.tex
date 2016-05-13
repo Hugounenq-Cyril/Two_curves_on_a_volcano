@@ -362,7 +362,7 @@ negligible cost.
 
 We briefly sketch the construction for odd $\ell$. We first look for a
 primitive polynomial $P_1∈\F_q[x]$ of degree equal to $[F₁:F₀]$. There
-are many probabilistic algorithms to compute $P_1$ in time polynomial
+are many probabilistic algorithms to compute $P_1$ in expected time polynomial
 in $\ell$ and $\log(q)$; since their cost does not depend on the height
 $n$ of the tower, we neglect it. Then, the image $x₁$ of $x$ in
 $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order $\#F₁-1$,
@@ -604,7 +604,7 @@ Moreover $e = h$ if~$E$ lies on the crater,
 and else $h - e$~is the depth of~$E$ in the volcano.
 \end{prop}
 
-We note here that the matrices $\left(\begin{smallmatrix} λ & ℓ^h \\ 0 &
+We note here that the matrix $\left(\begin{smallmatrix} λ & ℓ^h \\ 0 &
 μ \end{smallmatrix}\right)$ is conjugate over~$ℤ_ℓ$
 to $\left(\begin{smallmatrix} λ & 0 \\ 0 & μ\end{smallmatrix}\right)$.
 \begin{proof}
@@ -748,9 +748,11 @@ such that~$E[ℓ^k]⊂E(F)$. Then:
 \item The order of $q$ in $(ℤ/ℓℤ)^×$ divides $d_1$,
 and $d_1$ divides~$(ℓ-1)$.
 \item If $ℓ$~is odd then for all $k ≥ 1$,
-$d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
+$ d_k = ℓ^{\min (v_ℓ (d_1), k - β}$.
+% $d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
 \item If $ℓ=2$ then $d_2 ∈ \acco{1,2}$ and, for all~$k ≥ 2$,
-$d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
+% $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
+$d_k = ℓ^{\min (v_ℓ (d_2), k - β)}$.
 \item Let $[F:\F_q]=d_1ℓ^n$, the group $E[ℓ^{∞}](F)$ is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
 \item\label{prop:classes:count} The group~$E[ℓ^k]$ contains at most
 $k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
@@ -813,21 +815,22 @@ multiplication by~$ℓ$.
 \begin{algorithmic}[1]
 \item \textbf{\color{red}CET ALGORITHME EST UNE SUGGESTION DE CORRECTION}
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$;\\ $(P_1, Q_1)$: a rational basis of~$E[ℓ]$.
+$k$: an integer~$≥ h$;
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 % \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
-\STATE{$λ ← 1$; $μ ← 1$.}
-\FOR {$i=2$  to  $k$}
+\STATE{$λ ← 0$; $μ ← 0$; $P_0, Q_0 ← $ neutral element of~$E[ℓ]$.}
+\FOR {$i=1$  to  $k$}
 \STATE $P' ← \sfdiv(\ell, P_{i-1})$; $Q' ← \sfdiv (\ell, Q_{i-1})$.
 \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-λ + a\ell^{i} & b\ell^{i}\\
-c\ell^{i} & μ + d\ell^{i} \end{smallmatrix} \right) \pmod {\ell^{i+1}}$
-\STATE{\textbf{if} $c = 0$ \textbf{then} $x ← 0$;
-$y ← $ root in~$\F_ℓ$ of~$b + (a-d + ℓ^i/(λ-μ)) y = 0$; }
-\STATE{\textbf{else} $x ←$ root in~$\F_ℓ$
-  of $b x^2 + (a-d + ℓ^i/(λ-μ)) x - c = 0$; $y ← -bx/c$; \textbf{end if}}
+λ + a\ell^{i-1} & b\ell^{i-1}\\
+c\ell^{i-1} & μ + d\ell^{i-1} \end{smallmatrix} \right) \pmod {\ell^{i}}$
+\STATE{\textbf{if} $b = 0$ \textbf{then} $x ← 0$;
+solve equation~$c + (d-a + μ-λ) y = 0$; }
+\STATE{\textbf{else} solve equation
+  $c x^2 + (d-a+ μ-λ) x - b = 0$;
+  $y ← -cx/b$; \textbf{end if}}
 \STATE{$P_i ← P' + y Q'$; $Q_i ← x P' + Q'$}
 \STATE{$λ ← λ + ℓ^i (a + bx)$; $μ ← μ + ℓ^i (d + cy)$.}
 \ENDFOR
@@ -1338,7 +1341,7 @@ the GitHub project
 
 \begin{figure}%\label{fig:p=101}
 \centering
-\includegraphics[scale=1]{benchmarks/graphe-101.eps}
+\includegraphics[scale=1]{benchmarks/graphe-101}
 \caption{Comparison of diagonalization and interpolation phases, for a
   curves defined over $\F_{101}$, and increasing $r$. Plot in logarithmic scale.}
 \label{fig:p=101}
@@ -1356,7 +1359,7 @@ the GitHub project
 
 We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
 fixed a base field $\F_{101}$ and ran our algorithm on multiplication by $r$, with increasing $r$. 
-The torsion groups involved in the computations varied from $2^3$ to $2^7$.
+The torsion levels involved in the computations varied from $2^3$ to $2^7$.
 Figure~\ref{fig:p=101} shows the running time for the computation of
 the horizontal basis of $E[ℓ^k]$, and that for one execution of the
 interpolation step. Total running times are multiplied by an average
@@ -1364,8 +1367,8 @@ factor of $r$, as expected. The stepping behavior of our algorithm is
 apparent from the plot. We remark that, though asymptotically negligible, the diagonalization
 step dominates one interpolation step for the tested parameters. Since 
 the interpolation step is asymptotically dominating we focus on this step 
-to compare the running time for different base field. Figure ~\ref{fig:p=101-149-269}
-shows that the running time does not have an exponential dependancy in 
+to compare the running time for different base fields. Figure ~\ref{fig:p=101-149-269}
+shows that the running time does not have an exponential dependency in 
 the characteristic.
 
 \bibliographystyle{alpha}
