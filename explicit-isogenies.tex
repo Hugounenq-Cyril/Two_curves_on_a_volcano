@@ -627,12 +627,11 @@ We now study the action of $ℓ$-isogenies on the $ℓ$-adic Frobenius by
 showing the link between two related notions of diagonalization.
 
 \begin{defi}[(Horizontal and diagonal bases)]
-  Let~$E$ be a curve lying on the crater. We call a
-  basis of~$E[ℓ^k]$ \emph{diagonal} if $π$~is diagonal in it; we call
-  it \emph{horizontal} if both basis points generate the kernel of
-  horizontal $ℓ^k$-isogenies. Accordingly, we also call diagonal
-  (resp. horizontal) the generators of a diagonal (resp. horizontal)
-  basis.
+  Let~$E$ be a curve lying on the crater. We call a point of~$E[ℓ^k]$
+  \emph{horizontal} if it generates the kernel of a horizontal
+  $ℓ^k$-isogeny.  We call a basis of~$E[ℓ^k]$ \emph{diagonal} if
+  $π$~is diagonal in it, \emph{horizontal} if both basis points are
+  horizontal.
 \end{defi}
 
 \begin{prop} \label{prop:diagonal-horizontal}
@@ -814,7 +813,7 @@ multiplication by~$ℓ$.
 \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$;
+$k$: a positive integer;
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
@@ -880,7 +879,7 @@ cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
 \begin{proof}
 The equation at lines~\ref{alg:diagonal:solve1} and~\ref{alg:diagonal:solve2}
 is first divided out by the largest power of~$ℓ$ possible,
-which is~$ℓ^{\min (h, i)}$.
+which is~$ℓ^{\min (h, i)}$, then solved modulo $ℓ$.
 For~$i ≤ h-1$, since~$a = d$ and~$b = c = 0$,
 the solutions are~$x = y = 0$, and
 steps~\ref{alg:diagonal:solve1} to~\ref{alg:diagonal:upd-P} do nothing.
@@ -901,9 +900,12 @@ operations using the Cantor-Zassenhaus algorithm.
   of~$O(\ell^{i-\beta}\MM(\ell))$.
   Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
   most~$ℓ^2$ point additions, with a cost of~$ℓ^2
-  \mathsf{M}(ℓ^{i-\beta+1})$; all other steps are negligible.  Since
-  the cost of each loop grows geometrically, the last loop dominates
-  all others, and gives the stated complexity.
+  \mathsf{M}(ℓ^{i-\beta+1})$.
+  The cost of solving the equations at Steps~\ref{alg:diagonal:solve1}
+  and~\ref{alg:diagonal:solve2} by exhaustive search is negligible, as
+  are the remaining operations.  Since the cost of each loop grows
+  geometrically, the last loop dominates all others, and gives the
+  stated complexity.
 \end{proof}
 
 \subsection{Computation of a horizontal basis}
@@ -941,6 +943,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
+Let $E_i$ be the image curve of $ϕ_i$.
 We check that at step~$i$ of the loop,
 the points~$(P_i, Q_i)$ form a diagonal basis of~$E_i[ℓ^{h+1}]$,
 and $ϕ_i$~has direction~$λ$.
