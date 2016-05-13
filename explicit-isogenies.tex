@@ -255,7 +255,7 @@ the eigenvalues of~$π$ in~$ℤ_ℓ$ and write~$h = v_ℓ(λ - μ)$,
 where $v_ℓ$ is the $ℓ$-adic valuation.
 
 We measure all computational complexities in terms of operations in
-$\mathbb{F}_q$; the binary costs associated to the algorithms
+$\mathbb{F}_q$; the boolean costs associated to the algorithms
 presented next are negligible compared to the algebraic costs, and
 will be ignored. We use the Landau notation $O(\ )$ to express
 asymptotic complexities, and the notation $\tildO(\ )$ to neglect
@@ -362,7 +362,7 @@ negligible cost.
 
 We briefly sketch the construction for odd $\ell$. We first look for a
 primitive polynomial $P_1∈\F_q[x]$ of degree equal to $[F₁:F₀]$. There
-are many probabilistic algorithms to compute $P_1$ in time polynomial
+are many probabilistic algorithms to compute $P_1$ in expected time polynomial
 in $\ell$ and $\log(q)$; since their cost does not depend on the height
 $n$ of the tower, we neglect it. Then, the image $x₁$ of $x$ in
 $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order $\#F₁-1$,
@@ -604,7 +604,7 @@ Moreover $e = h$ if~$E$ lies on the crater,
 and else $h - e$~is the depth of~$E$ in the volcano.
 \end{prop}
 
-We note here that the matrices $\left(\begin{smallmatrix} λ & ℓ^h \\ 0 &
+We note here that the matrix $\left(\begin{smallmatrix} λ & ℓ^h \\ 0 &
 μ \end{smallmatrix}\right)$ is conjugate over~$ℤ_ℓ$
 to $\left(\begin{smallmatrix} λ & 0 \\ 0 & μ\end{smallmatrix}\right)$.
 \begin{proof}
@@ -748,9 +748,11 @@ such that~$E[ℓ^k]⊂E(F)$. Then:
 \item The order of $q$ in $(ℤ/ℓℤ)^×$ divides $d_1$,
 and $d_1$ divides~$(ℓ-1)$.
 \item If $ℓ$~is odd then for all $k ≥ 1$,
-$d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
+$ d_k = ℓ^{\min (v_ℓ (d_1), k - β}$.
+% $d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
 \item If $ℓ=2$ then $d_2 ∈ \acco{1,2}$ and, for all~$k ≥ 2$,
-$d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
+% $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
+$d_k = ℓ^{\min (v_ℓ (d_2), k - β)}$.
 \item Let $[F:\F_q]=d_1ℓ^n$, the group $E[ℓ^{∞}](F)$ is isomorphic to~$(ℤ/ℓ^{n+α} ℤ) × (ℤ/ℓ^{n+β} ℤ)$.
 \item\label{prop:classes:count} The group~$E[ℓ^k]$ contains at most
 $k · ℓ^{k+β}$ Galois conjugacy classes over~$F_1 = \F_{q^{d_1}}$.
@@ -811,59 +813,64 @@ multiplication by~$ℓ$.
 \begin{algorithm}
 \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
-\item \textbf{\color{red}CET ALGORITHME EST UNE SUGGESTION DE CORRECTION}
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$;\\ $(P_1, Q_1)$: a rational basis of~$E[ℓ]$.
+$k$: an integer~$≥ h$;
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
 % \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
-\STATE{$λ ← 1$; $μ ← 1$.}
-\FOR {$i=2$  to  $k$}
-\STATE $P' ← \sfdiv(\ell, P_{i-1})$; $Q' ← \sfdiv (\ell, Q_{i-1})$.
-\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-λ + a\ell^{i} & b\ell^{i}\\
-c\ell^{i} & μ + d\ell^{i} \end{smallmatrix} \right) \pmod {\ell^{i+1}}$
-\STATE{\textbf{if} $c = 0$ \textbf{then} $x ← 0$;
-$y ← $ root in~$\F_ℓ$ of~$b + (a-d + ℓ^i/(λ-μ)) y = 0$; }
-\STATE{\textbf{else} $x ←$ root in~$\F_ℓ$
-  of $b x^2 + (a-d + ℓ^i/(λ-μ)) x - c = 0$; $y ← -bx/c$; \textbf{end if}}
-\STATE{$P_i ← P' + y Q'$; $Q_i ← x P' + Q'$}
-\STATE{$λ ← λ + ℓ^i (a + bx)$; $μ ← μ + ℓ^i (d + cy)$.}
+\STATE{$λ ← 0$; $μ ← 0$; $P_0, Q_0 ← $ neutral element of~$E[ℓ]$.}
+\FOR {$i=0$  to  $k-1$}
+\STATE\label{alg:diagonal:divide}
+  $P' ← \sfdiv(\ell, P_{i})$; $Q' ← \sfdiv (\ell, Q_{i})$.
+\STATE\label{alg:diagonal:frobenius}
+  compute $\pi|(P',Q')=\left( \begin{smallmatrix}
+λ + aℓ^{i} & bℓ^{i}\\
+cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
+\STATE\label{alg:diagonal:solve1}
+  \textbf{if} $b = 0$ \textbf{then} $x ← 0$;
+  solve equation~$c ℓ^{i} + ((d-a) ℓ^{i} + μ-λ) y = 0$;
+\STATE\label{alg:diagonal:solve2}
+  \textbf{else} solve equation
+  $c ℓ^{i} x^2 + ((d-a) ℓ^{i}+ μ-λ) x - b ℓ^{i} = 0$;
+  $y ← -cx/b$; \textbf{end if}.
+\STATE\label{alg:diagonal:upd-P}
+  $P_{i+1} ← P' + y Q'$; $Q_{i+1} ← x P' + Q'$.
+\STATE{$λ ← λ + ℓ^{i} (a + bx)$; $μ ← μ + ℓ^{i} (d + cy)$.}
 \ENDFOR
-\RETURN $(P_{k},Q_{k},λ,μ)$
+\RETURN $(P_{k},Q_{k},λ,μ).$
 \end{algorithmic}
 \end{algorithm}
-\begin{algorithm}
-\caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
-\begin{algorithmic}[1]
-\REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$.
-\ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
-$λ, μ ∈ ℤ/ℓ^k ℤ$
-such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
-\STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
-\STATE $h':=1, u:=1$
-\FOR {$i=1$  to  $k-1$}
-\STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
-\STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
-λ + a\ell^{i} & b\ell^{i}\\
-c\ell^{i} & μ + d\ell^{i}
-\end{smallmatrix}
-\right) \pmod {\ell^{i+1}}$
-with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
-\STATE \textbf{if} {$λ \neq μ$} \textbf{then}
-$u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
-\STATE $(λ, μ) \gets
-  (λ + a\ell^i, μ + d\ell^i)$
-\STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
-\STATE $(P_{i+1},Q_{i+1}) \gets
-  (P'+\ell^{i-1-h'}b' Q',\;Q'+\ell^{i-1-h'}c' P')$
-\STATE \textbf{if} {$λ = μ$} \textbf{then} $h' \leftarrow h'+1$ \textbf{endif}
-\ENDFOR
-\RETURN $(P_{k},Q_{k},λ,μ)$
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}%<<<
+% \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
+% \begin{algorithmic}[1]
+% \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
+% $k$: an integer~$≥ h$.
+% \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
+% $λ, μ ∈ ℤ/ℓ^k ℤ$
+% such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
+% \STATE Compute $(P_1,Q_1)$, a basis of $E[ℓ]$
+% \STATE $h':=1, u:=1$
+% \FOR {$i=1$  to  $k-1$}
+% \STATE\label{alg:diagonal:divide} $P' \leftarrow \sfdiv(\ell, P_i)$; $Q' \leftarrow \sfdiv(\ell, Q_i)$.
+% \STATE\label{alg:diagonal:frobenius} compute $\pi|(P',Q')=\left( \begin{smallmatrix}
+% λ + a\ell^{i} & b\ell^{i}\\
+% c\ell^{i} & μ + d\ell^{i}
+% \end{smallmatrix}
+% \right) \pmod {\ell^{i+1}}$
+% with $a,b,c,d \in \mathbb{Z}/\ell\mathbb{Z}$
+% \STATE \textbf{if} {$λ \neq μ$} \textbf{then}
+% $u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
+% \STATE $(λ, μ) \gets
+%   (λ + a\ell^i, μ + d\ell^i)$
+% \STATE $(b',c') \gets (-b/u , c/u) \pmod{ℓ}$
+% \STATE $(P_{i+1},Q_{i+1}) \gets
+%   (P'+\ell^{i-1-h'}b' Q',\;Q'+\ell^{i-1-h'}c' P')$
+% \STATE \textbf{if} {$λ = μ$} \textbf{then} $h' \leftarrow h'+1$ \textbf{endif}
+% \ENDFOR
+% \RETURN $(P_{k},Q_{k},λ,μ)$
+% \end{algorithmic}
+% \end{algorithm}%>>>
 \begin{prop}\label{th:diagonal}
   Algorithm~\ref{alg:diagonal} computes a diagonal basis of~$E[ℓ^k]$
   using an expected
@@ -871,13 +878,19 @@ $u \leftarrow (λ -μ)/\ell^{h'}$ \textbf{endif}
   q))$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
-  A straightforward calculation shows that after each loop the basis
-  $(P_{i+1},Q_{i+1})$ is diagonal.
-  To bootstrap the algorithm, we need to compute a basis of $E[ℓ]$
-  over the field $F_1$. We do this by factoring the $ℓ$-division
-  polynomial at a cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
-  operations using the Cantor-Zassenhaus algorithm.
+The equation at lines~\ref{alg:diagonal:solve1} and~\ref{alg:diagonal:solve2}
+is first divided out by the largest power of~$ℓ$ possible,
+which is~$ℓ^{\min (h, i)}$.
+For~$i ≤ h-1$, since~$a = d$ and~$b = c = 0$,
+the solutions are~$x = y = 0$, and
+steps~\ref{alg:diagonal:solve1} to~\ref{alg:diagonal:upd-P} do nothing.
+A straightforward calculation shows that after each loop the basis
+$(P_{i+1},Q_{i+1})$ is diagonal.
 
+For~$i = 0$, the basis of~$E[ℓ](F_1)$ at step~\ref{alg:diagonal:divide}
+is computed by factoring the $ℓ$-division polynomial
+at an expected cost of $O(ℓ\MM(\ell^2)\log(\ell)\log(\ell q))$
+operations using the Cantor-Zassenhaus algorithm.
   Once $E[ℓ]$ has been computed, we can factor the
   multiplication-by-$ℓ$ map as a product of two $ℓ$-isogenies. Then,
   for any $P$ defined in $E(F_{i-β})$, the computation of
@@ -1126,7 +1139,7 @@ chain from~$E$ to the crater.
 The algorithms of Fouquet and Morain~\cite{volcano} compute the height
 $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
-$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ binary operations, then
+$Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ boolean operations, then
 each factorization costs an expected $O(\MM(ℓ)\log(ℓ)\log(ℓq))$
 operations using the Cantor-Zassenhaus algorithm. More efficient
 methods for special instances of volcanoes are presented
@@ -1211,10 +1224,13 @@ endomorphism ring proceeds as follows:
   \end{enumerate}
 \end{enumerate}
 
+\subsection{Asymptotic complexity}
+\label{sub:complexity}
+
 \begin{prop}
   \label{prop:full-complexity}
-  Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm outlined
-  above \todo{(shall we make a proper float for the algorithm?)}
+  Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
+  of subsection~\ref{sub:final-interp}
   computes an isogeny $ψ:E→E'$ using an expected
   \[O\bigl(r ℓ^2\MM(rℓ^4)\log(r)\log(ℓ) + \MM(\sqrt{r} ℓ \log(q))\log^2(r) +
     ℓ\MM(ℓ)\log(q)\bigr)\]
@@ -1250,19 +1266,73 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
   is~$t = (ℓ^{2k}-1)/2∈O(r ℓ^2)$, and the number of interpolation points
   is $s∈O(k·ℓ^{k+β})$, we can compute the polynomials~$T$
   and~$L_{a,b}$ at a cost of~$O(\MM(r ℓ^4)\log(r)\log(ℓ))$.  The cost
-  of computing $F_{a,b}$, and identifying the isogeny is dominated by
+  of computing $F_{a,b}$, and identifying the isogeny, is dominated by
   that of computing~$L_{a,b}$~\cite[§3.3]{df10}.  Finally, in general
-  approximately $ℓ^{2k} ≈ r ℓ^2$~candidate matrices must be tried before
+  approximately $ℓ^{2k} = O(r ℓ^2)$~candidate matrices must be tried before
   finding the isogeny.
 \end{proof}
 
-\subsection{Asymptotic complexity}
-\label{sub:complexity}
+% For completeness we give some more formal bounds on the general
+% complexity of our algorithm.
+% We now eliminate the dependency on~$ℓ$ and~$h$ in the algorithm.
+% First, we note that for fixed~$q$, since $ℓ$, $h$ do not depend on~$r$,
+% the asymptotic complexity of our algorithm is simply~$O(r \MM(r)
+% \log(r))$, which is quasi-quadratic in~$r$.
+% $h∈O(\log(q))$, and that under the Generalized Riemann Hypothesis $ℓ$
+% can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
+% large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
+% asymptotical complexity of our algorithm is quite simply
+% $O(r\MM(r)\log(r))$.
+
+We now give a bound depending on~$r$ and~$q$.
+By a result of Shparlinski and
+Sutherland~\cite[Corollary~2]{shparlinski2014distribution},
+for any~$ε > 0$, for almost all primes $q$ and curves $E/\F_q$
+asymptotically a fixed proportion of the primes $ℓ ≤ \log(q)^{ε}$
+are Elkies primes.
+For any such~$ℓ$, the corresponding height~$h = h_ℓ$
+is~$h_ℓ = \frac 12 v_ℓ(d_K)$,
+so that the condition~$ℓ^h < √r$
+discards at most a number~$O(\log q)$ of Elkies primes~$ℓ$.
+Therefore in the worst case~$ℓ = O(\log(q)^{1+ε})$.
+% whereas in the median case~$ℓ = O(1)$.
+
+\begin{thm*}
+  For almost all primes $q$ and curves $E,E'$ over $\F_q$, and for any
+  $ε>0$, it is possible to solve the “Explicit Isogeny Problem” using
+  an expected
+  \begin{equation}\label{eq:thm-complexity}
+  O\bigl(r \MM(r) \log(r) \log(q)^{6+ε}\bigr)
+  \end{equation}
+  operations in~$\F_q$.
+\end{thm*}
+
+For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
+
+\begin{proof}
+%   By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
+  The search for $ℓ$ described in Section~\ref{sub:shape-volcano}
+  is dominated by the computation of the modular polynomials~$Φ_ℓ$,
+  and thus bounded by~$O(\log(q)^{4+ε})$.
+  The complexity~\eqref{eq:thm-complexity} follows from
+  substituting~$ℓ = O(\log(q)^{1+ε})$
+  in Proposition~\ref{prop:full-complexity}.
+%   takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
+%   for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
+%   analysis follows readily from
+%   Proposition~\ref{prop:full-complexity}.
+\end{proof}
+
+\section{Experimental results}
+\label{sec:implem}
 
 In the previous sections we have obtained an algorithm with an
-interesting asymptotic complexity. In particular, for fixed $ℓ$ and
-$h$, it is expected to run in a time quasi-quadratic in the isogeny
-degree $r$ and quasi-linear in $\log q$. Thus we expect it to be
+interesting asymptotic complexity.
+In particular, since in the median case we have~$ℓ = O(1)$,
+the median running time of the algorithm
+is quasi-quadratic in the isogeny degree~$r$
+and quasi-linear in~$\log q$.
+Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
 algorithm, at least when small parameters $ℓ$ and $h$ can be found
 quickly. These parameters do indeed affect the overall running time in
@@ -1288,85 +1358,48 @@ asymptotic density of Elkies primes is $1/2$, and the height~$h$
 small with very high probability \todo{give some refs}. Thus we expect
 to find good parameters for most curves.
 
-For completeness we give some more formal bounds on the general
-complexity of our algorithm. First, we note that by definition
-$h∈O(\log(q))$, and that under the Generalized Riemann Hypothesis $ℓ$
-can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
-large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
-asymptotical complexity of our algorithm is quite simply
-$O(r\MM(r)\log(r))$.
 
-For a more general bound, a result of Shparlinski and
-Sutherland~\cite{shparlinski2014distribution} tells us that for almost
-all primes $q$ and curves $E/\F_q$ asymptotically half of the primes
-in the interval $[1,L[$ are Elkies' primes, for $L>\log(q)^ε$ for any
-fixed $ε>0$. Even discarding those Elkies primes for which the height
-$h$ is too large, this leaves enough small primes to run our algorithm
-\todo{this is rather vague}. Thus we can state the following theorem.
-
-\begin{thm*}
-  For almost all primes $q$ and curves $E,E'$ over $\F_q$, and for any
-  $ε>0$, it is possible to solve the “Explicit Isogeny Problem” using
-  an expected
-  \[O\bigl(r\MM(r)\log(r)\log(q)^ε + \MM(\sqrt{r}\log(q))\log^2(r) +
-    \log(q)^{1+ε}\bigr)\]
-  operations in~$\F_q$.
-\end{thm*}
-\begin{proof}
-  By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
-  The search for $ℓ$ described in Section~\ref{sub:shape-volcano}
-  takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
-  for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
-  analysis follows readily from
-  Proposition~\ref{prop:full-complexity}.
-\end{proof}
-
-
-\section{Experimental results}
-\label{sec:implem}
 
 
 We implemented a simplified version of our main algorithm using
 SageMath v7.1~\cite{sage}. In our current implementation, we only
 handle the case $\ell=2$ and we work only with curves located on the
-cyclic crater of a volcano of $2$-isogenies. We worked with always the
-same curve for a fixed characteristic with the greatest rational torsion.
-We implemented the construction of towers of finite fields from~\cite{DoSc12}
-, in the favorable case where $p = 1 \bmod 4$. The source code is available in
-the GitHub project
+cyclic crater of a volcano of $2$-isogenies.  We implemented the
+construction of towers of finite fields from~\cite{DoSc12}, in the
+favorable case where $p = 1 \bmod 4$. Source code and benchmark data
+are available in the GitHub project
 \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/}.
 
 \begin{figure}%\label{fig:p=101}
 \centering
-\includegraphics[scale=1]{benchmarks/graphe-101.eps}
-\caption{Comparison of diagonalization and interpolation phases, for a
-  curves defined over $\F_{101}$, and increasing $r$. Plot in logarithmic scale.}
-\label{fig:p=101}
+\includegraphics[width=0.49\textwidth]{benchmarks/graphe-101.pdf}
+\hfill
+\includegraphics[width=0.49\textwidth]{benchmarks/graphe-101-149-269.pdf}
+\caption{Left: comparison of horizontal basis computation and
+  interpolation phases, for a fixed curve defined over $\F_{101}$, and
+  increasing $r$. Right: Comparison of the interpolation phase for
+  $\F_{101}$, $\F_{2^{62}+169}$ and $\F_{2^{252}+421}$, and increasing
+  $r$. Plots in logarithmic scale.}
+\label{fig:benchs}
 \end{figure}
-
-
-\begin{figure}%\label{fig:p=101-149-269}
-\centering
-\includegraphics[scale=1]{benchmarks/graphe-101-149-269.eps}
-\caption{Comparison interpolation phases, for
-  curves defined resepectly over $\F_{101}$, $\F_{149}$, $\F_{269}$,$\F_{521}$, $\F_{1033}$ and two base fields of size $62$ and $252$ bits; and increasing $r$. Plot in logarithmic scale.}
-\label{fig:p=101-149-269}
-\end{figure}
-
 
 We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
-fixed a base field $\F_{101}$ and ran our algorithm on multiplication by $r$, with increasing $r$. 
-The torsion groups involved in the computations varied from $2^3$ to $2^7$.
-Figure~\ref{fig:p=101} shows the running time for the computation of
-the horizontal basis of $E[ℓ^k]$, and that for one execution of the
-interpolation step. Total running times are multiplied by an average
-factor of $r$, as expected. The stepping behavior of our algorithm is
-apparent from the plot. We remark that, though asymptotically negligible, the diagonalization
-step dominates one interpolation step for the tested parameters. Since 
-the interpolation step is asymptotically dominating we focus on this step 
-to compare the running time for different base field. Figure ~\ref{fig:p=101-149-269}
-shows that the running time does not have an exponential dependancy in 
-the characteristic.
+fixed a base field $\F_q$ and an elliptic curve $E$ with height $h≤3$,
+then ran our algorithm to compute the multiplication-by-$r$ isogeny
+$E→E$, for increasing $r$.  The torsion levels involved in the
+computations varied from $2^3$ to $2^8$.  Figure~\ref{fig:benchs}
+(left) shows the running time for the computation of the horizontal
+basis of $E[ℓ^k]$, and that for one execution of the interpolation
+step. Total running times are multiplied by an average factor of $r$,
+as expected. The staircase behavior of our algorithm is apparent from
+the plot. We remark that, though asymptotically negligible, the
+horizontal basis computation step dominates one interpolation step for
+the tested parameters. Since the sum of all interpolation steps is
+asymptotically dominating we focus on this step to compare the running
+time for different base fields. Figure~\ref{fig:benchs} (right)
+confirms that the dependency in $q$ is negligible. Indeed, over all
+primes that fit in a machine word running times are essentially
+constant, larger primes of cryptographic size are $~30$ times slower.
 
 \bibliographystyle{alpha}
 \bibliography{refs}
