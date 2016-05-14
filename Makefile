@@ -14,3 +14,4 @@ benchmarks/test-script-521-bis.tsv benchmarks/test-script-1033-bis.tsv \
 benchmarks/test-script-62bits-bis.tsv benchmarks/test-script-252bits-bis.tsv \
 benchmarks/graphe-101-149-269.gp
 	cd benchmarks && gnuplot graphe-101-149-269.gp
+

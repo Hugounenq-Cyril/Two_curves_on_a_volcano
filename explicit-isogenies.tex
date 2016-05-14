@@ -627,12 +627,11 @@ We now study the action of $ℓ$-isogenies on the $ℓ$-adic Frobenius by
 showing the link between two related notions of diagonalization.
 
 \begin{defi}[(Horizontal and diagonal bases)]
-  Let~$E$ be a curve lying on the crater. We call a
-  basis of~$E[ℓ^k]$ \emph{diagonal} if $π$~is diagonal in it; we call
-  it \emph{horizontal} if both basis points generate the kernel of
-  horizontal $ℓ^k$-isogenies. Accordingly, we also call diagonal
-  (resp. horizontal) the generators of a diagonal (resp. horizontal)
-  basis.
+  Let~$E$ be a curve lying on the crater. We call a point of~$E[ℓ^k]$
+  \emph{horizontal} if it generates the kernel of a horizontal
+  $ℓ^k$-isogeny.  We call a basis of~$E[ℓ^k]$ \emph{diagonal} if
+  $π$~is diagonal in it, \emph{horizontal} if both basis points are
+  horizontal.
 \end{defi}
 
 \begin{prop} \label{prop:diagonal-horizontal}
@@ -748,7 +747,7 @@ such that~$E[ℓ^k]⊂E(F)$. Then:
 \item The order of $q$ in $(ℤ/ℓℤ)^×$ divides $d_1$,
 and $d_1$ divides~$(ℓ-1)$.
 \item If $ℓ$~is odd then for all $k ≥ 1$,
-$ d_k = ℓ^{\min (v_ℓ (d_1), k - β}$.
+$ d_k = ℓ^{\min (v_ℓ (d_1), k - β)}$.
 % $d_k = \mathrm {lcm} (d_1, ℓ^{k-β})$.
 \item If $ℓ=2$ then $d_2 ∈ \acco{1,2}$ and, for all~$k ≥ 2$,
 % $d_k = \mathrm{lcm}(d_2, ℓ^{k-β})$.
@@ -814,7 +813,7 @@ multiplication by~$ℓ$.
 \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 \begin{algorithmic}[1]
 \REQUIRE $E$: an ordinary, $ℓ$-maximal elliptic curve;
-$k$: an integer~$≥ h$;
+$k$: a positive integer;
 \ENSURE $(P_k, Q_k )$: a basis of $E[\ell^k]$;
 $λ, μ ∈ ℤ/ℓ^k ℤ$
 such that $\pi(P_k)= λ P_k$, $ \pi(Q_k)= μ Q_k$.
@@ -880,7 +879,7 @@ cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
 \begin{proof}
 The equation at lines~\ref{alg:diagonal:solve1} and~\ref{alg:diagonal:solve2}
 is first divided out by the largest power of~$ℓ$ possible,
-which is~$ℓ^{\min (h, i)}$.
+which is~$ℓ^{\min (h, i)}$, then solved modulo $ℓ$.
 For~$i ≤ h-1$, since~$a = d$ and~$b = c = 0$,
 the solutions are~$x = y = 0$, and
 steps~\ref{alg:diagonal:solve1} to~\ref{alg:diagonal:upd-P} do nothing.
@@ -901,9 +900,12 @@ operations using the Cantor-Zassenhaus algorithm.
   of~$O(\ell^{i-\beta}\MM(\ell))$.
   Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
   most~$ℓ^2$ point additions, with a cost of~$ℓ^2
-  \mathsf{M}(ℓ^{i-\beta+1})$; all other steps are negligible.  Since
-  the cost of each loop grows geometrically, the last loop dominates
-  all others, and gives the stated complexity.
+  \mathsf{M}(ℓ^{i-\beta+1})$.
+  The cost of solving the equations at Steps~\ref{alg:diagonal:solve1}
+  and~\ref{alg:diagonal:solve2} by exhaustive search is negligible, as
+  are the remaining operations.  Since the cost of each loop grows
+  geometrically, the last loop dominates all others, and gives the
+  stated complexity.
 \end{proof}
 
 \subsection{Computation of a horizontal basis}
@@ -941,6 +943,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
+Let $E_i$ be the image curve of $ϕ_i$.
 We check that at step~$i$ of the loop,
 the points~$(P_i, Q_i)$ form a diagonal basis of~$E_i[ℓ^{h+1}]$,
 and $ϕ_i$~has direction~$λ$.
@@ -1002,20 +1005,23 @@ Frobenius algorithm given in Lemma~\ref{lemma:frob-ell}.
 Following~\cite{df10}, we first compute $T$, starting from
 $T^{(0)}=x-v$.  We let $\sigma_i$ be the map that takes all the
 coefficients of a polynomial in $F_{n-i}[x]$ to the power
-$\#F_{n-i-1}$. For $i=0,\dots,n-2$, suppose we know a polynomial
+$\#F_{n-i-1}$. For $i=0,\dots,n-1$, suppose we know a polynomial
 $T^{(i)}$ of degree $\ell^i$ in $F_{n-i}[x]$. Then, compute the
 polynomials $T^{(i,j)}$ given by
-\begin{equation*}
-  T^{(i,j)}= \sigma_i^j\bigl (T^{(i)} \bigr)
-  \quad\text{for $0 \le j \le \ell-1$},
-\end{equation*}
+$T^{(i,j)}= \sigma_i^j\bigl (T^{(i)} \bigr)$
+for $0 \le j \le \ell-1$,
 and define
-$$T^{(i+1)}=\prod_{j=0}^{\ell-1} T^{(i,j)};$$ one easily sees that
-$T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$. For the
-last step $i=n-1$, we proceed in a similar way by defining
-\begin{equation*}
-  T = T^{(n)}=\prod_{j=0}^{d/ℓ^{n-1}} T^{(n-1,j)}.
-\end{equation*}
+\begin{equation}
+  \label{eq:interp}
+  T^{(i+1)}=\prod_{j=0}^{b} T^{(i,j)}
+  \qquad\text{with}\qquad
+  b = \begin{cases}
+    ℓ-1 &\text{if $i<n-1$,}\\
+    d/ℓ^{n-1} &\text{otherwise.}
+  \end{cases}
+\end{equation}
+One easily sees that
+$T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$.
 
 \begin{lem}\label{lemma:interpolation:minpoly}
   The cost of computing $T$ is bounded by $O(n\MM(ℓ^{n+1})\log(ℓ))$
@@ -1039,10 +1045,10 @@ We can finally proceed with the interpolation itself. First, compute
 $w' = w/T'(v)$ and let $L^{(0)}=w'$.  Next, for $i=0,\dots,n-2$,
 suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
 than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
-$$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr),$$
-for $0 \le j \le \ell-1$, and
-$$L^{(i+1)} = \sum_{j=0}^{\ell-1} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}}.$$ The last step $i=n-1$
-is done analogously.  As shown in~\cite{df10}, $L^{(n)}$ is the
+$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr)$ and
+\[L^{(i+1)} = \sum_{j=0}^{b} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}},
+  \qquad\text{$c$ defined as in Eq.~\eqref{eq:interp}}.\]
+As shown in~\cite{df10}, $L^{(n)}$ is the
 polynomial $L$ we are looking for.
 
 \begin{prop}
@@ -1073,8 +1079,8 @@ polynomial $L$ we are looking for.
   $i$, the complexity statement follows readily.
 \end{proof}
 
-We finally go to the general problem of interpolating a polynomial in
-$\F_q[x]$ at many points of $F_n$.
+We end with the general problem of interpolating a polynomial in
+$\F_q[x]$ at points of $F_n$.
 
 \begin{prop}\label{prop:interpol}
   Let $(v_1,w_1),\dots,(v_s,w_s)$ be pairs of elements of $F_n$, let
@@ -1230,15 +1236,13 @@ endomorphism ring proceeds as follows:
 \begin{prop}
   \label{prop:full-complexity}
   Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
-  of subsection~\ref{sub:final-interp}
+  of Subsection~\ref{sub:final-interp}
   computes an isogeny $ψ:E→E'$ using an expected
-  \[O\bigl(r ℓ^2\MM(rℓ^4)\log(r)\log(ℓ) + \MM(\sqrt{r} ℓ \log(q))\log^2(r) +
-    ℓ\MM(ℓ)\log(q)\bigr)\]
+  \[O\Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr)\]
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
-By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
-
+By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
   By Proposition~\ref{prop:classes}, there is a $β<h$ such that
   $E[ℓ^k]$ is contained in $E(F_n)$ with $n=k-β$. We thus construct
   the Kummer tower $F₀⊂\cdots⊂F_n$, and we do the precomputations
@@ -1246,12 +1250,12 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
   $O(ℓ\MM(ℓ)\log(q))$.
 
   Bounding $h$ by $k-1$, Step~\ref{alg:ours:horizontal} costs on average
-  $O(k\RR(k-\beta) + kℓ^2\MM(\sqrt{r}))$ according to
-  Proposition~\ref{th:horizontal}. Using the estimates of
+  $O(k\RR(k-\beta) + kℓ^2\MM(ℓ\sqrt{r}) + ℓ\MM(ℓ^2)\log(ℓ)\log(ℓq))$ according to
+  Propositions~\ref{th:diagonal} and~\ref{th:horizontal}.
+  Using the most pessimistic estimates of
   Section~\ref{sub:towers}, we see that this cost is bounded by
 %   $O(\MM(\sqrt{r})\log(r)(ℓ^2 + \log(rq)))$ if $ℓ=2$, or by
-  $O(r\log(r) +\MM(\sqrt{r} ℓ \log(q))\log^2(r) +
-  ℓ^2\MM(\sqrt{r} ℓ)\log(r))$.% otherwise.
+  $O(\MM(rℓ^3)\log(r)\log(ℓ)\log(ℓq))$.% otherwise.
 
   By Proposition~\ref{prop:classes}~\ref{prop:classes:count}, there
   are at most~$O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$. In order to
@@ -1260,7 +1264,7 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
   computed from the basis $(P,Q)$ using point multiplication by two
   scalars $≤ℓ^k$ in the field $F_n$, which costs
   $O(\MM(ℓ^n)\log(ℓ^k))$ operations. We thus have a total cost of
-  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(r)\log^2(r))$ to compute all such representatives.
+  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(rℓ^2)\log^2(r))$ to compute all such representatives.
 
   Then, using Proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r ℓ^2)$, and the number of interpolation points
@@ -1268,7 +1272,7 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(ℓ^2 r)$.
   and~$L_{a,b}$ at a cost of~$O(\MM(r ℓ^4)\log(r)\log(ℓ))$.  The cost
   of computing $F_{a,b}$, and identifying the isogeny, is dominated by
   that of computing~$L_{a,b}$~\cite[§3.3]{df10}.  Finally, in general
-  approximately $ℓ^{2k} = O(r ℓ^2)$~candidate matrices must be tried before
+  approximately ${ℓ^{2k}=O(r ℓ^2)}$~candidate matrices must be tried before
   finding the isogeny.
 \end{proof}
 
@@ -1326,7 +1330,7 @@ For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
 \section{Experimental results}
 \label{sec:implem}
 
-In the previous sections we have obtained an algorithm with an
+In the previous sections we have obtained a Las Vegas algorithm with an
 interesting asymptotic complexity.
 In particular, since in the median case we have~$ℓ = O(1)$,
 the median running time of the algorithm
@@ -1335,37 +1339,26 @@ and quasi-linear in~$\log q$.
 Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
 algorithm, at least when small parameters $ℓ$ and $h$ can be found
-quickly. These parameters do indeed affect the overall running time in
-several ways: 
+quickly. A large $ℓ$ or $h$ adversely affects performances in
+the following ways: 
 \begin{itemize}
-\item To bootstrap the algorithm as described in
-  Section~\ref{sub:shape-volcano}, all modular polynomials up to $Φ_ℓ$
-  must be computed or retrieved from tables. This costs $Ω(ℓ^4)$ at
-  best.
-\item If the height $h$ is not small enough, all parameters
-  $r<(ℓ^{2h+2}-1)/4$ will require the same computational effort, because
-  the parameter $k$ must be chosen greater than $h$.
-\item All parameters $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require
-  essentially the same computational effort, thus resulting in a
-  \emph{staircase behavior} when $r$ increases. The larger $ℓ$, the
-  larger the staircase steps, and thus the more resources are wasted.
+\item All modular polynomials up to $Φ_ℓ$ must be computed or
+  retrieved from tables.
+\item Because we must have $k>h$, all degrees $r$ smaller than
+  $(ℓ^{2h+2}-1)/4$ require the same computational effort
+\item All degrees $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require essentially
+  the same computational effort, thus resulting in a \emph{staircase
+    behavior} when $r$ increases.
 \end{itemize}
-
 For these reasons, it is wisest in practice to set small \emph{a
   priori} bounds on $ℓ$ and $h$, and only run our algorithms when
-parameters within these bounds can be found. Fortunately, the
-asymptotic density of Elkies primes is $1/2$, and the height~$h$
-small with very high probability \todo{give some refs}. Thus we expect
-to find good parameters for most curves.
+parameters within these bounds can be found.
 
-
-
-
-We implemented a simplified version of our main algorithm using
+To validated our findings, we implemented a simplified version of our main algorithm using
 SageMath v7.1~\cite{sage}. In our current implementation, we only
-handle the case $\ell=2$ and we work only with curves located on the
-cyclic crater of a volcano of $2$-isogenies.  We implemented the
-construction of towers of finite fields from~\cite{DoSc12}, in the
+handle the case $\ell=2$ and we work only with curves on the
+crater of the $2$-volcano.  We implemented the
+construction of Kummer towers described in~\cite{DoSc12}, in the
 favorable case where $p = 1 \bmod 4$. Source code and benchmark data
 are available in the GitHub project
 \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/}.
@@ -1386,20 +1379,23 @@ are available in the GitHub project
 We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
 fixed a base field $\F_q$ and an elliptic curve $E$ with height $h≤3$,
 then ran our algorithm to compute the multiplication-by-$r$ isogeny
-$E→E$, for increasing $r$.  The torsion levels involved in the
+$E→E$, for $r$ increasing.  The torsion levels involved in the
 computations varied from $2^3$ to $2^8$.  Figure~\ref{fig:benchs}
 (left) shows the running time for the computation of the horizontal
-basis of $E[ℓ^k]$, and that for one execution of the interpolation
-step. Total running times are multiplied by an average factor of $r$,
+basis of $E[ℓ^k]$, and that for just one execution of the interpolation
+step. Running times are close to linear in $r$,
 as expected. The staircase behavior of our algorithm is apparent from
-the plot. We remark that, though asymptotically negligible, the
-horizontal basis computation step dominates one interpolation step for
-the tested parameters. Since the sum of all interpolation steps is
-asymptotically dominating we focus on this step to compare the running
+the plot. Since the interpolation steps must be repeated $\sim r$ times,
+we focus on this step to compare the running
 time for different base fields. Figure~\ref{fig:benchs} (right)
 confirms that the dependency in $q$ is negligible. Indeed, over all
-primes that fit in a machine word running times are essentially
-constant, larger primes of cryptographic size are $~30$ times slower.
+primes that fit in a machine word, running times are essentially
+constant. Larger primes of cryptographic size are about $30$ times slower.
+
+\begin{acknowledgments}
+  We would like to thank the anonymous referees for their careful
+  review and their insightful remarks.
+\end{acknowledgments}
 
 \bibliographystyle{alpha}
 \bibliography{refs}
