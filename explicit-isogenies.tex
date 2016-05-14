@@ -1236,7 +1236,7 @@ endomorphism ring proceeds as follows:
 \begin{prop}
   \label{prop:full-complexity}
   Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
-  of subsection~\ref{sub:final-interp}
+  of Subsection~\ref{sub:final-interp}
   computes an isogeny $ψ:E→E'$ using an expected
   \[O\Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr)\]
   operations in $\F_q$.
@@ -1330,7 +1330,7 @@ For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
 \section{Experimental results}
 \label{sec:implem}
 
-In the previous sections we have obtained an algorithm with an
+In the previous sections we have obtained a Las Vegas algorithm with an
 interesting asymptotic complexity.
 In particular, since in the median case we have~$ℓ = O(1)$,
 the median running time of the algorithm
@@ -1339,37 +1339,26 @@ and quasi-linear in~$\log q$.
 Thus we expect it to be
 practical, and a substantial improvement over Couveignes' original
 algorithm, at least when small parameters $ℓ$ and $h$ can be found
-quickly. These parameters do indeed affect the overall running time in
-several ways: 
+quickly. A large $ℓ$ or $h$ adversely affects performances in
+the following ways: 
 \begin{itemize}
-\item To bootstrap the algorithm as described in
-  Section~\ref{sub:shape-volcano}, all modular polynomials up to $Φ_ℓ$
-  must be computed or retrieved from tables. This costs $Ω(ℓ^4)$ at
-  best.
-\item If the height $h$ is not small enough, all parameters
-  $r<(ℓ^{2h+2}-1)/4$ will require the same computational effort, because
-  the parameter $k$ must be chosen greater than $h$.
-\item All parameters $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require
-  essentially the same computational effort, thus resulting in a
-  \emph{staircase behavior} when $r$ increases. The larger $ℓ$, the
-  larger the staircase steps, and thus the more resources are wasted.
+\item All modular polynomials up to $Φ_ℓ$ must be computed or
+  retrieved from tables.
+\item Because we must have $k>h$, all degrees $r$ smaller than
+  $(ℓ^{2h+2}-1)/4$ require the same computational effort
+\item All degrees $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require essentially
+  the same computational effort, thus resulting in a \emph{staircase
+    behavior} when $r$ increases.
 \end{itemize}
-
 For these reasons, it is wisest in practice to set small \emph{a
   priori} bounds on $ℓ$ and $h$, and only run our algorithms when
-parameters within these bounds can be found. Fortunately, the
-asymptotic density of Elkies primes is $1/2$, and the height~$h$
-small with very high probability \todo{give some refs}. Thus we expect
-to find good parameters for most curves.
+parameters within these bounds can be found.
 
-
-
-
-We implemented a simplified version of our main algorithm using
+To validated our findings, we implemented a simplified version of our main algorithm using
 SageMath v7.1~\cite{sage}. In our current implementation, we only
-handle the case $\ell=2$ and we work only with curves located on the
-cyclic crater of a volcano of $2$-isogenies.  We implemented the
-construction of towers of finite fields from~\cite{DoSc12}, in the
+handle the case $\ell=2$ and we work only with curves on the
+crater of the $2$-volcano.  We implemented the
+construction of Kummer towers described in~\cite{DoSc12}, in the
 favorable case where $p = 1 \bmod 4$. Source code and benchmark data
 are available in the GitHub project
 \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/}.
@@ -1390,20 +1379,23 @@ are available in the GitHub project
 We ran benchmarks on an Intel Xeon E5530 CPU clocked at 2.4GHz. We
 fixed a base field $\F_q$ and an elliptic curve $E$ with height $h≤3$,
 then ran our algorithm to compute the multiplication-by-$r$ isogeny
-$E→E$, for increasing $r$.  The torsion levels involved in the
+$E→E$, for $r$ increasing.  The torsion levels involved in the
 computations varied from $2^3$ to $2^8$.  Figure~\ref{fig:benchs}
 (left) shows the running time for the computation of the horizontal
-basis of $E[ℓ^k]$, and that for one execution of the interpolation
-step. Total running times are multiplied by an average factor of $r$,
+basis of $E[ℓ^k]$, and that for just one execution of the interpolation
+step. Running times are close to linear in $r$,
 as expected. The staircase behavior of our algorithm is apparent from
-the plot. We remark that, though asymptotically negligible, the
-horizontal basis computation step dominates one interpolation step for
-the tested parameters. Since the sum of all interpolation steps is
-asymptotically dominating we focus on this step to compare the running
+the plot. Since the interpolation steps must be repeated $\sim r$ times,
+we focus on this step to compare the running
 time for different base fields. Figure~\ref{fig:benchs} (right)
 confirms that the dependency in $q$ is negligible. Indeed, over all
-primes that fit in a machine word running times are essentially
-constant, larger primes of cryptographic size are $~30$ times slower.
+primes that fit in a machine word, running times are essentially
+constant. Larger primes of cryptographic size are about $30$ times slower.
+
+\begin{acknowledgments}
+  We would like to thank the anonymous referees for their careful
+  review and their insightful remarks.
+\end{acknowledgments}
 
 \bibliographystyle{alpha}
 \bibliography{refs}
