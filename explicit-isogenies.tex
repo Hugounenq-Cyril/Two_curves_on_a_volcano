@@ -189,7 +189,7 @@ counting algorithm (SEA). There, $E$ is the curve whose rational points
 we wish to count, and $E'$ is an $r$-isogenous curve, with $r$
 a prime of size approximately $\log(q)$. For this reason, the explicit
 isogeny problem is customarily solved without prior knowledge of the
-cardinality of $E(\F_q)$. We will abide by this convention here.
+cardinality of $E(\F_q)$. We abide by this convention here.
 
 Many algorithms
 have been suggested over the years to solve the explicit isogeny
@@ -840,6 +840,8 @@ cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
 \RETURN $(P_{k},Q_{k},λ,μ).$
 \end{algorithmic}
 \end{algorithm}
+
+\kern -4ex
 % \begin{algorithm}%<<<
 % \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 % \begin{algorithmic}[1]
@@ -937,6 +939,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
   (\sfdiv( ℓ^{k-(h+1)}, P_{k-1}) )$. 
 \end{algorithmic}
 \end{algorithm}
+\par\kern -4ex
 \begin{prop}\label{th:horizontal}
   Algorithm~\ref{alg:horizontal} is correct and computes its output
   using an expected $O(\RR(k-\beta) + k\RR(h-β+1) + kℓ^2\MM(ℓ^{h-β+1}))$
@@ -1206,14 +1209,14 @@ and recover $\psi$ itself using V\'elu's formulas. For this
 method to work, we therefore select the smallest~$k ≥ h+1$ such
 that~$ℓ^{2k}-1 > 4r$.
 
-Summarizing, our algorithm for two curves having $ℓ$-maximal
-endomorphism ring proceeds as follows:
+Summarizing, our algorithm for two
+$ℓ$-maximal curves proceeds as follows:
 \begin{enumerate}
 \item\label{alg:ours:horizontal} Use Algorithms~\ref{alg:diagonal}
-  and~\ref{alg:horizontal} to compute horizontal bases $(P,Q)$ of
-  $E[ℓ^k]$ and $(P',Q')$ of $E'[ℓ^k]$;
+  and~\ref{alg:horizontal} to compute horizontal bases $(P,Q), (P', Q')$
+  of $E[ℓ^k], E'[ℓ^k]$;
 \item\label{alg:ours:T} Compute the polynomial~$T$ vanishing
-  on the abscissas of $\langle P,Q\rangle$ using the method of
+  on the abscissas of $\langle P,Q\rangle$ as in
   Section~\ref{sec:interpolation};
 \item\label{alg:ours:for} For each invertible diagonal matrix
   $\smat{a&0\\0&b}$ in $(ℤ/ℓ^k ℤ)^{2×2}$:
@@ -1238,8 +1241,10 @@ endomorphism ring proceeds as follows:
   Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
   of Subsection~\ref{sub:final-interp}
   computes an isogeny $ψ:E→E'$ using an expected
-  \[O\Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr)\]
-  operations in $\F_q$.
+\[O
+  \Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr)
+  \quad\text{operations in $\F_q$.}
+\]
 \end{prop}
 \begin{proof}
 By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
@@ -1307,8 +1312,8 @@ Therefore in the worst case~$ℓ = O(\log(q)^{1+ε})$.
   an expected
   \begin{equation}\label{eq:thm-complexity}
   O\bigl(r \MM(r) \log(r) \log(q)^{6+ε}\bigr)
+  \quad\text{operations in~$\F_q$.}
   \end{equation}
-  operations in~$\F_q$.
 \end{thm*}
 
 For a fixed~$q$, this complexity is quasi-quadratic in~$r$.

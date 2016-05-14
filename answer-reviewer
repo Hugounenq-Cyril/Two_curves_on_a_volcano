@@ -1,0 +1,25 @@
+
+We would like to point out the differences with the first submitted
+version, and why we think that these differences address the remarks of
+the anonymous reviewers.
+
+Since this article was written as a collaboration using the GitHub
+platform, in case the reviewers neede a full set of differences between
+both versions, this is available with the two following commands:
+
+git clone https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano
+git diff ANTS_submission explicit-isogenies.tex
+
+The most important changes we made are the following:
+
+ - We replaced the incorrect assumption ℓ=O(1) by a worst-case bound
+   which we computed as ℓ=O(log q), and updated the complexities of
+   Proposition 5.1 and the Theorem accordingly.
+
+ - We precised which steps in the algorithms use randomness.
+
+ - We restated our original complexity claim as a median-case value, and
+   explained why we think that this is useful in practice.
+
+ - We expanded a bit the numerical range of our experiments, using
+   parameters up to usual cryptographic sizes.
