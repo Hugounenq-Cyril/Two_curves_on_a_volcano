@@ -1005,20 +1005,23 @@ Frobenius algorithm given in Lemma~\ref{lemma:frob-ell}.
 Following~\cite{df10}, we first compute $T$, starting from
 $T^{(0)}=x-v$.  We let $\sigma_i$ be the map that takes all the
 coefficients of a polynomial in $F_{n-i}[x]$ to the power
-$\#F_{n-i-1}$. For $i=0,\dots,n-2$, suppose we know a polynomial
+$\#F_{n-i-1}$. For $i=0,\dots,n-1$, suppose we know a polynomial
 $T^{(i)}$ of degree $\ell^i$ in $F_{n-i}[x]$. Then, compute the
 polynomials $T^{(i,j)}$ given by
-\begin{equation*}
-  T^{(i,j)}= \sigma_i^j\bigl (T^{(i)} \bigr)
-  \quad\text{for $0 \le j \le \ell-1$},
-\end{equation*}
+$T^{(i,j)}= \sigma_i^j\bigl (T^{(i)} \bigr)$
+for $0 \le j \le \ell-1$,
 and define
-$$T^{(i+1)}=\prod_{j=0}^{\ell-1} T^{(i,j)};$$ one easily sees that
-$T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$. For the
-last step $i=n-1$, we proceed in a similar way by defining
-\begin{equation*}
-  T = T^{(n)}=\prod_{j=0}^{d/ℓ^{n-1}} T^{(n-1,j)}.
-\end{equation*}
+\begin{equation}
+  \label{eq:interp}
+  T^{(i+1)}=\prod_{j=0}^{b} T^{(i,j)}
+  \qquad\text{with}\qquad
+  b = \begin{cases}
+    ℓ-1 &\text{if $i<n-1$,}\\
+    d/ℓ^{n-1} &\text{otherwise.}
+  \end{cases}
+\end{equation}
+One easily sees that
+$T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$.
 
 \begin{lem}\label{lemma:interpolation:minpoly}
   The cost of computing $T$ is bounded by $O(n\MM(ℓ^{n+1})\log(ℓ))$
@@ -1042,10 +1045,10 @@ We can finally proceed with the interpolation itself. First, compute
 $w' = w/T'(v)$ and let $L^{(0)}=w'$.  Next, for $i=0,\dots,n-2$,
 suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
 than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
-$$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr),$$
-for $0 \le j \le \ell-1$, and
-$$L^{(i+1)} = \sum_{j=0}^{\ell-1} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}}.$$ The last step $i=n-1$
-is done analogously.  As shown in~\cite{df10}, $L^{(n)}$ is the
+$L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr)$ and
+\[L^{(i+1)} = \sum_{j=0}^{b} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}},
+  \qquad\text{$c$ defined as in Eq.~\eqref{eq:interp}}.\]
+As shown in~\cite{df10}, $L^{(n)}$ is the
 polynomial $L$ we are looking for.
 
 \begin{prop}
@@ -1076,8 +1079,8 @@ polynomial $L$ we are looking for.
   $i$, the complexity statement follows readily.
 \end{proof}
 
-We finally go to the general problem of interpolating a polynomial in
-$\F_q[x]$ at many points of $F_n$.
+We end with the general problem of interpolating a polynomial in
+$\F_q[x]$ at points of $F_n$.
 
 \begin{prop}\label{prop:interpol}
   Let $(v_1,w_1),\dots,(v_s,w_s)$ be pairs of elements of $F_n$, let
