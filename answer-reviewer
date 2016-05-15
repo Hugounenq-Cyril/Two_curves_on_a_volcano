@@ -1,14 +1,12 @@
+Dear reviewers,
 
-We would like to point out the differences with the first submitted
-version, and why we think that these differences address the remarks of
-the anonymous reviewers.
-
-Since this article was written as a collaboration using the GitHub
-platform, in case the reviewers neede a full set of differences between
-both versions, this is available with the two following commands:
-
-git clone https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano
-git diff ANTS_submission explicit-isogenies.tex
+We would like to thank you for the time you took to carefully review
+our work, and for your detailed suggestions. We realize that, in the
+rush of submitting before the deadline, we stated our results in an
+approximate way. We apologize for that, we did our best to fix the
+problem. We would like to point out the differences with the first
+submitted version, and why we think that these differences address
+your remarks.
 
 The most important changes we made are the following:
 
@@ -21,5 +19,16 @@ The most important changes we made are the following:
  - We restated our original complexity claim as a median-case value, and
    explained why we think that this is useful in practice.
 
- - We expanded a bit the numerical range of our experiments, using
-   parameters up to usual cryptographic sizes.
+ - We ran more consistent experiments, and expanded their numerical
+   range, using parameters up to usual cryptographic sizes.
+
+
+This article was written using the collaborative tools Git and the
+GitHub platform. Should you be interested in having a more detailed
+view of the differences with the submitted version, we invite you to
+visit the following URL:
+
+https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano/commit/review
+
+Alternatively, if you are used to the Git VCS, you can clone the
+public repository and explore the differences locally.
