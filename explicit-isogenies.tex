@@ -1332,7 +1332,7 @@ For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
 %   Proposition~\ref{prop:full-complexity}.
 \end{proof}
 
-\section{Experimental results}
+\section{Conclusion and experimental results}
 \label{sec:implem}
 
 In the previous sections we have obtained a Las Vegas algorithm with an
@@ -1349,11 +1349,11 @@ the following ways:
 \begin{itemize}
 \item All modular polynomials up to $Φ_ℓ$ must be computed or
   retrieved from tables.
-\item Because we must have $k>h$, all degrees $r$ smaller than
-  $(ℓ^{2h+2}-1)/4$ require the same computational effort
 \item All degrees $(ℓ^{2k}-1)/4≤r<(ℓ^{2k+1}-1)/4$ require essentially
   the same computational effort, thus resulting in a \emph{staircase
     behavior} when $r$ increases.
+\item Because we must have $k>h$, all degrees $r$ smaller than
+  $(ℓ^{2h+2}-1)/4$ require the same computational effort.
 \end{itemize}
 For these reasons, it is wisest in practice to set small \emph{a
   priori} bounds on $ℓ$ and $h$, and only run our algorithms when
@@ -1375,7 +1375,7 @@ are available in the GitHub project
 \includegraphics[width=0.49\textwidth]{benchmarks/graphe-101-149-269.pdf}
 \caption{Left: comparison of horizontal basis computation and
   interpolation phases, for a fixed curve defined over $\F_{101}$, and
-  increasing $r$. Right: Comparison of the interpolation phase for
+  increasing $r$. Right: Comparison of one interpolation phase for
   $\F_{101}$, $\F_{2^{62}+169}$ and $\F_{2^{252}+421}$, and increasing
   $r$. Plots in logarithmic scale.}
 \label{fig:benchs}
@@ -1386,8 +1386,8 @@ fixed a base field $\F_q$ and an elliptic curve $E$ with height $h≤3$,
 then ran our algorithm to compute the multiplication-by-$r$ isogeny
 $E→E$, for $r$ increasing.  The torsion levels involved in the
 computations varied from $2^3$ to $2^8$.  Figure~\ref{fig:benchs}
-(left) shows the running time for the computation of the horizontal
-basis of $E[ℓ^k]$, and that for just one execution of the interpolation
+(left) shows the running times for the computation of the horizontal
+basis of $E[ℓ^k]$, and for one execution of the interpolation
 step. Running times are close to linear in $r$,
 as expected. The staircase behavior of our algorithm is apparent from
 the plot. Since the interpolation steps must be repeated $\sim r$ times,
@@ -1396,6 +1396,18 @@ time for different base fields. Figure~\ref{fig:benchs} (right)
 confirms that the dependency in $q$ is negligible. Indeed, over all
 primes that fit in a machine word, running times are essentially
 constant. Larger primes of cryptographic size are about $30$ times slower.
+
+In conclusion, our algorithm shows promise of being of practical
+interest within selected parameter ranges. Generalizing it to work
+with Atkin primes would considerably enlarge its applicability range;
+we hope to develop such a generalization in a future work. On the
+practical side, we plan to work on two improvements that seem within
+reach. First, the reduction from generic curves to $ℓ$-maximal curves
+seems superfluous and unduly expensive: it would be interesting to
+generalize the concept of horizontal bases to any curve. Second, a
+multi-modular approach interpolating on a torsion group of composite
+order is certainly possible, and could improve the running time of our
+algorithm by allowing it to work in smaller extension fields.
 
 \begin{acknowledgments}
   We would like to thank the anonymous referees for their careful
