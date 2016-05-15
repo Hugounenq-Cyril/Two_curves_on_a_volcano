@@ -1050,7 +1050,7 @@ suppose we know a polynomial $L^{(i)}$ in $F_{n-i}[x]$ of degree less
 than $\ell^i$. We compute the polynomials $L^{(i,j)}$ given by
 $L^{(i,j)}= \sigma_i^j\bigl(L^{(i)}\bigr)$ and
 \[L^{(i+1)} = \sum_{j=0}^{b} L^{(i,j)}\frac{T^{(i+1)}}{T^{(i,j)}},
-  \qquad\text{$c$ defined as in Eq.~\eqref{eq:interp}}.\]
+  \qquad\text{$b$ defined as in Eq.~\eqref{eq:interp}}.\]
 As shown in~\cite{df10}, $L^{(n)}$ is the
 polynomial $L$ we are looking for.
 
@@ -1359,10 +1359,10 @@ For these reasons, it is wisest in practice to set small \emph{a
   priori} bounds on $ℓ$ and $h$, and only run our algorithms when
 parameters within these bounds can be found.
 
-To validated our findings, we implemented a simplified version of our main algorithm using
+To validate our findings, we implemented a simplified version of our main algorithm using
 SageMath v7.1~\cite{sage}. In our current implementation, we only
 handle the case $\ell=2$ and we work only with curves on the
-crater of the $2$-volcano.  We implemented the
+crater of a $2$-volcano.  We implemented the
 construction of Kummer towers described in~\cite{DoSc12}, in the
 favorable case where $p = 1 \bmod 4$. Source code and benchmark data
 are available in the GitHub project
