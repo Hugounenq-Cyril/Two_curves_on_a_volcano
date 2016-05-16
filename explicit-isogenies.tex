@@ -1162,11 +1162,12 @@ By Proposition~\ref{prop:parallel}, the depth of~$E$ and $E'$ below
 their respective craters is the same.  By
 Proposition~\ref{prop:parallel}~\ref{prop:parallel:ascent}, the
 curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous; we can use
-our algorithm to compute such an isogeny~$ψ_{\max}$.  Then $ψ =
-(α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny; its kernel can
-be computed in $O(h\MM(r)\log(r))$ operations by evaluating $α^{-1}$
+our algorithm to compute such an isogeny~$ψ_{\max}$.  Then, 
+since $ℓ$ is coprime to $r$, $ψ =
+(α')^{-1} ∘ ψ_{\max} ∘ α$ is well defined and is the required $r$-isogeny.
+Its kernel can
+be computed in $O(h\MM(ℓr)\log(ℓr))$ operations by evaluating the dual isogeny $\hat{α}$
 on the kernel of $ψ_{\max}$ via a sequence of resultants.
-\todo{ES: comprends pas la d\'efinition de $\psi$, ni comment on la calcule, ni la complexit\'e.}
 
 \subsection{Interpolating the isogeny}
 \label{sub:final-interp}
@@ -1227,9 +1228,8 @@ $ℓ$-maximal curves proceeds as follows:
 
 \begin{prop}
   \label{prop:full-complexity}
-  Assuming that $ℓ\in O(r)$ and $ℓ^h<√ r$, the algorithm
-above
-  computes an isogeny $ψ:E→E'$ in expected time
+  Assuming that $ℓ^h<√ r$, the algorithm above
+  computes an isogeny ${ψ:E→E'}$ in expected time
 $O\Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr).$
 \end{prop}
 \begin{proof}
@@ -1245,8 +1245,7 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
   Propositions~\ref{th:diagonal} and~\ref{th:horizontal}.
   Using the most pessimistic estimates of
   Section~\ref{sub:towers}, we see that this cost is bounded by
-%   $O(\MM(\sqrt{r})\log(r)(ℓ^2 + \log(rq)))$ if $ℓ=2$, or by
-  $O(\MM(rℓ^3)\log(r)\log(ℓ)\log(ℓq))$.% otherwise.
+  $O(\MM(rℓ^3)\log(r)\log(ℓ)\log(ℓq))$.
 
   By Proposition~\ref{prop:classes}~\ref{prop:classes:count}, there
   are at most~$O(k· ℓ^{k+β})$ Galois classes in~$E[ℓ^k]$. In order to
@@ -1255,7 +1254,7 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
   computed from the basis $(P,Q)$ using point multiplication by two
   scalars $≤ℓ^k$ in the field $F_n$, which costs
   $O(\MM(ℓ^n)\log(ℓ^k))$ operations. We thus have a total cost of
-  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(rℓ^2)\log^2(r))$ to compute all such representatives.
+  $O(k\MM(ℓ^{2k})\log(ℓ^k)) ⊂ O(\MM(rℓ^2)\log(r)^2)$ to compute all such representatives.
 
   Then, using Proposition~\ref{prop:interpol}, where the total degree
   is~$t = (ℓ^{2k}-1)/2∈O(r ℓ^2)$, and the number of interpolation points
@@ -1267,58 +1266,41 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
   finding the isogeny.
 \end{proof}
 
-% For completeness we give some more formal bounds on the general
-% complexity of our algorithm.
-% We now eliminate the dependency on~$ℓ$ and~$h$ in the algorithm.
-% First, we note that for fixed~$q$, since $ℓ$, $h$ do not depend on~$r$,
-% the asymptotic complexity of our algorithm is simply~$O(r \MM(r)
-% \log(r))$, which is quasi-quadratic in~$r$.
-% $h∈O(\log(q))$, and that under the Generalized Riemann Hypothesis $ℓ$
-% can be taken in $O(\log(q)^{2+ε})$ for any $ε>0$ and sufficiently
-% large $q$~\cite{satoh2002padic}. Thus, when $q$ is held fixed, the
-% asymptotical complexity of our algorithm is quite simply
-% $O(r\MM(r)\log(r))$.
-
 \subsection{Overall complexity}
 \label{sub:complexity}
 
-We now give a bound depending on~$r$ and~$q$.
 By a result of Shparlinski and
-Sutherland~\cite[Corollary~2]{shparlinski2014distribution},
-for any~$ε > 0$, for almost all primes $q$ and curves $E/\F_q$
-asymptotically a fixed proportion of the primes $ℓ ≤ \log(q)^{ε}$
-are Elkies primes.
-For any such~$ℓ$, the corresponding height~$h = h_ℓ$
-is~$h_ℓ = \frac 12 v_ℓ(d_K)$,
-so that the condition~$ℓ^h < √r$
-discards at most a number~$O(\log (q))$ of Elkies primes~$ℓ$.
-Therefore in the worst case~$ℓ = O(\log(q)^{1+ε})$.
-% whereas in the median case~$ℓ = O(1)$.
+Sutherland~\cite[Theorem~1]{shparlinski2014distribution},
+for almost all primes $q$ and curves $E/\F_q$, for $L≥\log(q)^ε$ for any $ε>0$,
+asymptotically half of the primes $ℓ ≤ L$ are Elkies primes.
+Hence, we expect to have enough small Elkies primes to apply our algorithm.
+The following theorem states a worst case bound depending on~$r$ and~$q$ alone.
 
 \begin{thm*}
-  For almost all primes $q$ and curves $E,E'$ over $\F_q$, and for any
-  $ε>0$, it is possible to solve the “Explicit Isogeny Problem” using
-  an expected
-  \begin{equation}\label{eq:thm-complexity}
-  O\bigl(r \MM(r) \log(r) \log(q)^{6+ε}\bigr)
-  \quad\text{operations in~$\F_q$.}
-  \end{equation}
+  For almost all primes $q$ and curves $E,E'$ over $\F_q$, it is
+  possible to solve the “Explicit Isogeny Problem” in expected time
+  $O\bigl(r \MM(r\log(q)^6) \log(r) \loglog(q) \bigr)$.
 \end{thm*}
 
-For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
-
 \begin{proof}
-%   By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
-  The search for $ℓ$ described in Section~\ref{sub:shape-volcano} \todo{pas vraiment}
-  is dominated by the computation of the modular polynomials~$Φ_ℓ$,
-  and thus bounded by~$O(\log(q)^{4+ε})$.
-  The complexity~\eqref{eq:thm-complexity} follows from
-  substituting~$ℓ = O(\log(q)^{1+ε})$
+  Given a curve $E$, we search for the smallest Elkies prime
+  satisfying the conditions of Proposition~\ref{prop:full-complexity}.
+  As a special case of~\cite[Theorem~1]{shparlinski2014distribution},
+  we can take $L∈O(\log(q))$ such that the product of all
+  Elkies primes $ℓ≤L$ exceeds $O(√q)$. For any such~$ℓ$, the
+  corresponding height~$h = h_ℓ$
+  is~$h_ℓ = \frac 12 v_ℓ(d_K)$, so that $\prod ℓ^{h_ℓ}≤2√q$.
+  Hence, even discarding those primes such that~$ℓ^{h_ℓ} > √r$,
+  there will be enough good Elkies primes left in the interval $\llbracket 1,L\rrbracket$.
+  Therefore in the worst case~$ℓ = O(\log(q))$.
+
+  The most expensive steps in Section~\ref{sub:shape-volcano} are
+  the computation and the factorization of the modular polynomials
+  for all primes up to $ℓ$.
+  This is well within~$O(\log(q)^6)$.
+  The stated complexity follows then from
+  substituting~$ℓ = O(\log(q))$
   in Proposition~\ref{prop:full-complexity}.
-%   takes polynomial time in $ℓ$, and is thus bounded by $O(\log(q)^ε)$
-%   for an appropriately chosen $ε$ depending upon $δ$.  The rest of the
-%   analysis follows readily from
-%   Proposition~\ref{prop:full-complexity}.
 \end{proof}
 
 \section{Conclusion and experimental results}
