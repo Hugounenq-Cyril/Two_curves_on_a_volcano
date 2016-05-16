@@ -178,14 +178,14 @@ abscissas of the points in $\kerψ$, at the cost of a constant number
 of multiplications of polynomials of degree $O(r)$. Given that all
 known algorithms to compute $h$ require more than a few polynomial
 multiplications, we often say that we have computed $ψ$ whenever we
-have computed $h$, and reciprocally.
+have computed $h$, and conversely.
 
 This paper focuses on the explicit isogeny problem for \emph{ordinary}
 elliptic curves over finite fields. A famous theorem by Tate~\cite{tate1966endomorphisms} states
 that two curves are isogenous over a finite field if and only if they
 have the same cardinality over that field. The explicit isogeny
 problem stated here appears naturally in the Schoof-Elkies-Atkin point
-counting algorithm (SEA). There, $E$ is the curve whose rational points
+counting algorithm (SEA). There, $E$ is a curve over $\F_q$, whose rational points
 we wish to count, and $E'$ is an $r$-isogenous curve, with $r$
 a prime of size approximately $\log(q)$. For this reason, the explicit
 isogeny problem is customarily solved without prior knowledge of the
@@ -199,7 +199,7 @@ Robbins~\cite{charlap1991enumeration}. Elkies'~\cite{elkies98,Bostan}
 was the first algorithm targeted to finite fields (of large enough
 characteristic). Assuming $r$ is prime, its complexity is dominated by
 the computation of the modular polynomial $\Phi_r$, which is an object
-of (binary) size $O(r^3\log(r))$. Later Bröker, Lauter and
+of bit size $O(r^3\log(r))$. Later Bröker, Lauter and
 Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
 computation in the context of the SEA
 algorithm~\cite{sutherland2013evaluation}. Finally Lercier and Sirvent~\cite{lercier+sirvent08,1602.00244}
@@ -217,7 +217,7 @@ hence they are only practical for very small characteristic.
 
 In this paper we present a variant of Couveignes' algorithm with
 complexity polynomial in $\log(p)$ and quasi-quadratic in $r$. Like the original 
-algorithm, it is limited to computing isogenies of ordinary curves. Together
+algorithm, it is limited to  isogenies of ordinary curves. Together
 with the Lercier-Sirvent algorithm, they are the only polynomial-time
 isogeny computation algorithms working in any characteristic, hence
 they are especially relevant for counting points in \emph{medium}
@@ -265,7 +265,7 @@ using $\MM(n)$ operations in $\F_q$, under the assumptions
 of~\cite[Chapter~8.3]{vzGG}. Using FFT multiplication, one can take
 $\MM(n)∈ O(n\log(n)\loglog(n))$.
 
-\subsection{Couveignes' algorithm}
+\subsection{Couveignes' algorithm and our contribution}
 \label{sec:couv-algor}
 
 Couveignes' isogeny algorithm takes as input two \emph{ordinary}
@@ -289,32 +289,28 @@ It proceeds in three steps:
 \end{enumerate}
 
 For this algorithm to succeed, enough interpolation points are
-required. Given that the $x$-component of $ψ$ is defined by $O(r)$ coefficients,
-it is necessary that $p^k∈O(r)$. However, most of
+required. Given that the $x$-component of $ψ$ is defined by $O(r)$
+coefficients, we have $p^k∈\Theta(r)$. However, most of
 the time, those points are not going to be defined in the base field
-$\F_q$, thus Couveignes' algorithm must be based on efficient
-algorithms to construct and compute in towers of extensions of finite
-fields. Indeed, Couveignes and his successors go at great length in
-studying the arithmetic of \emph{Artin-Schreier
-  towers}~\cite{couveignes00,df+schost12}, and the adaptation of the
-fast interpolation algorithm to that setting~\cite{df10}.  Using these
-highly specialized constructions,
+$\F_q$, so we must use efficient algorithms to construct and compute
+in towers of extensions of finite fields. Indeed, Couveignes and his
+successors go at great length in studying the arithmetic of
+\emph{Artin-Schreier towers}~\cite{couveignes00,df+schost12}, and the
+adaptation of the fast interpolation algorithm to that
+setting~\cite{df10}.  Using these highly specialized constructions,
 Steps~\ref{alg:orig-couveignes:tower}
-and~\ref{alg:orig-couveignes:interp} are both executed in 
-time $\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step
-only succeeds for one pair of torsion points $P,P'$, in general, thus
+and~\ref{alg:orig-couveignes:interp} are both executed in time
+$\tildO(p^{k+O(1)})=\tildO(rp^{O(1)})$. However the last step only
+succeeds for one pair of torsion points $P,P'$, in general, thus
 $O(r)$ trials are expected on average.
-
 Hence, the overall complexity of Couveignes' algorithm is
-$\tildO(r^2p^{O(1)})$, i.e., quadratic in $r^2$, but exponential in
+$\tildO(r^2p^{O(1)})$, i.e., quadratic in $r$, but exponential in
 $\log(p)$. Although the exponent of $p$ is relatively small,
 Couveignes algorithm quickly becomes impractical as $p$ grows.
 
-\subsection{Our contributions}
-
-In this paper we
-introduce a variant of Couveignes' algorithm with the same quadratic
-complexity in $r$, and \textbf{no exponential dependency in $\log(p)$}.
+In this paper we introduce a variant of Couveignes' algorithm with the
+same quadratic complexity in $r$, and \textbf{no exponential
+  dependency in $\log(p)$}.
 
 The bottom line of our algorithm is elementary: replace $E[p^k]$ in
 the algorithm with $E[ℓ^k]$, for some small prime $ℓ$. However a
@@ -362,25 +358,27 @@ negligible cost.
 
 We briefly sketch the construction for odd $\ell$. We first look for a
 primitive polynomial $P_1∈\F_q[x]$ of degree equal to $[F₁:F₀]$. There
-are many probabilistic algorithms to compute $P_1$ in expected time polynomial
-in $\ell$ and $\log(q)$; since their cost does not depend on the height
-$n$ of the tower, we neglect it. Then, the image $x₁$ of $x$ in
-$F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order $\#F₁-1$,
-and in particular it is not a $ℓ$-th power. Hence for any $i>1$ we
-define $F_i$ as $\F_q[x]/P_1\bigl(x^{ℓ^{i-1}}\bigr)$, the computation
-of the polynomials $P_1\bigl(x^{ℓ^{i-1}}\bigr)$ incurring no algebraic
-cost. Using this representation, elements of $F_i$ can be expressed as
-elements of a higher level $F_{i+j}$, and reciprocally, by a simple
-rearrangement of the coefficients. Another fundamental operation can
-be done much more efficiently than in generic finite fields, as the
-following generalization of~\cite[\S2.3]{DoSc12} shows.
+are many probabilistic algorithms to compute $P_1$ in expected time
+polynomial in $\ell$ and $\log(q)$; since their cost does not depend
+on the height $n$ of the tower, we neglect it (in all that follows, by
+{\em expected cost} of an algorithm, we refer to a Las Vegas algorithm,
+whose runtime is given in expectation). Then, the image $x₁$ of
+$x$ in $F_1=\F_q[x]/P₁(x)$ is an element of multiplicative order
+$\#F₁-1$, and in particular it is not a $ℓ$-th power. Hence for any
+$i>1$ we define $F_i$ as $\F_q[x]/P_1\bigl(x^{ℓ^{i-1}}\bigr)$, the
+computation of the polynomials $P_1\bigl(x^{ℓ^{i-1}}\bigr)$ incurring
+no algebraic cost. Using this representation, elements of $F_i$ can be
+expressed as elements of a higher level $F_{i+j}$, and reciprocally,
+by a simple rearrangement of the coefficients. Another fundamental
+operation can be done much more efficiently than in generic finite
+fields, as the following generalization of~\cite[\S2.3]{DoSc12} shows.
 
 \begin{lem}\label{lemma:frob-ell}
   Let $F_0⊂\cdots⊂F_n$ be a Kummer tower as defined above, and let
   $a∈F_i$ for some $0≤i≤n$. For any integer $j$, we can compute the
   $(\#F_j)$-th power of $a$ using $O(ℓ^{i-1}\MM(ℓ))$ operations in
-  $\F_q$, after a precomputation independent of $a$ that uses
-  $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$.
+  $\F_q$, after a precomputation independent of $a$ of cost
+  $O(ℓ\MM(ℓ)\log(q))$.
 \end{lem}
 \begin{proof}
   Without loss of generality, we can assume that $j<i$; otherwise, the
@@ -393,7 +391,6 @@ following generalization of~\cite[\S2.3]{DoSc12} shows.
   given by $x₁^{u \bmod \#F₁}x_i^r$. We compute $x₁^{u\bmod\#F₁}$
   using $O(ℓ\MM(ℓ)\log(q))$ operations in $\F_q$, and we keep this
   element as a monomial of $F₁[x_i]$.
-
   By assumption, $a$ is represented as a polynomial in $x_i$ of degree
   less than $[F_i:F_0]$. We rewrite it as
   $a =a_0 + a_1 x_i + \cdots + a_{d-1} x_i^{d-1}$, with $a_i∈F₁$. This
@@ -435,7 +432,8 @@ the case $ℓ=2$, hence we introduce the following notation:
 \item $\RR(i)$ is a bound on the expected cost of finding a root of a polynomial of degree
   $ℓ$ in $F_i[x]$.
 \end{itemize}
-For $\ell=2$, Doliskani and Schost show that
+Note that we allow Las Vegas algorithms here, as no deterministic polynomial
+time algorithm is known. For $\ell=2$, Doliskani and Schost show that
 $\RR(i)=O(\MM(ℓ^i)\log(ℓ^iq))$. For general $ℓ$, we have
 $\RR(i)=O(ℓ^i\MM(ℓ^{i+1})\log(ℓ)\log(ℓq))$ using the variant of the
 Cantor-Zassenhaus algorithm described in~\cite[Chapter~14.5]{vzGG}, or
@@ -492,7 +490,7 @@ The \emph{crater} is the subgraph corresponding to curves
 having an $ℓ$-maximal endomorphism ring.
 The shape of the crater is given by the Kronecker symbol~$(d_K/ℓ)$,
 as per Proposition~\ref{prop:isogeny-count}.
-For any~$k ≥ 0$, a $ℓ^k$-isogeny is \emph{horizontal}
+For any~$k ≥ 0$, an $ℓ^k$-isogeny is \emph{horizontal}
 if it is the composite of $k$~horizontal $ℓ$-isogenies.
 The \emph{depth} of a curve is its distance from the crater.
 It is also the $ℓ$-adic valuation of the conductor
@@ -616,7 +614,7 @@ Conjugating the matrix $\left ( \begin{smallmatrix}λ & a\\0 & μ
 and conjugating by~$\left(\begin{smallmatrix} c & 0 \\ 0 &
 1\end{smallmatrix}\right)$ replaces~$a$ by~$c · a$,
 so that the valuation~$e = v_ℓ(a)$ is an invariant under matrix conjugation.
-This proves the first part of the proposition.
+This proves the first part.
 For the second part, by Tate's theorem~\cite[Isogeny theorem 7.7 (a)]{Sil},
 $\mathcal O ⊗ ℤ_ℓ$~is isomorphic to the order in~$ℚ_ℓ[π_ℓ]$
 of matrices with integer coefficients,
@@ -731,7 +729,7 @@ we must have~$\chev{P'} = \chev{ψ(P)}$.
 
 %%%%%%%%%%%%%%%
 \subsection{Galois classes in the $ℓ$-torsion}
-Here we assume that $E$~has a $ℓ$-maximal endomorphism ring.  The
+Assume that $E$~has a $ℓ$-maximal endomorphism ring.  The
 following proposition summarizes the properties of $E[\ell^k]$ that we
 will need for our main interpolation algorithm.  If $ℓ$~is odd, let~$α
 = v_ℓ(λ^{ℓ-1}-1)$ and~$β=v_ℓ(μ^{ℓ-1}-1)$; if $ℓ=2$,
@@ -767,7 +765,6 @@ This proves~(i) using the fact that~$λ · μ = q$.
 % Note that in general the order of~$q$ is a strict divisor of~$d_1$,
 % as is for example the case for~$π^2 - π + 29 = 0$ and~$ℓ = 7$,
 % where $q = 29 ≡ 1 \pmod{7}$ and $d_1 = 6$.
-
 For points~(ii)--(v) we may assume that $d_1 = 1$.
 Then, for any~$N$, $v_ℓ(λ^{2N}-1) = α + v_{ℓ} (2N)$.
 Let~$(P, Q)$ be a diagonal basis of~$E[ℓ^k]$.
@@ -841,7 +838,7 @@ cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
 \end{algorithmic}
 \end{algorithm}
 
-\kern -4ex
+%% \kern -4ex
 % \begin{algorithm}%<<<
 % \caption{\label{alg:diagonal}Computing a diagonal basis of $E[ℓ^k]$}
 % \begin{algorithmic}[1]
@@ -897,7 +894,6 @@ operations using the Cantor-Zassenhaus algorithm.
   for any $P$ defined in $E(F_{i-β})$, the computation of
   $\sfdiv(ℓ, P)$ at Step~\ref{alg:diagonal:divide} costs $O(\RR(i-β+1))$
   operations.
-
   Evaluating~$π(P')$ in Step~\ref{alg:diagonal:frobenius} has a cost
   of~$O(\ell^{i-\beta}\MM(\ell))$.
   Writing~$π(P')$ as a linear combination~$α P' + β Q'$ needs at
@@ -939,7 +935,7 @@ let $P_{i} \gets P' - (b/μ) Q_i$.
   (\sfdiv( ℓ^{k-(h+1)}, P_{k-1}) )$. 
 \end{algorithmic}
 \end{algorithm}
-\par\kern -4ex
+%\par\kern -4ex
 \begin{prop}\label{th:horizontal}
   Algorithm~\ref{alg:horizontal} is correct and computes its output
   using an expected $O(\RR(k-\beta) + k\RR(h-β+1) + kℓ^2\MM(ℓ^{h-β+1}))$
@@ -998,7 +994,6 @@ $T$ and $L$ such that:
 \end{itemize}
 Observe that, since $v,w∉F_{n-1}$, we necessarily have $v_ℓ(d)=n-1$,
 so that $ℓ^{n-1}≤d<ℓ^n$.
-
 Using a fast interpolation algorithm~\cite[Chapter~10.2]{vzGG}, the
 polynomials $T$ and $L$ could be computed in
 $O\bigl(n\MM(ℓ^{2n})\log(ℓ)\bigr)$ operations in $\F_q$. We can do
@@ -1027,7 +1022,7 @@ One easily sees that
 $T^{(i+1)}$ is the minimal polynomial of $v$ over $F_{n-i+1}$.
 
 \begin{lem}\label{lemma:interpolation:minpoly}
-  The cost of computing $T$ is bounded by $O(n\MM(ℓ^{n+1})\log(ℓ))$
+  The cost of computing $T$ is $O(n\MM(ℓ^{n+1})\log(ℓ))$
   operations in $\F_q$.
 \end{lem}
 
@@ -1055,9 +1050,9 @@ As shown in~\cite{df10}, $L^{(n)}$ is the
 polynomial $L$ we are looking for.
 
 \begin{prop}
-  Given elements $v,w∈F_n\setminus F_{n-1}$, the cost of computing the
-  minimal polynomial $T∈\F_q[x]$ of $v$, and the interpolating
-  polynomial $L∈\F_q[x]$ such that $L(v)=w$, is of $O(n\MM(ℓ^{n+1})\log(ℓ))$
+  Given $v,w∈F_n\setminus F_{n-1}$, the cost of computing the
+  minimal polynomial $T∈\F_q[x]$ of $v$ and the interpolating
+  polynomial $L∈\F_q[x]$ such that $L(v)=w$ is $O(n\MM(ℓ^{n+1})\log(ℓ))$
   operations in $\F_q$.
 \end{prop}
 \begin{proof}
@@ -1125,12 +1120,10 @@ $\F_q[x]$ at points of $F_n$.
 \section{The complete algorithm}
 \label{sec:complete-algorithm}
 
-We finally come to the description of the full algorithm. As stated in
-the introduction, we are given two $j$-invariants, defining two
-elliptic curves $E$ and $E'$, and an integer $r$, and we want to
-compute an isogeny $ψ:E→E'$ of degree $r$.
-
-Since the algorithms of Section~\ref{sec:acti-frob-endm} only apply to
+We finally come to the description of the full algorithm. Given two
+$j$-invariants, defining two elliptic curves $E$ and $E'$, and an
+integer $r$, we want to compute an isogeny $ψ:E→E'$ of degree $r$.
+Since the algorithms of Section~\ref{sec:acti-frob-endm} apply to
 curves on top of volcanoes with cyclic crater, we first need to
 determine a small Elkies prime $ℓ$ for $E$ and $E'$, and then reduce
 to an explicit isogeny problem on the crater of the
@@ -1150,31 +1143,30 @@ $h$ and find a curve $E_{\max}$ on the crater at the cost of $O(ℓh^2)$
 factorizations of the $ℓ$-th modular polynomial $Φ_ℓ$. The polynomial
 $Φ_ℓ$ is computed using $\tildO(ℓ³\log(ℓ))$ boolean operations, then
 each factorization costs an expected $O(\MM(ℓ)\log(ℓ)\log(ℓq))$
-operations using the Cantor-Zassenhaus algorithm. More efficient
+operations using the Cantor-Zassenhaus algorithm (more efficient
 methods for special instances of volcanoes are presented
 in~\cite{MiretMRV05} and in~\cite{ionica+joux13}, but we do not
-discuss them.
+discuss them). Working on $E$ and $E'$, we compute the shortest path
+of $ℓ$-isogenies~$α: E → E_{\max}$, $α': E' → E'_{\max}$ linking the
+curves~$E, E'$ to the craters.
+We still have to determine the
+shape of these craters.  Since the height~$h$ of the volcano is known,
+using Algorithm~\ref{alg:diagonal} we can compute a matrix of
+$π|E_{\max}[ℓ^{h+1}]$.  If this matrix has two distinct eigenvalues then the
+crater is cyclic, otherwise it is not.
 
-Once we know a curve on the crater,
-we still have to determine the shape of the crater.
-Since the height~$h$ of the volcano is known,
-using Algorithm~\ref{alg:diagonal} we can compute a matrix of $π|E[ℓ^{h+1}]$.
-If this matrix has two distinct eigenvalues then the crater is cyclic,
-otherwise it is not. Note that these computations do not depend on the isogeny
-degree $r$ and can be reused to compute many isogenies on $E$.
+%% Note that these computations do not depend on the isogeny
+%% degree $r$ and can be reused to compute many isogenies on $E$.
 
-By Proposition~\ref{prop:parallel},
-the depth of~$E$ and $E'$ below their respective craters is the same.
-Using the methods of Section~\ref{sub:shape-volcano},
-we can compute the shortest path of $ℓ$-isogenies~$α: E → E_{\max}$,
-$α': E' → E'_{\max}$ linking the curves~$E, E'$ to the craters.
-By Proposition~\ref{prop:parallel}~\ref{prop:parallel:ascent},
-the curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous;
-we can use our algorithm to compute such an isogeny~$ψ_{\max}$.
-Then $ψ = (α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny; its
-kernel can be computed in $O(h\MM(r)\log(r))$ operations by evaluating
-$α^{-1}$ on the kernel of $ψ_{\max}$ via a sequence of resultants.
-
+By Proposition~\ref{prop:parallel}, the depth of~$E$ and $E'$ below
+their respective craters is the same.  By
+Proposition~\ref{prop:parallel}~\ref{prop:parallel:ascent}, the
+curves~$E_{\max}$ and~$E'_{\max}$ are again $r$-isogenous; we can use
+our algorithm to compute such an isogeny~$ψ_{\max}$.  Then $ψ =
+(α')^{-1} ∘ ψ_{\max} ∘ α$ is the required $r$-isogeny; its kernel can
+be computed in $O(h\MM(r)\log(r))$ operations by evaluating $α^{-1}$
+on the kernel of $ψ_{\max}$ via a sequence of resultants.
+\todo{ES: comprends pas la d\'efinition de $\psi$, ni comment on la calcule, ni la complexit\'e.}
 
 \subsection{Interpolating the isogeny}
 \label{sub:final-interp}
@@ -1233,18 +1225,12 @@ $ℓ$-maximal curves proceeds as follows:
   \end{enumerate}
 \end{enumerate}
 
-\subsection{Asymptotic complexity}
-\label{sub:complexity}
-
 \begin{prop}
   \label{prop:full-complexity}
   Assuming that $ℓ\in o(r)$ and $ℓ^h<√ r$, the algorithm
-  of Subsection~\ref{sub:final-interp}
-  computes an isogeny $ψ:E→E'$ using an expected
-\[O
-  \Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr)
-  \quad\text{operations in $\F_q$.}
-\]
+above
+  computes an isogeny $ψ:E→E'$ in expected time
+$O\Bigl(\bigl(r ℓ^2\MM(rℓ^4) +  \MM(rℓ^3)\log(ℓq)\bigr)\log(r)\log(ℓ) \Bigr).$
 \end{prop}
 \begin{proof}
 By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
@@ -1293,6 +1279,9 @@ By definition of~$k$, we know that~$ℓ^{2k} ∈ O(rℓ^2)$.
 % asymptotical complexity of our algorithm is quite simply
 % $O(r\MM(r)\log(r))$.
 
+\subsection{Overall complexity}
+\label{sub:complexity}
+
 We now give a bound depending on~$r$ and~$q$.
 By a result of Shparlinski and
 Sutherland~\cite[Corollary~2]{shparlinski2014distribution},
@@ -1320,7 +1309,7 @@ For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
 
 \begin{proof}
 %   By the discussion above, we can take $ℓ∈O(\log(q)^δ)$ for any $δ>0$.
-  The search for $ℓ$ described in Section~\ref{sub:shape-volcano}
+  The search for $ℓ$ described in Section~\ref{sub:shape-volcano} \todo{pas vraiment}
   is dominated by the computation of the modular polynomials~$Φ_ℓ$,
   and thus bounded by~$O(\log(q)^{4+ε})$.
   The complexity~\eqref{eq:thm-complexity} follows from
@@ -1337,7 +1326,7 @@ For a fixed~$q$, this complexity is quasi-quadratic in~$r$.
 
 In the previous sections we have obtained a Las Vegas algorithm with an
 interesting asymptotic complexity.
-In particular, since in the median case we have~$ℓ = O(1)$,
+In particular, since in the median case we have~$ℓ = O(1)$, \todo{median case?}
 the median running time of the algorithm
 is quasi-quadratic in the isogeny degree~$r$
 and quasi-linear in~$\log q$.
