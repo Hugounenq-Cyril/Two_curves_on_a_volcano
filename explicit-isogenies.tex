@@ -109,8 +109,8 @@
   that involved computations using the $p$-torsion on the curves. 
   The most refined version of that algorithm, due to De Feo, 
   has a complexity of~$\tildO(r^2) p^{O(1)}$ base field operations.
-  On the other hand, the cost of our algorithm is $\tildO(r^2 + \sqrt{r} \log(q))$;
-  this makes it an interesting alternative
+  On the other hand, the cost of our algorithm is $\tildO(r^2) \log(q)^{O(1)}$,
+  for a large class of inputs; this makes it an interesting alternative
   for the medium- and large-characteristic cases.
 %% The problem we will consider here is the computation of an isogeny between two elliptics curves with the knowledge of the domain and the codomain of the isogeny and it's degree $r$. Couveignes's algorithm is an algorithm which solves this problem in $O(r^2)$ operations using the $p$-torsion. We want to extend the method used by Couveignes  We try to adapt his method here to the case of the $2$ torsion and more generally to the $\ell$ torsion, thus we propose an alternative for medium characteristic with this algorithm.
 \end{abstract}
@@ -1306,17 +1306,14 @@ The following theorem states a worst case bound depending on~$r$ and~$q$ alone.
 \section{Conclusion and experimental results}
 \label{sec:implem}
 
-In the previous sections we have obtained a Las Vegas algorithm with an
-interesting asymptotic complexity.
-In particular, since in the median case we have~$ℓ = O(1)$, \todo{median case?}
-the median running time of the algorithm
-is quasi-quadratic in the isogeny degree~$r$
-and quasi-linear in~$\log q$.
-Thus we expect it to be
-practical, and a substantial improvement over Couveignes' original
-algorithm, at least when small parameters $ℓ$ and $h$ can be found
-quickly. A large $ℓ$ or $h$ adversely affects performances in
-the following ways: 
+In the previous sections we have obtained a Las Vegas algorithm with
+an interesting asymptotic complexity.  In particular, in the favorable
+case where~$ℓ = O(1)$, the running time of the algorithm is
+quasi-quadratic in the isogeny degree~$r$ and quasi-linear in~$\log
+q$.  Thus we expect it to be practical, and a substantial improvement
+over Couveignes' original algorithm, at least when small parameters
+$ℓ$ and $h$ can be found quickly. A large $ℓ$ or $h$ adversely affects
+performance in the following ways:
 \begin{itemize}
 \item All modular polynomials up to $Φ_ℓ$ must be computed or
   retrieved from tables.
@@ -1327,7 +1324,7 @@ the following ways:
   $(ℓ^{2h+2}-1)/4$ require the same computational effort.
 \end{itemize}
 For these reasons, it is wisest in practice to set small \emph{a
-  priori} bounds on $ℓ$ and $h$, and only run our algorithms when
+  priori} bounds on $ℓ$ and $h$, and only run our algorithm when
 parameters within these bounds can be found.
 
 To validate our findings, we implemented a simplified version of our main algorithm using
