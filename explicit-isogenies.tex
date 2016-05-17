@@ -1351,7 +1351,7 @@ are available in the GitHub project
 \caption{Left: comparison of horizontal basis computation and
   interpolation phases, for a fixed curve defined over $\F_{101}$, and
   increasing $r$. Right: Comparison of one interpolation phase for
-  $\F_{101}$, $\F_{2^{62}+189}$ and $\F_{2^{252}+421}$, and increasing
+  $\F_{101}$, $\F_{2^{30}+669}$, $\F_{2^{62}+189}$ and $\F_{2^{252}+421}$, and increasing
   $r$. Plots in logarithmic scale.}
 \label{fig:benchs}
 \end{figure}
@@ -1367,10 +1367,11 @@ step. Running times are close to linear in $r$,
 as expected. The staircase behavior of our algorithm is apparent from
 the plot. Since the interpolation steps must be repeated $\sim r$ times,
 we focus on this step to compare the running
-time for different base fields. Figure~\ref{fig:benchs} (right)
-confirms that the dependency in $q$ is negligible. Indeed, over all
-primes that fit in a machine word, running times are essentially
-constant. Larger primes of cryptographic size are about $30$ times slower.
+time for different base fields. In Figure~\ref{fig:benchs} (right)
+we observe that the dependency in $q$, although much better than in
+Couveignes' original algorithm, is higher than what the theoretical 
+analysis would predict. This may due to low-level implementation details
+of SageMath, which, in the current implementation, are beyond our control.
 
 In conclusion, our algorithm shows promise of being of practical
 interest within selected parameter ranges. Generalizing it to work
