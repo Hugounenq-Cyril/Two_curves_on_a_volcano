@@ -241,7 +241,7 @@ $q$~elements. $E$ ~is an ordinary elliptic curve over~$\mathbb F_q$,
 its group of $n$-torsion points is denoted by~$E[n]$, its
 $q$-Frobenius endomorphism by~$π$.  The endomorphism ring of $E$ is
 denoted by~$\mathcal O$, with~$K = \mathcal O ⊗ ℚ$ the corresponding
-number field, $\mathcal O_K$ is its maximal order, and $d_K$~is the
+number field, $\mathcal O_K$ its maximal order, and $d_K$~the
 discriminant of~$\mathcal O_K$.
 For a prime~$ℓ$ different from~$p$ and not dividing~$r$,
 we denote by~$E[ℓ^k]$ the group of $ℓ^k$-torsion points of~$E$,
@@ -498,7 +498,6 @@ of~$\mathcal O = \mathrm{End}(E)$.
 
 		\begin{figure}[h]
 		\begin{center}
-		
         \begin{tikzpicture}[scale=0.2]
         \coordinate (A) at (0,0);
 		\coordinate (B) at (230:5);
@@ -575,9 +574,9 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\end{tikzpicture}
 		%\end{center}
 		\caption{The three shapes of volcanoes of $2$-isogenies }
-		
 		\end{center} 
 		\end{figure}
+\kern -2ex
 \subsection{The $ℓ$-adic Frobenius}
 
 In the rest of this paper we consider only a volcano with a cyclic
@@ -876,7 +875,7 @@ cℓ^{i} & μ + dℓ^{i} \end{smallmatrix} \right) \pmod {ℓ^{i+1}}.$
   q))$ operations in $\F_q$.
 \end{prop}
 \begin{proof}
-The equation at lines~\ref{alg:diagonal:solve1} and~\ref{alg:diagonal:solve2}
+The equation at line~\ref{alg:diagonal:solve1} or~\ref{alg:diagonal:solve2}
 is first divided out by the largest power of~$ℓ$ possible,
 which is~$ℓ^{\min (h, i)}$, then solved modulo $ℓ$.
 For~$i ≤ h-1$, since~$a = d$ and~$b = c = 0$,
@@ -1287,12 +1286,20 @@ The following theorem states a worst case bound depending on~$r$ and~$q$ alone.
   satisfying the conditions of Proposition~\ref{prop:full-complexity}.
   As a special case of~\cite[Theorem~1]{shparlinski2014distribution},
   we can take $L∈O(\log(q))$ such that the product of all
-  Elkies primes $ℓ≤L$ exceeds $O(√q)$. For any such~$ℓ$, the
-  corresponding height~$h = h_ℓ$
-  is~$h_ℓ = \frac 12 v_ℓ(d_K)$, so that $\prod ℓ^{h_ℓ}≤2√q$.
-  Hence, even discarding those primes such that~$ℓ^{h_ℓ} > √r$,
-  there will be enough good Elkies primes left in the interval $\llbracket 1,L\rrbracket$.
-  Therefore in the worst case~$ℓ = O(\log(q))$.
+  Elkies primes $ℓ≤L$ exceeds $Ω(√q)$.
+On the other hand, we discard those primes~$ℓ ≤ L$ for which
+the height~$h$ satisfies~$ℓ^{h} > √r$;
+since those discarded primes are divisors of~$√{d_K} ≤ 2√q$,
+their product is at most~$O(√q)$.
+This shows that there remains enough “goods” Elkies primes
+in~$\llbracket 1,L\rrbracket$,
+so that in the worst case $ℓ = O(\log(q))$.
+%   For any such~$ℓ$, the
+%   corresponding height~$h = h_ℓ$
+%   is~$h_ℓ = \frac 12 v_ℓ(d_K)$, so that $\prod ℓ^{h_ℓ}≤2√q$.
+%   Hence, even discarding those primes such that~$ℓ^{h_ℓ} > √r$,
+%   there will be enough good Elkies primes left in the interval $\llbracket 1,L\rrbracket$.
+%   Therefore in the worst case~$ℓ = O(\log(q))$.
 
   The most expensive steps in Section~\ref{sub:shape-volcano} are
   the computation and the factorization of the modular polynomials
