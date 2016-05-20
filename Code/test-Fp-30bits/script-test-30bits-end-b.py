@@ -4,7 +4,7 @@ load('../extension_corps.sage')
 
 n=30
 r=10
-fichier='../../benchmarks/test-script-30bits-bis.tsv'
+fichier='../../benchmarks/test-script-30bits-bis-03.tsv'
 
 
 p=1073742493

@@ -4,7 +4,7 @@ load('../extension_corps.sage')
 
 n=30
 r=10
-fichier='../../benchmarks/test-script-101-bis.tsv'
+fichier='../../benchmarks/test-script-101-03.tsv'
 
 
 F=FiniteField(101)
