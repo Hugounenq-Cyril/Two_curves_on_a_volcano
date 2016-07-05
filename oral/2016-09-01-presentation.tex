@@ -87,7 +87,7 @@
 \author{
  Luca De Feo, \underline{Cyril Hugounenq}, J\'er\^ome Pl\^ut, \'Eric Schost
 }
-%\title[Structure of $\ell$-isogeny volcanoes applied to Couveignes's algorithm]{Structure of $\ell$-isogeny volcanoes applied to Couveignes's algorithm}
+%\title[Structure of $\ell$-isogeny volcanoes applied to Couveignes' algorithm]{Structure of $\ell$-isogeny volcanoes applied to Couveignes' algorithm}
 \title[Explicit isogenies in quadratic time in any characteristic]{
 Explicit isogenies in quadratic time in any characteristic}
 \institute{Universit\'e Versailles Saint-Quentin-en-Yvelines, Paris-Saclay}
@@ -102,7 +102,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \frametitle{Summary}
 \begin{enumerate}
 \item Reminder on elliptic curves,
-\item Endomorphism ring  of elliptic curves %according to Kohel's work in 1996 \cite{Kohel96},
+\item Endomorphism rings  of elliptic curves %according to Kohel's work in 1996 \cite{Kohel96},
 \item Volcanoes of $\ell$-isogenies and Frobenius endomorphism.
 \end{enumerate}
 \end{frame}
@@ -129,7 +129,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \begin{defi}[$m$ torsion points]
 Let $E$ be an elliptic curve defined over $\mathbb{F}_q$, for $m \in \mathbb{N}$, we denote by
 \begin{itemize}
-\item $E(\overline{\mathbb{F}_q})[m]= \{ P \in E(\overline{\mathbb{F}_q}) , mP=0_E \} $
+\item $E(\overline{\mathbb{F}}_q)[m]= \{ P \in E(\overline{\mathbb{F}_q}) , mP=0_E \} $
 %\item $E(\mathbb{F}_q)[m]= \{ P \in E(\mathbb{F}_q) , mP=0_E \} $
 \end{itemize} 
 \end{defi}
@@ -146,22 +146,22 @@ E(\overline{\mathbb{F}_q})[p^k]&=\mathbb{Z}/p^k\mathbb{Z}
 
 \begin{frame}
 \frametitle{Reminder on isogenies}
-\begin{defi}[isogeny]
+\orangebox{Isogenies}{
 \begin{itemize}
-\item $E$ and $E'$ two elliptic ordinary curves, $\phi: E \rightarrow E'$ a surjective morphism such that $\phi(0_{E})=0_{E'}$, then $\phi$ is an isogeny. An isogeny is
+\item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
 \begin{itemize}
- \item a group morphism,
- \item a rational map.
+ \item group morphisms,
+ \item rational maps.
 \end{itemize}
  
-\item  if the isogeny $\phi$ is separable then we have $\deg \phi = |\ker(\phi)|=\ell$, we call it an \emph{$\ell$-isogeny},
+\item  If the isogeny has degree $\ell$, we call it an \emph{$\ell$-isogeny},
 
-\item We say that $E$ and $E'$ are \emph{$\ell$-isogenous} if there exist an $\ell$-isogeny $\phi$ between the two curves
+\item We say that $E$ and $E'$ are \emph{$\ell$-isogenous} if there exist an $\ell$-isogeny between them.
 %\item We say that $E$ and $E'$ are isogenous if there exist an isogeny $\phi$ between the two curves.
 
 %\item Moreover if the isogeny $\phi$ is $\textbf{separable}$ then we have $\deg \phi = | \ker(\phi) |$ and if $\ell= \deg \phi $ then we say that the curves $E$ and $E'$ are $\ell$-isogenous.
 \end{itemize}
-\end{defi}
+}
 
 \end{frame}
 
@@ -226,34 +226,39 @@ From the knowledge of $P$ we are able to explicitly give the expression of the i
 
 \begin{frame}
 \frametitle{Motivation}
-We focus on one specific problem in the Schoof-Elkies-Atkin (counting point algorithm) context:
+We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
+\medskip
 \orangebox{Explicit isogeny computation problem}
-{Let $E$, $E'$ defined on $\mathbb{F}_q$ be two $r$-isogenous curves: compute the $r$-isogeny that links them.}
+{
+ Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
+ Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
+ compute an $r$-isogeny $\phi:E\to E'$.
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{Existing algorithms}
-\orangebox{Explicit isogeny computation problem}
-{Let $E$, $E'$ defined on $\mathbb{F}_q$ be two $r$-isogenous curves: compute the $r$-isogeny that links them.}
+\frametitle{Previous work}
+
+Let $q=p^n$
+
 \begin{itemize}
-\item \ [BMSS '08] and [CCR '91] work only for $r \ll p$ in $O(M(r)\log(r))$ operations in $\mathbb{F}_q$
-\item \ [Couveignes '96] work in $O(r^2)$ operations in $\mathbb{F}_q$ but exponential in $\log(p)$
-\item \ [LS '08] works for every $p$ in $O(r^2)$ operations in $\mathbb{F}_q$
+\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r \ll p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
+\item{} [Couveignes '94] $O(r^3)$
+\item{} [Couveignes '96] works using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$, but has exponential complexity in $\log(p)$.
+\item{} [Lercier '97] only $p=2$.
+\item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
 \end{itemize}
 \begin{itemize}
 
-\item[$\rightarrow$] we focus on the medium charactristic case,
+\item[$\rightarrow$] we focus on the medium characteristic case,
 
-\item[$\rightarrow$] we want to modify Couveignes'algorithm to have an algorithm who works with complexity in $O(r^2)$ but with no exponential dependancy in $\log(p)$
+\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$
 
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \section{Endomorphism ring}
-\begin{defi}[Endomorphism ring]
-$\mathrm{End}(E)=\left( \{ \mathrm{isogenies \  } \phi : E \rightarrow E \} ,+ ,\circ  \right)$ is a ring. %with the addition law and composition law.
-\end{defi}
 
 \begin{defi}[Frobenius Endomorphism]
 $E$ an elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It belongs to $\mathrm{End}(E)$.
@@ -269,20 +274,12 @@ $E$ an elliptic curve defined over $\mathbb{F}_q$, then we always have \[ \mathb
 \begin{prop} \label{prop:p-tor}
 $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 \begin{enumerate}
-\item $E(\overline{\mathbb{F}_q})[p^k]=\mathbb{Z}/p^k \mathbb{Z}$
-\item  $\mathrm{End}(E)$ is isomorphic to an order denoted $\mathcal{O}$ in a quadratic imaginary extension of $\mathbb{Q}$: $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
+\item  $\mathrm{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
 \end{enumerate}
 \end{prop}
 
 %From now we will only work with ordinary elliptic curves.
 
-\begin{defi}
-An order in a quadratic imaginary number field $K$ is a 
-\begin{enumerate}
-\item subring of $K$
-\item a $\mathbb{Z}$-module of rank 2
-\end{enumerate}
-\end{defi}
 \begin{rem}
 Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
@@ -555,7 +552,7 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \end{column}
 \begin{column}[left]{4cm}
 \begin{lem}[Kohel 1996]
-$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny, with $\ell \neq p$. Then
+$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then
 \begin{enumerate}
 \item  $\ell=[\mathcal{O} : \mathcal{O}']$ we say then that $\phi$ is a 
 \only<1-1>{$\textbf{descending}$ isogeny,}
@@ -670,33 +667,34 @@ In the rest of this talk we consider only volcanoes with cyclic crater.}
 \end{frame}
 
 \begin{frame}
-\frametitle{Isogeny computation}
-\bluebox{Couveignes's algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
+\frametitle{Couveignes algorithm (1996)}
+\bluebox{Couveignes' algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
 \begin{algorithmic}[1]
 \REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{p^n}$ 
 \ENSURE $\phi: E \rightarrow E'$ of degree $r$
 \end{algorithmic}}
-Couveignes's algorithm:
+Couveignes' algorithm:
 \begin{enumerate}
 \begin{enumerate}
-\item Compute bases $(P)$ of
-  $E[p^k]$ and $(P')$ of $E'[p^k]$ with $p^k>4r$;
+\item Fix $k$ such that $p^k>4r$;
+\item Compute generators $P$ of
+  $E[p^k]$ and $P'$ of $E'[p^k]$;
 \item\label{alg:ours:T} Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
-  $x$-coordinates of $\langle P\rangle$ ;
+  $x$-coordinates of $\langle P\rangle$;
 \item\label{alg:ours:for} For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:
   \begin{enumerate}
   \item\label{alg:ours:interp} compute the interpolation polynomial
     $L_{a}$ such that
     $L_{a} (x (u P)) = x(a\, u\,P' )$ for
     $u \in \mathbb{Z}/p^k \mathbb{Z}$;
-  \item\label{alg:ours:cauchy} Use an algorithm of rational reconstruction 
+  \item\label{alg:ours:cauchy} Use a  rational reconstruction  algorithm 
     to compute a rational
     fraction $F_{a}=L_{a}\bmod{T}$ of degrees~$(r, r-1)$;
   \item If $F_{a}$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
 \end{enumerate}\end{enumerate}
-We want to modify this algorithm and work with \boldmath $E[\ell^k]$ \unboldmath instead of $E[p^k]$.
+Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
 \end{frame}
 
 \begin{frame}
@@ -743,7 +741,7 @@ We want to study the action of the frobenius on the $\ell$ torsion:
 \]
 with $P_i$ of order $\ell^i$ and $\ell P_{i+1}=P_i$ and $\langle P_i,Q_i \rangle = E[\ell^i]$
 
-We denote by $T_{\ell}(E)$ the Tate Module on the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
+We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
 %\begin{prop}
 %For $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ of characteristic $p$ the Tate module has the following structure for $\ell \neq p$:
 %\[ T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell} \]
@@ -1564,10 +1562,10 @@ On $E$ of $j$-invariant \boldmath $65$ \unboldmath, we have determined this part
 %\end{frame}
 
 \begin{frame}
-\frametitle{Contribution to modified Couveignes's algorithm}
+\frametitle{Contribution to modified Couveignes' algorithm}
 We wanted to specify one type of point invariant under $r$-isogeny for the mapping candidates.
 \begin{prop}
-Let $\phi:E\rightarrow E'$ be a rationnal isogeny of degree $r$ prime to $\ell$. The image of a $\ell$ horizontal basis of $E$ by $\phi$ is still a horizontal basis of $E'$.
+Let $\phi:E\rightarrow E'$ be a rational isogeny of degree $r$ prime to $\ell$. The image of a horizontal basis of $E$ by $\phi$ is a horizontal basis of $E'$.
 \end{prop}
 
 \begin{rem}
@@ -1621,7 +1619,7 @@ a_1 & 0 \\
 %\begin{rem}
 %\begin{itemize}
 %
-%\item As in Couveignes's algorithm we need to determine the image of a number $N$ of points such that: $ N>4 r$
+%\item As in Couveignes' algorithm we need to determine the image of a number $N$ of points such that: $ N>4 r$
 %
 %\item  As we need a diagonal basis for $\pi \mid T_{\ell}(E) \bmod \ell^k$ we work with $k>h$ to have $\lambda \neq \mu$.
 %
@@ -1636,8 +1634,9 @@ a_1 & 0 \\
 \bluebox{}{
 Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogeny works as follows:
 \begin{enumerate}
+\item Fix $k$ such that  $\ell^{2k}>4r$
 \item Compute horizontal bases $(P,Q)$ of
-  $E[\ell^k]$ and $(P',Q')$ of $E'[\ell^k]$ with $\ell^{2k}>4r$;
+  $E[\ell^k]$ and $(P',Q')$ of $E'[\ell^k]$;
 \item\label{alg:ours:T} Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
   with $x_i$ x-coordinates of $\langle P,Q\rangle$; %using the method of
   %[De Feo '10] and [Enge-Morain '03];
@@ -1646,7 +1645,7 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
   \begin{enumerate}
   \item\label{alg:ours:interp} compute the interpolation polynomial
-    $L_{a,b}$ of degree $\frac{\ell{2k}-1}{2}$ such that
+    $L_{a,b}$ such that
     $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$ for all
     $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
   \item\label{alg:ours:cauchy} Use an algorithm of rational reconstruction 
@@ -1698,19 +1697,19 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 \begin{frame}
 \frametitle{Completing the algorithm for all curves}
 \bluebox{}{
-For curves which are not on a cyclic crater of a volcano of $\ell$-isogeny
+For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies
 \begin{enumerate}
-\item we have to find a suitable $\ell$ such that the volcano of $\ell$ isogeny has a cyclic crater
-\item find curves on the crater
+\item we have to find a suitable $\ell$ such that the volcano has a cyclic crater
+\item construct an isogeny walk to the crater
 \end{enumerate}
 
-$\Rightarrow$ To address those $2$ points we have to use algorithms like the one of Fouquet-Morain[2001]. %\cite{FouquetMorain02}. 
+$\Rightarrow$ we use algorithms such as Fouquet-Morain[2001]. %\cite{FouquetMorain02}. 
 }
-Once we have done this we could reduct the problem to the case we have studied before.
+Once we have done this we reduce the problem to the previous case.
 \end{frame}
 
 \begin{frame}
-\frametitle{Experimentations}
+\frametitle{Experiments}
 The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$ with the $2$-adic tower construction of [Doliskani-Schost '15].%, the code is available on on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we compute the algorithm in two part for differents  inputs $r$. The interpolation correspond to only one step of interpolation:
 %Mettre des belles courbes
@@ -1723,7 +1722,7 @@ Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we c
 
 \begin{frame}
 \frametitle{Experimentations}
-Comparisons of execution times (in s) of one interpolation step for different characteristics and different inputs $r$, but with always the same curve $E$ for each characteristic.
+Comparisons of execution times (in s) of one interpolation step for various characteristics, for a fixed curve $E$ and increasing $r$.
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.8]{Images/graphe-101-149-269.pdf}
@@ -1737,21 +1736,20 @@ Comparisons of execution times (in s) of one interpolation step for different ch
 \frametitle{Conclusion}
 \bluebox{Contribution}{
 \begin{itemize}
-\item We have seen a way to determine horizontal basis of the $\ell^k$ torsion through the structure of voclanoes with cyclic crater and the use of the Frobenius. 
+\item A better understanding of the action of the Frobenius endomorphism on isogeny volcanoes. 
 
-\item With thoses basis we have less trials to do for the interpolation. 
+\item A faster variant of Couveignes' algorithm.
 
 \end{itemize}
 }
 \bluebox{Future work}{
-We still have to: 
 \begin{itemize}
 \item determine what we can do if we are not on a cyclic crater of a volcano,
 \item improve algorithm for curves not on the crater.
+\item Atkin!
 \end{itemize}}
-Pre-print available on : \url{http://arxiv.org/abs/1603.00711}
 
-Code available on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
+Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \end{frame}
 
 \begin{frame} 
