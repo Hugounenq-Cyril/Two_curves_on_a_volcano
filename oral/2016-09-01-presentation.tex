@@ -20,6 +20,9 @@
 \usepackage{gloss}
 \usepackage{algorithmic}
 \usepackage{algorithm}
+
+\usepackage{xkeyval} 
+
 \def\glossname{Glossaire}
 %\bibliographystyle{alpha} % plain-fr si rapport en français
 
@@ -76,7 +79,7 @@
 \newenvironment{blackitemize}{\setbeamertemplate{itemize item}{\textcolor{black}{$\bullet$}} \begin{itemize}}{\end{itemize}}
 
 
-\logo{\includegraphics[height=8mm]{uvsq-logo-cmjn.jpg}} 
+\logo{\includegraphics[height=8mm]{Images/uvsq-logo-cmjn.jpg}} 
 \addtobeamertemplate{footline}{\hfill\insertframenumber/ \inserttotalframenumber \hspace{2em}\null}
 
 \def\algorithmicrequire{\textbf{Input:}}
@@ -93,7 +96,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \institute{Universit\'e Versailles Saint-Quentin-en-Yvelines, Paris-Saclay}
 \begin{frame}
 \titlepage
-\includegraphics[scale=0.1]{digiteo.jpg} 
+\includegraphics[scale=0.1]{Images/digiteo.jpg} 
 \end{frame}
 %\maketitle
 %faire un plan
@@ -127,9 +130,9 @@ Explicit isogenies in quadratic time in any characteristic}
 
 
 \begin{defi}[$m$ torsion points]
-Let $E$ be an elliptic curve defined over $\mathbb{F}_q$, for $m \in \mathbb{N}$, we denote by
+Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$, for $m \in \mathbb{N}$, we denote by
 \begin{itemize}
-\item $E(\overline{\mathbb{F}}_q)[m]= \{ P \in E(\overline{\mathbb{F}_q}) , mP=0_E \} $
+\item $E(\overline{\mathbb{F}}_q)[m]= \{ P \in E(\overline{\mathbb{F}}_q) , mP=0_E \} $
 %\item $E(\mathbb{F}_q)[m]= \{ P \in E(\mathbb{F}_q) , mP=0_E \} $
 \end{itemize} 
 \end{defi}
@@ -137,10 +140,12 @@ Let $E$ be an elliptic curve defined over $\mathbb{F}_q$, for $m \in \mathbb{N}$
 \begin{rem}
 For an \emph{ordinary} elliptic curve $E$ defined over $\mathbb{F}_q$ we have:
 \begin{align*}
-E(\overline{\mathbb{F}_q})[\ell^k]&=\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
-E(\overline{\mathbb{F}_q})[p^k]&=\mathbb{Z}/p^k\mathbb{Z}
+E(\overline{\mathbb{F}}_q)[\ell^k]&=\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
+E(\overline{\mathbb{F}}_q)[p^k]&=\mathbb{Z}/p^k\mathbb{Z}
 \end{align*}
 \end{rem}
+
+During the rest of this presentation we will only work with ordinary elliptic curves defined over a finite field $\mathbb{F}_q$.
 
 \end{frame}
 
@@ -161,50 +166,41 @@ E(\overline{\mathbb{F}_q})[p^k]&=\mathbb{Z}/p^k\mathbb{Z}
 
 %\item Moreover if the isogeny $\phi$ is $\textbf{separable}$ then we have $\deg \phi = | \ker(\phi) |$ and if $\ell= \deg \phi $ then we say that the curves $E$ and $E'$ are $\ell$-isogenous.
 \end{itemize}
+\pause
+\orangebox{Isogenies as rational maps}{
+We can represent an isogeny of degree $\ell$ by the following rational map:
+%\[
+%\left( x ,y \right) \mapsto \left( \frac{n(x)=45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{d(x)(x^4+51x^2+67x+61)^2}, y\left(\frac{n(x)}{d(x)\right)^'} \right)
+%\]
+
+\[
+\left( x,y \right) \mapsto \left(\frac{n(x)}{d(x)}, y \left( \frac{n(x)}{d(x)} \right)' \right)
+\]
+with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\ell-1$
+}
+
 }
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Representations of isogenies}
-\begin{exe}
-We can represent the multiplication by $3$ isogeny of degree $9$ for a curve of $j$-invariant $28$ defined over $\mathbb{F}_{101}$  and cardinality $96$ by the following rational map:
-%\[
-%\left( x ,y \right) \mapsto \left( \frac{n(x)=45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{d(x)(x^4+51x^2+67x+61)^2}, y\left(\frac{n(x)}{d(x)\right)^'} \right)
-%\]
 
-\begin{align*}
-x &\mapsto \frac{n(x)}{d(x)}= \frac{45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{(x^4+51x^2+67x+61)^2} \\
-y &\mapsto y\left(\frac{n(x)}{d(x)}\right)'
-\end{align*}
-\end{exe}
-
-%\begin{exe}
-%For example we can represent the isogeny between $E_1$ a curve of $j$-invariant $28$ defined over $\mathbb{F}_{101}$ and $E_2$ a curve of $j$-invariant $65$ and cardinality $96$ by the following rational map:
-%\[
-%\left( x ,y \right) \mapsto \frac{x^3+100x^2+78x+67}{(x+50)^2}
-%\]
-%\end{exe}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Representations of isogenies}
 \begin{thm} 
-$E$, $E'$ two elliptic curves. There is a bijection between finite subgroups of $E$ and separable isogenies :
+There is a bijection between finite subgroups of $E$ and separable isogenies:
 \begin{eqnarray*}
 (\phi :E\rightarrow E') &\mapsto&  ker\, \phi  \\
  (E\rightarrow\nicefrac{E}{G})  &\reflectbox{$\mapsto$}&  G 
 \end{eqnarray*}
 \end{thm}
 
-\begin{exe} 
-$E$ an elliptic curve defined over $\mathbb{F}_q$, then we define an $\ell$-isogeny by a point: $P$ of order $\ell$
-\[ \phi: E \rightarrow E/ \left\langle P \right\rangle \]
-\end{exe}
+%\begin{exe} 
+%$E$ an elliptic curve defined over $\mathbb{F}_q$, then we define an $\ell$-isogeny by a point: $P$ of order $\ell$
+%\[ \phi: E \rightarrow E/ \left\langle P \right\rangle \]
+%\end{exe}
 
 \begin{rem}[V\'elu]
-From the knowledge of $P$ we are able to explicitly give the expression of the isogeny of kernel $\langle P \rangle$
+From the knowledge of $G$ we are able to explicitly give the expression of the isogeny of kernel $G$
 \end{rem}
 \end{frame}
 
@@ -574,7 +570,6 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 
 \begin{frame}
 \section{Volcano of $\ell$-isogeny and Frobenius endomorphism}
-\only<1-2>{
 \begin{figure}[h]
 		\begin{center}
 		
@@ -655,10 +650,8 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 		\caption{The three shapes of volcanoes of $2$-isogenies }
 		
 		\end{center} 
-		\end{figure}}
-\only<2-2>{
-In the rest of this talk we consider only volcanoes with cyclic crater.}
-
+		\end{figure}
+In the rest of this talk we consider only volcanoes with cyclic crater.
 %\begin{figure}[hbtp]
 %\centering
 %\includegraphics[scale=0.4]{Images/duo-volcan-wo-label.png}
