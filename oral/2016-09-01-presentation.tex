@@ -542,9 +542,9 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 		\coordinate (C) at (270:4);
 		\coordinate (D) at (310:5);
 		\draw (A) node{$\bullet$};
-		\draw (B) node{$\bullet$};
-		\draw (C) node{$\bullet$};
-		\draw (D) node{$\bullet$};
+		\draw (B) node[fill=white]{$\bullet$};
+		\draw (C) node[fill=white]{$\bullet$};
+		\draw (D) node[fill=white]{$\bullet$};
 		\node at (0,-6.7) {$(d_K/\ell) = -1$};
 		\draw (A)--(B);
 		\draw (A)--(C);
@@ -554,10 +554,10 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 		\coordinate (B) at (5.5,0);
 		\coordinate (C) at (240:4.2);
 		\coordinate (D) at (300:4.2);
-		\draw (A) node{$\bullet$};
-		\draw (B) node{$\bullet$};
-		\draw (C) node{$\bullet$};
-		\draw (D) node{$\bullet$};
+		\draw (A) node[fill=white]{$\bullet$};
+		\draw (B) node[fill=white]{$\bullet$};
+		\draw (C) node[fill=white]{$\bullet$};
+		\draw (D) node[fill=white]{$\bullet$};
 		\node at (2.8,-6.7) {$(d_K/\ell) = 0$};
 		\draw (A)--(B);
 		\draw (A)--(C);
@@ -568,9 +568,9 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 		\coordinate (A) at (0,0);
 		\coordinate (C) at (240:4.2);
 		\coordinate (D) at (300:4.2);
-		\draw (A) node{$\bullet$};
-		\draw (C) node{$\bullet$};
-		\draw (D) node{$\bullet$};
+		\draw (A) node[fill=white]{$\bullet$};
+		\draw (C) node[fill=white]{$\bullet$};
+		\draw (D) node[fill=white]{$\bullet$};
 		\draw (A)--(C);
 		\draw (A)--(D);
 		\end{scope}
@@ -589,22 +589,22 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 			\begin{scope}[xshift=-3cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
-			\draw (A) node{$\bullet$};
-			\draw (C) node{$\bullet$};
+			\draw (A) node[fill=white]{$\bullet$};
+			\draw (C) node[fill=white]{$\bullet$};
 			\draw (A)--(C);
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
-			\draw (A) node{$\bullet$};
-			\draw (C) node{$\bullet$};
+			\draw (A) node[fill=white]{$\bullet$};
+			\draw (C) node[fill=white]{$\bullet$};
 			\draw (A)--(C);
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
-			\draw (A) node{$\bullet$};
-			\draw (C) node{$\bullet$};
+			\draw (A) node[fill=white]{$\bullet$};
+			\draw (C) node[fill=white]{$\bullet$};
 			\draw (A)--(C);
 			\end{scope}
 		\end{scope}
@@ -1075,7 +1075,7 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 
 \begin{column}[l]{4cm}
 \begin{exe}[Volcano with height=2]
-Let $E$ be the curve with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
+Let $E_0$ be the curve with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
 \[y^2=x^3+85x+11\]
 $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 
@@ -1117,12 +1117,16 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
-			\draw [line width=1.5pt,black,->] (C)--(CB);
-			\draw [line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1132,10 +1136,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1145,10 +1153,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1174,11 +1186,15 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
 			\draw (C)--(CB);
-			\draw[line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+			\draw[line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1188,10 +1204,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1201,10 +1221,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1231,10 +1255,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1244,10 +1272,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1257,10 +1289,14 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1286,8 +1322,10 @@ When we got a diagonalisation of the Frobenius endomorphism $\pi$:
 0 & \mu 
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
 \]
-then we have determined a \emph{smaller} part of $T_{\ell}(E)$:
-\[((\color{red}P_1 \color{black}, \color{blue}Q_1 \color{black}),(\textit{\boldmath $P_2$},\textit{\boldmath $Q_2$}),(\textit{\boldmath $P_3$},\textit{\boldmath $Q_3$ \unboldmath}), (P_4,Q_4), \cdots )\]
+then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
+\[
+\color{red}T_{\lambda} \color{black} \oplus \color{blue} T_{\mu} \color{black} \bmod \ell 
+\]
 with $E$ of $j$-invariant $28$.
 \end{exe}
 \end{column}
@@ -1314,25 +1352,33 @@ with $E$ of $j$-invariant $28$.
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
-			\draw [line width=1.5pt,black,->] (C)--(CB);
-			\draw [line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
-			\draw [line width=1.5pt,black,->] (C)--(CA);
+			\draw [line width=1.5pt,color=blue!30,->] (C)--(CA);
 			\draw (C)--(CB);
-			\draw [line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+			\draw [line width=1.5pt,color=blue!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1342,10 +1388,14 @@ with $E$ of $j$-invariant $28$.
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1365,9 +1415,9 @@ with $E$ of $j$-invariant $28$.
 \begin{columns}
 \begin{column}[l]{5cm}
 \orangebox{}{
-On $E$ of $j$-invariant \boldmath $28$ \unboldmath , we have determined this part of $T_{\ell}(E)$:
+On $E_0$ we have determined this part of $T_{\ell}(E_0)$:
 \[
-\[((\color{red}P_1 \color{black}, \color{blue}Q_1 \color{black}),(P_2,Q_2),(P_3,Q_3), \cdots )
+\color{red}T_{\lambda} \color{black} \oplus \color{blue}T_{\mu} \color{black} \bmod \ell
 \]}
 \end{column}
 \begin{column}[r]{7cm}
@@ -1394,12 +1444,16 @@ On $E$ of $j$-invariant \boldmath $28$ \unboldmath , we have determined this par
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
-			\draw [line width=1.5pt,black,->] (C)--(CB);
-			\draw [line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1409,10 +1463,14 @@ On $E$ of $j$-invariant \boldmath $28$ \unboldmath , we have determined this par
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1422,10 +1480,12 @@ On $E$ of $j$-invariant \boldmath $28$ \unboldmath , we have determined this par
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1443,9 +1503,9 @@ On $E$ of $j$-invariant \boldmath $28$ \unboldmath , we have determined this par
 \begin{columns}
 \begin{column}[l]{5cm}
 \orangebox{}{
-On $E$ of $j$-invariant \boldmath $65$ \unboldmath, we have determined this part of $T_{\ell}(E)$:
+On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
 \[
-\[((\color{red}P_1 \color{black}, Q_1 \color{black}),(\color{red}P_2 \color{black},Q_2),(P_3,Q_3), \cdots )
+\[ \color{red}T_{\lambda} \color{black} \bmod \ell^2
 \]}
 \end{column}
 \begin{column}[r]{7cm}
@@ -1473,11 +1533,15 @@ On $E$ of $j$-invariant \boldmath $65$ \unboldmath, we have determined this part
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
 			\draw (C)--(CB);
-			\draw [line width=1.5pt,black,->] (A)--(C);
-			\draw (A) node[fill=white]{$30$};
-			\draw (C) node[fill=white]{$98$};
-			\draw (CA) node[fill=white]{$22$};
-			\draw (CB) node[fill=white]{$74$};
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1487,10 +1551,14 @@ On $E$ of $j$-invariant \boldmath $65$ \unboldmath, we have determined this part
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$65$};
-			\draw (C) node[fill=white]{$60$};
-			\draw (CA) node[fill=white]{$39$};
-			\draw (CB) node[fill=white]{$62$};
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -1500,10 +1568,198 @@ On $E$ of $j$-invariant \boldmath $65$ \unboldmath, we have determined this part
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$28$};
-			\draw (C) node[fill=white]{$27$};
-			\draw (CA) node[fill=white]{$45$};
-			\draw (CB) node[fill=white]{$68$};
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+	\end{scope}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\transdissolve
+
+\frametitle{How to build a horizontal basis from a diagonal basis}
+\begin{columns}
+\begin{column}[l]{5cm}
+\orangebox{}{
+On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
+\[
+\[ \color{red}T_{\lambda} \color{black} \bmod \ell^2
+\]}
+\end{column}
+\begin{column}[r]{7cm}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=0.60]
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$\bullet$};
+		\node (B) at (3,0) {$\bullet$};
+		\node (C) at (270:1.2) {$\bullet$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[line width=1.5pt,blue,<-] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
+		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
+		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};
+		\node (F) at (0,1.5) {$\color{blue} \mu$};
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+	\end{scope}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\transdissolve
+
+\frametitle{How to build a horizontal basis from a diagonal basis}
+\begin{columns}
+\begin{column}[l]{5cm}
+\orangebox{}{
+On $E_3$ we have determined this part of $T_{\ell}(E_3)$:
+\[
+\[ \color{red}T_{\lambda} \color{black} \bmod \ell^3
+\]}
+\end{column}
+\begin{column}[r]{7cm}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=0.60]
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$\bullet$};
+		\draw (A) node[left]{E};
+		\node (B) at (3,0) {$\bullet$};
+		\node (C) at (270:1.2) {$\bullet$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[line width=1.5pt,red,->] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
+		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
+		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};
+		\node (G) at (0,1.5) {$\color{red} \lambda$};
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=white]{$E_1$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=white]{$E_0$};
+			\draw (C) node[fill=white]{$\bullet$};
+			\draw (CA) node[fill=white]{$\bullet$};
+			\draw (CB) node[fill=white]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
