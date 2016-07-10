@@ -220,38 +220,6 @@ From the knowledge of $G$ we are able to explicitly give the expression of the i
 %and also in the S.E.A. algorithm for counting points.
 %\end{frame}
 
-\begin{frame}
-\frametitle{Motivation}
-We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
-\medskip
-\orangebox{Explicit isogeny computation problem}
-{
- Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
- Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
- compute an $r$-isogeny $\phi:E\to E'$.
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Previous work}
-
-Let $q=p^n$
-
-\begin{itemize}
-\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r \ll p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
-\item{} [Couveignes '94] $\tilde{O}(r^3)$
-\item{} [Couveignes '96] works using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$, but has exponential complexity in $\log(p)$.
-\item{} [Lercier '97] only $p=2$.
-\item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
-\end{itemize}
-\begin{itemize}
-
-\item[$\rightarrow$] we focus on the medium characteristic case,
-
-\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$
-
-\end{itemize}
-\end{frame}
 
 \begin{frame}
 \section{Endomorphism ring}
@@ -655,6 +623,40 @@ In the rest of this talk we consider only volcanoes with cyclic crater.
 \end{frame}
 
 \begin{frame}
+\frametitle{Motivation}
+We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
+\medskip
+\orangebox{Explicit isogeny computation problem}
+{
+ Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
+ Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
+ compute an $r$-isogeny $\phi:E\to E'$.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Previous work}
+
+Let $q=p^n$
+
+\begin{itemize}
+\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r \ll p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
+\item{} [Couveignes '94] $\tilde{O}(r^3)$
+\item{} [Couveignes '96] works using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$, but has exponential complexity in $\log(p)$.
+\item{} [Lercier '97] only $p=2$.
+\item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
+\end{itemize}
+\begin{itemize}
+
+\item[$\rightarrow$] we focus on the medium characteristic case,
+
+\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
 \frametitle{Couveignes algorithm (1996)}
 \bluebox{Couveignes' algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
 \begin{algorithmic}[1]
@@ -737,144 +739,7 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ an eigenvector for 
 
 \end{frame}
 
-\begin{frame}
 
-\begin{prop}\label{prop:matrice-frobenius}
-Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
-%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
-%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
-%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
-%\end{smallmatrix}\right )$.
-% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
-Then the action of the Frobenius endomorphism $\pi$ on $T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
-to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
-
-%Moreover $a = 0$ if~$E$ lies on the crater.
-%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
-\end{prop}
-
-\begin{figure}
-\begin{center}
-
-\begin{tikzpicture}[scale=0.30]
-\coordinate (A) at (0,1.5);
-\coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
-\coordinate (B) at (0,5);
-\coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
-\coordinate (C) at (0,10);
-\coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\color{cyan}\left( \begin{matrix}
-\lambda & \ell^2 \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (B) node[left]{$\color{magenta} \left( \begin{matrix}
-\lambda & \ell \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (C) node[left]{$\color{green} \left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-%\draw (A)--(B);
-%\draw (B)--(C);
-%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$ \color{green} \bullet $};
-		\node (B) at (3,0) {$  \color{green} \bullet$};
-		\node (C) at (270:1.2) {$\color{green} \bullet \color{black}$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (A.center) to[bend right=40] (B.center);
-		\draw (A) node{$ \color{green} \bullet $};
-		\draw (B) node{$ \color{green} \bullet $};
-		\draw (C) node{$ \color{green} \bullet $};
-		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
-			\draw (A) node{$ \color{green} \bullet \color{black}$};
-			\draw (C) node{$ \color{magenta} \bullet \color{bullet}$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan}\bullet$};
-			\draw (A) node{$\color{green} \bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
-			%\draw (A) node{$\bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
-			\draw (A) node{$\color{green} \bullet$};
-			
-			
-			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
-			
-			\end{scope}
-			\coordinate (F) at (5,0);
-			\coordinate (G) at (5,-7);
-			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
-	\end{scope}
-\end{scope}
-
-%faire des fleches courbees avec les indices \ell et \ell^2
-
-
-\end{tikzpicture}
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-%Frame sur les bases horizontales, diagonales.
-\begin{defi}[Horizontal and diagonal bases]
-  Let~$E$ be a curve lying on the crater. We call a
-  basis of~$E[\ell^k]$
-\begin{itemize}
-		  
- {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~is diagonal in it;}
-  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate the kernel of
-  horizontal $\ell^k$-isogenies. }
-
-\end{itemize}  
-  Accordingly, we also call diagonal
-  (resp. horizontal) the generators of a diagonal (resp. horizontal)
-  basis.
-\end{defi}
-
-\orangebox{Fact}{Horizontal bases are diagonal bases.}
-\end{frame}
 
 
 %\begin{frame}
@@ -1040,6 +905,169 @@ then we have determined a part of $T_{\ell}(E)$:
 \end{column}
 \end{columns}
 \end{frame}
+
+\begin{frame}
+%Frame sur les bases horizontales, diagonales.
+\begin{defi}[Horizontal and diagonal bases]
+  Let~$E$ be a curve lying on the crater. We call a
+  basis of~$E[\ell^k]$
+\begin{itemize}
+		  
+ {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~is diagonal in it;}
+  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate the kernel of
+  horizontal $\ell^k$-isogenies. }
+
+\end{itemize}  
+  Accordingly, we also call diagonal
+  (resp. horizontal) the generators of a diagonal (resp. horizontal)
+  basis.
+\end{defi}
+
+\orangebox{Fact}{Horizontal bases are diagonal bases.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparison/benefits}
+For the interpolation we have to consider different mapping according to the basis we consider:
+\begin{itemize}
+\item a basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & a_2 \\
+b_1 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+\pause
+\item a horizontal basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & 0 \\
+0 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}\label{prop:matrice-frobenius}
+Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
+%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
+%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
+%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
+%\end{smallmatrix}\right )$.
+% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
+Then the action of the Frobenius endomorphism $\pi$ on $T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
+to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
+
+%Moreover $a = 0$ if~$E$ lies on the crater.
+%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
+\end{prop}
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[scale=0.30]
+\coordinate (A) at (0,1.5);
+\coordinate (AB) at (1,1.5);
+\coordinate (AZ) at (-1.5,1.5);	
+\coordinate (B) at (0,5);
+\coordinate (BB) at (1,5);
+\coordinate (BZ) at (-1.5,5.2);
+\coordinate (BZ2) at (-1.5,4.8);
+\coordinate (C) at (0,10);
+\coordinate (CB) at (1,10);
+\coordinate (CZ) at (-1.5,10);
+\draw (A) node[left]{$\color{cyan}\left( \begin{matrix}
+\lambda & \ell^2 \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (B) node[left]{$\color{magenta} \left( \begin{matrix}
+\lambda & \ell \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (C) node[left]{$\color{green} \left( \begin{matrix}
+\lambda & 0 \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+%\draw (A)--(B);
+%\draw (B)--(C);
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$ \color{green} \bullet $};
+		\node (B) at (3,0) {$  \color{green} \bullet$};
+		\node (C) at (270:1.2) {$\color{green} \bullet \color{black}$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[-] (A.center) to[bend right=40] (B.center);
+		\draw (A) node{$ \color{green} \bullet $};
+		\draw (B) node{$ \color{green} \bullet $};
+		\draw (C) node{$ \color{green} \bullet $};
+		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan} \bullet$};
+			\draw (A) node{$ \color{green} \bullet \color{black}$};
+			\draw (C) node{$ \color{magenta} \bullet \color{bullet}$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan}\bullet$};
+			\draw (A) node{$\color{green} \bullet$};
+			\draw (C) node{$\color{magenta} \bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan} \bullet$};
+			%\draw (A) node{$\bullet$};
+			\draw (C) node{$\color{magenta} \bullet$};
+			\draw (A) node{$\color{green} \bullet$};
+			
+			
+			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
+			
+			\end{scope}
+			\coordinate (F) at (5,0);
+			\coordinate (G) at (5,-7);
+			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
+	\end{scope}
+\end{scope}
+
+%faire des fleches courbees avec les indices \ell et \ell^2
+
+
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\end{frame}
+
 
 
 \begin{frame}
@@ -1561,28 +1589,6 @@ This image by $\phi$ keep the association between a basis point and the eigenval
 %
 %\end{itemize}
 %\end{frame}
-
-\begin{frame}
-\frametitle{Comparison/benefits}
-For the interpolation we have to consider different mapping according to the basis we consider:
-\begin{itemize}
-\item a basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & a_2 \\
-b_1 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\pause
-\item a horizontal basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & 0 \\
-0 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\end{itemize}
-\end{frame}
 
 %\begin{frame}
 %\section{$\ell$-adic tower}
