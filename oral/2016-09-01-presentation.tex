@@ -239,7 +239,7 @@ Let $q=p^n$
 
 \begin{itemize}
 \item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r \ll p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
-\item{} [Couveignes '94] $O(r^3)$
+\item{} [Couveignes '94] $\tilde{O}(r^3)$
 \item{} [Couveignes '96] works using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$, but has exponential complexity in $\log(p)$.
 \item{} [Lercier '97] only $p=2$.
 \item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
@@ -260,18 +260,11 @@ Let $q=p^n$
 $E$ an elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It belongs to $\mathrm{End}(E)$.
 \end{defi}
 
-\begin{rem}
-$E$ an elliptic curve defined over $\mathbb{F}_q$, then we always have \[ \mathbb{Z}[\pi] \subset  \mathrm{End}(E) \]
-\end{rem}
-\end{frame}
-
-
-\begin{frame}
 \begin{prop} \label{prop:p-tor}
 $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
-\begin{enumerate}
+\begin{itemize}
 \item  $\mathrm{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
-\end{enumerate}
+\end{itemize}
 \end{prop}
 
 %From now we will only work with ordinary elliptic curves.
@@ -304,21 +297,21 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \begin{tikzpicture}[scale=0.60]
 \coordinate (A) at (0,1.5);
 \coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
+%\coordinate (AZ) at (-1.5,1.5);	
 \coordinate (B) at (0,5);
 \coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
+%\coordinate (BZ) at (-1.5,5.2);
+%\coordinate (BZ2) at (-1.5,4.8);
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
+%\coordinate (CZ) at (-1.5,10);
 \draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
 \draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
-\draw (A)--(B);
-\draw (B)--(C);
-\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\draw (A)--(B)node[midway,left] {$\ell$};
+\draw (B)--(C) node[midway,left] {$\ell$};
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
 		\node (A) at (-3,0) {$\bullet$};
@@ -386,21 +379,21 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \begin{tikzpicture}[scale=0.60]
 \coordinate (A) at (0,1.5);
 \coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
+%\coordinate (AZ) at (-1.5,1.5);	
 \coordinate (B) at (0,5);
 \coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
+%\coordinate (BZ) at (-1.5,5.2);
+%\coordinate (BZ2) at (-1.5,4.8);
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
+%\coordinate (CZ) at (-1.5,10);
 \draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
 \draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
-\draw (A)--(B);
-\draw (B)--(C);
-\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\draw (A)--(B)node[midway,left] {$\ell$};
+\draw (B)--(C) node[midway,left] {$\ell$};
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
 		\node (A) at (-3,0) {$\bullet$};
@@ -468,21 +461,21 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \begin{tikzpicture}[scale=0.60]
 \coordinate (A) at (0,1.5);
 \coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
+%\coordinate (AZ) at (-1.5,1.5);	
 \coordinate (B) at (0,5);
 \coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
+%\coordinate (BZ) at (-1.5,5.2);
+%\coordinate (BZ2) at (-1.5,4.8);
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
+%\coordinate (CZ) at (-1.5,10);
 \draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
 \draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
-\draw (A)--(B);
-\draw (B)--(C);
-\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\draw (A)--(B)node[midway,left] {$\ell$};
+\draw (B)--(C) node[midway,left] {$\ell$};
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
 		\node (A) at (-3,0) {$\bullet$};
@@ -551,13 +544,15 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then
 \begin{enumerate}
 \item  $\ell=[\mathcal{O} : \mathcal{O}']$ we say then that $\phi$ is a 
+\only<2-2> {descending isogeny,}
+\only<3-3> {descending isogeny,}
 \only<1-1>{$\textbf{descending}$ isogeny,}
-\only<2-3> {descending isogeny,}
-%\item <2->  $\ell=[\mathcal{O} : \mathcal{O}']$ we say then that $\phi$ is a descending isogeny,
+
 \pause
-\item $\ell=[\mathcal{O}':\mathcal{O}]$ we say then that $\phi$ is an \only<2-2> {$\textbf{ascending}$  isogeny,}
-\only<3-3> {ascending  isogeny,}
-\pause \item $\mathcal{O}=\mathcal{O}'$ we say then that $\phi$ is an $\textbf{horizontal}$ isogeny.
+\item $\ell=[\mathcal{O}':\mathcal{O}]$ we say then that $\phi$ is an \only<2-2> {$\textbf{ascending}$}
+\only<3-3> {ascending} isogeny,
+\pause 
+\item $\mathcal{O}=\mathcal{O}'$ we say then that $\phi$ is an $\textbf{horizontal}$ isogeny.
 \end{enumerate}
 \end{lem}
 %\begin{defi}
@@ -674,8 +669,9 @@ Couveignes' algorithm:
   $E[p^k]$ and $P'$ of $E'[p^k]$;
 \item\label{alg:ours:T} Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
   $x$-coordinates of $\langle P\rangle$;
+
 \item\label{alg:ours:for} For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:
-  \begin{enumerate}
+ \begin{enumerate}
   \item\label{alg:ours:interp} compute the interpolation polynomial
     $L_{a}$ such that
     $L_{a} (x (u P)) = x(a\, u\,P' )$ for
@@ -686,53 +682,33 @@ Couveignes' algorithm:
   \item If $F_{a}$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
-\end{enumerate}\end{enumerate}
+\end{enumerate}
+\end{enumerate}
 Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
 \end{frame}
 
 \begin{frame}
-\begin{columns}
 
-\begin{column}[l]{4cm}
-\bluebox{Couveignes'algorithm}
-{
-$E[p^k]= \left(\mathbb{Z}/p^k \mathbb{Z} \right)$ thus for two basis:
-\begin{itemize}
-\item $\langle P \rangle=E[p^k]$ 
-\item $\langle P' \rangle=E'[p^k]$
-\end{itemize} 
- we have to test $O(p^k)=O(r)$ mapping candidates before finding the good one for the interpolation.
-}
-\end{column}
-
-
-\begin{column}[r]{7cm}
-\frametitle{Contribution}
+\frametitle{Computing isogenies}
 \bluebox{}{
 Our goal is to work with \boldmath $E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$ \unboldmath 
 %Our goal is to work with \textcolor{red}{$E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$}  
 instead of $E[p^k]$ to remove the dependency in the characteristic $p$ of the finite field.
 \begin{itemize}
 \pause
-\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
+%\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
+\item $E[p^k]=\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
+\item $E[\ell^k]=\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
 
 \pause
-\item[$\Rightarrow$] thus we want to specify one type of points %more \textbf{restrictive} and \textbf{invariant} under the action of $r$-isogeny 
-to limit our number of mapping candidates to $O(\ell^{\frac{2k}{2}})=O(r)$.
 
 \end{itemize}}
-\end{column}
-\end{columns}
 Therefore we study the volcano of $\ell$-isogenies and the action of the Frobenius endomorphism.
 \end{frame}
 
 \begin{frame}
 %Diapo sur le frobenius....
 We want to study the action of the frobenius on the $\ell$ torsion:
-\[
-((P_1,Q_1),(P_2,Q_2),\cdots ,(P_i,Q_i),\cdots)
-\]
-with $P_i$ of order $\ell^i$ and $\ell P_{i+1}=P_i$ and $\langle P_i,Q_i \rangle = E[\ell^i]$
 
 We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
 %\begin{prop}
@@ -746,9 +722,9 @@ As we work on cyclic craters, the frobenius endomorphism has two distinct eigenv
 \pause
 Ou goal is to specify a part of the Tate module $T_{\ell}(E)$:
 \[
-((\color{red}{P_1}\color{black},\color{blue}{Q_1}\color{black}),(\color{red}{P_2}\color{black},\color{blue}{Q_2}\color{black}),\cdots ,(\color{red}{P_k}\color{black},\color{blue}{Q_k}\color{black}),(P_{k+1},Q_{k+1}),\cdots)
+\color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
 \]
-with $\color{red}{P_i}, \color{blue}{Q_i}$ an eigenvector for the eigenvalue $\color{red}{ \lambda}$, $\color{blue}{ \mu}$ $\textbf{and}$ a generator of a \emph{horizontal} isogeny.
+with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ an eigenvector for the eigenvalue $\color{red}{ \lambda}$, $\color{blue}{ \mu}$.
 %\begin{rem}
 %\begin{itemize}
 %\item Then the action of the Frobenius endomorphism on $T_{\ell}(E)$, which we write~$\pi|T_{\ell}(E)$, has two distinct eigenvalues: $\lambda, \mu $
@@ -882,10 +858,6 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 
 \begin{frame}
 %Frame sur les bases horizontales, diagonales.
-\begin{defi}
-An $\ell^k$-isogeny is said to be horizontal if it is the composition of $k$ horizontal $\ell$-isogeny.
-\end{defi}
-
 \begin{defi}[Horizontal and diagonal bases]
   Let~$E$ be a curve lying on the crater. We call a
   basis of~$E[\ell^k]$
@@ -939,7 +911,9 @@ When we got a diagonalisation of the Frobenius endomorphism $\pi$:
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell$ \unboldmath } 
 \]
 then we have determined a part of $T_{\ell}(E)$:
-\[((\color{red}P_1 \color{black}, \color{blue}Q_1 \color{black}),(P_2,Q_2),(P_3,Q_3), (P_4,Q_4), \cdots )\]
+\[
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell
+\]
 }
 \only<2-2>{
 \[
@@ -949,7 +923,9 @@ then we have determined a part of $T_{\ell}(E)$:
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^2$ \unboldmath } 
 \]
 then we have determined a part of $T_{\ell}(E)$:
-\[(\color{red!30}(P_1, \color{blue!30}Q_1 ),\color{black}(\color{red}P_2\color{black},\color{blue}Q_2\color{black}),(P_3,Q_3), (P_4,Q_4), \cdots )\]
+\[
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^2
+\]
 }
 
 \only<3-3>{
@@ -960,7 +936,9 @@ then we have determined a part of $T_{\ell}(E)$:
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
 \]
 then we have determined a part of $T_{\ell}(E)$:
-\[(\color{red!30}(P_1, \color{blue!30}Q_1 ),(\color{red!30}P_2,\color{blue!30}Q_2),\color{black}(\color{red}P_3\color{black},\color{blue}Q_3\color{black}), (P_4,Q_4), \cdots )\]
+\[
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^3
+\]
 }
 \end{exe}
 
