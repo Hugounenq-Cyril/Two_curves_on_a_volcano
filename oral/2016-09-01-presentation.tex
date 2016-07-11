@@ -1735,12 +1735,12 @@ On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
 \begin{tikzpicture}[scale=0.60]
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
+		\node (A) at (-3,0) ;
+		\node (B) at (3,0);
+		\node (C) at (270:1.2) ;
 		\node (D) at (90:1.5) {};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[line width=1.5pt,blue,<-] (A.center) to[bend left=40] (B.center);
+		\draw[line width=1.5pt,blue,->] (A.center) to[bend left=40] (B.center);
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
 		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
@@ -1827,10 +1827,9 @@ On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
 \begin{tikzpicture}[scale=0.60]
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\draw (A) node[left]{E};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
+		\node (A) at (-3,0) ;
+		\node (B) at (3,0) ;
+		\node (C) at (270:1.2) ;
 		\node (D) at (90:1.5) {};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
 		\draw[line width=1.5pt,red,->] (A.center) to[bend left=40] (B.center);
@@ -2071,6 +2070,123 @@ $\Rightarrow$ we use algorithms such as Fouquet-Morain[2001]. %\cite{FouquetMora
 }
 Once we have done this we reduce the problem to the previous case.
 \end{frame}
+
+\begin{frame}
+\frametitle{Improving interpolation with the Frobenius}
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[scale=0.3]
+        \coordinate (A) at (0,0);
+        \coordinate (AB) at (-9,4.25);
+		\coordinate (AC) at (9,4.25);
+		\draw (A)--(AB);
+		\draw (A)--(AC);
+		\draw (A) node[fill=white]{$\color{red}{T_3}$};
+		
+
+		\coordinate (ABA) at (-12.63,8.5);
+		%\coordinate (ABA) at (-11.63,8.5);
+		
+		\draw (ABA)--(AB);
+		
+		\coordinate (ABAb) at (-15.26,12.75);
+		%\coordinate (ABAb) at (-14.26,12.75);
+		
+		\draw (ABA)--(ABAb);
+		\draw (ABAb) node[fill=white]{$\color{red}{T_0}$};
+		
+		\coordinate (ABAa) at (-10,12.75);
+		%\coordinate (ABAa) at (-9,12.75);
+		
+		
+		\draw (ABA)--(ABAa);
+		\draw (ABA) node[fill=white]{$\color{red}{T_1}$};
+		\draw (ABAa) node[fill=white][left]{$\color{red}{\pi^4(T_0)}$};%ancien \pi(T)
+		
+		\coordinate (ACA) at (-5.37,8.5);
+		%\coordinate (ACA) at (-6.37,8.5);
+		
+		
+		\draw (AB)--(ACA);
+		\draw (AB) node[fill=white]{$\color{red}{T_2}$};
+		\coordinate (ACAa) at (-8,12.75);
+		%\coordinate (ACAa) at (-9,12.75);
+		
+		
+		\draw (ACA)--(ACAa);
+		\draw (ACAa) node[fill=white]{$\pi^2(T_0)$};%ancien \pi^2(T)
+		
+		\coordinate (ACAb) at (-2.74,12.75);
+		%\coordinate (ACAb) at (-3.74,12.75);
+		
+		
+		\draw (ACA)--(ACAb);
+		\draw (ACAb) node[fill=white]{$\pi^6(T_0)$};%ancien \pi^3(T)
+		\draw (ACA) node[fill=white]{$\color{red}{\pi^2(T_1)}$};% ancien \pi^2(T_2)
+		
+		\begin{scope}[xshift=18cm]
+		\coordinate (ABA) at (-12.63,8.5);
+		%\coordinate (ABA) at (-11.63,8.5);
+
+		\draw (ABA)--(AC);
+		
+		\coordinate (ABAb) at (-15.26,12.75);
+		%\coordinate (ABAb) at (-14.26,12.75);
+		
+		\draw (ABA)--(ABAb);
+		\draw (ABAb) node[fill=white]{$\pi(T_0)$};%ancien \pi^4(T)
+		
+		\coordinate (ABAa) at (-9.7,12.75);
+		%\coordinate (ABAa) at (-9,12.75);
+		
+		
+		\draw (ABA)--(ABAa);
+		\draw (ABAa) node[fill=white,left]{$\pi^5(T_0)$};%ancien \pi^5(T)
+		\draw (ABA) node[fill=white]{$\pi^4(T_1)$};%ancien \pi^4(T_2)
+		
+		\coordinate (ACA) at (-5.37,8.5);
+		%\coordinate (ACA) at (-6.37,8.5);
+		
+		
+		\draw (AC)--(ACA);
+		\draw (AC) node[fill=white]{$\color{red}{\pi^4(T_2)}$};%ancien \pi^4(T_3)
+		
+		\coordinate (ACAa) at (-8,12.75);
+		%\coordinate (ACAa) at (-9,12.75);
+		
+		
+		\draw (ACA)--(ACAa);
+		\draw (ACAa) node[fill=white]{$\pi^3(T_0)$};%ancien \pi^6(T)
+		
+		\coordinate (ACAb) at (-2.74,12.75);
+		%\coordinate (ACAb) at (-3.74,12.75);
+		
+		
+		\draw (ACA)--(ACAb);
+		\draw (ACAb) node[fill=white]{$\pi^7(T_0)$};%ancien \pi^7(T)	
+		\draw (ACA) node[fill=white]{$\pi^6(T_1)$};%ancien \pi^6(T_2)	
+		\end{scope}
+		
+		\coordinate (A1) at (-16,0);
+		\coordinate (A2) at (-16,4.25);
+		\coordinate (A3) at (-16,8.5);
+		\coordinate (A4) at (-16,12.75);
+		\draw (A1)--(A2)--(A3)--(A4);
+		\draw (A1) node{$\bullet$};
+		\draw (A2) node{$\bullet$};
+		\draw (A3) node{$\bullet$};
+		\draw (A4) node{$\bullet$};
+		\draw (A1) node[left]{$\mathbb{F}_q$};
+		\draw (A2) node[left]{$\mathbb{F}_{q^\ell}$};
+		\draw (A3) node[left]{$\mathbb{F}_{q^{\ell^2}}$};
+		\draw (A4) node[left]{$\mathbb{F}_{q^{\ell^3}}$};
+\end{tikzpicture}
+
+\end{center}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Experiments}
