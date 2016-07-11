@@ -907,49 +907,6 @@ then we have determined a part of $T_{\ell}(E)$:
 \end{frame}
 
 \begin{frame}
-%Frame sur les bases horizontales, diagonales.
-\begin{defi}[Horizontal and diagonal bases]
-  Let~$E$ be a curve lying on the crater. We call a
-  basis of~$E[\ell^k]$
-\begin{itemize}
-		  
- {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~is diagonal in it;}
-  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate the kernel of
-  horizontal $\ell^k$-isogenies. }
-
-\end{itemize}  
-  Accordingly, we also call diagonal
-  (resp. horizontal) the generators of a diagonal (resp. horizontal)
-  basis.
-\end{defi}
-
-\orangebox{Fact}{Horizontal bases are diagonal bases.}
-\end{frame}
-
-\begin{frame}
-\frametitle{Comparison/benefits}
-For the interpolation we have to consider different mapping according to the basis we consider:
-\begin{itemize}
-\item a basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & a_2 \\
-b_1 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\pause
-\item a horizontal basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & 0 \\
-0 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
 
 \begin{prop}\label{prop:matrice-frobenius}
 Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
@@ -1068,6 +1025,180 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 \end{figure}
 \end{frame}
 
+\begin{frame}
+\begin{columns}
+\begin{column}[l]{5cm}
+\orangebox{Volcano with height $h=0$}{
+When we have partially diagonalized the frobenius endormorphism on the Tate Module $T_{\ell}(E)$:
+\[
+\left( \begin{matrix}
+\lambda & 0 \\
+0 & \mu 
+\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+\]
+We get:
+\begin{figure}[h]
+	\begin{center}
+	\begin{tikzpicture}[scale=0.3]
+	\coordinate (A) at (0:5);
+	\coordinate (B) at (45:5);
+	\coordinate (C) at (90:5);
+	\coordinate (D) at (135:5);
+	\coordinate (E) at (180:5);
+	\coordinate (F) at (225:5);
+	\coordinate (G) at (270:5);
+	\coordinate (H) at (315:5);
+	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
+	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+	\draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
+	\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
+		
+	\draw (A) node[right]{$E$};
+	\draw (A) node{$\bullet$};
+	\draw (B) node{$\bullet$};
+	\draw (C) node{$\bullet$};
+	\draw (D) node{$\bullet$};
+	\draw (E) node{$\bullet$};
+	\draw (F) node{$\bullet$};
+	\draw (G) node{$\bullet$};
+	\draw (H) node{$\bullet$};
+	\end{tikzpicture}	
+	\end{center}
+\end{figure}
+}
+\end{column}
+\begin{column}[r]{5cm}
+\orangebox{Volcano with height $h=2$}{
+When we have partially diagonalized the frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
+\[
+\left( \begin{matrix}
+\lambda & 0 \\
+0 & \mu 
+\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+\]
+\begin{figure}[h]
+		\begin{center}
+\begin{tikzpicture}[scale=0.40]
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$\bullet$};
+		\node (B) at (3,0) {$\bullet$};
+		\node (C) at (270:1.2) {$\bullet$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[-] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
+		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$30$};
+%			\draw (C) node[fill=white]{$98$};
+%			\draw (CA) node[fill=white]{$22$};
+%			\draw (CB) node[fill=white]{$74$};
+			\draw (A) node[fill=pacificcream]{$E_2$};
+			\draw (C) node[fill=pacificcream]{$\bullet$};
+			\draw (CA) node[fill=pacificcream]{$\bullet$};
+			\draw (CB) node[fill=pacificcream]{$\bullet$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw [line width=1.5pt,color=blue!30,->] (C)--(CA);
+			\draw (C)--(CB);
+			\draw [line width=1.5pt,color=blue!30,->] (A)--(C);
+%			\draw (A) node[fill=white]{$65$};
+%			\draw (C) node[fill=white]{$60$};
+%			\draw (CA) node[fill=white]{$39$};
+%			\draw (CB) node[fill=white]{$62$};
+			\draw (A) node[fill=pacificcream]{$E_1$};
+			\draw (C) node[fill=pacificcream]{$\bullet$};
+			\draw (CA) node[fill=pacificcream]{$\bullet$};
+			\draw (CB) node[fill=pacificcream]{$\bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+%			\draw (A) node[fill=white]{$28$};
+%			\draw (C) node[fill=white]{$27$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
+			\draw (A) node[fill=pacificcream]{$E_0$};
+			\draw (C) node[fill=pacificcream]{$\bullet$};
+			\draw (CA) node[fill=pacificcream]{$\bullet$};
+			\draw (CB) node[fill=pacificcream]{$\bullet$};
+			\end{scope}
+	\end{scope}
+\end{scope}
+\end{tikzpicture}
+		%\end{center}
+		%\caption{Volcano of $2$-isogenies with height $h=2$}
+		
+		\end{center} 
+		\end{figure}
+}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+%Frame sur les bases horizontales, diagonales.
+\begin{defi}[Horizontal and diagonal bases]
+  Let~$E$ be a curve lying on the crater. We call a
+  basis of~$E[\ell^k]$
+\begin{itemize}
+		  
+ {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~is diagonal in it;}
+  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate the kernel of
+  horizontal $\ell^k$-isogenies. }
+
+\end{itemize}  
+  Accordingly, we also call diagonal
+  (resp. horizontal) the generators of a diagonal (resp. horizontal)
+  basis.
+\end{defi}
+
+\orangebox{Fact}{Horizontal bases are diagonal bases.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparison/benefits}
+For the interpolation we have to consider different mapping according to the basis we consider:
+\begin{itemize}
+\item a basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & a_2 \\
+b_1 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+
+\item a horizontal basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & 0 \\
+0 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}
@@ -1685,7 +1816,7 @@ On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
 \begin{columns}
 \begin{column}[l]{5cm}
 \orangebox{}{
-On $E_3$ we have determined this part of $T_{\ell}(E_3)$:
+On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
 \[
 \[ \color{red}T_{\lambda} \color{black} \bmod \ell^3
 \]}
