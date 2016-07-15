@@ -717,16 +717,15 @@ We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study t
 %For $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ of characteristic $p$ the Tate module has the following structure for $\ell \neq p$:
 %\[ T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell} \]
 %\end{prop}
-
-\begin{prop}
+\orangebox{Elkies prime}{
 As we work on cyclic craters, the Frobenius endomorphism has two distinct eigenvalues denoted $\color{red}{\lambda}$, $\color{blue}{\mu}$.
-\end{prop}
+}
 \pause
 Ou goal is to specify a part of the Tate module $T_{\ell}(E)$:
 \[
 \color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
 \]
-with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ an eigenvector for the eigenvalue $\color{red}{ \lambda}$, $\color{blue}{ \mu}$.
+with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for the eigenvalues $\color{red}{ \lambda}$, $\color{blue}{ \mu}$.
 %\begin{rem}
 %\begin{itemize}
 %\item Then the action of the Frobenius endomorphism on $T_{\ell}(E)$, which we write~$\pi|T_{\ell}(E)$, has two distinct eigenvalues: $\lambda, \mu $
@@ -1178,27 +1177,6 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 \orangebox{Fact}{Horizontal bases are diagonal bases.}
 \end{frame}
 
-\begin{frame}
-\frametitle{Comparison/benefits}
-For the interpolation we have to consider different mapping according to the basis we consider:
-\begin{itemize}
-\item a basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & a_2 \\
-b_1 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-
-\item a horizontal basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & 0 \\
-0 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}
@@ -1948,15 +1926,34 @@ On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
 
 \begin{frame}
 \frametitle{Contribution to modified Couveignes' algorithm}
-We wanted to specify one type of point invariant under $r$-isogeny for the mapping candidates.
+We wanted to specify one type of point invariant under $r$-isogeny. %for the mapping candidates.
 \begin{prop}
 Let $\phi:E\rightarrow E'$ be a rational isogeny of degree $r$ prime to $\ell$. The image of a horizontal basis of $E$ by $\phi$ is a horizontal basis of $E'$.
 \end{prop}
 
-\begin{rem}
-This image by $\phi$ keep the association between a basis point and the eigenvalue $\lambda$ or $\mu$. 
-\end{rem}
+%\begin{rem}
+%This image by $\phi$ keep the association between a basis point and the eigenvalue $\lambda$ or $\mu$. 
+%\end{rem}
 
+
+For the interpolation we have to consider different mapping according to the basis we consider:
+\begin{itemize}
+\item a basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & a_2 \\
+b_1 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+
+\item a horizontal basis of $E[\ell^k]$:
+\[
+P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
+a_1 & 0 \\
+0 & b_2
+\end{matrix}  \right) \textit{ invertible.}
+\]
+\end{itemize}
 \end{frame}
 
 %\begin{frame}
