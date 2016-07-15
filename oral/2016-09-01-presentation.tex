@@ -105,8 +105,9 @@ Explicit isogenies in quadratic time in any characteristic}
 \frametitle{Summary}
 \begin{enumerate}
 \item Reminder on elliptic curves,
-\item Endomorphism rings  of elliptic curves %according to Kohel's work in 1996 \cite{Kohel96},
-\item Volcanoes of $\ell$-isogenies and Frobenius endomorphism.
+\item Endomorphism rings  of elliptic curves, %according to Kohel's work in 1996 \cite{Kohel96},
+\item Volcanoes of $\ell$-isogenies and Frobenius endomorphism,
+\item $\ell$-adic tower and Frobenius.
 \end{enumerate}
 \end{frame}
 
@@ -535,7 +536,6 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 \section{Volcano of $\ell$-isogeny and Frobenius endomorphism}
 \begin{figure}[h]
 		\begin{center}
-		
         \begin{tikzpicture}[scale=0.35]
         \coordinate (A) at (0,0);
 		\coordinate (B) at (230:5);
@@ -705,12 +705,12 @@ instead of $E[p^k]$ to remove the dependency in the characteristic $p$ of the fi
 \pause
 
 \end{itemize}}
-Therefore we study the volcano of $\ell$-isogenies and the action of the Frobenius endomorphism.
+Therefore we study the $\ell$-torsion and the action of the Frobenius endomorphism on it.
 \end{frame}
 
 \begin{frame}
 %Diapo sur le Frobenius....
-We want to study the action of the Frobenius on the $\ell$ torsion:
+%We want to study the action of the Frobenius on the $\ell$ torsion:
 
 We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
 %\begin{prop}
@@ -1206,7 +1206,6 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 \begin{figure}[h]
 		\begin{center}
 		
-\only<1-1>{
 \begin{tikzpicture}[scale=0.60]
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
@@ -1226,8 +1225,18 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
+			\only<1-1>{
 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			}
+			\only<2-3>{
+			\draw (C)--(CB);
+			}
+			\only<1-2>{
 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+			}
+			\only<3-3>{
+			\draw (A)--(C);			
+			}
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
@@ -1273,143 +1282,7 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 			\end{scope}
 	\end{scope}
 \end{scope}
-\end{tikzpicture}}
-\only<2-2>{
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (C.center) to[bend right=20] (B.center);
-		\draw[line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw[line width=1.5pt,color=red!30,->] (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}}
-\only<3-3>{
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (C.center) to[bend right=20] (B.center);
-		\draw[line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}}
+\end{tikzpicture}
 		%\end{center}
 		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
 		
@@ -1435,7 +1308,6 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 \[
 \color{red}T_{\lambda} \color{black} \oplus \color{blue} T_{\mu} \color{black} \bmod \ell 
 \]
-with $E$ of $j$-invariant $28$.
 \end{exe}
 \end{column}
 
@@ -1521,13 +1393,30 @@ with $E$ of $j$-invariant $28$.
 
 \begin{frame}
 \frametitle{How to build a horizontal basis from a diagonal basis}
+\only<2-2>{
+\transdissolve
+}
+\only<4-4>{
+\transdissolve
+}
+
 \begin{columns}
 \begin{column}[l]{5cm}
 \orangebox{}{
 On $E_0$ we have determined this part of $T_{\ell}(E_0)$:
+\only<1-1>{
 \[
 \color{red}T_{\lambda} \color{black} \oplus \color{blue}T_{\mu} \color{black} \bmod \ell
 \]}
+\only<2-3>{
+\[
+\color{red}T_{\lambda} \color{black} \color{black} \bmod \ell^2
+\]}
+\only<4-4>{
+\[
+\color{red}T_{\lambda} \color{black} \color{black} \bmod \ell^3
+\]}
+}
 \end{column}
 \begin{column}[r]{7cm}
 \begin{figure}
@@ -1540,292 +1429,44 @@ On $E_0$ we have determined this part of $T_{\ell}(E_0)$:
 		\node (C) at (270:1.2) {$\bullet$};
 		\node (D) at (90:1.5) {};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\only<1-2>{		
 		\draw[-] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center); 
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
-		\node (F) at (1.5,-0.5) {$\color{blue} \mu$};
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
-			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}
-\end{center}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\transdissolve
-
-\frametitle{How to build a horizontal basis from a diagonal basis}
-\begin{columns}
-\begin{column}[l]{5cm}
-\orangebox{}{
-On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
-\[
-\[ \color{red}T_{\lambda} \color{black} \bmod \ell^2
-\]}
-\end{column}
-\begin{column}[r]{7cm}
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
-		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}
-\end{center}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\transdissolve
-
-\frametitle{How to build a horizontal basis from a diagonal basis}
-\begin{columns}
-\begin{column}[l]{5cm}
-\orangebox{}{
-On $E_1$ we have determined this part of $T_{\ell}(E_1)$:
-\[
-\[ \color{red}T_{\lambda} \color{black} \bmod \ell^2
-\]}
-\end{column}
-\begin{column}[r]{7cm}
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) ;
-		\node (B) at (3,0);
-		\node (C) at (270:1.2) ;
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
+		}
+		\only<3-3>{
 		\draw[line width=1.5pt,blue,->] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
-		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};
-		\node (F) at (0,1.5) {$\color{blue} \mu$};
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}
-\end{center}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}
-\transdissolve
-
-\frametitle{How to build a horizontal basis from a diagonal basis}
-\begin{columns}
-\begin{column}[l]{5cm}
-\orangebox{}{
-On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
-\[
-\[ \color{red}T_{\lambda} \color{black} \bmod \ell^3
-\]}
-\end{column}
-\begin{column}[r]{7cm}
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) ;
-		\node (B) at (3,0) ;
-		\node (C) at (270:1.2) ;
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\node (F) at (0,1.5) {$\color{blue} \mu$};		
+		}
+		\only<4-4>{
 		\draw[line width=1.5pt,red,->] (A.center) to[bend left=40] (B.center);
+		\node (F) at (0,1.5) {$\color{red} \lambda$};		
+		}
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\only<1-1>{
+		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center); 
+		\node (F) at (1.5,-0.5) {$\color{blue} \mu$};		
+		}
+		\only<2-4>{
 		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
+		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};		
+		}
 		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
 		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
-		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};
-		\node (G) at (0,1.5) {$\color{red} \lambda$};
+		
 			\begin{scope}[xshift=-3cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
+			\only<1-1>{
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);}
+			\only<2-4>{
+			\draw (C)--(CB);}
+			\only<1-3>{			
+			\draw [line width=1.5pt,color=red!30,->] (A)--(C);}
+			\only<4-4>{
+			\draw (A)--(C);}
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
@@ -1860,14 +1501,12 @@ On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
 			\draw (A) node[fill=white]{$E_0$};
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
+%			\draw (CA) node[fill=white]{$45$};
+%			\draw (CB) node[fill=white]{$68$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1877,7 +1516,6 @@ On $E_2$ we have determined this part of $T_{\ell}(E_2)$:
 \end{column}
 \end{columns}
 \end{frame}
-
 
 %\begin{frame}
 %\frametitle{Computing $T_{\ell}(E)$ such that $\pi \mid T_{\ell}(E)$ is 
@@ -2070,6 +1708,7 @@ Once we have done this we reduce the problem to the previous case.
 
 \begin{frame}
 \frametitle{Improving interpolation with the Frobenius}
+\section{$\ell$-adic tower and Frobenius}
 \begin{figure}[h]
 \begin{center}
 
@@ -2181,6 +1820,7 @@ Once we have done this we reduce the problem to the previous case.
 \end{tikzpicture}
 
 \end{center}
+\caption{Subproduct tree}
 \end{figure}
 \end{frame}
 
@@ -2198,7 +1838,7 @@ Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we c
 
 
 \begin{frame}
-\frametitle{Experimentations}
+\frametitle{Experiments}
 Comparisons of execution times (in s) of one interpolation step for various characteristics, for a fixed curve $E$ and increasing $r$.
 \begin{figure}[hbtp]
 \centering
