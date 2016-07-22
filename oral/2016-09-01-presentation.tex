@@ -177,7 +177,7 @@ We can represent an isogeny of degree $\ell$ by the following rational map:
 \[
 \left( x,y \right) \mapsto \left(\frac{n(x)}{d(x)}, y \left( \frac{n(x)}{d(x)} \right)' \right)
 \]
-with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\ell-1$
+with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\ell-1$.
 }
 
 }
@@ -201,7 +201,7 @@ There is a bijection between finite subgroups of $E$ and separable isogenies:
 %\end{exe}
 
 \begin{rem}[V\'elu]
-From the knowledge of $G$ we are able to explicitly give the expression of the isogeny of kernel $G$
+From the knowledge of $G$ we are able to explicitly give the expression of the isogeny of kernel $G$.
 \end{rem}
 \end{frame}
 
@@ -648,9 +648,9 @@ Let $q=p^n$
 \end{itemize}
 \begin{itemize}
 
-\item[$\rightarrow$] we focus on the medium characteristic case,
+\item[$\rightarrow$] we focus on the medium characteristic case ($n\gg p/\log(p)$),
 
-\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$
+\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
 
 \end{itemize}
 \end{frame}
@@ -1406,7 +1406,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 
 On \only<1-1>{$E_0$}\only<2-3>{$E_1$}\only<4-4>{$E_2$} we have determined this part of \only<1-1>{$T_{\ell}(E_0)$}\only<2-3>{$T_{\ell}(E_1)$}\only<4-4>{$T_{\ell}(E_2)$}:
 \[
-\color{red}T_{\lambda} \only<1-1>{\color{black} \oplus \color{blue}T_{\mu}} \color{black} \bmod  \only<1-1>{\ell}\only<2-3>{\ell^2}\only<4-4>{\ell^3} 
+\color{red}T_{\lambda} \only<1-1>{\color{black} \oplus \color{blue}T_{\mu}} \color{black} \bmod  \only<1-1>{\ell}\only<2-2>{\textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{\ell^2}\only<4-4>{\textit{\boldmath  $\ell^3$ \unboldmath }} 
 \]
 \only<1-4>{
 \only<3-3>{
@@ -1694,10 +1694,10 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 \begin{frame}
 \frametitle{Completing the algorithm for all curves}
 \bluebox{}{
-For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies
+For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies:
 \begin{enumerate}
-\item we have to find a suitable $\ell$ such that the volcano has a cyclic crater
-\item construct an isogeny walk to the crater
+\item we have to find a suitable $\ell$ such that the volcano has a cyclic crater,
+\item construct an isogeny walk to the crater,
 \end{enumerate}
 
 $\Rightarrow$ we use algorithms such as Fouquet-Morain[2001]. %\cite{FouquetMorain02}. 
