@@ -257,7 +257,7 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \begin{frame}
 \frametitle{The link between isogeny and endomorphism ring}
 \begin{columns}
-\begin{column}[r]{6cm}
+\begin{column}{6cm}
 %\includegraphics[scale=.66]{Images/ordres-l.eps}
 \only<1-1>{
 \begin{figure}
@@ -508,7 +508,7 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 
 
 \end{column}
-\begin{column}[left]{4cm}
+\begin{column}{4cm}
 \begin{lem}[Kohel 1996]
 $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then
 \begin{enumerate}
@@ -665,7 +665,6 @@ Let $q=p^n$
 \end{algorithmic}}
 Couveignes' algorithm:
 \begin{enumerate}
-\begin{enumerate}
 \item Fix $k$ such that $p^k>4r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
@@ -684,7 +683,6 @@ Couveignes' algorithm:
   \item If $F_{a}$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
-\end{enumerate}
 \end{enumerate}
 Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
 \end{frame}
@@ -764,7 +762,7 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for th
 
 \begin{frame}
 \begin{columns}
-\begin{column}[l]{4cm}
+\begin{column}{4cm}
 \begin{exe}[Volcano with height=0]
 When we got a diagonalisation of the Frobenius endomorphism $\pi$:
 \only<1-1>{
@@ -808,7 +806,7 @@ then we have determined a part of $T_{\ell}(E)$:
 
 %CITER François et Jean Marc ici...
 \end{column}
-\begin{column}[r]{6cm}
+\begin{column}{6cm}
 \only<1-1>{
 \begin{figure}[h]
 	\begin{center}
@@ -977,7 +975,7 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 			\draw (CA) node{$\color{cyan} \bullet$};
 			\draw (CB) node{$\color{cyan} \bullet$};
 			\draw (A) node{$ \color{green} \bullet \color{black}$};
-			\draw (C) node{$ \color{magenta} \bullet \color{bullet}$};
+			\draw (C) node{$ \color{magenta} \bullet \color{black}$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -1026,7 +1024,7 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 
 \begin{frame}
 \begin{columns}
-\begin{column}[l]{5cm}
+\begin{column}{5cm}
 \orangebox{Volcano with height $h=0$}{
 When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E)$:
 \[
@@ -1069,7 +1067,7 @@ We get:
 \end{figure}
 }
 \end{column}
-\begin{column}[r]{5cm}
+\begin{column}{5cm}
 \orangebox{Volcano with height $h=2$}{
 When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
 \[
@@ -1182,7 +1180,7 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 \begin{frame}
 \begin{columns}
 
-\begin{column}[l]{4cm}
+\begin{column}{4cm}
 \begin{exe}[Volcano with height=2]
 Let $E_0$ be the curve with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
 \[y^2=x^3+85x+11\]
@@ -1202,7 +1200,7 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 \end{exe}
 \end{column}
 
-\begin{column}[r]{7cm}
+\begin{column}{7cm}
 \begin{figure}[h]
 		\begin{center}
 		
@@ -1295,7 +1293,7 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 \begin{frame}
 \begin{columns}
 
-\begin{column}[l]{4cm}
+\begin{column}{4cm}
 \begin{exe}[Volcano with height=2]
 When we got a diagonalisation of the Frobenius endomorphism $\pi$:
 \[
@@ -1311,7 +1309,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 \end{exe}
 \end{column}
 
-\begin{column}[r]{7cm}
+\begin{column}{7cm}
 \begin{figure}[h]
 		\begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1401,7 +1399,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 }
 
 \begin{columns}
-\begin{column}[l]{5cm}
+\begin{column}{5cm}
 \orangebox{}{
 
 On \only<1-1>{$E_0$}\only<2-3>{$E_1$}\only<4-4>{$E_2$} we have determined this part of \only<1-1>{$T_{\ell}(E_0)$}\only<2-3>{$T_{\ell}(E_1)$}\only<4-4>{$T_{\ell}(E_2)$}:
@@ -1417,7 +1415,7 @@ From the diagonalisation of the $\ell^3$-torsion of $E_1$ we are able to determi
 }}
 }
 \end{column}
-\begin{column}[r]{7cm}
+\begin{column}{7cm}
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1827,7 +1825,7 @@ Once we have done this we reduce the problem to the previous case.
 \begin{frame}
 \frametitle{Experiments}
 The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$ with the $2$-adic tower construction of [Doliskani-Schost '15].%, the code is available on on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
-Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we compute the algorithm in two part for differents  inputs $r$. The interpolation correspond to only one step of interpolation:
+Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we compute the algorithm in two part for increasing $r$. The interpolation correspond to only one step of interpolation:
 %Mettre des belles courbes
 \begin{figure}[hbtp]
 \centering
