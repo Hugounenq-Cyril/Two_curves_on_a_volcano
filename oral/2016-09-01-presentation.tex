@@ -1,7 +1,6 @@
 \documentclass[10pt,a4paper]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{hyperref}
 \usepackage[english]{babel}
 \usepackage{hyperref}
 \usepackage{amssymb,amsthm,amsmath,amsfonts}
@@ -668,16 +667,16 @@ Couveignes' algorithm:
 \item Fix $k$ such that $p^k>4r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
-\item\label{alg:ours:T} Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
+\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
   $x$-coordinates of $\langle P\rangle$;
 
-\item\label{alg:ours:for} For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:
+\item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:
  \begin{enumerate}
-  \item\label{alg:ours:interp} compute the interpolation polynomial
+  \item compute the interpolation polynomial
     $L_{a}$ such that
     $L_{a} (x (u P)) = x(a\, u\,P' )$ for
     $u \in \mathbb{Z}/p^k \mathbb{Z}$;
-  \item\label{alg:ours:cauchy} Use a  rational reconstruction  algorithm 
+  \item Use a  rational reconstruction  algorithm 
     to compute a rational
     fraction $F_{a}=L_{a}\bmod{T}$ of degrees~$(r, r-1)$;
   \item If $F_{a}$ defines an isogeny of degree $r$, return it and
@@ -1632,18 +1631,18 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 \item Fix $k$ such that  $\ell^{2k}>4r$
 \item Compute horizontal bases $(P,Q)$ of
   $E[\ell^k]$ and $(P',Q')$ of $E'[\ell^k]$;
-\item\label{alg:ours:T} Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
+\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
   with $x_i$ x-coordinates of $\langle P,Q\rangle$; %using the method of
   %[De Feo '10] and [Enge-Morain '03];
-\item\label{alg:ours:for} For each \textbf{invertible diagonal} matrix
+\item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
   \begin{enumerate}
-  \item\label{alg:ours:interp} compute the interpolation polynomial
+  \item compute the interpolation polynomial
     $L_{a,b}$ such that
     $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$ for all
     $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
-  \item\label{alg:ours:cauchy} Use an algorithm of rational reconstruction 
+  \item Use an algorithm of rational reconstruction 
     to compute a rational
     fraction $F_{a,b}=L_{a,b}\bmod{T}$ of degrees~$(r, r-1)$;
   \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
