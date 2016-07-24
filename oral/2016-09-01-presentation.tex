@@ -715,6 +715,12 @@ Our goal is to specify a part of the Tate module $T_{\ell}(E)$:
 \color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
 \]
 with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for the eigenvalues $\color{red}{ \lambda}$, $\color{blue}{ \mu}$.
+
+%\bluebox{Practice}
+%{
+%In practice we compute points of the elliptic curves who are of order $\ell^k$ 
+%}
+
 %\begin{rem}
 %\begin{itemize}
 %\item Then the action of the Frobenius endomorphism on $T_{\ell}(E)$, which we write~$\pi|T_{\ell}(E)$, has two distinct eigenvalues: $\lambda, \mu $
@@ -753,46 +759,30 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for th
 
 \begin{frame}
 \begin{columns}
-\begin{column}{4cm}
+\begin{column}{6cm}
 \begin{exe}[Volcano with height=0]
-When the Frobenius endomorphism $\pi$ diagonalizes as
-\only<1-1>{
-\[
-\left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell$ \unboldmath } 
-\]
-then we have determined a part of $T_{\ell}(E)$:
-\[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \textit{\boldmath  $\ell$ \unboldmath } 
-\]
-}
-\only<2-2>{
-\[
-\left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell^2$ \unboldmath } 
-\]
-then we have determined a part of $T_{\ell}(E)$:
-\[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \textit{\boldmath  $\ell^2$ \unboldmath } 
-\]
-}
+Since the Frobenius endomorphism $\pi$ diagonalizes as
 
-\only<3-3>{
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
 0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+\end{matrix} \right) \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }} 
+\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}
+\only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }} 
 \]
-then we have determined a part of $T_{\ell}(E)$:
+We compute points:
+\begin{itemize}
+\item $\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3}$ such that $\pi(\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3} $ with $\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
+\item  $\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ such that $\pi(\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3} $.
+\end{itemize}
+then through those points we have determined a part of $T_{\ell}(E)$:
 \[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }} 
+\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}
+\only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }}  
 \]
-}
+
 \end{exe}
 
 %CITER François et Jean Marc ici...
