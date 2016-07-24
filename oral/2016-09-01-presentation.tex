@@ -102,12 +102,7 @@ Explicit isogenies in quadratic time in any characteristic}
 %faire un rappel sur les courbes elliptiques
 \begin{frame}
 \frametitle{Summary}
-\begin{enumerate}
-\item Reminder on elliptic curves,
-\item Endomorphism rings  of elliptic curves, %according to Kohel's work in 1996 \cite{Kohel96},
-\item Volcanoes of $\ell$-isogenies and Frobenius endomorphism,
-\item $\ell$-adic tower and Frobenius.
-\end{enumerate}
+\tableofcontents
 \end{frame}
 
 %\begin{frame}
@@ -125,14 +120,15 @@ Explicit isogenies in quadratic time in any characteristic}
 %\end{frame}
 
 \begin{frame}
-\frametitle{Reminder on elliptic curves}
-\section{Reminder on elliptic curves}
+\frametitle{Refresher on elliptic curves}
+\section{Refresher on elliptic curves}
 
 
 \begin{defi}[$m$ torsion points]
-Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$, for $m \in \mathbb{N}$, we denote by
+Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$ with $q=p^n$ elements.
+Let $\mathbb{F}_q\subset k$, and let $m \in \mathbb{N}$, we denote by
 \begin{itemize}
-\item $E(\overline{\mathbb{F}}_q)[m]= \{ P \in E(\overline{\mathbb{F}}_q) , mP=0_E \} $
+\item $E(k)[m]= \{ P \in E(k) , mP=0_E \} $
 %\item $E(\mathbb{F}_q)[m]= \{ P \in E(\mathbb{F}_q) , mP=0_E \} $
 \end{itemize} 
 \end{defi}
@@ -140,8 +136,8 @@ Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$, for $
 \begin{rem}
 For an \emph{ordinary} elliptic curve $E$ defined over $\mathbb{F}_q$ we have:
 \begin{align*}
-E(\overline{\mathbb{F}}_q)[\ell^k]&=\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
-E(\overline{\mathbb{F}}_q)[p^k]&=\mathbb{Z}/p^k\mathbb{Z}
+E(\overline{\mathbb{F}}_q)[\ell^k]&\simeq\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
+E(\overline{\mathbb{F}}_q)[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 \end{align*}
 \end{rem}
 
@@ -150,7 +146,7 @@ During the rest of this presentation we will only work with ordinary elliptic cu
 \end{frame}
 
 \begin{frame}
-\frametitle{Reminder on isogenies}
+\frametitle{Refresher on isogenies}
 \orangebox{Isogenies}{
 \begin{itemize}
 \item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
@@ -166,25 +162,26 @@ During the rest of this presentation we will only work with ordinary elliptic cu
 
 %\item Moreover if the isogeny $\phi$ is $\textbf{separable}$ then we have $\deg \phi = | \ker(\phi) |$ and if $\ell= \deg \phi $ then we say that the curves $E$ and $E'$ are $\ell$-isogenous.
 \end{itemize}
+}
 \pause
 \orangebox{Isogenies as rational maps}{
-We can represent an isogeny of degree $\ell$ by the following rational map:
+Separable isogenies of degree $\ell$ are represented by rational maps
 %\[
 %\left( x ,y \right) \mapsto \left( \frac{n(x)=45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{d(x)(x^4+51x^2+67x+61)^2}, y\left(\frac{n(x)}{d(x)\right)^'} \right)
 %\]
 
 \[
-\left( x,y \right) \mapsto \left(\frac{n(x)}{d(x)}, y \left( \frac{n(x)}{d(x)} \right)' \right)
+\left( x,y \right) \mapsto \left(\frac{n(x)}{d(x)}, cy \left( \frac{n(x)}{d(x)} \right)' \right)
 \]
 with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\ell-1$.
-}
+
 
 }
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Representations of isogenies}
+\frametitle{Representation of isogenies}
 
 \begin{thm} 
 There is a bijection between finite subgroups of $E$ and separable isogenies:
@@ -222,7 +219,7 @@ From the knowledge of $G$ we are able to explicitly give the expression of the i
 
 
 \begin{frame}
-\section{Endomorphism ring}
+\section{Endomorphism rings}
 
 \begin{defi}[Frobenius Endomorphism]
 $E$ an elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It belongs to $\mathrm{End}(E)$.
@@ -254,7 +251,7 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 %\end{frame}
 
 \begin{frame}
-\frametitle{The link between isogeny and endomorphism ring}
+\frametitle{The link between isogenies and endomorphism rings}
 \begin{columns}
 \begin{column}{6cm}
 %\includegraphics[scale=.66]{Images/ordres-l.eps}
@@ -509,18 +506,13 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \end{column}
 \begin{column}{4cm}
 \begin{lem}[Kohel 1996]
-$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then
+$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then we say that $\phi$ is
 \begin{enumerate}
-\item  $\ell=[\mathcal{O} : \mathcal{O}']$ we say then that $\phi$ is a 
-\only<2-2> {descending isogeny,}
-\only<3-3> {descending isogeny,}
-\only<1-1>{$\textbf{descending}$ isogeny,}
-
+\item  \textbf<1>{descending} if $\ell=[\mathcal{O} : \mathcal{O}']$
 \pause
-\item $\ell=[\mathcal{O}':\mathcal{O}]$ we say then that $\phi$ is an \only<2-2> {$\textbf{ascending}$}
-\only<3-3> {ascending} isogeny,
+\item \textbf<2>{ascending} if $\ell=[\mathcal{O}':\mathcal{O}]$,
 \pause 
-\item $\mathcal{O}=\mathcal{O}'$ we say then that $\phi$ is an $\textbf{horizontal}$ isogeny.
+\item \textbf<3>{horizontal} if $\mathcal{O}=\mathcal{O}'$.
 \end{enumerate}
 \end{lem}
 %\begin{defi}
@@ -532,7 +524,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 \end{frame}
 
 \begin{frame}
-\section{Volcano of $\ell$-isogeny and Frobenius endomorphism}
+\section{Volcanoes of $\ell$-isogenies and Frobenius endomorphisms}
 \begin{figure}[h]
 		\begin{center}
         \begin{tikzpicture}[scale=0.35]
@@ -636,12 +628,12 @@ We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  a
 \begin{frame}
 \frametitle{Previous work}
 
-Let $q=p^n$
+Let $p$ be the characteristic of $\mathbb{F}_q$.
 
 \begin{itemize}
-\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r \ll p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
-\item{} [Couveignes '94] $\tilde{O}(r^3)$
-\item{} [Couveignes '96] works using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$, but has exponential complexity in $\log(p)$.
+\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r < 2p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
+\item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
+\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
 \item{} [Lercier '97] only $p=2$.
 \item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
 \end{itemize}
@@ -674,7 +666,7 @@ Couveignes' algorithm:
  \begin{enumerate}
   \item compute the interpolation polynomial
     $L_{a}$ such that
-    $L_{a} (x (u P)) = x(a\, u\,P' )$ for
+    $L_{a} (x (u P)) = x(a\, u\,P' )$ for all
     $u \in \mathbb{Z}/p^k \mathbb{Z}$;
   \item Use a  rational reconstruction  algorithm 
     to compute a rational
@@ -690,26 +682,26 @@ Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\e
 
 \frametitle{Computing isogenies}
 \bluebox{}{
-Our goal is to work with \boldmath $E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$ \unboldmath 
+Our goal is to work with \boldmath $E[\ell^k]\simeq \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$ \unboldmath 
 %Our goal is to work with \textcolor{red}{$E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$}  
-instead of $E[p^k]$ to remove the dependency in the characteristic $p$ of the finite field.
+instead of $E[p^k]$ to remove the polynomial dependency in $p$.
 \begin{itemize}
 \pause
 %\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
-\item $E[p^k]=\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
-\item $E[\ell^k]=\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
+\item $E[p^k]\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
+\item $E[\ell^k]\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
 
 \pause
 
 \end{itemize}}
-Therefore we study the $\ell$-torsion and the action of the Frobenius endomorphism on it.
+Therefore we study the $\ell$-torsion group and the action of the Frobenius endomorphism on it.
 \end{frame}
 
 \begin{frame}
 %Diapo sur le Frobenius....
 %We want to study the action of the Frobenius on the $\ell$ torsion:
 
-We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
+We denote by $T_{\ell}(E)$ the Tate module of the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
 %\begin{prop}
 %For $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ of characteristic $p$ the Tate module has the following structure for $\ell \neq p$:
 %\[ T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell} \]
@@ -718,7 +710,7 @@ We denote by $T_{\ell}(E)$ the Tate module on the elliptic curve $E$, we study t
 As we work on cyclic craters, the Frobenius endomorphism has two distinct eigenvalues denoted $\color{red}{\lambda}$, $\color{blue}{\mu}$.
 }
 \pause
-Ou goal is to specify a part of the Tate module $T_{\ell}(E)$:
+Our goal is to specify a part of the Tate module $T_{\ell}(E)$:
 \[
 \color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
 \]
@@ -763,7 +755,7 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for th
 \begin{columns}
 \begin{column}{4cm}
 \begin{exe}[Volcano with height=0]
-When we got a diagonalisation of the Frobenius endomorphism $\pi$:
+When the Frobenius endomorphism $\pi$ diagonalizes as
 \only<1-1>{
 \[
 \left( \begin{matrix}
@@ -1294,7 +1286,7 @@ $P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 
 \begin{column}{4cm}
 \begin{exe}[Volcano with height=2]
-When we got a diagonalisation of the Frobenius endomorphism $\pi$:
+When the Frobenius endomorphism $\pi$ diagonalizes as
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
@@ -1697,14 +1689,14 @@ For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies:
 \item construct an isogeny walk to the crater,
 \end{enumerate}
 
-$\Rightarrow$ we use algorithms such as Fouquet-Morain[2001]. %\cite{FouquetMorain02}. 
+$\Rightarrow$ we use the algorithm of [Fouquet-Morain 2001]. %\cite{FouquetMorain02}. 
 }
 Once we have done this we reduce the problem to the previous case.
 \end{frame}
 
 \begin{frame}
 \frametitle{Improving interpolation with the Frobenius}
-\section{$\ell$-adic tower and Frobenius}
+\section{Interpolation in $\ell$-adic towers of extension fields}
 \begin{figure}[h]
 \begin{center}
 
@@ -1857,9 +1849,8 @@ Comparisons of execution times (in s) of one interpolation step for various char
 }
 \bluebox{Future work}{
 \begin{itemize}
-\item determine what we can do if we are not on a cyclic crater of a volcano,
-\item improve algorithm for curves not on the crater.
-\item Atkin!
+\item Directly generalize to curves not on the crater.
+\item Give an analogous algorithm for Atkin primes.
 \end{itemize}}
 
 Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
