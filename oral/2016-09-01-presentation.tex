@@ -690,18 +690,26 @@ instead of $E[p^k]$ to remove the polynomial dependency in $p$.
 %\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
 \item $E[p^k]\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
 \item $E[\ell^k]\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
-
-\pause
-
 \end{itemize}}
-Therefore we study the $\ell$-torsion group and the action of the Frobenius endomorphism on it.
+\pause
+We can't use anymore the fact that $\phi$ send $E[\ell^k]$ on $E'[\ell^k]$, those groups are too big, we have to do more restrictions:
+\begin{itemize}
+\item[$\rightarrow$]Therefore we study the $\ell$-torsion group and the action of the Frobenius endomorphism on it.
+\end{itemize}
+%preciser ce therefore du coup..
 \end{frame}
 
 \begin{frame}
 %Diapo sur le Frobenius....
 %We want to study the action of the Frobenius on the $\ell$ torsion:
+One natural intuition is to focus our attention on the eigenvectors for the Frobenius endomorphism.
 
-We denote by $T_{\ell}(E)$ the Tate module of the elliptic curve $E$, we study the action of the Frobenius endormorphism $\pi$ on it.
+\begin{rem}
+Eigenvector for the Frobenius endomorphism are preserved by $\phi$.
+\end{rem}
+$\Rightarrow$ We will work with them to manipulate smaller sets for the interpolation.
+
+We denote by $T_{\ell}(E)$ the Tate module of the elliptic curve $E$.%, we study the action of the Frobenius endormorphism $\pi$ on it.
 %\begin{prop}
 %For $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ of characteristic $p$ the Tate module has the following structure for $\ell \neq p$:
 %\[ T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell} \]
@@ -758,29 +766,37 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for th
 %\end{frame}
 
 \begin{frame}
+\frametitle{Computing $\color{red}T_{\lambda}(E) \color{white} \oplus \color{blue} T_{\mu}(E) \color{white} \bmod \ell^k $}
 \begin{columns}
 \begin{column}{6cm}
 \begin{exe}[Volcano with height=0]
-Since the Frobenius endomorphism $\pi$ diagonalizes as
+\only<1-1>{Since the Frobenius endomorphism $\pi$ acts on $T_{\ell}({E})$ as
 
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
 0 & \mu 
-\end{matrix} \right) \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }} 
+\end{matrix} \right) \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }}
 \only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}
 \only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }} 
-\]
-We compute points:
+\]}
+\only<2-3>{
+Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-2>{E[\ell^2]}\only<3-3>{E[\ell^3]}$
+}
+\only<1-1>{We compute the points:
 \begin{itemize}
-\item $\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3}$ such that $\pi(\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3} $ with $\color{red} \only<1-1>{P_1}\only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
-\item  $\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ such that $\pi(\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<1-1>{Q_1}\only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3} $.
+\item $\color{red}{P_1}$ such that $\pi(\color{red} {P_1} \color{black})= \color{red} \lambda {P_1}$ with $\color{red} {P_1}$ a point of order ${\ell}$,
+\item  $\color{blue} {Q_1}$ such that $\pi(\color{blue} {Q_1} \color{black})= \color{blue} \mu {Q_1}$ with $\color{blue} {Q_1}$ a point of order ${\ell}$.
 \end{itemize}
-then through those points we have determined a part of $T_{\ell}(E)$:
+}
+\only<2-3>{We compute :
+\begin{itemize}
+\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
+%\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$P_1$}\only<3-3>{$P_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \lambda \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+\end{itemize}}
+then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have determined a part of $T_{\ell}(E)$:
 \[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }} 
-\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}
-\only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }}  
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod  \only<1-1>{ \textit{\boldmath  $\ell^1$ \unboldmath }}\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{ \textit{\boldmath  $\ell^3$ \unboldmath }} 
 \]
 
 \end{exe}
@@ -817,6 +833,7 @@ then through those points we have determined a part of $T_{\ell}(E)$:
 	\draw (H) node{$\bullet$};
 	\end{tikzpicture}	
 	\end{center}
+	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
 \end{figure}}
 \only<2-2>{
 \begin{figure}[h]
@@ -847,6 +864,7 @@ then through those points we have determined a part of $T_{\ell}(E)$:
 	\draw (H) node{$\bullet$};
 	\end{tikzpicture}	
 	\end{center}
+	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
 \end{figure}}
 \only<3-3>{
 \begin{figure}[h]
@@ -879,6 +897,7 @@ then through those points we have determined a part of $T_{\ell}(E)$:
 	\draw (H) node{$\bullet$};
 	\end{tikzpicture}	
 	\end{center}
+	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
 \end{figure}}
 \end{column}
 \end{columns}
