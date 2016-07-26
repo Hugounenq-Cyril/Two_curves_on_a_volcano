@@ -270,8 +270,8 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
 %\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
-\draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
+\draw (A) node[left]{$\mathbb{Z} + \ell^2 \mathcal{O}$} node{$\bullet$};
+\draw (B) node[left]{$\mathbb{Z} + \ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
 \draw (A)--(B)node[midway,left] {$\ell$};
 \draw (B)--(C) node[midway,left] {$\ell$};
@@ -352,8 +352,8 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
 %\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
-\draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
+\draw (A) node[left]{$\mathbb{Z} + \ell^2 \mathcal{O}$} node{$\bullet$};
+\draw (B) node[left]{$\mathbb{Z} + \ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
 \draw (A)--(B)node[midway,left] {$\ell$};
 \draw (B)--(C) node[midway,left] {$\ell$};
@@ -434,8 +434,8 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
 %\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\ell^2 \mathcal{O}$} node{$\bullet$};
-\draw (B) node[left]{$\ell \mathcal{O}$} node{$\bullet$};
+\draw (A) node[left]{$\mathbb{Z} + \ell^2 \mathcal{O}$} node{$\bullet$};
+\draw (B) node[left]{$\mathbb{Z} + \ell \mathcal{O}$} node{$\bullet$};
 \draw (C) node[left]{$\mathcal{O}$} node{$\bullet$};
 \draw (A)--(B)node[midway,left] {$\ell$};
 \draw (B)--(C) node[midway,left] {$\ell$};
@@ -781,7 +781,7 @@ with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for th
 \only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }} 
 \]}
 \only<2-3>{
-Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-2>{E[\ell^2]}\only<3-3>{E[\ell^3]}$
+Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-2>{E[\ell^2]}\only<3-3>{E[\ell^3]}$.
 }
 \only<1-1>{We compute the points:
 \begin{itemize}
@@ -791,12 +791,13 @@ Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-
 }
 \only<2-3>{We compute :
 \begin{itemize}
-\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
-%\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$P_1$}\only<3-3>{$P_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \lambda \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+%\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
+\item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \lambda \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
 \end{itemize}}
 then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have determined a part of $T_{\ell}(E)$:
 \[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod  \only<1-1>{ \textit{\boldmath  $\ell^1$ \unboldmath }}\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{ \textit{\boldmath  $\ell^3$ \unboldmath }} 
+\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod  \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }}\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{ \textit{\boldmath  $\ell^3$ \unboldmath }} 
 \]
 
 \end{exe}
@@ -1182,10 +1183,12 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 
 \begin{column}{4cm}
 \begin{exe}[Volcano with height=2]
-Let $E_0$ be the curve with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
-\[y^2=x^3+85x+11\]
-$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
+Let $E_0$ be a curve on a cyclic crater of a volcano.
+%with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
+%\[y^2=x^3+85x+11\]
+%$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
 
+Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{black}P$
 
 \begin{itemize}\only<1-1>{
 \item \boldmath $P$ \unboldmath is  \textbf{not horizontal},}
