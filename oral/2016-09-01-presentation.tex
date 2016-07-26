@@ -793,7 +793,7 @@ Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-
 \begin{itemize}
 %\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
 \item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
-\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \lambda \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
 \end{itemize}}
 then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have determined a part of $T_{\ell}(E)$:
 \[
@@ -902,6 +902,33 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 \end{figure}}
 \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+\bluebox{}{
+Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogenies of \textbf{height \boldmath$=0$\unboldmath}  works as follows:
+\begin{enumerate}
+\item Fix $k$ such that  $\ell^{2k}>4r$
+\item Compute horizontal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
+  $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
+\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
+  with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
+  %[De Feo '10] and [Enge-Morain '03];
+\item For each \textbf{invertible diagonal} matrix
+  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
+\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
+  \begin{enumerate}
+  \item compute the interpolation polynomial
+    $L_{a,b}$ such that
+    $L_{a,b} (x (u \color{red}P \color{black}+ v \color{blue}Q\color{black})) = x(a\, u\,\color{red}P'\color{black} + b\,v\, \color{blue}Q'\color{black})$ for all
+    $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
+  \item Use an algorithm of rational reconstruction 
+    to compute a rational
+    fraction $F_{a,b}=L_{a,b}\bmod{T}$ of degrees~$(r, r-1)$;
+  \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
+    stop.
+  \end{enumerate}
+\end{enumerate}}
 \end{frame}
 
 \begin{frame}
@@ -1183,7 +1210,7 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 
 \begin{column}{4cm}
 \begin{exe}[Volcano with height=2]
-Let $E_0$ be a curve on a cyclic crater of a volcano.
+Let $E_0$ be a curve on a cyclic crater of a volcano of $2$-isogenies.
 %with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
 %\[y^2=x^3+85x+11\]
 %$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
@@ -1633,10 +1660,10 @@ a_1 & 0 \\
 Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogeny works as follows:
 \begin{enumerate}
 \item Fix $k$ such that  $\ell^{2k}>4r$
-\item Compute horizontal bases $(P,Q)$ of
-  $E[\ell^k]$ and $(P',Q')$ of $E'[\ell^k]$;
+\item Compute horizontal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
+  $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
 \item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
-  with $x_i$ x-coordinates of $\langle P,Q\rangle$; %using the method of
+  with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
   %[De Feo '10] and [Enge-Morain '03];
 \item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
@@ -1644,7 +1671,7 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
   \begin{enumerate}
   \item compute the interpolation polynomial
     $L_{a,b}$ such that
-    $L_{a,b} (x (u P + v Q)) = x(a\, u\,P' + b\,v\, Q')$ for all
+    $L_{a,b} (x (u \color{red}P\color{black} + v \color{blue}Q\color{black})) = x(a\, u\,\color{red}P'\color{black} + b\,v\, \color{blue}Q'\color{black})$ for all
     $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
   \item Use an algorithm of rational reconstruction 
     to compute a rational
