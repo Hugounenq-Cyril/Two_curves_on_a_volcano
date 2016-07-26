@@ -909,7 +909,7 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogenies of \textbf{height \boldmath$=0$\unboldmath}  works as follows:
 \begin{enumerate}
 \item Fix $k$ such that  $\ell^{2k}>4r$
-\item Compute horizontal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
+\item Compute diagonal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
   $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
 \item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
   with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
@@ -1613,7 +1613,7 @@ b_1 & b_2
 
 \item a horizontal basis of $E[\ell^k]$:
 \[
-P \mapsto a_1 P' \quad \quad Q \mapsto b_2 Q' \quad \textit{with } \left( \begin{matrix}
+\color{red}P\color{black} \mapsto a_1 \color{red}P'\color{blue} \quad \quad Q\color{black} \mapsto b_2 \color{blue}Q'\color{black} \quad \textit{with } \left( \begin{matrix}
 a_1 & 0 \\
 0 & b_2
 \end{matrix}  \right) \textit{ invertible.}
@@ -1660,7 +1660,7 @@ a_1 & 0 \\
 Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogeny works as follows:
 \begin{enumerate}
 \item Fix $k$ such that  $\ell^{2k}>4r$
-\item Compute horizontal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
+\item Compute \textbf{horizontal} bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
   $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
 \item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
   with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
