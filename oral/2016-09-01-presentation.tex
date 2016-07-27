@@ -691,8 +691,10 @@ instead of $E[p^k]$ to remove the polynomial dependency in $p$.
 \item $E[p^k]\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
 \item $E[\ell^k]\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
 \end{itemize}}
+Since we want to map $E[\ell^k]$ on $E'[\ell^k]$ we have to repeat the interpolation step $O(\ell^{2k} \times \ell^{2k})=O(r^2)$ in average, it leads to a too high complexity. 
 \pause
-We can't use anymore the fact that $\phi$ send $E[\ell^k]$ on $E'[\ell^k]$, those groups are too big, we have to do more restrictions:
+
+$\Rightarrow$ We can't use anymore the fact that $\phi$ send $E[\ell^k]$ on $E'[\ell^k]$, those groups are too big, we have to do more restrictions:
 \begin{itemize}
 \item[$\rightarrow$]Therefore we study the $\ell$-torsion group and the action of the Frobenius endomorphism on it.
 \end{itemize}
