@@ -126,9 +126,9 @@ Explicit isogenies in quadratic time in any characteristic}
 
 \begin{defi}[$m$ torsion points]
 Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$ with $q=p^n$ elements.
-Let $\mathbb{F}_q\subset k$, and let $m \in \mathbb{N}$, we denote by
+Let $\mathbb{F}_q\subset \mathbb{K}$, and let $m \in \mathbb{N}$, we denote by
 \begin{itemize}
-\item $E(k)[m]= \{ P \in E(k) , mP=0_E \} $
+\item $E(k)[m]= \{ P \in E(\mathbb{K}) , mP=0_E \} $
 %\item $E(\mathbb{F}_q)[m]= \{ P \in E(\mathbb{F}_q) , mP=0_E \} $
 \end{itemize} 
 \end{defi}
@@ -789,11 +789,13 @@ Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-
 \item  $\color{blue} {Q_1}$ such that $\pi(\color{blue} {Q_1} \color{black})= \color{blue} \mu {Q_1}$ with $\color{blue} {Q_1}$ a point of order ${\ell}$.
 \end{itemize}
 }
-\only<2-3>{We compute :
+\only<2-3>{
+
+We compute :
 \begin{itemize}
 %\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
-\item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
-\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+\item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
+\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
 \end{itemize}}
 then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have determined a part of $T_{\ell}(E)$:
 \[
