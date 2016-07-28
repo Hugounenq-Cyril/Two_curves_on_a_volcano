@@ -1055,17 +1055,20 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 \end{frame}
 
 \begin{frame}
-\begin{columns}
-\begin{column}{5cm}
-\orangebox{Volcano with height $h=0$}{
-When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E)$:
+\only<2-2>{
+\transdissolve
+}
+When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
 0 & \mu 
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
 \]
-We get:
+We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{another representation}  of $T_{\ell}(E_0) \bmod \ell^3$:
+\begin{columns}
+\begin{column}{5cm}
+\orangebox{Volcano with height $h=0$}{
 \begin{figure}[h]
 	\begin{center}
 	\begin{tikzpicture}[scale=0.3]
@@ -1085,7 +1088,7 @@ We get:
 	\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
 	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
 		
-	\draw (A) node[right]{$E$};
+	\draw (A) node[right]{$E_0$};
 	\draw (A) node{$\bullet$};
 	\draw (B) node{$\bullet$};
 	\draw (C) node{$\bullet$};
@@ -1101,13 +1104,6 @@ We get:
 \end{column}
 \begin{column}{5cm}
 \orangebox{Volcano with height $h=2$}{
-When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
-\[
-\left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
-\]
 \begin{figure}[h]
 		\begin{center}
 \begin{tikzpicture}[scale=0.40]
@@ -1118,7 +1114,12 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 		\node (C) at (270:1.2) {$\bullet$};
 		\node (D) at (90:1.5) {};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\only<1-1>{
 		\draw[-] (A.center) to[bend left=40] (B.center);
+		}
+		\only<2-2>{
+		\draw[-,line width=1.5pt,color=blue!30] (A.center) to[bend left=40] (B.center);
+		}
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
 		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
@@ -1128,8 +1129,17 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 			\coordinate (C) at (270:4.2);
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
+			\coordinate (A2) at (0.15,0);
+			\coordinate (C2) at (271.95:4.5);
+			\only<1-1>{
 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+			\draw (C)--(CA);
+			}
+			\only<2-2>{
+			\draw (C)--(CB);
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CA);
+			\draw [line width=1.5pt,color=blue!30,->] (C2)--(A2);			
+			}
 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
@@ -1145,9 +1155,14 @@ When we have partially diagonalized the Frobenius endormorphism on the Tate Modu
 			\coordinate (C) at (270:4.2);
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
+			\only<1-1>{
 			\draw [line width=1.5pt,color=blue!30,->] (C)--(CA);
+			\draw [line width=1.5pt,color=blue!30,->] (A)--(C);}
+			\only<2-2>{
+			\draw (C)--(CA);
+			\draw (A)--(C);			
+			}
 			\draw (C)--(CB);
-			\draw [line width=1.5pt,color=blue!30,->] (A)--(C);
 %			\draw (A) node[fill=white]{$65$};
 %			\draw (C) node[fill=white]{$60$};
 %			\draw (CA) node[fill=white]{$39$};
