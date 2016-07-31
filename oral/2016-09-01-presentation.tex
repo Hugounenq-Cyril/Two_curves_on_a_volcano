@@ -720,7 +720,7 @@ We denote by $T_{\ell}(E)$ the Tate module of the elliptic curve $E$.%, we study
 As we work on cyclic craters, the Frobenius endomorphism has two distinct eigenvalues denoted $\color{red}{\lambda}$, $\color{blue}{\mu}$.
 }
 \pause
-Our goal is to specify a part of the Tate module $T_{\ell}(E)$:
+Our goal is to determine the Tate module $T_{\ell}(E)$ at a fixed precision:
 \[
 \color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
 \]
@@ -799,7 +799,7 @@ We compute :
 \item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
 \item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
 \end{itemize}}
-then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have determined a part of $T_{\ell}(E)$:
+then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have a representation of $T_{\ell}(E) \bmod \only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3}$:
 \[
 \color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod  \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }}\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{ \textit{\boldmath  $\ell^3$ \unboldmath }} 
 \]
@@ -1058,7 +1058,7 @@ to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right )
 \only<2-2>{
 \transdissolve
 }
-When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
+When we have diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)\bmod \ell^3$:
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
@@ -1356,7 +1356,7 @@ When the Frobenius endomorphism $\pi$ diagonalizes as
 0 & \mu 
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
 \]
-then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
+then we have determined here a decomposition of $T_{\ell}(E_0) \boldmath \bmod \ell \unboldmath $ :
 \[
 \color{red}T_{\lambda} \color{black} \oplus \color{blue} T_{\mu} \color{black} \bmod \textit{\boldmath  $\ell$ \unboldmath }
 \]
@@ -1465,7 +1465,7 @@ Pushing $P$ by $\color{blue}\psi$ give us the point $\psi(P)$ such that $\color{
 Finally we push the point $\psi(P)$ by $\color{blue}\psi_2$ to get the horizontal point $\color{red}\psi_2(\psi(P))$ of order $\ell^3$.
 
 }
-On \only<1-1>{$E_0$}\only<2-3>{$E_1$}\only<4-4>{$E_2$} we have determined this part of \only<1-1>{$T_{\ell}(E_0)$}\only<2-3>{$T_{\ell}(E_1)$}\only<4-4>{$T_{\ell}(E_2)$}:
+On \only<1-1>{$E_0$}\only<2-3>{$E_1$}\only<4-4>{$E_2$} we have determined  \only<1-1>{a decomposition of $T_{\ell}(E_0) \bmod \ell$}\only<2-3>{the generators of horizontal $\ell^2$-isogenies of direction $\color{red}\lambda$ denoted}\only<4-4>{the generators of horizontal $\ell^3$-isogenies of direction $\color{red}\lambda$ denoted}:
 \[
 \color{red}T_{\lambda} \only<1-1>{\color{black} \oplus \color{blue}T_{\mu}} \color{black} \bmod  \only<1-1>{\ell}\only<2-2>{\textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{\ell^2}\only<4-4>{\textit{\boldmath  $\ell^3$ \unboldmath }} 
 \]
