@@ -56,6 +56,7 @@
 
 
 \setbeamerfont{block title}{size={}}
+\beamertemplatenavigationsymbolsempty
 
 \newcommand{\orangebox}[2]{
 \setbeamercolor{uppercol}{fg=white,bg=orange}
@@ -96,6 +97,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \begin{frame}
 \titlepage
 \includegraphics[scale=0.1]{Images/digiteo.jpg} 
+\includegraphics[scale=0.03]{Images/Anssi.png} 
 \end{frame}
 %\maketitle
 %faire un plan
@@ -105,45 +107,10 @@ Explicit isogenies in quadratic time in any characteristic}
 \tableofcontents
 \end{frame}
 
-%\begin{frame}
-%\frametitle{Reminder on elliptic curves}
-%\section{Reminder on elliptic curves}
-%$\mathbb{F}_q$ a finite field of characteristic $p$.
-% 
-%\begin{defi}
-%$E$ an elliptic curve defined over $\mathbb{F}_q$, we denote by :
-%\[E(\mathbb{F}_q) \]
-%the set of rational points of $E$ over $\mathbb{F}_q$
-%\end{defi}
-%
-%During all this presentation we will consider only elliptic curves on the finite field $\mathbb{F}_q$, $\ell$ is a prime different from $p$
-%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Refresher on elliptic curves}
-\section{Refresher on elliptic curves}
-
-
-\begin{defi}[$m$ torsion points]
-Let $E$ be an elliptic curve defined over the finite field $\mathbb{F}_q$ with $q=p^n$ elements.
-Let $\mathbb{F}_q\subset \mathbb{K}$, and let $m \in \mathbb{N}$, we denote by
-\begin{itemize}
-\item $E(\mathbb{K})[m]= \{ P \in E(\mathbb{K}) , mP=0_E \} $
-%\item $E(\mathbb{F}_q)[m]= \{ P \in E(\mathbb{F}_q) , mP=0_E \} $
-\end{itemize} 
-\end{defi}
-
-\begin{rem}
-For an \emph{ordinary} elliptic curve $E$ defined over $\mathbb{F}_q$ we have:
-\begin{align*}
-E(\overline{\mathbb{F}}_q)[\ell^k]&\simeq\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
-E(\overline{\mathbb{F}}_q)[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
-\end{align*}
-\end{rem}
-
-During the rest of this presentation we will only work with ordinary elliptic curves defined over a finite field $\mathbb{F}_q$.
-
-\end{frame}
+\section{Explicit isogenies}
 
 \begin{frame}
 \frametitle{Refresher on isogenies}
@@ -151,7 +118,7 @@ During the rest of this presentation we will only work with ordinary elliptic cu
 \begin{itemize}
 \item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
 \begin{itemize}
- \item group morphisms,
+ \item group morphisms (with finite kernel),
  \item rational maps.
 \end{itemize}
  
@@ -164,12 +131,26 @@ During the rest of this presentation we will only work with ordinary elliptic cu
 \end{itemize}
 }
 \pause
-\orangebox{Isogenies as rational maps}{
-Separable isogenies of degree $\ell$ are represented by rational maps
+
+\begin{thm} 
+Let $G\subset E$ be a subgroup of points of order $\ell$. There is a unique isogeny $\phi:E\to E'$ of degree $\ell$ such that $\ker\phi = G$.
+\end{thm}
+
+For \emph{separable} isogenies, this defines a bijection between isogenies and finite subgroups.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Explicit isogenies}
+
+\orangebox{Explicit isogenies}{
+Separable isogenies of degree $\ell$ are represented by rational maps in Weierestrass form
 %\[
 %\left( x ,y \right) \mapsto \left( \frac{n(x)=45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{d(x)(x^4+51x^2+67x+61)^2}, y\left(\frac{n(x)}{d(x)\right)^'} \right)
 %\]
-
+\vspace{-1mm}
 \[
 \left( x,y \right) \mapsto \left(\frac{n(x)}{d(x)}, cy \left( \frac{n(x)}{d(x)} \right)' \right)
 \]
@@ -178,51 +159,206 @@ with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\el
 
 }
 
-\end{frame}
-
-\begin{frame}
-\frametitle{Representation of isogenies}
-
-\begin{thm} 
-There is a bijection between finite subgroups of $E$ and separable isogenies:
-\begin{eqnarray*}
-(\phi :E\rightarrow E') &\mapsto&  ker\, \phi  \\
- (E\rightarrow\nicefrac{E}{G})  &\reflectbox{$\mapsto$}&  G 
-\end{eqnarray*}
-\end{thm}
-
 %\begin{exe} 
 %$E$ an elliptic curve defined over $\mathbb{F}_q$, then we define an $\ell$-isogeny by a point: $P$ of order $\ell$
 %\[ \phi: E \rightarrow E/ \left\langle P \right\rangle \]
 %\end{exe}
 
-\begin{rem}[V\'elu]
-From the knowledge of $G$ we are able to explicitly give the expression of the isogeny of kernel $G$.
+\begin{rem}[V\'elu's formulas]
+From the knowledge of its kernel we can explicitly write down the isogeny (and reciprocally):
+\begin{itemize}
+    \item Let $G=\ker\phi$, then $\displaystyle d(x)=\prod_{x_i \in G\setminus\{0_E\}}(X-x_i)$;
+    \item V\'elu's formulas: from $d(x)$ we deduce $n(x)/d(x)$;
+    \item Complexity quasi-linear in $\ell = \#G$.
+\end{itemize}
 \end{rem}
+
 \end{frame}
 
-
-%\begin{frame}
-%\frametitle{Motivation}
-%We consider elliptic curves defined on the finite field $\mathbb{F}_q$.
-%Isogenies are used in S.E.A. algorithm for counting points.
-%
-%Isogenies are used and in cryptosystems such as:
-%\begin{itemize}
-%\item Charles-Lauter-Goren(hash function),
-%\item Teske (trapdoor system),
-%\item Rotostev-Stolbunov (post-quantic cryptosystem),
-%\item De Feo-Jao-Pl\^ut (post-quantic cryptosystem).
-%\end{itemize} %and attacks like MOV.
-%and also in the S.E.A. algorithm for counting points.
-%\end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\section{Endomorphism rings}
+\frametitle{Motivation}
+We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
+\medskip
+\orangebox{Explicit isogeny computation problem}
+{
+ Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
+ Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
+ compute an $r$-isogeny $\phi:E\to E'$.
+}
+\medskip
+
+\orangebox{Disclaimer:}{This is \textbf{not} the dominant step in SEA.}
+
+Other applications:
+\begin{itemize}
+\item ECC cryptanalysis: [Gaudry, Hess, Smart]
+\item Hash functions: [Charles, Lauter, Goren ],
+\item Backdoors: [Teske],
+\item Post quantum cryptography: [Rotostev, Stolbunov], [De Feo, Jao, Pl\^ut '11].
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Previous work}
+
+Let $p$ be the characteristic of $\mathbb{F}_q$.
+
+\begin{itemize}
+\item{} [Elkies '92/'98],  [Charlap Caulay Robbins '91], [Bostan Morain Salvy Schost '08] work only for $r < 2p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$.
+\item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
+\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
+\item{} [Lercier '97] only $p=2$.
+\item{} [Lercier Sirvent '08], [Lairez Vaccon '16] works for every $p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$
+\end{itemize}
+\begin{itemize}
+
+%\item[$\rightarrow$] we focus on the medium characteristic case ($n\gg p/\log(p)$),
+
+\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
+
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Couveignes' algorithm}
+
+\begin{frame}
+\frametitle{Torsion points of elliptic curves}
+
+
+\orangebox{Torsion points}{
+Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_q$, and let $m>0$
+\vspace{-0.5mm}
+\[E[m]= \{ P \in E(\bar{\mathbb{F}}_q) , mP=0_E \} \]
+
+For \emph{ordinary} elliptic curves
+\vspace{-0.5mm}
+\begin{align*}
+E[\ell^k]&\simeq\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
+E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
+\end{align*}
+}
+\orangebox{Couveignes' algorithm (compute an isogeny $\phi:E\to E'$)}{
+\begin{itemize}
+\item Compute generators $P,P'$ of $E[p^k],E'[p^k]$;
+\item Assume that the $\phi$ maps $P\mapsto P'$;
+\item Compute $\phi$ by interpolation over $E[p^k]$;
+\item Test whether $\phi$ is an isogeny.\\
+    In case it is not, replace $P'$ with a multiple $aP'$ and start again.
+\end{itemize}
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Couveignes algorithm (1996)}
+\bluebox{Couveignes' algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
+\begin{algorithmic}[1]
+\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{p^n}$ 
+\ENSURE $\phi: E \rightarrow E'$ of degree $r$
+\end{algorithmic}}
+
+\begin{enumerate}
+\item Fix $k$ such that $p^k>4r$;
+\item Compute generators $P$ of
+  $E[p^k]$ and $P'$ of $E'[p^k]$;
+\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
+  $x$-coordinates of $\langle P\rangle$;
+
+\item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:\hfill $O(r)$
+ \begin{enumerate}
+  \item compute the interpolation polynomial
+    $L_{a}$ such that
+    $L_{a} (x (u P)) = x(a\, u\,P' )$ for all
+    $u \in \mathbb{Z}/p^k \mathbb{Z}$;
+    \hfill $\tilde{O}(r)$
+  \item Use a  rational reconstruction  algorithm 
+    to compute a rational
+    fraction $F_{a}=L_{a}\bmod{T}$ of degrees~$(r, r-1)$;
+    \hfill $\tilde{O}(r)$
+  \item If $F_{a}$ defines an isogeny of degree $r$, return it and
+    stop.
+  \end{enumerate}
+\end{enumerate}
+Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\frametitle{An $\ell$-adic Couveignes' algorithm?}
+\bluebox{}{
+Our goal is to work with \boldmath $E[\ell^k]\simeq \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$ \unboldmath 
+%Our goal is to work with \textcolor{red}{$E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$}  
+instead of $E[p^k]$ to remove the polynomial dependency in $p$.
+\begin{itemize}
+\pause
+%\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
+\item $E[p^k] = \langle P\rangle\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right)$ \hfill with $p^{k}>4r$
+\item $E[\ell^k] = \langle P,Q\rangle\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ \hfill with $\ell^{2k}>4r$
+\end{itemize}}
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
+
+\orangebox{$p$-adic}{
+Let $P\in E\quad$ and $\quad P'\in E'$
+\[
+P \mapsto a P'  \qquad a\in(\mathbb{Z}/p^k\mathbb{Z})^*
+\]
+
+$\Rightarrow O(r)$ possibilities.
+}
+\end{column}
+\begin{column}{0.55\textwidth}
+\orangebox{$\ell$-adic}{
+Let $P,Q \in E\quad$ and $\quad P',Q' \in E'$
+\begin{gather*}
+\begin{pmatrix}
+P\\Q
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}
+\begin{pmatrix}
+P'\\Q'
+\end{pmatrix}
+\\[1ex]
+\text{with $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in \mathrm{GL}_2(\mathbb{Z}/\ell^k\mathbb{Z})$ invertible}.
+\end{gather*}
+$\Rightarrow O(r^2)$ possibilities.
+}
+\end{column}
+\end{columns}
+
+\pause
+\begin{center}
+    Ouch! Can we restrict the choices for $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$?
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Volcanoes of $\ell$-isogenies and Frobenius endomorphisms}
+
+\begin{frame}
 
 \begin{defi}[Frobenius Endomorphism]
-$E$ an elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It belongs to $\mathrm{End}(E)$.
+$E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It satisfies a quadratic equation \[ \pi^2 - t_\pi \pi + q.\]
 \end{defi}
 
 \begin{prop} \label{prop:p-tor}
@@ -235,20 +371,14 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %From now we will only work with ordinary elliptic curves.
 
 \begin{rem}
-Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
+Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
 \[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
 \end{rem}
 
 
 \end{frame}
 
-%\begin{frame}
-%\begin{defi}
-%$\mathcal{O}$ denotes the order associated to $\mathrm{End}(E)$  up to isomorphism.
-%\end{defi}
-%
-%
-%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{The link between isogenies and endomorphism rings}
@@ -506,7 +636,7 @@ Let $\mathcal{O}_K$ denote the algebraic integers of $K$,we have:
 \end{column}
 \begin{column}{4cm}
 \begin{lem}[Kohel 1996]
-$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarrow E'$ an $\ell$-isogeny. Then we say that $\phi$ is
+$E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarrow E'$ an $\ell$-isogeny. Then we say that $\psi$ is
 \begin{enumerate}
 \item  \textbf<1>{descending} if $\ell=[\mathcal{O} : \mathcal{O}']$
 \pause
@@ -523,8 +653,23 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 \end{columns}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
-\section{Volcanoes of $\ell$-isogenies and Frobenius endomorphisms}
+    \begin{columns}
+        \begin{column}{0.8\textwidth}
+            \includegraphics[height=\textheight]{Images/xkcd.png}
+        \end{column}
+        \begin{column}{0.2\textwidth}
+            \href{http://xkcd.com/1714/}{xkcd.com/1714}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{The \textbf{real} guide to volcano types}
 \begin{figure}[h]
 		\begin{center}
         \begin{tikzpicture}[scale=0.35]
@@ -605,7 +750,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\phi :E \rightarr
 		
 		\end{center} 
 		\end{figure}
-In the rest of this talk we consider only volcanoes with cyclic crater.
+In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' case).
 %\begin{figure}[hbtp]
 %\centering
 %\includegraphics[scale=0.4]{Images/duo-volcan-wo-label.png}
@@ -613,137 +758,237 @@ In the rest of this talk we consider only volcanoes with cyclic crater.
 %\end{figure}
 \end{frame}
 
-\begin{frame}
-\frametitle{Motivation}
-We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
-\medskip
-\orangebox{Explicit isogeny computation problem}
-{
- Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
- Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
- compute an $r$-isogeny $\phi:E\to E'$.
-}
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Previous work}
-
-Let $p$ be the characteristic of $\mathbb{F}_q$.
-
-\begin{itemize}
-\item{} [Elkies '92/'98],  [CCR '91], [BMSS '08] work only for $r < 2p$ using $\tilde{O}(r)$ operations in $\mathbb{F}_q$.
-\item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
-\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
-\item{} [Lercier '97] only $p=2$.
-\item{} [LS '08] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$
-\end{itemize}
-\begin{itemize}
-
-\item[$\rightarrow$] we focus on the medium characteristic case ($n\gg p/\log(p)$),
-
-\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
-
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Couveignes algorithm (1996)}
-\bluebox{Couveignes' algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
-\begin{algorithmic}[1]
-\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{p^n}$ 
-\ENSURE $\phi: E \rightarrow E'$ of degree $r$
-\end{algorithmic}}
-Couveignes' algorithm:
-\begin{enumerate}
-\item Fix $k$ such that $p^k>4r$;
-\item Compute generators $P$ of
-  $E[p^k]$ and $P'$ of $E'[p^k]$;
-\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
-  $x$-coordinates of $\langle P\rangle$;
-
-\item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:
- \begin{enumerate}
-  \item compute the interpolation polynomial
-    $L_{a}$ such that
-    $L_{a} (x (u P)) = x(a\, u\,P' )$ for all
-    $u \in \mathbb{Z}/p^k \mathbb{Z}$;
-  \item Use a  rational reconstruction  algorithm 
-    to compute a rational
-    fraction $F_{a}=L_{a}\bmod{T}$ of degrees~$(r, r-1)$;
-  \item If $F_{a}$ defines an isogeny of degree $r$, return it and
-    stop.
-  \end{enumerate}
-\end{enumerate}
-Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
-\end{frame}
-
-\begin{frame}
-
-\frametitle{Computing isogenies}
-\bluebox{}{
-Our goal is to work with \boldmath $E[\ell^k]\simeq \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$ \unboldmath 
-%Our goal is to work with \textcolor{red}{$E[\ell^k]= \left(\mathbb{Z}/\ell^k \mathbb{Z} \right)^2$}  
-instead of $E[p^k]$ to remove the polynomial dependency in $p$.
-\begin{itemize}
-\pause
-%\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
-\item $E[p^k]\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right) \quad \quad \quad \quad$  with $p^{k}>4r$
-\item $E[\ell^k]\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ with $\ell^{2k}>4r$
-\end{itemize}}
-Since we want to map $E[\ell^k]$ on $E'[\ell^k]$ we have to repeat the interpolation step $O(\ell^{2k} \times \ell^{2k})=O(r^2)$ in average, it leads to a too high complexity. 
-\pause
-
-$\Rightarrow$ We can't use anymore the fact that $\phi$ send $E[\ell^k]$ on $E'[\ell^k]$, those groups are too big, we have to do more restrictions:
-\begin{itemize}
-\item[$\rightarrow$]Therefore we study the $\ell$-torsion group and the action of the Frobenius endomorphism on it.
-\end{itemize}
-%preciser ce therefore du coup..
-\end{frame}
+\section{An $\ell$-adic Couveignes' algorithm}
 
 \begin{frame}
 %Diapo sur le Frobenius....
 %We want to study the action of the Frobenius on the $\ell$ torsion:
-One natural intuition is to focus our attention on the eigenvectors for the Frobenius endomorphism.
-
-\begin{rem}
-Eigenvector for the Frobenius endomorphism are preserved by $\phi$.
-\end{rem}
-$\Rightarrow$ We will work with them to manipulate smaller sets for the interpolation.
-
-We denote by $T_{\ell}(E)$ the Tate module of the elliptic curve $E$.%, we study the action of the Frobenius endormorphism $\pi$ on it.
-%\begin{prop}
-%For $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ of characteristic $p$ the Tate module has the following structure for $\ell \neq p$:
-%\[ T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell} \]
-%\end{prop}
-\orangebox{Elkies prime}{
-As we work on cyclic craters, the Frobenius endomorphism has two distinct eigenvalues denoted $\color{red}{\lambda}$, $\color{blue}{\mu}$.
-}
-\pause
-Our goal is to determine the Tate module $T_{\ell}(E)$ at a fixed precision:
+The Frobenius endomorphism acts on $E[\ell^k]$ as a $2\times2$ invertible matrix:
 \[
-\color{red}T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod \ell^k
+\pi|E[\ell^k]:
+\begin{pmatrix}
+a & b \\
+c & d 
+\end{pmatrix} \bmod{\ell^k}
 \]
-with $\color{red}{T_{\lambda}(E)}, \color{blue}{T_{\mu}(E)}$ eigenvectors for the eigenvalues $\color{red}{ \lambda}$, $\color{blue}{ \mu}$.
+\pause
+It will be convenient to work with \emph{infinite} precision\dots
 
-%\bluebox{Practice}
-%{
-%In practice we compute points of the elliptic curves who are of order $\ell^k$ 
-%}
+The projective limit of $E[\ell^k]$ as $k\to\infty$ is the \textit{Tate module} $T_\ell(E)$.
 
-%\begin{rem}
-%\begin{itemize}
-%\item Then the action of the Frobenius endomorphism on $T_{\ell}(E)$, which we write~$\pi|T_{\ell}(E)$, has two distinct eigenvalues: $\lambda, \mu $
-%
-%%Moreover the depth of the volcano of $\mathbb{F}_q$-rational $\ell$-isogenies is~$h = v_\ell(\lambda-\mu)$.
-%\item We denote by $h$ the height of the volcano of $\mathbb{F}_q$-rational $\ell$-isogenies.
-%\end{itemize}
-%\end{rem}
+The Frobenius endomorphism acts on $T_\ell(E)$ as
+\[
+\pi|T_\ell(E) : \begin{pmatrix}
+a & b \\
+c & d  
+\end{pmatrix} \in \mathrm{GL}_2(\mathbb{Z}_\ell).
+\]
 
-
+\begin{prop}
+    In the Elkies case (cyclic crater)
+    \[\pi^2 - t_\pi\pi + q = (\pi-{\color{red}\lambda})(\pi-{\color{blue}\mu})
+    \qquad {\color{red}\lambda},{\color{blue}\mu}\in\mathbb{Z}_\ell.
+    \]
+    Hence $\pi|T_\ell(E)$ has two eigenvalues ${\color{red}\lambda},{\color{blue}\mu}$ over $\mathbb{Q}_\ell$.
+\end{prop}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}
+
+\begin{prop}\label{prop:matrice-Frobenius}
+%Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
+%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
+%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
+%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
+%\end{smallmatrix}\right )$.
+% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
+In the Elkies case the action of the Frobenius endomorphism $\pi$ on $T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
+to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
+
+%Moreover $a = 0$ if~$E$ lies on the crater.
+%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
+\end{prop}
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[scale=0.30]
+\coordinate (A) at (0,1.5);
+\coordinate (AB) at (1,1.5);
+\coordinate (AZ) at (-1.5,1.5);	
+\coordinate (B) at (0,5);
+\coordinate (BB) at (1,5);
+\coordinate (BZ) at (-1.5,5.2);
+\coordinate (BZ2) at (-1.5,4.8);
+\coordinate (C) at (0,10);
+\coordinate (CB) at (1,10);
+\coordinate (CZ) at (-1.5,10);
+\draw (A) node[left]{$\color{cyan}\left( \begin{matrix}
+\lambda & 1 \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (B) node[left]{$\color{magenta} \left( \begin{matrix}
+\lambda & \ell \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (C) node[left]{$\color{green} \left( \begin{matrix}
+\lambda & 0 \\
+0 & \mu
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+%\draw (A)--(B);
+%\draw (B)--(C);
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$ \color{green} \bullet $};
+		\node (B) at (3,0) {$  \color{green} \bullet$};
+		\node (C) at (270:1.2) {$\color{green} \bullet \color{black}$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[-] (A.center) to[bend right=40] (B.center);
+		\draw (A) node{$ \color{green} \bullet $};
+		\draw (B) node{$ \color{green} \bullet $};
+		\draw (C) node{$ \color{green} \bullet $};
+		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan} \bullet$};
+			\draw (A) node{$ \color{green} \bullet \color{black}$};
+			\draw (C) node{$ \color{magenta} \bullet \color{black}$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan}\bullet$};
+			\draw (A) node{$\color{green} \bullet$};
+			\draw (C) node{$\color{magenta} \bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$\color{cyan} \bullet$};
+			\draw (CB) node{$\color{cyan} \bullet$};
+			%\draw (A) node{$\bullet$};
+			\draw (C) node{$\color{magenta} \bullet$};
+			\draw (A) node{$\color{green} \bullet$};
+			
+			
+			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
+			
+			\end{scope}
+			\coordinate (F) at (5,0);
+			\coordinate (G) at (5,-7);
+			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
+	\end{scope}
+\end{scope}
+
+%faire des fleches courbees avec les indices \ell et \ell^2
+
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\orangebox{In particular}{
+If $E$ is on the crater, then $\pi|T_\ell(E)$ is conjugate over $\mathbb{Z}_\ell$ to
+\[\left(
+\begin{matrix}
+{\color{red}\lambda} & 0 \\
+0 & \color{blue}{\mu}
+\end{matrix}
+\right)\]
+inducing a decomposition into eigenspaces
+${\color{red}T_{\lambda}(E)} \oplus {\color{blue} T_{\mu}(E)}.$
+}
+
+\begin{itemize}
+\item We shall restrict to the case where $E$ is on the crater.
+\item We can reduce to this case using, e.g., [Fouquet Morain '01],
+    [Miret Moreno et Zorro '??], [Ionica Joux '10].
+\end{itemize}
+
+\bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
+\begin{algorithmic}[1]
+\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
+\ENSURE $\phi: E \rightarrow E'$ of degree $r$
+\end{algorithmic}}
+
+\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
+${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
+\begin{algorithmic}[1]
+\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
+\ENSURE $\phi: E \rightarrow E'$ of degree $r$
+\end{algorithmic}}
+
+\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
+${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
+ }
+
+\begin{enumerate}
+\item Fix $k$ such that  $\ell^{2k}>4r$
+\item \textbf<2>{Compute bases of $T_\ell(E)$ and $T_\ell(E')$;}
+\item Diagonalize bases $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\item For each \textbf{invertible diagonal} matrix
+  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
+\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
+\hfill\only<2>{$O(r)$}
+  \begin{enumerate}
+  \item Compute the interpolation polynomial
+    $L_{a,b}$ sending\\
+    $\color{red}P\mapsto aP'$ and $\color{blue}Q\mapsto bQ'$;
+  \item If $L_{a,b}$ defines an isogeny of degree $r$, return it and
+    stop.
+  \end{enumerate}
+\end{enumerate}
+
+\pause\pause
+
+\orangebox{}{
+\begin{center}
+    Up to what precision do we need to compute $T_\ell(E)$ and $T_\ell(E')$?
+\end{center}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %\begin{frame}
@@ -908,157 +1153,13 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 \end{columns}
 \end{frame}
 
-\begin{frame}
-\bluebox{}{
-Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogenies of \textbf{height \boldmath$=0$\unboldmath}  works as follows:
-\begin{enumerate}
-\item Fix $k$ such that  $\ell^{2k}>4r$
-\item Compute diagonal bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
-  $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
-\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
-  with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
-  %[De Feo '10] and [Enge-Morain '03];
-\item For each \textbf{invertible diagonal} matrix
-  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
-\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
-  \begin{enumerate}
-  \item compute the interpolation polynomial
-    $L_{a,b}$ such that
-    $L_{a,b} (x (u \color{red}P \color{black}+ v \color{blue}Q\color{black})) = x(a\, u\,\color{red}P'\color{black} + b\,v\, \color{blue}Q'\color{black})$ for all
-    $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
-  \item Use an algorithm of rational reconstruction 
-    to compute a rational
-    fraction $F_{a,b}=L_{a,b}\bmod{T}$ of degrees~$(r, r-1)$;
-  \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
-    stop.
-  \end{enumerate}
-\end{enumerate}}
-\end{frame}
-
-\begin{frame}
-
-\begin{prop}\label{prop:matrice-Frobenius}
-Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
-%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
-%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
-%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
-%\end{smallmatrix}\right )$.
-% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
-Then the action of the Frobenius endomorphism $\pi$ on $T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
-to the matrix \[\left ( \begin{matrix}\lambda & a\\ 0 & \mu \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
-
-%Moreover $a = 0$ if~$E$ lies on the crater.
-%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
-\end{prop}
-
-\begin{figure}
-\begin{center}
-
-\begin{tikzpicture}[scale=0.30]
-\coordinate (A) at (0,1.5);
-\coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
-\coordinate (B) at (0,5);
-\coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
-\coordinate (C) at (0,10);
-\coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\color{cyan}\left( \begin{matrix}
-\lambda & 1 \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (B) node[left]{$\color{magenta} \left( \begin{matrix}
-\lambda & \ell \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (C) node[left]{$\color{green} \left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-%\draw (A)--(B);
-%\draw (B)--(C);
-%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$ \color{green} \bullet $};
-		\node (B) at (3,0) {$  \color{green} \bullet$};
-		\node (C) at (270:1.2) {$\color{green} \bullet \color{black}$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (A.center) to[bend right=40] (B.center);
-		\draw (A) node{$ \color{green} \bullet $};
-		\draw (B) node{$ \color{green} \bullet $};
-		\draw (C) node{$ \color{green} \bullet $};
-		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
-			\draw (A) node{$ \color{green} \bullet \color{black}$};
-			\draw (C) node{$ \color{magenta} \bullet \color{black}$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan}\bullet$};
-			\draw (A) node{$\color{green} \bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
-			%\draw (A) node{$\bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
-			\draw (A) node{$\color{green} \bullet$};
-			
-			
-			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
-			
-			\end{scope}
-			\coordinate (F) at (5,0);
-			\coordinate (G) at (5,-7);
-			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
-	\end{scope}
-\end{scope}
-
-%faire des fleches courbees avec les indices \ell et \ell^2
-
-
-\end{tikzpicture}
-\end{center}
-\end{figure}
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \only<2-2>{
 \transdissolve
 }
-When we have diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)\bmod \ell^3$:
+When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
 \[
 \left( \begin{matrix}
 \lambda & 0 \\
@@ -1202,6 +1303,8 @@ We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{such anoth
 \end{columns}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
 %Frame sur les bases horizontales, diagonales.
 \begin{defi}[Horizontal and diagonal bases]
@@ -1227,7 +1330,7 @@ For volcanoes with height $h=0$ diagonal bases are horizontal bases.
 
 \end{frame}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \begin{columns}
@@ -1344,6 +1447,8 @@ Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{blac
 \end{columns}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
 \begin{columns}
 
@@ -1356,7 +1461,7 @@ When the Frobenius endomorphism $\pi$ diagonalizes as
 0 & \mu 
 \end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
 \]
-then we have determined here a decomposition of $T_{\ell}(E_0) \boldmath \bmod \ell \unboldmath $ :
+then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 \[
 \color{red}T_{\lambda} \color{black} \oplus \color{blue} T_{\mu} \color{black} \bmod \textit{\boldmath  $\ell$ \unboldmath }
 \]
@@ -1442,6 +1547,7 @@ then we have determined here a decomposition of $T_{\ell}(E_0) \boldmath \bmod \
 \end{columns}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{How to build a horizontal basis from a diagonal basis}
@@ -1592,6 +1698,9 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 \end{columns}
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %\begin{frame}
 %\frametitle{Computing $T_{\ell}(E)$ such that $\pi \mid T_{\ell}(E)$ is 
 %diagonal}
@@ -1636,6 +1745,8 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 %then for any $\ell$-division point $R$ of $Q$, $\psi(R)$ is horizontal with direction~$\lambda$.
 %\end{prop}
 %\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Contribution to modified Couveignes' algorithm}
@@ -1703,6 +1814,9 @@ a_1 & 0 \\
 % \end{rem}
 % 
 %\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
 \bluebox{}{
 Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogeny works as follows:
@@ -1767,19 +1881,23 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 %
 %\end{frame}
 
-\begin{frame}
-\frametitle{Completing the algorithm for all curves}
-\bluebox{}{
-For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies:
-\begin{enumerate}
-\item we have to find a suitable $\ell$ such that the volcano has a cyclic crater,
-\item construct an isogeny walk to the crater,
-\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-$\Rightarrow$ we use the algorithm of [Fouquet-Morain 2001]. %\cite{FouquetMorain02}. 
-}
-Once we have done this we reduce the problem to the previous case.
-\end{frame}
+% \begin{frame}
+% \frametitle{Completing the algorithm for all curves}
+% \bluebox{}{
+% For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies:
+% \begin{enumerate}
+% \item we have to find a suitable $\ell$ such that the volcano has a cyclic crater,
+% \item construct an isogeny walk to the crater,
+% \end{enumerate}
+
+% $\Rightarrow$ we use the algorithm of [Fouquet-Morain 2001]. %\cite{FouquetMorain02}. 
+% }
+% Once we have done this we reduce the problem to the previous case.
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Improving interpolation with the Frobenius}
@@ -1899,6 +2017,7 @@ Once we have done this we reduce the problem to the previous case.
 \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Experiments}
@@ -1911,6 +2030,7 @@ Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we c
 \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Experiments}
@@ -1921,8 +2041,7 @@ Comparisons of execution times (in s) of one interpolation step for various char
 \end{figure}
 \end{frame}
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Conclusion}
@@ -1942,6 +2061,8 @@ Comparisons of execution times (in s) of one interpolation step for various char
 
 Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame} 
 
@@ -2164,3 +2285,4 @@ Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_
 %We consider $\phi: E_i \rightarrow E_i/<2^{k-1}P_k^i>=E_{i+1}$. We have $Q_{j+1}^{i+1}=\phi(\frac{Q_j^i}{2}) $ since we can write  $\frac{Q_j^i}{2}= Q_{j+1}^{i}+ a  P_{1}^{i}$
 %\end{proof}
 %\end{frame}
+
