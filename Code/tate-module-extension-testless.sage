@@ -962,6 +962,34 @@ def tate_module(E,b,Tower,l,conservation=None):
 		return E2,P,Q,k2,Lambda_1,Lambda_2
 	else:	
 		return E2,P,Q,k2,Lambda_1,Lambda_2,Tower
+
+
+def patch_not_on_volcano(E,b,Tower,l,conservation=None,path,ascending=True)
+	'''
+	Return a basis (P,Q) of E with P,Q of order l**k such that
+	P and Q generates asending isogenies until they reach the crater, where
+	they generate two horizontal isogenies of distincts directions. We have 
+	also l**{2k}>b. 
+	
+	INPUTS:
+	-E an ellptic curve defined over a finite field K and such that E is 
+	on a volcano of l-isogeny with cyclic crater
+	-b an integer bound 
+	-Tower a 2-adic tower over a prime field
+	-l a prime number
+	-conservation a boolean variable to know if the algorithm outputs the 
+	2-adic tower under the algorithm has worked, useful to have compatible
+	representations of elements of a same finite field
+	-path is a series 
+
+	OUTPUTS:
+	The same elliptic curve as the input curve E with an horizontal basis 
+	(P,Q) of E with P,Q of order l**k such that l**{2k}>b.  and if 
+	conservation is true it returns the tower under which are defined 
+	points of the elliptic curve E.
+	'''
+
+
 '''
 ----------------------------------------------------------------
 The rest of the functions were designed for l!=2 but not implemented yet 
