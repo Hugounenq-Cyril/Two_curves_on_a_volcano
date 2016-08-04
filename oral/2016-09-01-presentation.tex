@@ -8,6 +8,7 @@
 \usepackage{units}
 \usepackage{hyperref}
 \usepackage{tikz}
+\usepackage{tikzsymbols}
 \usetikzlibrary{calc}
 \usetikzlibrary{fixedpointarithmetic}
 \usepackage{fp}
@@ -84,6 +85,9 @@
 
 \def\algorithmicrequire{\textbf{Input:}}
 \def\algorithmicensure{\textbf{Output:}}
+
+\def\red#1{\textcolor{red}{#1}}
+\def\blu#1{\textcolor{blue}{#1}}
 
 \begin{document}
 
@@ -965,8 +969,9 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 
 \begin{enumerate}
 \item Fix $k$ such that  $\ell^{2k}>4r$
-\item \textbf<2>{Compute bases of $T_\ell(E)$ and $T_\ell(E')$;}
-\item Diagonalize bases $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\item \textbf<3>{Compute bases of $T_\ell(E)$ and $T_\ell(E')$;}
+\item Diagonalize $\to$ ${\color{red}T_\lambda(E)}\oplus\color{blue}T_\mu(E)$ and ${\color{red}T_\lambda(E')}\oplus\color{blue}T_\mu(E')$
+\item Reduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
 \item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
@@ -1013,48 +1018,30 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 %\end{frame}
 
 \begin{frame}
-\frametitle{Computing $\color{red}T_{\lambda}(E) \color{white} \oplus \color{blue} T_{\mu}(E) \color{white} \bmod \ell^k $}
+\frametitle{Computing $\red{T_{\lambda}(E)} \oplus \blu{T_{\mu}(E)} \bmod \ell^k $}
 \begin{columns}
 \begin{column}{6cm}
-\begin{exe}[Volcano with height=0]
-\only<1-1>{Since the Frobenius endomorphism $\pi$ acts on $T_{\ell}({E})$ as
+\begin{exe}[Volcano of height=0]
 
-\[
-\left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }}
-\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}
-\only<3-3>{ \textit{\boldmath  $\ell$ \unboldmath }} 
-\]}
-\only<2-3>{
-Since the Frobenius diagonalizes on $T_{\ell}(E)$ and in particular on $\only<2-2>{E[\ell^2]}\only<3-3>{E[\ell^3]}$.
-}
-\only<1-1>{We compute the points:
+The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathrm{Cl}(K)$ act on the crater:
+
+\begin{enumerate}
+\item $\red{T_\lambda(E)\bmod\ell}$ and $\blu{T_\mu(E)\bmod\ell}$ are
+    kernels of \textbf{horizontal isogenies} of opposite direction.
+\item The directions are independent of the curve.
+\end{enumerate}
+
+In practice, 
 \begin{itemize}
-\item $\color{red}{P_1}$ such that $\pi(\color{red} {P_1} \color{black})= \color{red} \lambda {P_1}$ with $\color{red} {P_1}$ a point of order ${\ell}$,
-\item  $\color{blue} {Q_1}$ such that $\pi(\color{blue} {Q_1} \color{black})= \color{blue} \mu {Q_1}$ with $\color{blue} {Q_1}$ a point of order ${\ell}$.
+\item We compute $\red{P}\in E[\ell^k]$ such that $\pi(\color{red} {P} \color{black})= \color{red} \lambda {P}$;
+\item Then $\red{\langle P\rangle = T_\lambda(E)  \bmod \ell^k}$.
+\item Same for $\blu{T_\mu(E)}$.
 \end{itemize}
-}
-\only<2-3>{
-
-We compute :
-\begin{itemize}
-%\item  \only<2-2>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)}\only<3-3>{$\color{red}P_3$ (resp. $\color{blue}Q_3$)}preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$ (resp. $\color{blue}Q_1$)}\only<3-3>{$\color{red}P_2$ (resp. $\color{blue}Q_2$)} such that \only<2-2>{$\pi(\color{red} {P_2}\color{black})=\color{red}\lambda P_2$ (resp. $\pi(\color{blue} {Q_2}\color{black})=\color{blue}\mu Q_2$)}\only<3-3>{$\pi(\color{red} {P_3}\color{black})=\color{red}\lambda P_3$ (resp. $\pi(\color{blue} {Q_3}\color{black})=\color{blue}\mu Q_3$)} a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$,
-\item $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{red}P_1$}\only<3-3>{$\color{red}P_2$} such that $\pi(\color{red} \only<2-2>{P_2}\only<3-3>{P_3} \color{black})= \color{red} \lambda \only<2-2>{P_2}\only<3-3>{P_3}$ with $\color{red} \only<2-2>{P_2}\only<3-3>{P_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
-\item $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ preimage by the $\ell$ multiplication of \only<2-2>{$\color{blue}Q_1$}\only<3-3>{$\color{blue}Q_2$} such that $\pi(\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3} \color{black})= \color{blue} \mu \only<2-2>{Q_2}\only<3-3>{Q_3}$ with $\color{blue} \only<2-2>{Q_2}\only<3-3>{Q_3}$ a point of order $\only<2-2>{\ell^2}\only<3-3>{\ell^3}$.
-\end{itemize}}
-then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_1$}\only<2-2>{$\color{red}P_2\color{black},\color{blue}Q_2$}\only<3-3>{$\color{red}P_3\color{black},\color{blue}Q_3$} we have a representation of $T_{\ell}(E) \bmod \only<1-1>{\ell}\only<2-2>{\ell^2}\only<3-3>{\ell^3}$:
-\[
-\color{red} T_{\lambda}(E) \color{black} \oplus \color{blue} T_{\mu}(E) \color{black} \bmod  \only<1-1>{ \textit{\boldmath  $\ell$ \unboldmath }}\only<2-2>{ \textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{ \textit{\boldmath  $\ell^3$ \unboldmath }} 
-\]
 
 \end{exe}
 
-%CITER François et Jean Marc ici...
 \end{column}
 \begin{column}{6cm}
-\only<1-1>{
 \begin{figure}[h]
 	\begin{center}
 	\begin{tikzpicture}[scale=0.4]
@@ -1069,9 +1056,15 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
 	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
 	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-	
-	
-	
+	\only<2->{
+	    \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
+	    \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
+	}
+	\only<3>{
+		\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
+    	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
+    }
+    
 	\draw (A) node{$\bullet$};
 	\draw (A) node[right]{$E$};
 	\draw (B) node{$\bullet$};
@@ -1083,72 +1076,12 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 	\draw (H) node{$\bullet$};
 	\end{tikzpicture}	
 	\end{center}
-	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
-\end{figure}}
-\only<2-2>{
-\begin{figure}[h]
-	\begin{center}
-	\begin{tikzpicture}[scale=0.4]
-	\coordinate (A) at (0:5);
-	\coordinate (B) at (45:5);
-	\coordinate (C) at (90:5);
-	\coordinate (D) at (135:5);
-	\coordinate (E) at (180:5);
-	\coordinate (F) at (225:5);
-	\coordinate (G) at (270:5);
-	\coordinate (H) at (315:5);
-	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
-	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-	\draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
-		
-	\draw (A) node[right]{$E$};
-	\draw (A) node{$\bullet$};
-	\draw (B) node{$\bullet$};
-	\draw (C) node{$\bullet$};
-	\draw (D) node{$\bullet$};
-	\draw (E) node{$\bullet$};
-	\draw (F) node{$\bullet$};
-	\draw (G) node{$\bullet$};
-	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
-	\end{center}
-	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
-\end{figure}}
-\only<3-3>{
-\begin{figure}[h]
-	\begin{center}
-	\begin{tikzpicture}[scale=0.4]
-	\coordinate (A) at (0:5);
-	\coordinate (B) at (45:5);
-	\coordinate (C) at (90:5);
-	\coordinate (D) at (135:5);
-	\coordinate (E) at (180:5);
-	\coordinate (F) at (225:5);
-	\coordinate (G) at (270:5);
-	\coordinate (H) at (315:5);
-	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
-	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-	\draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
-	\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
-		
-	\draw (A) node[right]{$E$};
-	\draw (A) node{$\bullet$};
-	\draw (B) node{$\bullet$};
-	\draw (C) node{$\bullet$};
-	\draw (D) node{$\bullet$};
-	\draw (E) node{$\bullet$};
-	\draw (F) node{$\bullet$};
-	\draw (G) node{$\bullet$};
-	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
-	\end{center}
-	\caption{Isogenies generated by the points \only<1-1>{\color{red}$P_1$,\color{blue}$Q_1$}\only<2-2>{\color{red}$P_2$,\color{blue}$Q_2$}\only<3-3>{\color{red}$P_3$,\color{blue}$Q_3$}}
-\end{figure}}
+	\caption{
+	    Isogenies generated by
+	    \red{$\left( \lambda , \only<1>{\ell}\only<2>{\ell^2}\only<3>{\ell^3} \right)$},
+	    \blu{$\left( \mu , \ell^{\only<2>{2}\only<3>{3}} \right)$}
+	}
+\end{figure}
 \end{column}
 \end{columns}
 \end{frame}
@@ -1159,14 +1092,19 @@ then through those points \only<1-1>{$\color{red}P_1\color{black},\color{blue}Q_
 \only<2-2>{
 \transdissolve
 }
-When we have partially diagonalized the Frobenius endormorphism on the Tate Module $T_{\ell}(E_0)$:
-\[
-\left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\rangle = E[\ell^k]$ s.t.
+\[\pi:
+\begin{pmatrix}\red P\\\blu Q\end{pmatrix} \mapsto
+\begin{pmatrix}\red\lambda&0\\0&\blu\mu\end{pmatrix}
+\begin{pmatrix}\red P\\\blu Q\end{pmatrix}
 \]
-We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{such another representation}  of $T_{\ell}(E_0) \bmod \ell^3$:
+\begin{itemize}
+    \item If $h=0$, then $\red{\langle P\rangle = T_\lambda(E)}\bmod \ell^k$, $\blu{\langle Q\rangle =T_\mu(E)} \bmod \ell^k$;
+    \hfill{\Large\Smiley}
+    \item In general $\red{\langle P\rangle = T_\lambda(E)} \bmod \ell^{k-h}$, $\blu{\langle Q\rangle = T_\mu(E)} \bmod \ell^{k- h }$.
+    \hfill{\Large\Sadey}
+\end{itemize}
+
 \begin{columns}
 \begin{column}{5cm}
 \orangebox{Volcano with height $h=0$}{
@@ -1189,7 +1127,7 @@ We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{such anoth
 	\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
 	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
 		
-	\draw (A) node[right]{$E_0$};
+	\draw (A) node[right]{$E$};
 	\draw (A) node{$\bullet$};
 	\draw (B) node{$\bullet$};
 	\draw (C) node{$\bullet$};
@@ -1285,7 +1223,7 @@ We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{such anoth
 %			\draw (C) node[fill=white]{$27$};
 %			\draw (CA) node[fill=white]{$45$};
 %			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=pacificcream]{$E_0$};
+			\draw (A) node[fill=pacificcream]{$E$};
 			\draw (C) node[fill=pacificcream]{$\bullet$};
 			\draw (CA) node[fill=pacificcream]{$\bullet$};
 			\draw (CB) node[fill=pacificcream]{$\bullet$};
@@ -1308,163 +1246,167 @@ We get for \only<1-1>{ a such }\only<1-1>{ representation }\only<2-2>{such anoth
 \begin{frame}
 %Frame sur les bases horizontales, diagonales.
 \begin{defi}[Horizontal and diagonal bases]
-  Let~$E$ be a curve lying on the crater. We call a
+  Let~$E$ be a curve on the crater. We call a
   basis of~$E[\ell^k]$
 \begin{itemize}
 		  
- {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~is diagonal in it;}
-  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate the kernel of
+ {\setlength\itemindent{25pt} \item[\emph{diagonal}] if $\pi$~acts as a diagonal matrix on it;}
+  {\setlength\itemindent{25pt} \item[\emph{horizontal}] if both basis points generate kernels of
   horizontal $\ell^k$-isogenies. }
 
 \end{itemize}  
-  Accordingly, we also call diagonal
-  (resp. horizontal) the generators of a diagonal (resp. horizontal)
-  basis.
 \end{defi}
 
-\orangebox{Fact}{Horizontal bases are diagonal bases.}
-
-\begin{rem}
-For volcanoes with height $h=0$ diagonal bases are horizontal bases.
-\end{rem}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\begin{columns}
-
-\begin{column}{4cm}
-\begin{exe}[Volcano with height=2]
-Let $E_0$ be a curve on a cyclic crater of a volcano of $2$-isogenies.
-%with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
-%\[y^2=x^3+85x+11\]
-%$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
-
-Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{black}P$
-
-\begin{itemize}\only<1-1>{
-\item \boldmath $P$ \unboldmath is  \textbf{not horizontal},}
-\only<2-3>{\item $P$ is not horizontal,}
-\only<2-2>{\item \boldmath $2P$ \unboldmath is \textbf{not horizontal},}
-\only<1,3>{\item $2P$ is not horizontal,}
-\only<1-2>{\item $2^{2}P$ is horizontal.}
-\only<3-3>{\item \boldmath $2^2P$ \unboldmath is \textbf{horizontal}.}
+\orangebox{Facts}{
+\begin{itemize}
+\item Horizontal $\Rightarrow$ diagonal.
+\item Diagonal $\Rightarrow$ horizontal iff $h=0$.
+\item $\red{T_\lambda(E) \bmod\ell^k}$ and $\blu{T_\mu(E) \bmod\ell^k}$ form a horizontal basis.
 \end{itemize}
+}
 
-
-\end{exe}
-\end{column}
-
-\begin{column}{7cm}
-\begin{figure}[h]
-		\begin{center}
-		
-\begin{tikzpicture}[scale=0.60]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (C.center) to[bend right=20] (B.center);
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\only<1-1>{
-			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
-			}
-			\only<2-3>{
-			\draw (C)--(CB);
-			}
-			\only<1-2>{
-			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
-			}
-			\only<3-3>{
-			\draw (A)--(C);			
-			}
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=white]{$E_1$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
-			\draw (C) node[fill=white]{$\bullet$};
-			\draw (CA) node[fill=white]{$\bullet$};
-			\draw (CB) node[fill=white]{$\bullet$};
-			\end{scope}
-	\end{scope}
-\end{scope}
-\end{tikzpicture}
-		%\end{center}
-		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
-		
-		\end{center} 
-		\end{figure}
-\end{column}
-\end{columns}
+\begin{center}
+    \textbf{Our goal:} Given a diagonal basis $\to$ compute a horizontal one.
+\end{center}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% \begin{frame}
+% \begin{columns}
+
+% \begin{column}{4cm}
+% \begin{exe}[Volcano with height=2]
+% Let $E_0$ be a curve on a cyclic crater of a volcano of $2$-isogenies.
+% %with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
+% %\[y^2=x^3+85x+11\]
+% %$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
+
+% Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{black}P$
+
+% \begin{itemize}\only<1-1>{
+% \item \boldmath $P$ \unboldmath is  \textbf{not horizontal},}
+% \only<2-3>{\item $P$ is not horizontal,}
+% \only<2-2>{\item \boldmath $2P$ \unboldmath is \textbf{not horizontal},}
+% \only<1,3>{\item $2P$ is not horizontal,}
+% \only<1-2>{\item $2^{2}P$ is horizontal.}
+% \only<3-3>{\item \boldmath $2^2P$ \unboldmath is \textbf{horizontal}.}
+% \end{itemize}
+
+
+% \end{exe}
+% \end{column}
+
+% \begin{column}{7cm}
+% \begin{figure}[h]
+% 		\begin{center}
+		
+% \begin{tikzpicture}[scale=0.60]
+% \begin{scope}[yshift=10cm]
+% 	\begin{scope}[xshift=4.3cm]
+% 		\node (A) at (-3,0) {$\bullet$};
+% 		\node (B) at (3,0) {$\bullet$};
+% 		\node (C) at (270:1.2) {$\bullet$};
+% 		\node (D) at (90:1.5) {};
+% 		%\draw[-] (A.center) to[bend right=25] (C.center);
+% 		\draw[-] (A.center) to[bend left=40] (B.center);
+% 		%\draw[-] (B.center) to[bend left=25] (C.center);
+% 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+% 		\draw[-] (C.center) to[bend right=20] (B.center);
+% 		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+% 			\begin{scope}[xshift=-3cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\only<1-1>{
+% 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+% 			}
+% 			\only<2-3>{
+% 			\draw (C)--(CB);
+% 			}
+% 			\only<1-2>{
+% 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+% 			}
+% 			\only<3-3>{
+% 			\draw (A)--(C);			
+% 			}
+% %			\draw (A) node[fill=white]{$30$};
+% %			\draw (C) node[fill=white]{$98$};
+% %			\draw (CA) node[fill=white]{$22$};
+% %			\draw (CB) node[fill=white]{$74$};
+% 			\draw (A) node[fill=white]{$E_2$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 			\begin{scope}[xshift=3cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\draw (C)--(CB);
+% 			\draw (A)--(C);
+% %			\draw (A) node[fill=white]{$65$};
+% %			\draw (C) node[fill=white]{$60$};
+% %			\draw (CA) node[fill=white]{$39$};
+% %			\draw (CB) node[fill=white]{$62$};
+% 			\draw (A) node[fill=white]{$E_1$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 			\begin{scope}[yshift=-1.2cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\draw (C)--(CB);
+% 			\draw (A)--(C);
+% %			\draw (A) node[fill=white]{$28$};
+% %			\draw (C) node[fill=white]{$27$};
+% %			\draw (CA) node[fill=white]{$45$};
+% %			\draw (CB) node[fill=white]{$68$};
+% 			\draw (A) node[fill=white]{$E_0$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 	\end{scope}
+% \end{scope}
+% \end{tikzpicture}
+% 		%\end{center}
+% 		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
+		
+% 		\end{center} 
+% 		\end{figure}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
+\frametitle{How to \textit{straighten} a diagonal basis}
 \begin{columns}
 
 \begin{column}{4cm}
-\begin{exe}[Volcano with height=2]
-When the Frobenius endomorphism $\pi$ diagonalizes as
+\begin{exe}[$h=2$]
+We are given a diagonal basis $\langle\red P,\blu Q\rangle = E[\ell^k]$ 
 \[
+\begin{pmatrix}\red P\\\blu Q\end{pmatrix}
+\mapsto
 \left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu 
-\end{matrix} \right) \bmod \textit{\boldmath  $\ell^3$ \unboldmath } 
+\red{\lambda} & 0 \\
+0 & \blue \mu 
+\end{matrix} \right) 
+\begin{pmatrix}\red P\\\blu Q\end{pmatrix}
 \]
-then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
-\[
-\color{red}T_{\lambda} \color{black} \oplus \color{blue} T_{\mu} \color{black} \bmod \textit{\boldmath  $\ell$ \unboldmath }
-\]
+
+Assume that $k \geqslant h+1$.
 \end{exe}
 \end{column}
 
@@ -1530,7 +1472,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 %			\draw (C) node[fill=white]{$27$};
 %			\draw (CA) node[fill=white]{$45$};
 %			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=white]{$E_0$};
+			\draw (A) node[fill=white]{$E$};
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1538,9 +1480,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 	\end{scope}
 \end{scope}
 \end{tikzpicture}
-		%\end{center}
-		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
-		
+
 		\end{center} 
 		\end{figure}
 \end{column}
@@ -1550,7 +1490,7 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{How to build a horizontal basis from a diagonal basis}
+\frametitle{How to \textit{straighten} a diagonal basis}
 \only<2-2>{
 \transdissolve
 }
@@ -1559,45 +1499,27 @@ then we have determined a \emph{smaller} part of $T_{\ell}(E_0)$:
 }
 
 \begin{columns}
-\begin{column}{5cm}
+\begin{column}{6cm}
 \orangebox{}{
-\only<2-2>
-{
-Pushing $P$ by $\color{blue}\psi$ give us the point $\psi(P)$ such that $\color{red} \ell \psi(P)$ is a \emph{horizontal} point of order $\ell^2$.
+\raggedright
+$\red P \in E$ is diagonal, and $\ell$-horizontal:
+\[\red{ \langle P \rangle = T_\lambda(E) \mod \ell}\]
 
+$\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-horizontal}:
+    \[\red{ \langle \blu\psi(\red P) \rangle = T_\lambda(E) \mod \ell^2}\]}
+    
+\vspace{-2mm}
 
-}
-\only<4-4>{
-Finally we push the point $\psi(P)$ by $\color{blue}\psi_2$ to get the horizontal point $\color{red}\psi_2(\psi(P))$ of order $\ell^3$.
-
-}
-On \only<1-1>{$E_0$}\only<2-3>{$E_1$}\only<4-4>{$E_2$} we have determined  \only<1-1>{a decomposition of $T_{\ell}(E_0) \bmod \ell$}\only<2-3>{the generators of horizontal $\ell^2$-isogenies of direction $\color{red}\lambda$ denoted}\only<4-4>{the generators of horizontal $\ell^3$-isogenies of direction $\color{red}\lambda$ denoted}:
-\[
-\color{red}T_{\lambda} \only<1-1>{\color{black} \oplus \color{blue}T_{\mu}} \color{black} \bmod  \only<1-1>{\ell}\only<2-2>{\textit{\boldmath  $\ell^2$ \unboldmath }}\only<3-3>{\ell^2}\only<4-4>{\textit{\boldmath  $\ell^3$ \unboldmath }} 
-\]
-\only<4-4>{
-We have a representation of $\color{red}{T_{\lambda}(E_2)}$ through the point $\color{red} \psi_2( \psi (P))$. 
-
-We can see a representation of the isogeny generated by $\color{red} \psi_2( \psi (P))$ on the right.
-}
-\only<1-1>{We denote by 
 \begin{itemize}
-\item $P$ a point of order $\ell^3$ of $E_0$ such that $\pi(P)=\color{red} \lambda \color{black} P$,
-\item $\color{blue} \psi \color{black} :E_0 \rightarrow E_1$ horizontal $\ell$-isogeny of direction $\color{blue} \mu$. 
+\item<3-> We continue until we have a horizontal point $\red{P_{k-1}}\in E_{k-1}$;
+\item<4-> We apply the same procedure to get back to $E$.
+\item<5-> We repeat again the procedure for $\blu Q\in E$.
 \end{itemize}
-On the right there is a representation of the isogeny generated by $P$ and $\color{blue}\psi$.}
-\only<2-2>{We have a representation of $\color{red}{T_{\lambda}}$ through the point $\color{red} \ell \psi (P)$.
-
-We can see on the right the isogeny generated by $\psi(P)$.}
-\only<3-3>{
-From the diagonalisation of the $\ell^3$-torsion of $E_1$ we are able to determine 
-\[
-\color{blue}T_{\mu} \color{black} \color{black} \bmod \ell
-\]
-Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direction $\color{blue}\mu$}
 }
+
+
 \end{column}
-\begin{column}{7cm}
+\begin{column}{6cm}
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1616,7 +1538,7 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 		\node (F) at (0,1.5) {$\color{blue} \mu$};
 		\node (F2) at (0,0.75) {$\color{blue} \psi_2$};		
 		}
-		\only<4-4>{
+		\only<4->{
 		\draw[line width=1.5pt,red,->] (A.center) to[bend left=40] (B.center);
 		\node (F) at (0,1.5) {$\color{red} \lambda$};		
 		}
@@ -1627,7 +1549,7 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 		\node (F) at (1.5,-0.5) {$\color{blue} \mu$};	
 		\node (F2) at (1.5,-1.5) {$\color{blue} \psi$};	
 		}
-		\only<2-4>{
+		\only<2->{
 		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
 		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};		
 		}
@@ -1642,17 +1564,18 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 			\draw (C)--(CA);
 			\only<1-1>{
 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);}
-			\only<2-4>{
+			\only<2->{
 			\draw (C)--(CB);}
 			\only<1-3>{			
 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);}
-			\only<4-4>{
+			\only<4->{
 			\draw (A)--(C);}
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
 %			\draw (CB) node[fill=white]{$74$};
 			\draw (A) node[fill=white]{$E_2$};
+			\only<4->{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1670,6 +1593,7 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 %			\draw (CA) node[fill=white]{$39$};
 %			\draw (CB) node[fill=white]{$62$};
 			\draw (A) node[fill=white]{$E_1$};
+			\only<2-3>{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_1$};}
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1682,7 +1606,8 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (A) node[fill=white]{$E_0$};
+			\draw (A) node[fill=white]{$E$};
+			\only<1>{\draw (A) node[fill=yellow!50!white,shape=circle]{$E$};}
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1701,125 +1626,10 @@ Thus we can determine a horizontal $\ell$-isogeny $\color{blue}\psi_2$ of direct
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\begin{frame}
-%\frametitle{Computing $T_{\ell}(E)$ such that $\pi \mid T_{\ell}(E)$ is 
-%diagonal}
-%
-%%Faire un exemple !!! Dire que l'on peut trouver deux points générateurs de la base qui soient aussi vecteurs propres
-%%To construct a representation of $T_{\ell}(E)$ modulo $\ell^k$ in which $\pi \mid T_{\ell}(E)$ is diagonal, 
-%We start from a basis of $E[\ell]= \langle P_1, Q_1 \rangle$ with
-%
-% \[\pi(P_1)= (\lambda  \bmod \ell) P_1 \texttt{ and } \pi(Q_1)= (\mu  \bmod 
-% \ell) Q_1 \]
-%
-%We then proceed recursively for $i>0$: 
-%
-%from $P_i,Q_i$ two points of order $\ell^{i}$ such that 
-%\[ \pi(P_{i})= (\lambda \bmod \ell^{i}) P_{i} \texttt{ and } 
-%\pi(Q_{i})= (\mu \bmod \ell^{i}) Q_{i} \]  
-%
-%we compute $P'_{i+1}, Q'_{i+1} $ of order $\ell^{i+1}$ such that 
-%$\ell P'_{i+1} = P_i$ and $\ell Q'_{i+1} = Q_i$. 
-%
-%
-%
-%Then we diagonalise the basis $ \langle P'_{i+1}, Q'_{i+1} \rangle $ with 
-%respect to $\pi$ to obtain a basis $\langle P_{i+1}, Q_{i+1} \rangle$ such 
-%that: 
-%\begin{itemize}
-%\item $\pi(P_{i+1})= (\lambda \bmod \ell^{i+1}) P_{i+1}$ and $\pi(Q_{i+1})= (\mu \bmod \ell^{i+1}) Q_{i+1}$ 
-%\item $\ell P_{i+1} =P_{i}$ and $\ell Q_{i+1} =Q_{i}$
-%\end{itemize}
-%In the end we get $T_{\ell}(E) \bmod \ell^k=((P_1,Q_1),(P_2,Q_2),\dots,(P_k,Q_k))$ such that $ \pi \mid T_{\ell}(E) \bmod \ell^k$ is diagonal.
-%\end{frame}
-
-
-
-%\begin{frame}
-%\frametitle{How to construct a horizontal basis}
-%
-%\begin{prop}\label{prop:push-horizontal}
-%Let~$\psi: E \rightarrow E'$ be a horizontal $\ell$-isogeny with direction~$\mu$.
-%For any point~$Q \in E[\ell^\infty]$,
-%if $Q$~is horizontal with direction~$\lambda$,
-%then for any $\ell$-division point $R$ of $Q$, $\psi(R)$ is horizontal with direction~$\lambda$.
-%\end{prop}
-%\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Contribution to modified Couveignes' algorithm}
-We wanted to specify one type of point invariant under $r$-isogeny. %for the mapping candidates.
-\begin{prop}
-Let $\phi:E\rightarrow E'$ be a rational isogeny of degree $r$ prime to $\ell$. The image of a horizontal basis of $E$ by $\phi$ is a horizontal basis of $E'$.
-\end{prop}
-
-%\begin{rem}
-%This image by $\phi$ keep the association between a basis point and the eigenvalue $\lambda$ or $\mu$. 
-%\end{rem}
-
-
-For the interpolation we have to consider different mapping according to the basis we consider:
-\begin{itemize}
-\item a basis of $E[\ell^k]$:
-\[
-P \mapsto a_1 P' + b_1 Q' \quad \quad Q \mapsto a_2 P' + b_2 Q' \quad \textit{with } \left( \begin{matrix}
-a_1 & a_2 \\
-b_1 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-
-\item a horizontal basis of $E[\ell^k]$:
-\[
-\color{red}P\color{black} \mapsto a_1 \color{red}P'\color{blue} \quad \quad Q\color{black} \mapsto b_2 \color{blue}Q'\color{black} \quad \textit{with } \left( \begin{matrix}
-a_1 & 0 \\
-0 & b_2
-\end{matrix}  \right) \textit{ invertible.}
-\]
-\end{itemize}
-\end{frame}
-
-%\begin{frame}
-%\frametitle{Recap}
-%Thanks to the study of the action of the Frobenius we are able to make a one to one correspondance between horizontal $\ell$-isogenies with respect to the eigenvalues: $\lambda, \mu$.
-%
-%\begin{itemize}
-%
-%\item[$\Rightarrow$] We have a one to one correspondence with the kernel of the $\ell^k$-isogenies,
-%
-%
-%\item[$\Rightarrow$] We have a one to one correspondence with cyclic groups of size $\ell^k$,
-%
-%
-%\item[$\Rightarrow$] We have less interpolation trials to do: $O(\ell^{2k})$.
-%
-%\end{itemize}
-%\end{frame}
-
-%\begin{frame}
-%\section{$\ell$-adic tower}
-%\frametitle{Which $\ell^k$ torsion to work with ?}
-%\begin{rem}
-%\begin{itemize}
-%
-%\item As in Couveignes' algorithm we need to determine the image of a number $N$ of points such that: $ N>4 r$
-%
-%\item  As we need a diagonal basis for $\pi \mid T_{\ell}(E) \bmod \ell^k$ we work with $k>h$ to have $\lambda \neq \mu$.
-%
-%\end{itemize} 
-% $\Rightarrow$ we need $k$ such that $\ell^{2k} - \ell^{2k-2} > 4r$ and $k>h$ 
-% 
-% $\Rightarrow$ we need to work in $\ell$ adic extensions
-% \end{rem}
-% 
-%\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\bluebox{}{
-Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\ell$-isogeny works as follows:
+\frametitle{An $\ell$-adic Couveignes' algorithm}
+\bluebox{$\ell$-adic Couveignes' algorithm (crater curves only)}{
 \begin{enumerate}
 \item Fix $k$ such that  $\ell^{2k}>4r$
 \item Compute \textbf{horizontal} bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
@@ -1845,196 +1655,133 @@ Summarizing, our algorithm for two curves on a cyclic crater of a volcano of $\e
 \end{frame}
 
 
-%\begin{frame}
-%\section{$\ell$-adic tower}
-%\frametitle{Efficient constructions of $\ell$-adic tower}
-%
-%Thus to have enough higher $\ell^k$ torsion points defined on the field we work we could need to take several $\ell$-adic extension in Kummer towers. 
-%\newline
-%\begin{itemize}
-%\item For $\ell=2$ we use the construction by [Doliskani-Schost '15] ,
-%%which has the advantages to implement fast operations such as the Frobenius and the root computing,
-%\item For $\ell \neq 2$ we use the construction by [De Feo-Doliskani-Schost '13] with modifications inspired from [Doliskani-Schost '15].
-%\end{itemize}
-%
-%%To work efficiently on this $\ell$-adic tower we work with the construction by [Doliskani-Schost '15] for $\ell=2$ and [De Feo-Doliskani-Schost '13] for $\ell\neq 2$.
-%%\cite{DBLP:journals/dcc/DoliskaniS15}. 
-%
-%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Conclusion}
 
 %\begin{frame}
 %\frametitle{Improving interpolation with the Frobenius}
-%Since the Frobenius acts on $\ell^k$ torsion points and the $r$-isogeny is defined over $\mathbb{F}_q$ Frobenius commutes with the isogeny thus also with the interpolation polynomial A :
-%\[\pi(A(x))=A(\pi(x))\]
+%\begin{figure}[h]
+%\begin{center}
 %
+%\begin{tikzpicture}[scale=0.3]
+%        \coordinate (A) at (0,0);
+%        \coordinate (AB) at (-9,4.25);
+%		\coordinate (AC) at (9,4.25);
+%		\draw (A)--(AB);
+%		\draw (A)--(AC);
+%		\draw (A) node[fill=white]{$\color{red}{T_3}$};
+%		
 %
-%Thus with the previous notation for $E(\mathbb{F}_{q^n})[\ell^{\infty}]=\mathbb{Z}/\ell^{n+\alpha} \mathbb{Z} \times\mathbb{Z}/\ell^{n+\beta} \mathbb{Z}$ with $\langle P \rangle = \mathbb{Z}/\ell^{n+\alpha} \mathbb{Z} $.  In the set:
-%\[ \{ {\color{red}{P}}, \pi(P), \pi^2(P), ..., \pi^{\ell^{n}-1}(P) \} \]
-%we will only consider one representative: $\color{red}{P}$ of the orbit under the Frobenius action.
+%		\coordinate (ABA) at (-12.63,8.5);
+%		%\coordinate (ABA) at (-11.63,8.5);
+%		
+%		\draw (ABA)--(AB);
+%		
+%		\coordinate (ABAb) at (-15.26,12.75);
+%		%\coordinate (ABAb) at (-14.26,12.75);
+%		
+%		\draw (ABA)--(ABAb);
+%		\draw (ABAb) node[fill=white]{$\color{red}{T_0}$};
+%		
+%		\coordinate (ABAa) at (-10,12.75);
+%		%\coordinate (ABAa) at (-9,12.75);
+%		
+%		
+%		\draw (ABA)--(ABAa);
+%		\draw (ABA) node[fill=white]{$\color{red}{T_1}$};
+%		\draw (ABAa) node[fill=white][left]{$\color{red}{\pi^4(T_0)}$};%ancien \pi(T)
+%		
+%		\coordinate (ACA) at (-5.37,8.5);
+%		%\coordinate (ACA) at (-6.37,8.5);
+%		
+%		
+%		\draw (AB)--(ACA);
+%		\draw (AB) node[fill=white]{$\color{red}{T_2}$};
+%		\coordinate (ACAa) at (-8,12.75);
+%		%\coordinate (ACAa) at (-9,12.75);
+%		
+%		
+%		\draw (ACA)--(ACAa);
+%		\draw (ACAa) node[fill=white]{$\pi^2(T_0)$};%ancien \pi^2(T)
+%		
+%		\coordinate (ACAb) at (-2.74,12.75);
+%		%\coordinate (ACAb) at (-3.74,12.75);
+%		
+%		
+%		\draw (ACA)--(ACAb);
+%		\draw (ACAb) node[fill=white]{$\pi^6(T_0)$};%ancien \pi^3(T)
+%		\draw (ACA) node[fill=white]{$\color{red}{\pi^2(T_1)}$};% ancien \pi^2(T_2)
+%		
+%		\begin{scope}[xshift=18cm]
+%		\coordinate (ABA) at (-12.63,8.5);
+%		%\coordinate (ABA) at (-11.63,8.5);
 %
+%		\draw (ABA)--(AC);
+%		
+%		\coordinate (ABAb) at (-15.26,12.75);
+%		%\coordinate (ABAb) at (-14.26,12.75);
+%		
+%		\draw (ABA)--(ABAb);
+%		\draw (ABAb) node[fill=white]{$\pi(T_0)$};%ancien \pi^4(T)
+%		
+%		\coordinate (ABAa) at (-9.7,12.75);
+%		%\coordinate (ABAa) at (-9,12.75);
+%		
+%		
+%		\draw (ABA)--(ABAa);
+%		\draw (ABAa) node[fill=white,left]{$\pi^5(T_0)$};%ancien \pi^5(T)
+%		\draw (ABA) node[fill=white]{$\pi^4(T_1)$};%ancien \pi^4(T_2)
+%		
+%		\coordinate (ACA) at (-5.37,8.5);
+%		%\coordinate (ACA) at (-6.37,8.5);
+%		
+%		
+%		\draw (AC)--(ACA);
+%		\draw (AC) node[fill=white]{$\color{red}{\pi^4(T_2)}$};%ancien \pi^4(T_3)
+%		
+%		\coordinate (ACAa) at (-8,12.75);
+%		%\coordinate (ACAa) at (-9,12.75);
+%		
+%		
+%		\draw (ACA)--(ACAa);
+%		\draw (ACAa) node[fill=white]{$\pi^3(T_0)$};%ancien \pi^6(T)
+%		
+%		\coordinate (ACAb) at (-2.74,12.75);
+%		%\coordinate (ACAb) at (-3.74,12.75);
+%		
+%		
+%		\draw (ACA)--(ACAb);
+%		\draw (ACAb) node[fill=white]{$\pi^7(T_0)$};%ancien \pi^7(T)	
+%		\draw (ACA) node[fill=white]{$\pi^6(T_1)$};%ancien \pi^6(T_2)	
+%		\end{scope}
+%		
+%		\coordinate (A1) at (-16,0);
+%		\coordinate (A2) at (-16,4.25);
+%		\coordinate (A3) at (-16,8.5);
+%		\coordinate (A4) at (-16,12.75);
+%		\draw (A1)--(A2)--(A3)--(A4);
+%		\draw (A1) node{$\bullet$};
+%		\draw (A2) node{$\bullet$};
+%		\draw (A3) node{$\bullet$};
+%		\draw (A4) node{$\bullet$};
+%		\draw (A1) node[left]{$\mathbb{F}_q$};
+%		\draw (A2) node[left]{$\mathbb{F}_{q^\ell}$};
+%		\draw (A3) node[left]{$\mathbb{F}_{q^{\ell^2}}$};
+%		\draw (A4) node[left]{$\mathbb{F}_{q^{\ell^3}}$};
+%\end{tikzpicture}
 %
-%We do this for every representatives of orbits and then with the Frobenius action get a polynomial defined on $\mathbb{F}_q$. 
-%
-%We combine then all those interpolations polynomials with chinese remainder techniques.
-%
-%
+%\end{center}
+%\caption{Subproduct tree}
+%\end{figure}
 %\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{frame}
-% \frametitle{Completing the algorithm for all curves}
-% \bluebox{}{
-% For curves which are not on a cyclic crater of a volcano of $\ell$-isogenies:
-% \begin{enumerate}
-% \item we have to find a suitable $\ell$ such that the volcano has a cyclic crater,
-% \item construct an isogeny walk to the crater,
-% \end{enumerate}
-
-% $\Rightarrow$ we use the algorithm of [Fouquet-Morain 2001]. %\cite{FouquetMorain02}. 
-% }
-% Once we have done this we reduce the problem to the previous case.
-% \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Improving interpolation with the Frobenius}
-\section{Interpolation in $\ell$-adic towers of extension fields}
-\begin{figure}[h]
-\begin{center}
-
-\begin{tikzpicture}[scale=0.3]
-        \coordinate (A) at (0,0);
-        \coordinate (AB) at (-9,4.25);
-		\coordinate (AC) at (9,4.25);
-		\draw (A)--(AB);
-		\draw (A)--(AC);
-		\draw (A) node[fill=white]{$\color{red}{T_3}$};
-		
-
-		\coordinate (ABA) at (-12.63,8.5);
-		%\coordinate (ABA) at (-11.63,8.5);
-		
-		\draw (ABA)--(AB);
-		
-		\coordinate (ABAb) at (-15.26,12.75);
-		%\coordinate (ABAb) at (-14.26,12.75);
-		
-		\draw (ABA)--(ABAb);
-		\draw (ABAb) node[fill=white]{$\color{red}{T_0}$};
-		
-		\coordinate (ABAa) at (-10,12.75);
-		%\coordinate (ABAa) at (-9,12.75);
-		
-		
-		\draw (ABA)--(ABAa);
-		\draw (ABA) node[fill=white]{$\color{red}{T_1}$};
-		\draw (ABAa) node[fill=white][left]{$\color{red}{\pi^4(T_0)}$};%ancien \pi(T)
-		
-		\coordinate (ACA) at (-5.37,8.5);
-		%\coordinate (ACA) at (-6.37,8.5);
-		
-		
-		\draw (AB)--(ACA);
-		\draw (AB) node[fill=white]{$\color{red}{T_2}$};
-		\coordinate (ACAa) at (-8,12.75);
-		%\coordinate (ACAa) at (-9,12.75);
-		
-		
-		\draw (ACA)--(ACAa);
-		\draw (ACAa) node[fill=white]{$\pi^2(T_0)$};%ancien \pi^2(T)
-		
-		\coordinate (ACAb) at (-2.74,12.75);
-		%\coordinate (ACAb) at (-3.74,12.75);
-		
-		
-		\draw (ACA)--(ACAb);
-		\draw (ACAb) node[fill=white]{$\pi^6(T_0)$};%ancien \pi^3(T)
-		\draw (ACA) node[fill=white]{$\color{red}{\pi^2(T_1)}$};% ancien \pi^2(T_2)
-		
-		\begin{scope}[xshift=18cm]
-		\coordinate (ABA) at (-12.63,8.5);
-		%\coordinate (ABA) at (-11.63,8.5);
-
-		\draw (ABA)--(AC);
-		
-		\coordinate (ABAb) at (-15.26,12.75);
-		%\coordinate (ABAb) at (-14.26,12.75);
-		
-		\draw (ABA)--(ABAb);
-		\draw (ABAb) node[fill=white]{$\pi(T_0)$};%ancien \pi^4(T)
-		
-		\coordinate (ABAa) at (-9.7,12.75);
-		%\coordinate (ABAa) at (-9,12.75);
-		
-		
-		\draw (ABA)--(ABAa);
-		\draw (ABAa) node[fill=white,left]{$\pi^5(T_0)$};%ancien \pi^5(T)
-		\draw (ABA) node[fill=white]{$\pi^4(T_1)$};%ancien \pi^4(T_2)
-		
-		\coordinate (ACA) at (-5.37,8.5);
-		%\coordinate (ACA) at (-6.37,8.5);
-		
-		
-		\draw (AC)--(ACA);
-		\draw (AC) node[fill=white]{$\color{red}{\pi^4(T_2)}$};%ancien \pi^4(T_3)
-		
-		\coordinate (ACAa) at (-8,12.75);
-		%\coordinate (ACAa) at (-9,12.75);
-		
-		
-		\draw (ACA)--(ACAa);
-		\draw (ACAa) node[fill=white]{$\pi^3(T_0)$};%ancien \pi^6(T)
-		
-		\coordinate (ACAb) at (-2.74,12.75);
-		%\coordinate (ACAb) at (-3.74,12.75);
-		
-		
-		\draw (ACA)--(ACAb);
-		\draw (ACAb) node[fill=white]{$\pi^7(T_0)$};%ancien \pi^7(T)	
-		\draw (ACA) node[fill=white]{$\pi^6(T_1)$};%ancien \pi^6(T_2)	
-		\end{scope}
-		
-		\coordinate (A1) at (-16,0);
-		\coordinate (A2) at (-16,4.25);
-		\coordinate (A3) at (-16,8.5);
-		\coordinate (A4) at (-16,12.75);
-		\draw (A1)--(A2)--(A3)--(A4);
-		\draw (A1) node{$\bullet$};
-		\draw (A2) node{$\bullet$};
-		\draw (A3) node{$\bullet$};
-		\draw (A4) node{$\bullet$};
-		\draw (A1) node[left]{$\mathbb{F}_q$};
-		\draw (A2) node[left]{$\mathbb{F}_{q^\ell}$};
-		\draw (A3) node[left]{$\mathbb{F}_{q^{\ell^2}}$};
-		\draw (A4) node[left]{$\mathbb{F}_{q^{\ell^3}}$};
-\end{tikzpicture}
-
-\end{center}
-\caption{Subproduct tree}
-\end{figure}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
 \frametitle{Experiments}
-The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$ with the $2$-adic tower construction of [Doliskani-Schost '15].%, the code is available on on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
-Here we can see a graph for a curve defined on $\mathbb{F}_{101}$ for which we compute the algorithm in two part for increasing $r$. The interpolation correspond to only one step of interpolation:
-%Mettre des belles courbes
-\begin{figure}[hbtp]
-\centering
-\includegraphics[scale=0.7]{Images/graphe-101-bis.eps}
-\end{figure}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Experiments}
-Comparisons of execution times (in s) of one interpolation step for various characteristics, for a fixed curve $E$ and increasing $r$.
+The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, the code is available on on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.8]{Images/graphe-101-149-269.pdf}
@@ -2059,7 +1806,7 @@ Comparisons of execution times (in s) of one interpolation step for various char
 \item Give an analogous algorithm for Atkin primes.
 \end{itemize}}
 
-Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
+%Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2285,4 +2032,3 @@ Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_
 %We consider $\phi: E_i \rightarrow E_i/<2^{k-1}P_k^i>=E_{i+1}$. We have $Q_{j+1}^{i+1}=\phi(\frac{Q_j^i}{2}) $ since we can write  $\frac{Q_j^i}{2}= Q_{j+1}^{i}+ a  P_{1}^{i}$
 %\end{proof}
 %\end{frame}
-
