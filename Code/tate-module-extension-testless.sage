@@ -988,6 +988,7 @@ def patch_not_on_volcano(E,b,Tower,l,conservation=None,path,ascending=True)
 	conservation is true it returns the tower under which are defined 
 	points of the elliptic curve E.
 	'''
+	
 
 
 '''
