@@ -736,7 +736,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		P=centering_frob(E,P,Q,Tower,l,k,Lambda_1,h,stair) 
 	return E,P,L
 
-def way_back(P,L):
+def way_back(P,L,isomorphism==None):
 	'''
 	Returns the image of the point P by the successive isogenies contained 
 	in the list L
@@ -770,16 +770,27 @@ def way_back(P,L):
 	nite Field in a of size 101^2 True	
 	'''
 	n=len(L)
-	for i in range(n):
-		phi,Pl=L[-i-1]
-		E=phi.codomain()
-		f=phi.rational_maps()[0]
-		g=phi.rational_maps()[1]
-		P0=f(P[0],P[1])
-		P1=g(P[0],P[1])
-		P=E(P0,P1)#or P=phi(P) but this don t work with sage
-		P=Pl(P)
-	return P
+	if isomorphism==None:
+		for i in range(n):
+			phi,Pl=L[-i-1]
+			E=phi.codomain()
+			f=phi.rational_maps()[0]
+			g=phi.rational_maps()[1]
+			P0=f(P[0],P[1])
+			P1=g(P[0],P[1])
+			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+			P=Pl(P)
+		return P
+	else:
+		for i in range(n):
+			phi=L[i]
+			E=phi.codomain()
+			f=phi.rational_maps()[0]
+			g=phi.rational_maps()[1]
+			P0=f(P[0],P[1])
+			P1=g(P[0],P[1])
+			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+		return P
 
 def tate_module(E,b,Tower,l,conservation=None):
 	'''
@@ -988,7 +999,40 @@ def patch_not_on_volcano(E,b,Tower,l,conservation=None,path,ascending=True)
 	conservation is true it returns the tower under which are defined 
 	points of the elliptic curve E.
 	'''
-	
+	L=[]
+	if ascending:
+		for phi in path:
+			E2=phi.codomain();
+			phi=phi.dual()
+			L.append(phi)
+		L.reverse()
+		if conservation==None:
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E,b,Tower,l,conservation=None)
+		else:
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E,b,Tower,l,conservation)
+		for l in range(len(path)):
+			phi=path[len(path)-1-l]
+			phi=phi.dual() 
+		P=way_back(P,
+		P,Q=push_phi(phi,P,Q) # la reside la difficulte
+	else:
+		L=[]
+		for l in range(len(path)):
+			phi=path[len(path)-1-l]	
+			phi=phi.dual()
+			L.append(phi)
+			E2=phi.codomain();
+		if conservation==None:
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E,b,Tower,l,conservation=None)
+		else:
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E,b,Tower,l,conservation)
+		for l in range(len(path)):
+			phi=path[l]
+			P,Q=push_phi(phi,P,Q) # la reside la difficulte
+	if conservation==None:	
+		return   E,P,Q,k2,Lambda_1,Lambda_2
+	else:
+		return 	 E,P,Q,k2,Lambda_1,Lambda_2,Tower
 
 
 '''
