@@ -695,6 +695,10 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 	sage: print P,P.order(),Q,Q.order(), Q.xy()[0]^101==(5*Q).xy()[0]
 	(67 : 53 : 1) 8 (41*a + 33 : 46*a + 68 : 1) 8 True
 	'''
+
+	### Improvements possible, ideas to take from dual_isogeny
+
+
 	#we compute an l-torsion point which will allow us to compute later 
 	#horizontal l-iosgeny
 	Q2=l**(k-1)*Q
@@ -713,7 +717,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		Q=E(Q0,Q1)
 		Q2=phi(Q2)
 		#here we compute the dual isogeny of phi
-		psi=E.isogeny(R([-Q2[0],1]),degree=2)
+		psi=E.isogeny(kernel=R([-Q2[0],1]),degree=2)	
 		K=Tower._base
 		#we compute also the weierstrass isomorphism to make all those
 		#isogeny constructed compatible
@@ -774,7 +778,6 @@ def way_back(P,L,isomorphism=None):
 		for i in range(n):
 			phi,Pl=L[-i-1]
 			E=phi.codomain()
-			print 'E avant',E
 			f=phi.rational_maps()[0]
 			g=phi.rational_maps()[1]
 			P0=f(P[0],P[1])
@@ -782,30 +785,9 @@ def way_back(P,L,isomorphism=None):
 			P=E(P0,P1)#or P=phi(P) but this don t work with sage
 			P=Pl(P)
 		return P
-	elif(isomorphism==True):
-		print 'la aussi on est dans le bon embranchement'
-		for i in range(n):
-			phi,Pl=L[i]
-			print 'L[i]',L[i],'P.curve().j_invariant()',P.curve().j_invariant(),'phi.domain().j_invariant()',phi.domain().j_invariant(),'phi.codomain().j_invariant()',phi.codomain().j_invariant(),'P.curve()==phi.domain()',P.curve()==phi.domain(),P.curve().base_field()
-			R=PolynomialRing(P.curve().base_field(),'x')
-			S=phi.kernel_polynomial()[0]
-			print "c est la que ca va foirer", "S",S,'phi.kernel_polynomial()',phi.kernel_polynomial()
-			phi=P.curve().isogeny(R([S,1]),degree=2)
-			E=phi.codomain()
-			f=phi.rational_maps()[0]
-			g=phi.rational_maps()[1]	
-			P0=f(P[0],P[1])
-			P1=g(P[0],P[1])
-			print 'P0',P0,'P1',P1,'E',E
-			P=E(P0,P1)#or P=phi(P) but this don t work with sage
-			P=Pl(P)
-			print 'E',E,'P.curve()==E',P.curve()==E
-		return
 	else:
-		print 'bon embranchement'
 		for i in range(n):
 			phi=L[i]
-			print 'phi.codomain().j_invariant()',phi.codomain().j_invariant(),'phi.domain().j_invariant()',phi.domain().j_invariant();
 			R=PolynomialRing(P.curve().base_field(),'x')
 			S=phi.kernel_polynomial()[0]
 			phi=P.curve().isogeny(R([S,1]),degree=2)
@@ -814,10 +796,7 @@ def way_back(P,L,isomorphism=None):
 			g=phi.rational_maps()[1]	
 			P0=f(P[0],P[1])
 			P1=g(P[0],P[1])
-			print 'P0',P0,'P1',P1,'E',E
 			P=E(P0,P1)#or P=phi(P) but this don t work with sage
-			print 'E',E
-	
 		return P
 
 def tate_module(E,b,Tower,l,conservation=None):
@@ -1148,7 +1127,6 @@ def dual_isogeny(phi):
 	E2bis=phi2.codomain()
 	#Pm=wm.isomorphisms(E2bis,E_1,True) 
 	#Pl=wm.WeierstrassIsomorphism(E2bis, Pm ,E_1)
-	print phi2.codomain()==phi.domain(), phi.codomain()==phi2.domain()
 	return phi2
 
 
