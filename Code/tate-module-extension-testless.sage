@@ -782,6 +782,25 @@ def way_back(P,L,isomorphism=None):
 			P=E(P0,P1)#or P=phi(P) but this don t work with sage
 			P=Pl(P)
 		return P
+	elif(isomorphism==True):
+		print 'la aussi on est dans le bon embranchement'
+		for i in range(n):
+			phi,Pl=L[i]
+			print 'L[i]',L[i],'P.curve().j_invariant()',P.curve().j_invariant(),'phi.domain().j_invariant()',phi.domain().j_invariant(),'phi.codomain().j_invariant()',phi.codomain().j_invariant(),'P.curve()==phi.domain()',P.curve()==phi.domain(),P.curve().base_field()
+			R=PolynomialRing(P.curve().base_field(),'x')
+			S=phi.kernel_polynomial()[0]
+			print "c est la que ca va foirer", "S",S,'phi.kernel_polynomial()',phi.kernel_polynomial()
+			phi=P.curve().isogeny(R([S,1]),degree=2)
+			E=phi.codomain()
+			f=phi.rational_maps()[0]
+			g=phi.rational_maps()[1]	
+			P0=f(P[0],P[1])
+			P1=g(P[0],P[1])
+			print 'P0',P0,'P1',P1,'E',E
+			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+			P=Pl(P)
+			print 'E',E,'P.curve()==E',P.curve()==E
+		return
 	else:
 		print 'bon embranchement'
 		for i in range(n):
@@ -798,6 +817,7 @@ def way_back(P,L,isomorphism=None):
 			print 'P0',P0,'P1',P1,'E',E
 			P=E(P0,P1)#or P=phi(P) but this don t work with sage
 			print 'E',E
+	
 		return P
 
 def tate_module(E,b,Tower,l,conservation=None):
@@ -1011,13 +1031,15 @@ def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 	if ascending:
 		for phi in path:
 			E2=phi.codomain();
-			phi=phi.dual()
+			phi=dual_isogeny(phi)
 			L.append(phi)
 		L.reverse()
 		if conservation==None:
 			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
 		else:
 			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
+		P=way_back(P,L,isomorphism=False)
+		Q=way_back(Q,L,isomorphism=False)
 	elif(ascending==False):
 		L=[]
 		E2=path[0].domain()
@@ -1029,12 +1051,12 @@ def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
 		else:
 			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
+		P=way_back(P,L,isomorphism=False)
+		Q=way_back(Q,L,isomorphism=False)
 	else:
 		print "definissez l'ascendance du chemin True or False"
 		return 0
 	print 'P',P,'Q',Q
-	P=way_back(P,L,isomorphism=False)
-	Q=way_back(Q,L,isomorphism=False)
 	if conservation==None:	
 		return   E,P,Q,k2,Lambda_1,Lambda_2
 	else:
@@ -1111,6 +1133,23 @@ def division_point_q(l,P,E):
 	if (i==len(L) and len(ans)==0):
 		return P
         return ans[0]
+
+
+def dual_isogeny(phi):
+	'''
+	Returns the dual isogeny of the 2-isogeny in input
+	'''
+	E_1=phi.domain()
+	E_2=phi.codomain()
+	L2=E_2(0).division_points(2)
+	for l in L2:
+		if E_2.isogeny(kernel=l,degree=2).codomain().j_invariant()==E_1.j_invariant():
+			phi2=E_2.isogeny(kernel=l,codomain=E_1,degree=2)
+	E2bis=phi2.codomain()
+	#Pm=wm.isomorphisms(E2bis,E_1,True) 
+	#Pl=wm.WeierstrassIsomorphism(E2bis, Pm ,E_1)
+	print phi2.codomain()==phi.domain(), phi.codomain()==phi2.domain()
+	return phi2
 
 
 def fonction_test_point_redresse(P,l,k):
