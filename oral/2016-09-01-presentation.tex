@@ -1148,21 +1148,11 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 \begin{tikzpicture}[scale=0.40]
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$\bullet$};
-		\node (B) at (3,0) {$\bullet$};
-		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\only<1-1>{
-		\draw[-] (A.center) to[bend left=40] (B.center);
-		}
-		\only<2-2>{
-		\draw[-,line width=1.5pt,color=blue!30] (A.center) to[bend left=40] (B.center);
-		}
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+		\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
+		\node[fill=pacificcream] (B) at (3,0) {$E_1$};
+		\node[fill=pacificcream] (C) at (270:1.2) {$E$};
+		\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
+		%\draw[-] (A.center) to[bend right=25] (C.center);			
 			\begin{scope}[xshift=-3cm]
 			\coordinate (A) at (0,0);
 			\coordinate (C) at (270:4.2);
@@ -1170,21 +1160,20 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 			\coordinate (CB) at (275:7.5);
 			\coordinate (A2) at (0.15,0);
 			\coordinate (C2) at (271.95:4.5);
-			\only<1-1>{
+			\only<1>{
 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
 			\draw (C)--(CA);
 			}
-			\only<2-2>{
+			\only<2>{
 			\draw (C)--(CB);
-			\draw [line width=1.5pt,color=red!30,->] (C)--(CA);
-			\draw [line width=1.5pt,color=blue!30,->] (C2)--(A2);			
+			\draw [line width=1.5pt,color=red!30,->] (C)--(CA);			
 			}
 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
 %			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=pacificcream]{$E_2$};
+%			\draw (A) node[fill=pacificcream]{$E_2$};
 			\draw (C) node[fill=pacificcream]{$\bullet$};
 			\draw (CA) node[fill=pacificcream]{$\bullet$};
 			\draw (CB) node[fill=pacificcream]{$\bullet$};
@@ -1206,7 +1195,7 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 %			\draw (C) node[fill=white]{$60$};
 %			\draw (CA) node[fill=white]{$39$};
 %			\draw (CB) node[fill=white]{$62$};
-			\draw (A) node[fill=pacificcream]{$E_1$};
+%			\draw (A) node[fill=pacificcream]{$E_1$};
 			\draw (C) node[fill=pacificcream]{$\bullet$};
 			\draw (CA) node[fill=pacificcream]{$\bullet$};
 			\draw (CB) node[fill=pacificcream]{$\bullet$};
@@ -1223,11 +1212,43 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 %			\draw (C) node[fill=white]{$27$};
 %			\draw (CA) node[fill=white]{$45$};
 %			\draw (CB) node[fill=white]{$68$};
-			\draw (A) node[fill=pacificcream]{$E$};
+%			\draw (A) node[fill=pacificcream]{$E$};
 			\draw (C) node[fill=pacificcream]{$\bullet$};
 			\draw (CA) node[fill=pacificcream]{$\bullet$};
 			\draw (CB) node[fill=pacificcream]{$\bullet$};
 			\end{scope}
+			\begin{scope}[shift={(D)}]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw [dashed] (C)--(CA);
+			\draw [dashed] (C)--(CB);
+			\only<1>{\draw [dashed] (A)--(C);}
+			\only<2>{\draw [dashed] (A)--(C);}
+			\draw (C) node[fill=pacificcream,]{$\bullet$};
+			\draw (CA) node[color=black!90]{$\bullet$};
+			\draw (CB) node[color=black!90]{$\bullet$};
+			\end{scope}
+	\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
+	\node[fill=pacificcream] (B) at (3,0) {$E_1$};
+	\node[fill=pacificcream] (C) at (270:1.2) {$E$};
+	\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
+	\only<1>{
+	\draw[-] (A.center) to[bend left=40] (B.center);
+	}
+	\only<2>{
+	\draw[-,line width=1.5pt,color=blue] (D.center) to[bend left=30] (B.center);
+	\draw[-,line width=1.5pt,color=blue] (D.center) to[bend right=30] (A.center);
+	}
+	%\draw[-] (B.center) to[bend left=25] (C.center);
+	%\draw[-,dashed] (B.center) to[bend right] (D.center);
+	\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
+	\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);		
+	\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
+	\node[fill=pacificcream] (B) at (3,0) {$E_1$};
+	\node[fill=pacificcream] (C) at (270:1.2) {$E$};
+	\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
 	\end{scope}
 \end{scope}
 \end{tikzpicture}
@@ -1419,9 +1440,10 @@ Assume that $k \geqslant h+1$.
 		\node (A) at (-3,0) {$\bullet$};
 		\node (B) at (3,0) {$\bullet$};
 		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
+		\node (D) at (125:1.2) {$E_2$};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-] (A.center) to[bend left=40] (B.center);
+		\draw[-] (D.center) to[bend left=18] (B.center);
+		\draw[-] (D.center) to[bend right=18] (A.center);
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
 		\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
@@ -1438,7 +1460,7 @@ Assume that $k \geqslant h+1$.
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
 %			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
+			\draw (A) node[fill=white]{$E_3$};
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1476,6 +1498,19 @@ Assume that $k \geqslant h+1$.
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
+			\end{scope}
+			\begin{scope}[shift={(D)}]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw [dashed] (C)--(CA);
+			\draw [dashed] (C)--(CB);
+			\draw [dashed] (A)--(C);
+			\draw (A) node[fill=white]{$E_2$};
+			\draw (C) node[color=black!90]{$\bullet$};
+			\draw (CA) node[color=black!90]{$\bullet$};
+			\draw (CB) node[color=black!90]{$\bullet$};
 			\end{scope}
 	\end{scope}
 \end{scope}
@@ -1528,19 +1563,22 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 		\node (A) at (-3,0) {$\bullet$};
 		\node (B) at (3,0) {$\bullet$};
 		\node (C) at (270:1.2) {$\bullet$};
-		\node (D) at (90:1.5) {};
+		\node (D) at (125:1.2) {$E_2$};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
 		\only<1-2>{		
-		\draw[-] (A.center) to[bend left=40] (B.center);
+		\draw[-] (D.center) to[bend left=18] (B.center);
+		\draw[-] (D.center) to[bend right=20] (A.center);
 		}
 		\only<3-3>{
-		\draw[line width=1.5pt,blue,->] (A.center) to[bend left=40] (B.center);
-		\node (F) at (0,1.5) {$\color{blue} \mu$};
-		\node (F2) at (0,0.75) {$\color{blue} \psi_2$};		
+		\draw[line width=1.5pt,blue,->] (D.center) to[bend left=20] (B.center);
+		\draw[-] (D.center) to[bend right=20] (A.center);
+		\node (F) at (1.25,1.30) {$\color{blue} \mu$};
+		\node (F2) at (1.25,0.50) {$\color{blue} \psi_2$};		
 		}
 		\only<4->{
-		\draw[line width=1.5pt,red,->] (A.center) to[bend left=40] (B.center);
-		\node (F) at (0,1.5) {$\color{red} \lambda$};		
+		\draw[line width=1.5pt,red,->] (D.center) to[bend left=20] (B.center);
+		\draw[-] (D.center) to[bend right=20] (A.center);
+		\node (F) at (1.25,1.30) {$\color{red} \lambda$};		
 		}
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
@@ -1574,8 +1612,7 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
 %			\draw (CB) node[fill=white]{$74$};
-			\draw (A) node[fill=white]{$E_2$};
-			\only<4->{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
+			\draw (A) node[fill=white]{$E_3$};
 			\draw (C) node[fill=white]{$\bullet$};
 			\draw (CA) node[fill=white]{$\bullet$};
 			\draw (CB) node[fill=white]{$\bullet$};
@@ -1613,6 +1650,20 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 			\draw (CB) node[fill=white]{$\bullet$};
 %			\draw (CA) node[fill=white]{$45$};
 %			\draw (CB) node[fill=white]{$68$};
+			\end{scope}
+			\begin{scope}[shift={(D)}]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw [dashed] (C)--(CA);
+			\draw [dashed] (C)--(CB);
+			\draw [dashed] (A)--(C);
+			\draw (C) node[color=black!90]{$\bullet$};
+			\draw (CA) node[color=black!90]{$\bullet$};
+			\draw (CB) node[color=black!90]{$\bullet$};
+			\only<1-3>{\draw (A) node[fill=white]{$E_2$};}			
+			\only<4->{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
 			\end{scope}
 	\end{scope}
 \end{scope}
