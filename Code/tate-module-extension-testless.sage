@@ -736,7 +736,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		P=centering_frob(E,P,Q,Tower,l,k,Lambda_1,h,stair) 
 	return E,P,L
 
-def way_back(P,L,isomorphism==None):
+def way_back(P,L,isomorphism=None):
 	'''
 	Returns the image of the point P by the successive isogenies contained 
 	in the list L
@@ -850,6 +850,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 
 
 	'''
+	print 'l',l
 	K=E.base_field()
 	if Tower.cardinality_field(Tower._levels[1])!=Tower.cardinality_field(Tower._levels[0])**2:
 		#we made a Tower compatible with the one in 
@@ -975,7 +976,7 @@ def tate_module(E,b,Tower,l,conservation=None):
 		return E2,P,Q,k2,Lambda_1,Lambda_2,Tower
 
 
-def patch_not_on_volcano(E,b,Tower,l,conservation=None,path,ascending=True)
+def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 	'''
 	Return a basis (P,Q) of E with P,Q of order l**k such that
 	P and Q generates asending isogenies until they reach the crater, where
@@ -1007,28 +1008,27 @@ def patch_not_on_volcano(E,b,Tower,l,conservation=None,path,ascending=True)
 			L.append(phi)
 		L.reverse()
 		if conservation==None:
-			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E,b,Tower,l,conservation=None)
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
 		else:
-			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E,b,Tower,l,conservation)
-		for l in range(len(path)):
-			phi=path[len(path)-1-l]
-			phi=phi.dual() 
-		P=way_back(P,
-		P,Q=push_phi(phi,P,Q) # la reside la difficulte
-	else:
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
+	elif(ascending==False):
 		L=[]
-		for l in range(len(path)):
-			phi=path[len(path)-1-l]	
-			phi=phi.dual()
+		E2=path[0].domain()
+		for r in range(len(path)):
+			phi=path[len(path)-1-r]	
+			print 'phi',phi,'phi.is_normalized',phi.is_normalized()
 			L.append(phi)
-			E2=phi.codomain();
+			print 'L',L
+		print 'L',L
 		if conservation==None:
 			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E,b,Tower,l,conservation=None)
 		else:
 			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E,b,Tower,l,conservation)
-		for l in range(len(path)):
-			phi=path[l]
-			P,Q=push_phi(phi,P,Q) # la reside la difficulte
+	else:
+		print "definissez l'ascendance du chemin"
+		return 0
+	P=way_back(P,L,isomorphism=False)
+	Q=way_back(Q,L,isomorphism=False)
 	if conservation==None:	
 		return   E,P,Q,k2,Lambda_1,Lambda_2
 	else:
