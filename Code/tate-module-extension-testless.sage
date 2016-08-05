@@ -1005,6 +1005,74 @@ def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 	(P,Q) of E with P,Q of order l**k such that l**{2k}>b.  and if 
 	conservation is true it returns the tower under which are defined 
 	points of the elliptic curve E.
+
+	Examples:
+	Ascending one:
+	sage: E=EllipticCurve(j=FiniteField(101)(39))
+	sage: if E.cardinality()!=96:
+	....:           E=E.quadratic_twist();
+	....: 
+	sage: L2=E(0).division_points(2);
+	sage: for l in L2:
+	....:         if E.isogeny_codomain(l).j_invariant()==60:
+	....:           phi=E.isogeny(l);
+	....:         
+	sage: d1=phi;
+	sage: E1=d1.codomain();
+	sage: L12=E1(0).division_points(2); 
+	sage: for l in L12:
+	....:         if E1.isogeny_codomain(l).j_invariant()==65:
+	....:           phi=E1.isogeny(l);
+	....:         
+	sage: d2=phi;
+	sage: E2=d2.codomain();
+	sage: L=[d1,d2]
+	sage: K=Tower_two(FiniteField(101),1)
+	sage: M=patch_not_on_crater(E,12,K,2,L,conservation=None,ascending=True)
+	P (94 : 86 : 1) Q (80*x1 + 49 : 65*x1 + 34 : 1)
+	sage: M
+	(Elliptic Curve defined by y^2 = x^3 + 94*x + 50 over Finite Field of size 101,
+	 (94 : 86 : 1),
+	 (80*x1 + 49 : 65*x1 + 34 : 1),
+	 3,
+	 1,
+	 5)
+	sage: E
+	Elliptic Curve defined by y^2 = x^3 + 94*x + 50 over Finite Field of size 101
+
+	--------------------------------------------------------------------------
+	Descending one:
+	sage: E=EllipticCurve(j=FiniteField(101)(65))
+	sage: if E.cardinality()!=96:
+	....:           E=E.quadratic_twist();
+	....:     
+	sage: L2=E(0).division_points(2);
+	sage: for l in L2:
+	....:         if E.isogeny_codomain(l).j_invariant()==60:
+	....:           phi=E.isogeny(l);
+	....:         
+	sage: d1=phi;
+	sage: E1=d1.codomain();
+	sage: L12=E1(0).division_points(2); 
+	sage: for l in L12:
+	....:         if E1.isogeny_codomain(l).j_invariant()==39:
+	....:           phi=E1.isogeny(l);
+	....:         
+	sage: d2=phi;
+	sage: E2=d2.codomain();
+	sage: L=[d1,d2]
+	sage: K=Tower_two(FiniteField(101),1)
+	sage: M=patch_not_on_crater(E2,12,K,2,L,conservation=None,ascending=False)
+	P (61 : 32 : 1) Q (3*x1 + 73 : 46*x1 + 16 : 1)
+	sage: M
+	(Elliptic Curve defined by y^2 = x^3 + 34*x + 27 over Finite Field of size 101,
+ 	(61 : 32 : 1),
+	 (3*x1 + 73 : 46*x1 + 16 : 1),
+	 3,
+	 1,
+	 5)
+	sage: E2
+	Elliptic Curve defined by y^2 = x^3 + 34*x + 27 over Finite Field of size 101
 	'''
 	L=[]
 	if ascending:
@@ -1023,9 +1091,8 @@ def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 		L=[]
 		E2=path[0].domain()
 		for r in range(len(path)):
-			phi=path[len(path)-1-r]	
+			phi=path[r]	
 			L.append(phi)
-		print 'L',L
 		if conservation==None:
 			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
 		else:
@@ -1117,6 +1184,28 @@ def division_point_q(l,P,E):
 def dual_isogeny(phi):
 	'''
 	Returns the dual isogeny of the 2-isogeny in input
+
+	Input:
+	-phi a 2-isogeny
+
+	Output:
+	-phi2 a 2-isogeny which is dual to phi
+
+	Example:
+	sage: E=EllipticCurve(j=FiniteField(101)(65))
+	sage: if E.cardinality()%2!=0:
+	....:     E=E.quadratic_twist()
+	sage: L2=E(0).division_points(2)
+	sage: len(L2)
+	4
+	sage: phi=E.isogeny(L2[2]); phi
+	Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 75*x +
+	 74 over Finite Field of size 101 to Elliptic Curve defined by y^2 	
+	= x^3 + 21*x + 2 over Finite Field of size 101
+	sage: dual_isogeny(phi)
+	Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 21*x + 2
+	 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 +
+	 75*x + 74 over Finite Field of size 101
 	'''
 	E_1=phi.domain()
 	E_2=phi.codomain()
