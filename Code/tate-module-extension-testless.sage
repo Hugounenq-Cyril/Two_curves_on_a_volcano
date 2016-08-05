@@ -774,6 +774,7 @@ def way_back(P,L,isomorphism=None):
 		for i in range(n):
 			phi,Pl=L[-i-1]
 			E=phi.codomain()
+			print 'E avant',E
 			f=phi.rational_maps()[0]
 			g=phi.rational_maps()[1]
 			P0=f(P[0],P[1])
@@ -782,14 +783,21 @@ def way_back(P,L,isomorphism=None):
 			P=Pl(P)
 		return P
 	else:
+		print 'bon embranchement'
 		for i in range(n):
 			phi=L[i]
+			print 'phi.codomain().j_invariant()',phi.codomain().j_invariant(),'phi.domain().j_invariant()',phi.domain().j_invariant();
+			R=PolynomialRing(P.curve().base_field(),'x')
+			S=phi.kernel_polynomial()[0]
+			phi=P.curve().isogeny(R([S,1]),degree=2)
 			E=phi.codomain()
 			f=phi.rational_maps()[0]
-			g=phi.rational_maps()[1]
+			g=phi.rational_maps()[1]	
 			P0=f(P[0],P[1])
 			P1=g(P[0],P[1])
+			print 'P0',P0,'P1',P1,'E',E
 			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+			print 'E',E
 		return P
 
 def tate_module(E,b,Tower,l,conservation=None):
@@ -850,7 +858,6 @@ def tate_module(E,b,Tower,l,conservation=None):
 
 
 	'''
-	print 'l',l
 	K=E.base_field()
 	if Tower.cardinality_field(Tower._levels[1])!=Tower.cardinality_field(Tower._levels[0])**2:
 		#we made a Tower compatible with the one in 
@@ -1016,17 +1023,16 @@ def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
 		E2=path[0].domain()
 		for r in range(len(path)):
 			phi=path[len(path)-1-r]	
-			print 'phi',phi,'phi.is_normalized',phi.is_normalized()
 			L.append(phi)
-			print 'L',L
 		print 'L',L
 		if conservation==None:
-			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E,b,Tower,l,conservation=None)
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
 		else:
-			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E,b,Tower,l,conservation)
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
 	else:
-		print "definissez l'ascendance du chemin"
+		print "definissez l'ascendance du chemin True or False"
 		return 0
+	print 'P',P,'Q',Q
 	P=way_back(P,L,isomorphism=False)
 	Q=way_back(Q,L,isomorphism=False)
 	if conservation==None:	
