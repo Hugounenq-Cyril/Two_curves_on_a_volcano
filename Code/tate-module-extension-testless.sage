@@ -1180,6 +1180,39 @@ def division_point_q(l,P,E):
 		return P
         return ans[0]
 
+def transform_path(L,E):
+	'''
+	Input:
+	L a list of j-invariants of curve 2-isogenous
+	E the starting curve of the list L
+	
+	Output:
+	LP a list of isogenies that link the curves with j-invariants from the list
+
+	Example:
+	sage: E=EllipticCurve(j=FiniteField(101)(39))
+	sage: if E.cardinality()!=96:
+	....:     E=E.quadratic_twist()
+	....:
+	sage: if E.cardinality()!=96:
+	....:     E=E.quadratic_twist()
+	....:     
+	sage: LP=transform_path(L,E) 
+	[Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 66*x + 39 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 + 80*x + 20 over Finite Field of size 101,
+ Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 80*x + 20 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 + 12*x + 92 over Finite Field of size 101]
+	sage: LP[1].codomain().j_invariant()
+	65
+	'''
+	LP=[]
+	for j in L:
+		L2=E(0).division_points(2)
+		for l in L2:
+			if E.isogeny(kernel=l,degree=2).codomain().j_invariant()==j:
+				phi2=E.isogeny(kernel=l,degree=2)
+				LP.append(phi2)
+				E=phi2.codomain()
+	return LP		
+
 
 def dual_isogeny(phi):
 	'''
