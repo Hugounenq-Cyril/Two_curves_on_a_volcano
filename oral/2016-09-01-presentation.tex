@@ -124,7 +124,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
 \begin{itemize}
  \item group morphisms (with finite kernel),
- \item rational maps.
+ \item rational maps (of finite degree).
 \end{itemize}
  
 \item  If the isogeny has degree $\ell$, we call it an \emph{$\ell$-isogeny},
@@ -138,7 +138,7 @@ Explicit isogenies in quadratic time in any characteristic}
 \pause
 
 \begin{thm} 
-Let $G\subset E$ be a subgroup of points of order $\ell$. There is a unique isogeny $\phi:E\to E'$ of degree $\ell$ such that $\ker\phi = G$.
+Let $G\subset E$ be a subgroup of points of order $\ell$. There is an isogeny $\phi:E\to E'$ of degree $\ell$ such that $\ker\phi = G$.
 \end{thm}
 
 For \emph{separable} isogenies, this defines a bijection between isogenies and finite subgroups.
@@ -170,11 +170,11 @@ with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\el
 %\end{exe}
 
 \begin{rem}[V\'elu's formulas]
-From the knowledge of its kernel we can explicitly write down the isogeny (and reciprocally):
+From the knowledge of its kernel we can explicitly write down the isogeny:
 \begin{itemize}
     \item Let $G=\ker\phi$, then $\displaystyle d(x)=\prod_{x_i \in G\setminus\{0_E\}}(X-x_i)$;
     \item V\'elu's formulas: from $d(x)$ we deduce $n(x)/d(x)$;
-    \item Complexity quasi-linear in $\ell = \#G$.
+    %\item Complexity quasi-linear in $\ell = \#G$.
 \end{itemize}
 \end{rem}
 
@@ -216,8 +216,8 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \begin{itemize}
 \item{} [Elkies '92/'98],  [Charlap, Colay, Robbins '91], [Bostan, Morain, Salvy, Schost '08] work only for $r < 2p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$.
 \item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
-\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
 \item{} [Lercier '97] only $p=2$.
+\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
 \item{} [Lercier, Sirvent '08], [Lairez, Vaccon '16] works for every $p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$
 \end{itemize}
 \begin{itemize}
@@ -274,10 +274,10 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 \end{algorithmic}}
 
 \begin{enumerate}
-\item Fix $k$ such that $p^k>4r$;
+\item Fix the least $k$ such that $p^k>4r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
-\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
+\item Compute ~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
   $x$-coordinates of $\langle P\rangle$;
 
 \item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:\hfill $O(r)$
