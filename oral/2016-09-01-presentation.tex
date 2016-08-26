@@ -241,11 +241,11 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 
 \orangebox{Torsion points}{
 Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_q$, and let $m>0$
-\vspace{-0.5mm}
+\vspace{-1.5mm}
 \[E[m]= \{ P \in E(\bar{\mathbb{F}}_q) , mP=0_E \} \]
 
 For \emph{ordinary} elliptic curves
-\vspace{-0.5mm}
+\vspace{-1.5mm}
 \begin{align*}
 E[\ell^k]&\simeq\mathbb{Z}/\ell^k\mathbb{Z} \times \mathbb{Z}/\ell^k\mathbb{Z} \quad \textit{with } \ell \neq p \\
 E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
@@ -268,7 +268,7 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 
 \begin{frame}
 \frametitle{Couveignes algorithm (1996)}
-\bluebox{Couveignes' algorithm}{ %\cite{DBLP:conf/ants/Couveignes96}}{
+\bluebox{}{ %\cite{DBLP:conf/ants/Couveignes96}}{
 \begin{algorithmic}[1]
 \REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{p^n}$ 
 \ENSURE $\phi: E \rightarrow E'$ of degree $r$
@@ -296,7 +296,7 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
     stop.
   \end{enumerate}
 \end{enumerate}
-Complexity polynomial in $p$. \textbf{Goal:} replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.
+Complexity polynomial in $p$. \bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -971,8 +971,8 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 \begin{enumerate}
 \item Least $k$ such that  $\ell^{2k}>4r$
 \item \textbf<3>{Compute bases of $T_\ell(E)$ and $T_\ell(E')$;}
-\item Diagonalize $\to$ ${\color{red}T_\lambda(E)}\oplus\color{blue}T_\mu(E)$ and ${\color{red}T_\lambda(E')}\oplus\color{blue}T_\mu(E')$
-\item Reduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\item Diagonalize $\to$ ${\color{red}{T_\lambda(E)}}\oplus\color{blue}{T_\mu(E)} \color{black} \bmod \ell^k$ and ${\color{red}{T_\lambda(E')}}\oplus\color{blue}{T_\mu(E')} \color{black}\bmod \ell^k$
+\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
 \item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
@@ -1415,10 +1415,12 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 \frametitle{How to \textit{straighten} a diagonal basis}
 \begin{columns}
 
-\begin{column}{4cm}
+\begin{column}{5.5cm}
 \begin{exe}[$h=2$]
-We are given a diagonal basis $\langle\red P,\blu Q\rangle = E[\ell^k]$ 
+\begin{algorithmic}[1]
+\REQUIRE a diagonal basis $\langle\red P,\blu Q\rangle = E[\ell^k]$ 
 \[
+\pi : 
 \begin{pmatrix}\red P\\\blu Q\end{pmatrix}
 \mapsto
 \left( \begin{matrix}
@@ -1426,13 +1428,14 @@ We are given a diagonal basis $\langle\red P,\blu Q\rangle = E[\ell^k]$
 0 & \blue \mu 
 \end{matrix} \right) 
 \begin{pmatrix}\red P\\\blu Q\end{pmatrix}
-\]
+\] assuming that $k \geqslant h+1$.
+\ENSURE $\langle \red P, \blu Q \rangle$ an $\ell^k$  horizontal basis.
+\end{algorithmic}
 
-Assume that $k \geqslant h+1$.
 \end{exe}
 \end{column}
 
-\begin{column}{7cm}
+\begin{column}{6.5cm}
 \begin{figure}[h]
 		\begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1683,10 +1686,10 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 \frametitle{An $\ell$-adic Couveignes' algorithm}
 \bluebox{$\ell$-adic Couveignes' algorithm (crater curves only)}{
 \begin{enumerate}
-\item Fix $k$ such that  $\ell^{2k}>4r$
+\item Least $k$ such that  $\ell^{2k}>4r$
 \item Compute \textbf{horizontal} bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
   $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
-\item Compute the polynomial~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
+\item Compute ~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
   with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
   %[De Feo '10] and [Enge-Morain '03];
 \item For each \textbf{invertible diagonal} matrix
