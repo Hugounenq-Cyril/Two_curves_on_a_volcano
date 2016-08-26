@@ -1022,15 +1022,27 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 \frametitle{Computing $\red{T_{\lambda}(E)} \oplus \blu{T_{\mu}(E)} \bmod \ell^k $}
 \begin{columns}
 \begin{column}{6cm}
+
 \begin{exe}[Volcano of height=0]
 
-The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathrm{Cl}(K)$ act on the crater:
+%The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathrm{Cl}(K)$ act on the crater:
 
-\begin{enumerate}
+%\begin{enumerate}
+Our goal is to compute an isogeny cycle, differently from [Couveignes-Morain '94].
+
+\vspace{-0.5mm}
+\begin{itemize}
 \item $\red{T_\lambda(E)\bmod\ell}$ and $\blu{T_\mu(E)\bmod\ell}$ are
     kernels of \textbf{horizontal isogenies} of opposite direction.
-\item The directions are independent of the curve.
-\end{enumerate}
+  
+$\Rightarrow$ They are computed with diagonalisation of $\pi | E[\ell]$.
+%J'enlèverai éventuellement ce qu'il y a sur la ligne juste au-desus
+
+\item we repeat this on $k$ curves to get the isogeny cycle.
+
+\end{itemize}
+%\item The directions are independent of the curve.
+%\end{enumerate}
 
 In practice, 
 \begin{itemize}
@@ -1836,7 +1848,7 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 
 \begin{frame}
 \frametitle{Experiments}
-The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, the code is available on on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
+The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, the code is available on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.8]{Images/graphe-101-149-269.pdf}
