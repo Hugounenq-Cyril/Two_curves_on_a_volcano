@@ -1441,7 +1441,8 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 \end{matrix} \right) 
 \begin{pmatrix}\red P\\\blu Q\end{pmatrix}
 \] assuming that $k \geqslant h+1$.
-\ENSURE $\langle \red P, \blu Q \rangle$ an $\ell^k$  horizontal basis.
+\ENSURE $\langle \red P, \blu Q \rangle$ an $\ell^k$  horizontal basis id est :
+$E\rightarrow E/\langle \color{red}{P} \rangle $, $E\rightarrow E/\langle \color{blue}{Q} \rangle $ horizontals of opposite direction.
 \end{algorithmic}
 
 \end{exe}
@@ -1693,33 +1694,33 @@ $\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-hor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\begin{frame}
-\frametitle{An $\ell$-adic Couveignes' algorithm}
-\bluebox{$\ell$-adic Couveignes' algorithm (crater curves only)}{
-\begin{enumerate}
-\item Least $k$ such that  $\ell^{2k}>4r$
-\item Compute \textbf{horizontal} bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
-  $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
-\item Compute ~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
-  with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
-  %[De Feo '10] and [Enge-Morain '03];
-\item For each \textbf{invertible diagonal} matrix
-  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
-\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
-  \begin{enumerate}
-  \item compute the interpolation polynomial
-    $L_{a,b}$ such that
-    $L_{a,b} (x (u \color{red}P\color{black} + v \color{blue}Q\color{black})) = x(a\, u\,\color{red}P'\color{black} + b\,v\, \color{blue}Q'\color{black})$ for all
-    $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
-  \item Use an algorithm of rational reconstruction 
-    to compute a rational
-    fraction $F_{a,b}=L_{a,b}\bmod{T}$ of degrees~$(r, r-1)$;
-  \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
-    stop.
-  \end{enumerate}
-\end{enumerate}}
-\end{frame}
+%Jugé en trop et redondant (je suis de cet avis -Cyril)
+%\begin{frame}
+%\frametitle{An $\ell$-adic Couveignes' algorithm}
+%\bluebox{$\ell$-adic Couveignes' algorithm (crater curves only)}{
+%\begin{enumerate}
+%\item Least $k$ such that  $\ell^{2k}>4r$
+%\item Compute \textbf{horizontal} bases $(\color{red}P\color{black},\color{blue}Q\color{black})$ of
+%  $E[\ell^k]$ and $(\color{red}P'\color{black},\color{blue}Q'\color{black})$ of $E'[\ell^k]$;
+%\item Compute ~$T=\prod(X-x_i)$ of degree $\frac{\ell^{2k}-1}{2}$
+%  with $x_i$ x-coordinates of $\langle \color{red}P\color{black},\color{blue}Q\color{black}\rangle$; %using the method of
+%  %[De Feo '10] and [Enge-Morain '03];
+%\item For each \textbf{invertible diagonal} matrix
+%  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
+%\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
+%  \begin{enumerate}
+%  \item compute the interpolation polynomial
+%    $L_{a,b}$ such that
+%    $L_{a,b} (x (u \color{red}P\color{black} + v \color{blue}Q\color{black})) = x(a\, u\,\color{red}P'\color{black} + b\,v\, \color{blue}Q'\color{black})$ for all
+%    $u, v \in \mathbb{Z}/\ell^k \mathbb{Z}$;
+%  \item Use an algorithm of rational reconstruction 
+%    to compute a rational
+%    fraction $F_{a,b}=L_{a,b}\bmod{T}$ of degrees~$(r, r-1)$;
+%  \item If $F_{a,b}$ defines an isogeny of degree $r$, return it and
+%    stop.
+%  \end{enumerate}
+%\end{enumerate}}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
