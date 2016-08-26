@@ -184,8 +184,8 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 
 \begin{frame}
 \frametitle{Motivation}
-We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
-\medskip
+%We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
+%\medskip
 \orangebox{Explicit isogeny computation problem}
 {
  Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
@@ -194,13 +194,14 @@ We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  a
 }
 \medskip
 
-\orangebox{Disclaimer:}{This is \textbf{not} the dominant step in SEA.}
+%\orangebox{Disclaimer:}{This is \textbf{not} the dominant step in SEA.}
 
-Other applications:
+Applications:
 \begin{itemize}
-\item ECC cryptanalysis: [Gaudry, Hess, Smart '02]
+\item Schoof-Elkies-Atkin point counting algorithm,
+\item ECC cryptanalysis: [Gaudry, Hess, Smart '02],
 \item Hash functions: [Charles, Goren, Lauter '07],
-\item Backdoors: [Teske '06],
+\item Trapdoors: [Teske '06],
 \item Post quantum cryptography: [Rotostev, Stolbunov '06], [De Feo, Jao, Pl\^ut '11].
 \end{itemize}
 
@@ -371,15 +372,13 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:
 $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 \begin{itemize}
 \item  $\mathrm{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
-\end{itemize}
-\end{prop}
 
 %From now we will only work with ordinary elliptic curves.
 
-\begin{rem}
-Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
+\item Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
 \[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
-\end{rem}
+\end{itemize}
+\end{prop}
 
 
 \end{frame}
@@ -834,17 +833,17 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 \coordinate (C) at (0,10);
 \coordinate (CB) at (1,10);
 \coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\color{cyan}\left( \begin{matrix}
-\lambda & 1 \\
-0 & \mu
+\draw (A) node[left]{$\left( \begin{matrix}
+\color{red}{\lambda} & 1 \\
+0 & \color{blue}{\mu}
 \end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (B) node[left]{$\color{magenta} \left( \begin{matrix}
-\lambda & \ell \\
-0 & \mu
+\draw (B) node[left]{$ \left( \begin{matrix}
+\color{red}{\lambda} & \ell \\
+0 & \color{blue}{\mu}
 \end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (C) node[left]{$\color{green} \left( \begin{matrix}
-\lambda & 0 \\
-0 & \mu
+\draw (C) node[left]{$ \left( \begin{matrix}
+\color{red}{\lambda} & 0 \\
+0 & \color{blue}{\mu}
 \end{matrix} \right) \color{black} $}; %node{$\bullet$};
 %\draw (A)--(B);
 %\draw (B)--(C);
@@ -852,18 +851,18 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 %\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$ \color{green} \bullet $};
-		\node (B) at (3,0) {$  \color{green} \bullet$};
-		\node (C) at (270:1.2) {$\color{green} \bullet \color{black}$};
+		\node (A) at (-3,0) {$  \bullet $};
+		\node (B) at (3,0) {$   \bullet$};
+		\node (C) at (270:1.2) {$ \bullet \color{black}$};
 		\node (D) at (90:1.5) {};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
 		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
 		%\draw[-] (B.center) to[bend left=25] (C.center);
 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
 		\draw[-] (A.center) to[bend right=40] (B.center);
-		\draw (A) node{$ \color{green} \bullet $};
-		\draw (B) node{$ \color{green} \bullet $};
-		\draw (C) node{$ \color{green} \bullet $};
+		\draw (A) node{$  \bullet $};
+		\draw (B) node{$  \bullet $};
+		\draw (C) node{$  \bullet $};
 		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
 			\begin{scope}[xshift=-3cm]
 			\coordinate (A) at (0,0);
@@ -873,10 +872,10 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
-			\draw (A) node{$ \color{green} \bullet \color{black}$};
-			\draw (C) node{$ \color{magenta} \bullet \color{black}$};
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$\bullet$};
+			\draw (A) node{$  \bullet \color{black}$};
+			\draw (C) node{$  \bullet \color{black}$};
 			\end{scope}
 			\begin{scope}[xshift=3cm]
 			\coordinate (A) at (0,0);
@@ -886,10 +885,10 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan}\bullet$};
-			\draw (A) node{$\color{green} \bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$\bullet$};
+			\draw (A) node{$ \bullet$};
+			\draw (C) node{$ \bullet$};
 			\end{scope}
 			\begin{scope}[yshift=-1.2cm]
 			\coordinate (A) at (0,0);
@@ -899,11 +898,11 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
-			\draw (CA) node{$\color{cyan} \bullet$};
-			\draw (CB) node{$\color{cyan} \bullet$};
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$ \bullet$};
 			%\draw (A) node{$\bullet$};
-			\draw (C) node{$\color{magenta} \bullet$};
-			\draw (A) node{$\color{green} \bullet$};
+			\draw (C) node{$ \bullet$};
+			\draw (A) node{$ \bullet$};
 			
 			
 			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
@@ -970,7 +969,7 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
  }
 
 \begin{enumerate}
-\item Fix $k$ such that  $\ell^{2k}>4r$
+\item Least $k$ such that  $\ell^{2k}>4r$
 \item \textbf<3>{Compute bases of $T_\ell(E)$ and $T_\ell(E')$;}
 \item Diagonalize $\to$ ${\color{red}T_\lambda(E)}\oplus\color{blue}T_\mu(E)$ and ${\color{red}T_\lambda(E')}\oplus\color{blue}T_\mu(E')$
 \item Reduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
@@ -1080,8 +1079,8 @@ In practice,
 	\end{center}
 	\caption{
 	    Isogenies generated by
-	    \red{$\left( \lambda , \only<1>{\ell}\only<2>{\ell^2}\only<3>{\ell^3} \right)$},
-	    \blu{$\left( \mu , \ell^{\only<2>{2}\only<3>{3}} \right)$}
+	    \red{$\left( \lambda , \ell\only<1>{\right)}\only<2>{\right)^2}\only<3>{\right)^3} $},
+	    \blu{$\left( \mu , \ell\only<1>{\right)}\only<2>{\right)^2}\only<3>{\right)^3} $}
 	}
 \end{figure}
 \end{column}
