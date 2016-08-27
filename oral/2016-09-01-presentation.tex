@@ -202,7 +202,7 @@ Applications:
 \item ECC cryptanalysis: [Gaudry, Hess, Smart '02],
 \item Hash functions: [Charles, Goren, Lauter '07],
 \item Trapdoors: [Teske '06],
-\item Post quantum cryptography: [Rotostev, Stolbunov '06], [De Feo, Jao, Pl\^ut '11].
+\item Post quantum cryptography: [Rotostev, Stolbunov '06], [De~ Feo,~ Jao, Pl\^ut '11].
 \end{itemize}
 
 \end{frame}
@@ -215,7 +215,8 @@ Applications:
 Let $p$ be the characteristic of $\mathbb{F}_q$.
 
 \begin{itemize}
-\item{} [Elkies '92/'98],  [Charlap, Colay, Robbins '91], [Bostan, Morain, Salvy, Schost '08] work only for $r < 2p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$.
+\item{} [Elkies '92/'98],  %[Charlap, Colay, Robbins '91], 
+[Bostan,~ Morain,~ Salvy,~ Schost '08] work only for $r < 2p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$.
 \item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
 \item{} [Lercier '97] only $p=2$.
 \item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
@@ -284,19 +285,20 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 \item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:\hfill $O(r)$
  \begin{enumerate}
   \item Compute the interpolation polynomial
-    $L_{a}$ such that
-    $L_{a} (x (u P)) = x(a\, u\,P' )$ for all
+    $L$ such that
+    $L (x (u P)) = x(a\, u\,P' )$ for all
     $u \in \mathbb{Z}/p^k \mathbb{Z}$;
     \hfill $\tilde{O}(r)$
   \item Use a  rational reconstruction  algorithm 
     to compute a rational
-    fraction $F_{a}=L_{a}\bmod{T}$ of degrees~$(r, r-1)$;
+    fraction $F=L\bmod{T}$ of degrees~$(r, r-1)$;
     \hfill $\tilde{O}(r)$
   \item If $F_{a}$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
 \end{enumerate}
-Complexity polynomial in $p$. \bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
+%Complexity polynomial in $p$. 
+\bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -939,8 +941,8 @@ ${\color{red}T_{\lambda}(E)} \oplus {\color{blue} T_{\mu}(E)}.$
 
 \begin{itemize}
 \item We shall restrict to the case where $E$ is on the crater.
-\item We can reduce to this case using, e.g., [Fouquet Morain '01],
-    [Miret, Moreno, Sadornil, Tena, Valls '06], [Ionica Joux '10].
+\item We can reduce to this case using, e.g., [Fouquet, Morain '01],
+    [Miret,~ Moreno,~ Sadornil,~ Tena,~ Valls~ '06], [Ionica, Joux '10].
 \end{itemize}
 
 \bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
@@ -979,9 +981,9 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 \hfill\only<2>{$O(r)$}
   \begin{enumerate}
   \item Compute the interpolation polynomial
-    $L_{a,b}$ sending\\
+    $L$ sending\\
     $\color{red}P\mapsto aP'$ and $\color{blue}Q\mapsto bQ'$;
-  \item If $L_{a,b}$ defines an isogeny of degree $r$, return it and
+  \item If $L$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
 \end{enumerate}
@@ -1021,14 +1023,14 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 \begin{frame}
 \frametitle{Computing $\red{T_{\lambda}(E)} \oplus \blu{T_{\mu}(E)} \bmod \ell^k $}
 \begin{columns}
-\begin{column}{6cm}
+\begin{column}{6.5cm}
 
 \begin{exe}[Volcano of height=0]
 
 %The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathrm{Cl}(K)$ act on the crater:
 
 %\begin{enumerate}
-Our goal is to compute an isogeny cycle, differently from [Couveignes-Morain '94].
+Our goal: compute an isogeny cycle, differently from [Couveignes,~ Morain~ '94].
 
 \vspace{-0.5mm}
 \begin{itemize}
@@ -1054,7 +1056,7 @@ In practice,
 \end{exe}
 
 \end{column}
-\begin{column}{6cm}
+\begin{column}{5.5cm}
 \begin{figure}[h]
 	\begin{center}
 	\begin{tikzpicture}[scale=0.4]
