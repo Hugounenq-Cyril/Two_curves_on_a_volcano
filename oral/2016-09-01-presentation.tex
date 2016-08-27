@@ -52,7 +52,7 @@
 \useinnertheme{rounded}
 \usecolortheme{whale}
 \usecolortheme{orchid}
-\usecolortheme[named=orange]{structure}
+\usecolortheme[named=blue]{structure}
 \definecolor{pacificcream}{cmyk}{.05,.05,.15,0}
 
 
@@ -119,7 +119,7 @@ Explicit isogenies in quadratic time in any characteristic}
 
 \begin{frame}
 \frametitle{Refresher on isogenies}
-\orangebox{Isogenies}{
+\bluebox{Isogenies}{
 \begin{itemize}
 \item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
 \begin{itemize}
@@ -150,7 +150,7 @@ For \emph{separable} isogenies, this defines a bijection between isogenies and f
 \begin{frame}
 \frametitle{Explicit isogenies}
 
-\orangebox{Explicit isogenies}{
+\bluebox{Explicit isogenies}{
 Separable isogenies of degree $\ell$ are represented by rational maps in Weierestrass form
 %\[
 %\left( x ,y \right) \mapsto \left( \frac{n(x)=45x^9+67x^7+57x^6+97x^5+7+100x^2+78x+67}{d(x)(x^4+51x^2+67x+61)^2}, y\left(\frac{n(x)}{d(x)\right)^'} \right)
@@ -186,7 +186,7 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 \frametitle{Motivation}
 %We focus on one specific subproblem in the Schoof-Elkies-Atkin point counting  algorithm:
 %\medskip
-\orangebox{Explicit isogeny computation problem}
+\bluebox{Explicit isogeny computation problem}
 {
  Let $\mathbb{F}_q$ be a finite field of characteristic $p$. 
  Given $E$, $E'$   two $r$-isogenous elliptic curves defined over $\mathbb{F}_q$,
@@ -194,7 +194,7 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 }
 \medskip
 
-%\orangebox{Disclaimer:}{This is \textbf{not} the dominant step in SEA.}
+%\bluebox{Disclaimer:}{This is \textbf{not} the dominant step in SEA.}
 
 Applications:
 \begin{itemize}
@@ -239,7 +239,7 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \frametitle{Torsion points of elliptic curves}
 
 
-\orangebox{Torsion points}{
+\bluebox{Torsion points}{
 Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_q$, and let $m>0$
 \vspace{-1.5mm}
 \[E[m]= \{ P \in E(\bar{\mathbb{F}}_q) , mP=0_E \} \]
@@ -252,7 +252,7 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 \end{align*}
 }
 \pause
-\orangebox{Couveignes' algorithm (compute an $r$-isogeny $\phi:E\to E'$)}{
+\bluebox{Couveignes' algorithm (compute an $r$-isogeny $\phi:E\to E'$)}{
 \begin{itemize}
 \item Compute generators $P,P'$ of $E[p^k],E'[p^k]$;
 \item Assume that $\phi$ maps $P\mapsto P'$;
@@ -318,7 +318,7 @@ instead of $E[p^k]$ to remove the polynomial dependency in $p$.
 \begin{columns}
 \begin{column}{0.48\textwidth}
 
-\orangebox{$p$-adic}{
+\bluebox{$p$-adic}{
 Let $P\in E\quad$ and $\quad P'\in E'$
 \[
 P \mapsto a P'  \qquad a\in(\mathbb{Z}/p^k\mathbb{Z})^*
@@ -328,7 +328,7 @@ $\Rightarrow O(r)$ possibilities.
 }
 \end{column}
 \begin{column}{0.55\textwidth}
-\orangebox{$\ell$-adic}{
+\bluebox{$\ell$-adic}{
 Let $P,Q \in E\quad$ and $\quad P',Q' \in E'$
 \begin{gather*}
 \begin{pmatrix}
@@ -925,7 +925,7 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 
 \begin{frame}
 
-\orangebox{In particular}{
+\bluebox{In particular}{
 If $E$ is on the crater, then $\pi|T_\ell(E)$ is conjugate over $\mathbb{Z}_\ell$ to
 \[\left(
 \begin{matrix}
@@ -988,7 +988,7 @@ ${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 
 \pause\pause
 
-\orangebox{}{
+\bluebox{}{
 \begin{center}
     Up to what precision do we need to compute $T_\ell(E)$ and $T_\ell(E')$?
 \end{center}}
@@ -1120,7 +1120,7 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 
 \begin{columns}
 \begin{column}{5cm}
-\orangebox{Volcano with height $h=0$}{
+\bluebox{Volcano with height $h=0$}{
 \begin{figure}[h]
 	\begin{center}
 	\begin{tikzpicture}[scale=0.3]
@@ -1155,7 +1155,7 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 }
 \end{column}
 \begin{column}{5cm}
-\orangebox{Volcano with height $h=2$}{
+\bluebox{Volcano with height $h=2$}{
 \begin{figure}[h]
 		\begin{center}
 \begin{tikzpicture}[scale=0.40]
@@ -1291,7 +1291,7 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 \end{itemize}  
 \end{defi}
 
-\orangebox{Facts}{
+\bluebox{Facts}{
 \begin{itemize}
 \item Horizontal $\Rightarrow$ diagonal.
 \item Diagonal $\Rightarrow$ horizontal iff $h=0$.
@@ -1552,7 +1552,7 @@ $E\rightarrow E/\langle \color{red}{P} \rangle $, $E\rightarrow E/\langle \color
 
 \begin{columns}
 \begin{column}{6cm}
-\orangebox{}{
+\bluebox{}{
 \raggedright
 $\red P \in E$ is diagonal, and $\ell$-horizontal:
 \[\red{ \langle P \rangle = T_\lambda(E) \mod \ell}\]
@@ -2058,7 +2058,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 %
 %$P$ and $Q$ two points such that : $E[2^{j+1}]=\langle P, Q \rangle$, with \textcolor{red}{$P \in E(\mathbb{F}_q), Q \notin E(\mathbb{F}_q)$}.
 %
-%\orangebox{Diagonal Matrix}{
+%\bluebox{Diagonal Matrix}{
 %\[
 %\pi(P,Q)=\left(\begin{array}{cc}
 %1 & 0\\
