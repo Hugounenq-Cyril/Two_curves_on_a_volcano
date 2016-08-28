@@ -1279,3 +1279,4 @@ def fonction_test_point_redresse(P,l,k):
 		E=phi.codomain()
 		print E.j_invariant()
 	return E.j_invariant()
+
