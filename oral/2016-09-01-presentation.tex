@@ -139,11 +139,19 @@ Explicit isogenies in quadratic time in any characteristic}
 }
 \pause
 
-\begin{thm} 
-Let $G\subset E$ be a subgroup of points of order $\ell$. There is an isogeny $\phi:E\to E'$ of degree $\ell$ such that $\ker\phi = G$.
-\end{thm}
+% \begin{thm} 
+% Let $G\subset E$ be a subgroup of points of order $\ell$. There is an isogeny $\phi:E\to E'$ of degree $\ell$ such that $\ker\phi = G$.
+% \end{thm}
 
-For \emph{separable} isogenies, this defines a bijection between isogenies and finite subgroups.
+% For \emph{separable} isogenies, this defines a bijection between isogenies and finite subgroups.
+
+\textbf{Example:}
+Let $\ell$ be an integer, the \emph{scalar multiplication map}
+\begin{align*}
+[\ell] \;:\; E &\to E\\
+P &\mapsto \ell\cdot P
+\end{align*}
+is an isogeny of degree $\ell^2$.
 
 \end{frame}
 
@@ -201,10 +209,10 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 Applications:
 \begin{itemize}
 \item Schoof-Elkies-Atkin point counting algorithm,
-\item ECC cryptanalysis: [Gaudry, Hess, Smart '02],
-\item Hash functions: [Charles, Goren, Lauter '07],
-\item Trapdoors: [Teske '06],
-\item Post quantum cryptography: [Rotostev, Stolbunov '06], [De~ Feo,~ Jao, Pl\^ut '11].
+\item ECC cryptanalysis: [Gaudry,~Hess,~Smart '02],
+\item Hash functions: [Charles,~Goren,~Lauter '07],
+\item Trapdoors: [Teske~'06],
+\item Post quantum cryptography: [Rotostev,~Stolbunov~'06], [De~Feo,~Jao,~Pl\^ut~'11].
 \end{itemize}
 
 \end{frame}
@@ -217,18 +225,18 @@ Applications:
 Let $p$ be the characteristic of $\mathbb{F}_q$.
 
 \begin{itemize}
-\item{} [Elkies '92/'98],  %[Charlap, Colay, Robbins '91], 
-[Bostan,~ Morain,~ Salvy,~ Schost '08] work only for $r < 2p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$.
-\item{} [Couveignes '94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
-\item{} [Lercier '97] only $p=2$.
-\item{} [Couveignes '96], [De Feo '10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
-\item{} [Lercier, Sirvent '08], [Lairez, Vaccon '16] works for every $p$ using $\tilde{O}(r^3)$ operations in $\mathbb{F}_q$
+\item{} [Elkies~'92/'98],  %[Charlap, Colay, Robbins '91], 
+[Bostan,~Morain,~Salvy,~Schost~'08] use $\tilde{O}(r)$ operations in $\mathbb{F}_q$, work only for $r < 2p$. Specific to the SEA case.
+\item{} [Couveignes~'94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
+\item{} [Lercier~'97] only $p=2$.
+\item{} [Couveignes~'96], [De Feo~'10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
+\item{} [Lercier,~Sirvent~'08], [Lairez,~Vaccon~'16] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$. Specific to the SEA case.
 \end{itemize}
 \begin{itemize}
 
 %\item[$\rightarrow$] we focus on the medium characteristic case ($n\gg p/\log(p)$),
 
-\item[$\rightarrow$] we want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
+\item[$\rightarrow$] We want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
 
 \end{itemize}
 \end{frame}
@@ -241,6 +249,7 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \begin{frame}
 \frametitle{Torsion points of elliptic curves}
 
+\vspace{-1mm}
 
 \bluebox{Torsion points}{
 Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_q$, and let $m>0$
@@ -256,10 +265,10 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 }
 \pause
 \bluebox{Couveignes' algorithm (compute an $r$-isogeny $\phi:E\to E'$)}{
+Compute $\phi$ by interpolation over $E[p^k]$:
 \begin{itemize}
 \item Compute generators $P,P'$ of $E[p^k],E'[p^k]$;
-\item Assume that $\phi$ maps $P\mapsto P'$;
-\item Compute $\phi$ by interpolation over $E[p^k]$;
+\item Interpolate $\phi$, assuming it maps $uP\mapsto uP'$ for all $u$;
 \item Test whether $\phi$ is an isogeny.\\
     In case it is not, replace $P'$ with a multiple $aP'$ and start again.
 \end{itemize}
@@ -1922,7 +1931,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \frametitle{Conclusion}
 \bluebox{Contribution}{
 \begin{itemize}
-\item A better understanding of the action of the Frobenius endomorphism on isogeny volcanoes. 
+\item New tools for navigating isogeny volcanoes. 
 
 \item A faster variant of Couveignes' algorithm.
 
@@ -1932,6 +1941,9 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \begin{itemize}
 \item Directly generalize to curves not on the crater.
 \item Give an analogous algorithm for Atkin primes.
+\item Analyze our techniques to navigate the volcano in other
+  settings: point counting, computation of endomorphism rings, Hilbert
+  class polynomials, modular polynomials.
 \end{itemize}}
 
 %Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
@@ -1939,10 +1951,10 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame} 
+% \begin{frame} 
 
-\bibliography{Biblio}
-\end{frame}
+% \bibliography{Biblio}
+% \end{frame}
 
 \end{document}
 
