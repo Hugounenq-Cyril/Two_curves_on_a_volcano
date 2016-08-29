@@ -86,6 +86,8 @@
 \def\algorithmicrequire{\textbf{Input:}}
 \def\algorithmicensure{\textbf{Output:}}
 
+%\DeclareMathOperator{\ker}{ker}
+
 \def\red#1{\textcolor{red}{#1}}
 \def\blu#1{\textcolor{blue}{#1}}
 
@@ -802,7 +804,63 @@ c & d
     Hence $\pi|T_\ell(E)$ has two eigenvalues ${\color{red}\lambda},{\color{blue}\mu}$ over $\mathbb{Q}_\ell$.
 \end{prop}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{tabular}{p{10em}p{3em}p{10em}}
+$\ell$-isogeny & $\Leftrightarrow$ &  Subgroup of size $\ell$  \pause \\
 
+Rational $\ell$-isogeny & $\Leftrightarrow$ & Subgroup of size $\ell$ stable by $\pi$ 
+\end{tabular}
+
+
+\pause
+We assume that $\pi$ splits $\bmod \ell$:
+it means that its minimal polynomial factors as:
+\[ (X-\red \lambda)(X- \blu \mu ) \quad \textit{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
+\begin{tabular}{p{10em}p{3em}p{10em}}
+Two rational $\ell$-isogenies & $\Leftarrow$  & Two eigenspaces \\ 
+& & $\ker( \pi- \red \lambda), \ker( \pi- \blu \mu) $ \\
+\end{tabular}
+
+\pause
+
+\begin{figure}[h]
+	\begin{center}
+	\begin{tikzpicture}[scale=0.3]
+	\coordinate (A) at (0:5);
+	\coordinate (B) at (45:5);
+	\coordinate (C) at (90:5);
+	\coordinate (D) at (135:5);
+	\coordinate (E) at (180:5);
+	\coordinate (F) at (225:5);
+	\coordinate (G) at (270:5);
+	\coordinate (H) at (315:5);
+	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
+	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+		
+	\draw (A) node[right]{$E$};
+	\draw (A) node{$\bullet$};
+	\draw (B) node{$\bullet$};
+	\draw (C) node{$\bullet$};
+	\draw (D) node{$\bullet$};
+	\draw (E) node{$\bullet$};
+	\draw (F) node{$\bullet$};
+	\draw (G) node{$\bullet$};
+	\draw (H) node{$\bullet$};
+	\end{tikzpicture}	
+	\end{center}
+\end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+cycles de longueur $k$...
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
