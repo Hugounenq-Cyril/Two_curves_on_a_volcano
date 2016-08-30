@@ -828,7 +828,7 @@ In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{An $\ell$-adic Couveignes' algorithm}
+\section{An $\ell$-adic Couveignes algorithm}
 
 \begin{frame}
 
@@ -932,7 +932,7 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 
 \begin{uncoverenv}<3->
   \begin{itemize}
-  \item We call $\red{E[\ell^k]_\lambda}\oplus\blue{E[\ell^k]_\mu}$ a
+  \item We call $\red{E[\ell^k]_\lambda}\oplus\blu{E[\ell^k]_\mu}$ a
     \emph{horizontal} decomposition;
   \item SEA literature calls this an \emph{isogeny cycle}.
   \end{itemize}
@@ -956,9 +956,9 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
  }
 
 \begin{enumerate}
-\item Least $k$ such that  $\ell^{2k}>4r$
-\item Compute $\color{red}{E[\ell^k]_{{\lambda}}} \color{black}{,} \color{red}{E'[\ell^k]_{{\lambda}}}$ and $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{,} \color{blue}{E'[\ell^k]_{{\mu}}}$ 
-\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\item Select least $k$ such that  $\ell^{2k}>4r$
+\item Compute $\langle \red P , \blu Q \rangle = \color{red}{E[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E[\ell^k]_{{\mu}}} $ and $\langle \red P' , \blu Q' \rangle = \color{red}{E'[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E'[\ell^k]_{{\mu}}} $
+%\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
 \item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
@@ -973,18 +973,169 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
 \end{enumerate}
 \end{frame}%>>>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
-Does it work the same with general volcanoes of $\ell$-isogenies?
-\pause
 
-Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\rangle = E[\ell^k]$ s.t.
-\[\pi:
-\begin{pmatrix}\red P\\\blu Q\end{pmatrix} \mapsto
-\begin{pmatrix}\red\lambda&0\\0&\blu\mu\end{pmatrix}
-\begin{pmatrix}\red P\\\blu Q\end{pmatrix}
+\bluebox{Elkies prime}{We say that $\ell$ is an \emph{Elkies prime} if the characteristic polynomial of $\pi$ factors over $\mathbb{Z}_{\ell}$ as
+\[
+\pi^2 - t_{\pi}\pi + q = (\pi - \red \lambda) (\pi - \blu \mu), \quad \textsf{with } \red \lambda \neq \blu \mu,
+\]
+where $h=v_{\ell}(\red \lambda - \blu \mu)$ can be $\geqslant 1$.
+}
+Since for $i \leqslant h$ and any $P \in  E[\ell^i]$ we have:
+\[
+\pi(P)=\red \lambda P = \blu \mu P
+\]
+we cannot immediately distinguish kernels of isogenies of direction $\red \lambda$ from direction $\blu \mu$.
+Thus we have to consider $E[\ell^{h+1}]$ to get $P \in \red{ E[\ell^{h+1}]_{ \lambda}}$ such that:
+\[
+\pi(P)=\red \lambda P \neq \blu \mu P
 \]
 
+\end{frame}
+
+
+%
+%\begin{frame}
+%%Diapo sur le Frobenius....
+%%We want to study the action of the Frobenius on the $\ell$ torsion:
+%The Frobenius endomorphism acts on $E[\ell^k]$ as a $2\times2$ invertible matrix:
+%\[
+%\pi|E[\ell^k]:
+%\begin{pmatrix}
+%a & b \\
+%c & d 
+%\end{pmatrix} \bmod{\ell^k}
+%\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+
+\begin{prop}\label{prop:matrice-Frobenius}
+%Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
+%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
+%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
+%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
+%\end{smallmatrix}\right )$.
+% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
+In the Elkies case the action of the Frobenius endomorphism $\pi$ on $E[\ell^{h+1}]$~is conjugate, over~$\mathbb{Z}_{\ell}$,
+to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ), \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$, and $a = 0$ iff~$E$ lies on the crater.
+
+%Moreover $a = 0$ if~$E$ lies on the crater.
+%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
+\end{prop}%>>>
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[scale=0.30]
+\coordinate (A) at (0,1.5);
+\coordinate (AB) at (1,1.5);
+\coordinate (AZ) at (-1.5,1.5);	
+\coordinate (B) at (0,5);
+\coordinate (BB) at (1,5);
+\coordinate (BZ) at (-1.5,5.2);
+\coordinate (BZ2) at (-1.5,4.8);
+\coordinate (C) at (0,10);
+\coordinate (CB) at (1,10);
+\coordinate (CZ) at (-1.5,10);
+\draw (A) node[left]{$\left( \begin{matrix}
+\color{red}{\lambda} & 1 \\
+0 & \color{blue}{\mu}
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (B) node[left]{$ \left( \begin{matrix}
+\color{red}{\lambda} & \ell \\
+0 & \color{blue}{\mu}
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+\draw (C) node[left]{$ \left( \begin{matrix}
+\color{red}{\lambda} & 0 \\
+0 & \color{blue}{\mu}
+\end{matrix} \right) \color{black} $}; %node{$\bullet$};
+%\draw (A)--(B);
+%\draw (B)--(C);
+%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
+%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
+\begin{scope}[yshift=10cm]
+	\begin{scope}[xshift=4.3cm]
+		\node (A) at (-3,0) {$  \bullet $};
+		\node (B) at (3,0) {$   \bullet$};
+		\node (C) at (270:1.2) {$ \bullet \color{black}$};
+		\node (D) at (90:1.5) {};
+		%\draw[-] (A.center) to[bend right=25] (C.center);
+		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
+		%\draw[-] (B.center) to[bend left=25] (C.center);
+		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+		\draw[-] (A.center) to[bend right=40] (B.center);
+		\draw (A) node{$  \bullet $};
+		\draw (B) node{$  \bullet $};
+		\draw (C) node{$  \bullet $};
+		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
+			\begin{scope}[xshift=-3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$\bullet$};
+			\draw (A) node{$  \bullet \color{black}$};
+			\draw (C) node{$  \bullet \color{black}$};
+			\end{scope}
+			\begin{scope}[xshift=3cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$\bullet$};
+			\draw (A) node{$ \bullet$};
+			\draw (C) node{$ \bullet$};
+			\end{scope}
+			\begin{scope}[yshift=-1.2cm]
+			\coordinate (A) at (0,0);
+			\coordinate (C) at (270:4.2);
+			\coordinate (CA) at (265:7.5);
+			\coordinate (CB) at (275:7.5);
+			\draw (C)--(CA);
+			\draw (C)--(CB);
+			\draw (A)--(C);
+			\draw (CA) node{$ \bullet$};
+			\draw (CB) node{$ \bullet$};
+			%\draw (A) node{$\bullet$};
+			\draw (C) node{$ \bullet$};
+			\draw (A) node{$ \bullet$};
+			
+			
+			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
+			
+			\end{scope}
+			\coordinate (F) at (5,0);
+			\coordinate (G) at (5,-7);
+			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
+	\end{scope}
+\end{scope}
+
+%faire des fleches courbees avec les indices \ell et \ell^2
+
+\end{tikzpicture}%>>>
+\end{center}
+\end{figure}%>>>
+\end{frame}%>>>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+%Does it work the same with general volcanoes of $\ell$-isogenies?
+%\pause
+We assume that $E$ lies on the crater.
+ 
+Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
 
 \begin{columns}
 \begin{column}{5cm}
@@ -1139,164 +1290,24 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 }
 \end{column}
 \end{columns}
+
+\textbf{Problem:} if height $> 0$ then $\ker(\pi-\lambda)$ is not a cyclic group.
+Thus we have to use all different subgroups of $\ker(\pi-\lambda)$, which is of size $\ell^{h+k}$ compare to $\ell^{k}$ in the other cases.
 \end{frame}%>>>
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \begin{frame}
-%Diapo sur le Frobenius....
-%We want to study the action of the Frobenius on the $\ell$ torsion:
-The Frobenius endomorphism acts on $E[\ell^k]$ as a $2\times2$ invertible matrix:
-\[
-\pi|E[\ell^k]:
-\begin{pmatrix}
-a & b \\
-c & d 
-\end{pmatrix} \bmod{\ell^k}
-\]
-%\pause
-%It will be convenient to work with \emph{infinite} precision\dots
-%
-%The projective limit of $E[\ell^k]$ as $k\to\infty$ is the \textit{Tate module} $T_\ell(E)$.
-%
-%The Frobenius endomorphism acts on $T_\ell(E)$ as
-%\[
-%\pi|T_\ell(E) : \begin{pmatrix}
-%a & b \\
-%c & d  
-%\end{pmatrix} \in \mathrm{GL}_2(\mathbb{Z}_\ell).
-%\]
+We want to compute 
+Our aim is to compute an horizontal decomposition: $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$ of $E[\ell^k]$ (aka isogeny cycle in the SEA litterature).
 
-\begin{prop}
-    In the Elkies case (cyclic crater)
-    \[\pi^2 - t_\pi\pi + q = (\pi-{\color{red}\lambda})(\pi-{\color{blue}\mu})
-    \qquad {\color{red}\lambda} \neq {\color{blue}\mu}.
-    \]
-   % Hence $\pi|T_\ell(E)$ has two eigenvalues ${\color{red}\lambda},{\color{blue}\mu}$ over $\mathbb{Q}_\ell$.
-\end{prop}%>>>
-\end{frame}%>>>
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We will proceed step by step since with diagonalisation of $\ker (\pi -\lambda), \ker (\pi -\mu)  \bmod \ell^{h+1}$ we get an horizontal decomposition $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$.
 
 
-\begin{frame}
-
-\begin{prop}\label{prop:matrice-Frobenius}
-%Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
-%Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
-%such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
-%to the matrix $\left ( \begin{smallmatrix}\lambda & a\\ 0 & \mu
-%\end{smallmatrix}\right )$.
-% where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
-In the Elkies case the action of the Frobenius endomorphism $\pi$ on $E[\ell^{h+1}]$~is conjugate, over~$\mathbb{Z}/\ell^{h+1}\mathbb{Z}$,
-to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
-
-%Moreover $a = 0$ if~$E$ lies on the crater.
-%and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
-\end{prop}%>>>
-
-\begin{figure}
-\begin{center}
-
-\begin{tikzpicture}[scale=0.30]
-\coordinate (A) at (0,1.5);
-\coordinate (AB) at (1,1.5);
-\coordinate (AZ) at (-1.5,1.5);	
-\coordinate (B) at (0,5);
-\coordinate (BB) at (1,5);
-\coordinate (BZ) at (-1.5,5.2);
-\coordinate (BZ2) at (-1.5,4.8);
-\coordinate (C) at (0,10);
-\coordinate (CB) at (1,10);
-\coordinate (CZ) at (-1.5,10);
-\draw (A) node[left]{$\left( \begin{matrix}
-\color{red}{\lambda} & 1 \\
-0 & \color{blue}{\mu}
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (B) node[left]{$ \left( \begin{matrix}
-\color{red}{\lambda} & \ell \\
-0 & \color{blue}{\mu}
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-\draw (C) node[left]{$ \left( \begin{matrix}
-\color{red}{\lambda} & 0 \\
-0 & \color{blue}{\mu}
-\end{matrix} \right) \color{black} $}; %node{$\bullet$};
-%\draw (A)--(B);
-%\draw (B)--(C);
-%\draw (CZ)--(BZ)[dashed]  node[midway,left] {$\ell$};
-%\draw (BZ2)--(AZ)[dashed]  node[midway,left] {$\ell$};
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node (A) at (-3,0) {$  \bullet $};
-		\node (B) at (3,0) {$   \bullet$};
-		\node (C) at (270:1.2) {$ \bullet \color{black}$};
-		\node (D) at (90:1.5) {};
-		%\draw[-] (A.center) to[bend right=25] (C.center);
-		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
-		%\draw[-] (B.center) to[bend left=25] (C.center);
-		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-		\draw[-] (A.center) to[bend right=40] (B.center);
-		\draw (A) node{$  \bullet $};
-		\draw (B) node{$  \bullet $};
-		\draw (C) node{$  \bullet $};
-		%\draw[line width=2.5pt,red,->] (A.center) to[bend right=20] (C.center);
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$ \bullet$};
-			\draw (CB) node{$\bullet$};
-			\draw (A) node{$  \bullet \color{black}$};
-			\draw (C) node{$  \bullet \color{black}$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$ \bullet$};
-			\draw (CB) node{$\bullet$};
-			\draw (A) node{$ \bullet$};
-			\draw (C) node{$ \bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-			\draw (CA) node{$ \bullet$};
-			\draw (CB) node{$ \bullet$};
-			%\draw (A) node{$\bullet$};
-			\draw (C) node{$ \bullet$};
-			\draw (A) node{$ \bullet$};
-			
-			
-			%(C) node[left]{$\mathcal{O}$} node{$\bullet$};			
-			
-			\end{scope}
-			\coordinate (F) at (5,0);
-			\coordinate (G) at (5,-7);
-			\draw[dashed,<-] (F)--(G) node[midway,right]{$h$};
-	\end{scope}
-\end{scope}
-
-%faire des fleches courbees avec les indices \ell et \ell^2
-
-\end{tikzpicture}%>>>
-\end{center}
-\end{figure}%>>>
-\end{frame}%>>>
+Dessin de step by step...  
+As seen before 
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
