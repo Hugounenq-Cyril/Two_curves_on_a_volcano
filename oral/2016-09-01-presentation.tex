@@ -1138,8 +1138,8 @@ to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\colo
 %\pause
 We assume that $E$ lies on the crater.
  
-Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
-
+%Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
+We compute $\ell^k$-isogenies of kernel $\ker(\pi-\blu \mu)$
 \begin{columns}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=0$}{
@@ -1175,6 +1175,7 @@ Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
 	\end{center}
 \end{figure}
 }
+$\ker(\pi- \blu \mu)$ of size $\ell^k$ is a cyclic group.
 \end{column}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=2$}{\begin{center}
@@ -1217,11 +1218,12 @@ Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
 \end{tikzpicture}
 \end{center}
 }
+\textbf{Problem:} if height $> 0$ then $\ker(\pi- \blu \mu)$ of size $\ell^{k+h}$ is not a cyclic group.
+Thus we have to use all different subgroups of $\ker(\pi-\blu \mu)$ of size $\ell^k$.
+
 \end{column}
 \end{columns}
 
-\textbf{Problem:} if height $> 0$ then $\ker(\pi-\lambda)$ is not a cyclic group.
-Thus we have to use all different subgroups of $\ker(\pi-\lambda)$, which is of size $\ell^{h+k}$ compare to $\ell^{k}$ in the other cases.
 \end{frame}
 
 
@@ -1238,193 +1240,13 @@ Thus we have to use all different subgroups of $\ker(\pi-\lambda)$, which is of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-
-\bluebox{In particular}{
-If $E$ is on the crater, then $\pi|T_\ell(E)$ is conjugate over $\mathbb{Z}/\ell^{h+1}\mathbb{Z}$ to
-\[\left(
-\begin{matrix}
-{\color{red}\lambda} & 0 \\
-0 & \color{blue}{\mu}
-\end{matrix}
-\right)\]
-inducing a decomposition into eigenspaces
-$\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}$.
-}
-
-\begin{itemize}
-\item We shall restrict to the case where $E$ is on the crater.
-\item We can reduce to this case using the previous proposition, or [Fouquet, Morain '01],
-    [Miret,~ Moreno,~ Sadornil,~ Tena,~ Valls~ '06], [Ionica, Joux '10].
-\end{itemize}
-
-%\bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
-%\begin{algorithmic}[1]
-%\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
-%\ENSURE $\phi: E \rightarrow E'$ of degree $r$
-%\end{algorithmic}}
-%
-%\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
-%${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
-%}
-\end{frame}
+\frametitle{Finding cyclic subgroups of $E[\ell^k]$}
+We compute the kernel of $\ell^k$ horizontal isogenies (codomain curves lying on the crater).
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}
-% \begin{columns}
-
-% \begin{column}{4cm}
-% \begin{exe}[Volcano with height=2]
-% Let $E_0$ be a curve on a cyclic crater of a volcano of $2$-isogenies.
-% %with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
-% %\[y^2=x^3+85x+11\]
-% %$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
-
-% Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{black}P$
-
-% \begin{itemize}\only<1-1>{
-% \item \boldmath $P$ \unboldmath is  \textbf{not horizontal},}
-% \only<2-3>{\item $P$ is not horizontal,}
-% \only<2-2>{\item \boldmath $2P$ \unboldmath is \textbf{not horizontal},}
-% \only<1,3>{\item $2P$ is not horizontal,}
-% \only<1-2>{\item $2^{2}P$ is horizontal.}
-% \only<3-3>{\item \boldmath $2^2P$ \unboldmath is \textbf{horizontal}.}
-% \end{itemize}
-
-
-% \end{exe}
-% \end{column}
-
-% \begin{column}{7cm}
-% \begin{figure}[h]
-% 		\begin{center}
-		
-% \begin{tikzpicture}[scale=0.60]
-% \begin{scope}[yshift=10cm]
-% 	\begin{scope}[xshift=4.3cm]
-% 		\node (A) at (-3,0) {$\bullet$};
-% 		\node (B) at (3,0) {$\bullet$};
-% 		\node (C) at (270:1.2) {$\bullet$};
-% 		\node (D) at (90:1.5) {};
-% 		%\draw[-] (A.center) to[bend right=25] (C.center);
-% 		\draw[-] (A.center) to[bend left=40] (B.center);
-% 		%\draw[-] (B.center) to[bend left=25] (C.center);
-% 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
-% 		\draw[-] (C.center) to[bend right=20] (B.center);
-% 		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-% 			\begin{scope}[xshift=-3cm]
-% 			\coordinate (A) at (0,0);
-% 			\coordinate (C) at (270:4.2);
-% 			\coordinate (CA) at (265:7.5);
-% 			\coordinate (CB) at (275:7.5);
-% 			\draw (C)--(CA);
-% 			\only<1-1>{
-% 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
-% 			}
-% 			\only<2-3>{
-% 			\draw (C)--(CB);
-% 			}
-% 			\only<1-2>{
-% 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
-% 			}
-% 			\only<3-3>{
-% 			\draw (A)--(C);			
-% 			}
-% %			\draw (A) node[fill=white]{$30$};
-% %			\draw (C) node[fill=white]{$98$};
-% %			\draw (CA) node[fill=white]{$22$};
-% %			\draw (CB) node[fill=white]{$74$};
-% 			\draw (A) node[fill=white]{$E_2$};
-% 			\draw (C) node[fill=white]{$\bullet$};
-% 			\draw (CA) node[fill=white]{$\bullet$};
-% 			\draw (CB) node[fill=white]{$\bullet$};
-% 			\end{scope}
-% 			\begin{scope}[xshift=3cm]
-% 			\coordinate (A) at (0,0);
-% 			\coordinate (C) at (270:4.2);
-% 			\coordinate (CA) at (265:7.5);
-% 			\coordinate (CB) at (275:7.5);
-% 			\draw (C)--(CA);
-% 			\draw (C)--(CB);
-% 			\draw (A)--(C);
-% %			\draw (A) node[fill=white]{$65$};
-% %			\draw (C) node[fill=white]{$60$};
-% %			\draw (CA) node[fill=white]{$39$};
-% %			\draw (CB) node[fill=white]{$62$};
-% 			\draw (A) node[fill=white]{$E_1$};
-% 			\draw (C) node[fill=white]{$\bullet$};
-% 			\draw (CA) node[fill=white]{$\bullet$};
-% 			\draw (CB) node[fill=white]{$\bullet$};
-% 			\end{scope}
-% 			\begin{scope}[yshift=-1.2cm]
-% 			\coordinate (A) at (0,0);
-% 			\coordinate (C) at (270:4.2);
-% 			\coordinate (CA) at (265:7.5);
-% 			\coordinate (CB) at (275:7.5);
-% 			\draw (C)--(CA);
-% 			\draw (C)--(CB);
-% 			\draw (A)--(C);
-% %			\draw (A) node[fill=white]{$28$};
-% %			\draw (C) node[fill=white]{$27$};
-% %			\draw (CA) node[fill=white]{$45$};
-% %			\draw (CB) node[fill=white]{$68$};
-% 			\draw (A) node[fill=white]{$E_0$};
-% 			\draw (C) node[fill=white]{$\bullet$};
-% 			\draw (CA) node[fill=white]{$\bullet$};
-% 			\draw (CB) node[fill=white]{$\bullet$};
-% 			\end{scope}
-% 	\end{scope}
-% \end{scope}
-% \end{tikzpicture}
-% 		%\end{center}
-% 		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
-		
-% 		\end{center} 
-% 		\end{figure}
-% \end{column}
-% \end{columns}
-% \end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{How to compute an ``isogeny cycle''}
-%\only<2-2>{
-%\transdissolve
-%}
-%\only<4-4>{
-%\transdissolve
-%}
-
-%\begin{columns}
-%\begin{column}{6cm}
-%\bluebox{}{
-%\raggedright
-%$\red P \in E$ is diagonal, and $\ell$-horizontal:
-%\[\red{ \langle P \rangle = T_\lambda(E) \mod \ell}\]
-%
-%$\blu\psi(\red P) \in E_1$ is also diagonal\uncover<2->{, and \mbox{$\ell^2$-horizontal}:
-%    \[\red{ \langle \blu\psi(\red P) \rangle = T_\lambda(E) \mod \ell^2}\]}
-%    
-%\vspace{-2mm}
-%
-%\begin{itemize}
-%\item<3-> We continue until we have a horizontal point $\red{P_{k-1}}\in E_{k-1}$;
-%\item<4-> We apply the same procedure to get back to $E$.
-%\item<5-> We repeat again the procedure for $\blu Q\in E$.
-%\end{itemize}
-%}
-
-
-%\end{column}
-%\begin{column}{6cm}
-\begin{figure}
+To this aim we proceed step by step by walking along the volcano crater according to the directions $\red \lambda, \blu \mu$.
 \begin{center}
-\begin{tikzpicture}[scale=0.60]
+\begin{tikzpicture}[scale=0.50]
 \begin{scope}[yshift=10cm]
 	\begin{scope}[xshift=4.3cm]
 		\node (A) at (-3,0) {$\bullet$};
@@ -1547,10 +1369,159 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 \end{scope}
 \end{tikzpicture}
 \end{center}
-\end{figure}
-%\end{column}
-%\end{columns}
 \end{frame}
+
+%\begin{frame}
+%
+%\bluebox{In particular}{
+%If $E$ is on the crater, then $\pi|T_\ell(E)$ is conjugate over $\mathbb{Z}/\ell^{h+1}\mathbb{Z}$ to
+%\[\left(
+%\begin{matrix}
+%{\color{red}\lambda} & 0 \\
+%0 & \color{blue}{\mu}
+%\end{matrix}
+%\right)\]
+%inducing a decomposition into eigenspaces
+%$\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}$.
+%}
+%
+%\begin{itemize}
+%\item We shall restrict to the case where $E$ is on the crater.
+%\item We can reduce to this case using the previous proposition, or [Fouquet, Morain '01],
+%    [Miret,~ Moreno,~ Sadornil,~ Tena,~ Valls~ '06], [Ionica, Joux '10].
+%\end{itemize}
+
+%\bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
+%\begin{algorithmic}[1]
+%\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
+%\ENSURE $\phi: E \rightarrow E'$ of degree $r$
+%\end{algorithmic}}
+%
+%\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
+%${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
+%}
+%\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}
+% \begin{columns}
+
+% \begin{column}{4cm}
+% \begin{exe}[Volcano with height=2]
+% Let $E_0$ be a curve on a cyclic crater of a volcano of $2$-isogenies.
+% %with $j$-invariant $28$ and defined on $\mathbb{F}_{101}$ by: 
+% %\[y^2=x^3+85x+11\]
+% %$P=(36,96)$ a point of order $8$ verifies that $\pi(P)=\lambda P$
+
+% Let $P$ be a point of order $8$ such that $\pi(P)=\color{red}\lambda \color{black}P$
+
+% \begin{itemize}\only<1-1>{
+% \item \boldmath $P$ \unboldmath is  \textbf{not horizontal},}
+% \only<2-3>{\item $P$ is not horizontal,}
+% \only<2-2>{\item \boldmath $2P$ \unboldmath is \textbf{not horizontal},}
+% \only<1,3>{\item $2P$ is not horizontal,}
+% \only<1-2>{\item $2^{2}P$ is horizontal.}
+% \only<3-3>{\item \boldmath $2^2P$ \unboldmath is \textbf{horizontal}.}
+% \end{itemize}
+
+
+% \end{exe}
+% \end{column}
+
+% \begin{column}{7cm}
+% \begin{figure}[h]
+% 		\begin{center}
+		
+% \begin{tikzpicture}[scale=0.60]
+% \begin{scope}[yshift=10cm]
+% 	\begin{scope}[xshift=4.3cm]
+% 		\node (A) at (-3,0) {$\bullet$};
+% 		\node (B) at (3,0) {$\bullet$};
+% 		\node (C) at (270:1.2) {$\bullet$};
+% 		\node (D) at (90:1.5) {};
+% 		%\draw[-] (A.center) to[bend right=25] (C.center);
+% 		\draw[-] (A.center) to[bend left=40] (B.center);
+% 		%\draw[-] (B.center) to[bend left=25] (C.center);
+% 		%\draw[-,dashed] (B.center) to[bend right] (D.center);
+% 		\draw[-] (C.center) to[bend right=20] (B.center);
+% 		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
+% 			\begin{scope}[xshift=-3cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\only<1-1>{
+% 			\draw [line width=1.5pt,color=red!30,->] (C)--(CB);
+% 			}
+% 			\only<2-3>{
+% 			\draw (C)--(CB);
+% 			}
+% 			\only<1-2>{
+% 			\draw [line width=1.5pt,color=red!30,->] (A)--(C);
+% 			}
+% 			\only<3-3>{
+% 			\draw (A)--(C);			
+% 			}
+% %			\draw (A) node[fill=white]{$30$};
+% %			\draw (C) node[fill=white]{$98$};
+% %			\draw (CA) node[fill=white]{$22$};
+% %			\draw (CB) node[fill=white]{$74$};
+% 			\draw (A) node[fill=white]{$E_2$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 			\begin{scope}[xshift=3cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\draw (C)--(CB);
+% 			\draw (A)--(C);
+% %			\draw (A) node[fill=white]{$65$};
+% %			\draw (C) node[fill=white]{$60$};
+% %			\draw (CA) node[fill=white]{$39$};
+% %			\draw (CB) node[fill=white]{$62$};
+% 			\draw (A) node[fill=white]{$E_1$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 			\begin{scope}[yshift=-1.2cm]
+% 			\coordinate (A) at (0,0);
+% 			\coordinate (C) at (270:4.2);
+% 			\coordinate (CA) at (265:7.5);
+% 			\coordinate (CB) at (275:7.5);
+% 			\draw (C)--(CA);
+% 			\draw (C)--(CB);
+% 			\draw (A)--(C);
+% %			\draw (A) node[fill=white]{$28$};
+% %			\draw (C) node[fill=white]{$27$};
+% %			\draw (CA) node[fill=white]{$45$};
+% %			\draw (CB) node[fill=white]{$68$};
+% 			\draw (A) node[fill=white]{$E_0$};
+% 			\draw (C) node[fill=white]{$\bullet$};
+% 			\draw (CA) node[fill=white]{$\bullet$};
+% 			\draw (CB) node[fill=white]{$\bullet$};
+% 			\end{scope}
+% 	\end{scope}
+% \end{scope}
+% \end{tikzpicture}
+% 		%\end{center}
+% 		\caption{Volcano of $2$-isogenies on $\mathbb{F}_{101}$}
+		
+% 		\end{center} 
+% 		\end{figure}
+% \end{column}
+% \end{columns}
+% \end{frame}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1710,9 +1681,20 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
   \frametitle{Technical details}
 
   \bluebox{Computing in towers of field extensions}{
+  \begin{itemize}
+  \item We work on $\mathbb{F}_q$ such that $E[\ell] \subset E(\mathbb{F}_q)$,
+ 	
+	\item Then we use $\ell$-adic extensions using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Shcost '15] where in particular we have a low-cost Frobenius.
+  \end{itemize}
+ 	
   }
 
   \bluebox{Finding an Elkies prime $\ell$}{
+  \begin{itemize}
+  \item Ideally we would like to work with $\ell=2$,
+  \item In practice $\frac{1}{2}$ $\ell$ are expected to be "Elkies prime",
+  \item In theory we have a bound $O(\log(q))$ [Shparlinski, Sutherland '14].
+  \end{itemize}
   }
 \end{frame}
 
