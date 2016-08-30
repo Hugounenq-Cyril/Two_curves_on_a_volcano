@@ -294,7 +294,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
 \item Compute ~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
-  $x$-coordinates of $\langle P\rangle$;
+  the $x$-coordinates of $\langle P\rangle$;
 
 \item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:\hfill $O(r)$
  \begin{enumerate}
@@ -403,6 +403,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 
 \begin{frame}
 \frametitle{The link between isogenies and endomorphism rings}
+\vspace{-5mm}
 \begin{columns}
 \begin{column}{6cm}
 %\includegraphics[scale=.66]{Images/ordres-l.eps}
@@ -785,21 +786,26 @@ In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' 
 \section{An $\ell$-adic Couveignes' algorithm}
 
 \begin{frame}
-\begin{tabular}{p{10em}p{3em}p{10em}}
-$\ell$-isogeny & $\Leftrightarrow$ &  Subgroup of size $\ell$  \pause \\[2mm]
 
-Rational $\ell$-isogeny & $\Leftrightarrow$ & Subgroup of size $\ell$ stable by $\pi$ 
-\end{tabular}
+  \begin{center}
+    \begin{tabular}{p{13em}p{2em}p{13em}}
+      $\ell$-isogeny & $\Leftrightarrow$ &  Subgroup of size $\ell$  \pause \\[2mm]
+      
+      Rational $\ell$-isogeny & $\Leftrightarrow$ & Subgroup of size $\ell$ stable by $\pi$ 
+    \end{tabular}
+  \end{center}
 
 
 \pause
-We assume that $\pi$ splits $\bmod \ell$:
-it means that its minimal polynomial factors as:
+Assume that $\pi$ splits $\bmod \ell$:
+i.e. its minimal polynomial factors as
 \[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \textit{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
-\begin{tabular}{p{10em}p{3em}p{10em}}
-Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces \\ 
-of direction $\red \lambda, \blu \mu $ & & $\ker( \pi- \red \lambda), \ker( \pi- \blu \mu) $ \\
-\end{tabular}
+\begin{center}
+  \begin{tabular}{p{13em}p{2em}p{13em}}
+    Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces \\ 
+    of direction $\red \lambda, \blu \mu $ & & $\ker( \pi- \red \lambda), \ker( \pi- \blu \mu) $ \\
+  \end{tabular}
+\end{center}
 
 \pause
 
@@ -839,9 +845,9 @@ of direction $\red \lambda, \blu \mu $ & & $\ker( \pi- \red \lambda), \ker( \pi-
 
 \begin{frame}
 \bluebox{Fact}{
-Let $\phi$ be an $r$-isogeny, with $\ell \nmid r$ then  $\phi$ preserves the directions $\lambda, \mu $ of $\ell$-isogenies.}
+Let $\phi$ be an $r$-isogeny, with $\ell \nmid r$, then  $\phi$ preserves the directions $\lambda, \mu $ of $\ell$-isogenies.}
 
-Thus we want to compute two $\ell^k$ isogenies of direction $\lambda, \mu $. 
+To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenies of direction $\lambda, \mu $. 
 
 \begin{figure}[h]
 	\begin{center}
@@ -885,7 +891,7 @@ Thus we want to compute two $\ell^k$ isogenies of direction $\lambda, \mu $.
 
 \begin{frame}
 
-\bluebox{Towards an $\ell$-adic Couveignes' algorithm}{
+\bluebox{Towards an $\ell$-adic Couveignes' algorithm (volcano height = 0)}{
 \begin{algorithmic}[1]
 \REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
 \ENSURE $\phi: E \rightarrow E'$ of degree $r$
@@ -916,7 +922,7 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-Does it work the same with general volcanoes of $\ell$isogenies ?
+Does it work the same with general volcanoes of $\ell$-isogenies?
 \pause
 
 Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\rangle = E[\ell^k]$ s.t.
