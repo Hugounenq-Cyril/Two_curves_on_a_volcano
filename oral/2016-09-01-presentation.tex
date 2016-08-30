@@ -130,6 +130,11 @@
 \def\red#1{\textcolor{red}{#1}}
 \def\blu#1{\textcolor{blue}{#1}}
 
+\tikzset{position/.style args={#1:#2 from #3}{%
+  at=(#3.#1),anchor=#1+180,shift=(#1:#2)}}%
+\tikzstyle{lambda}=[very thick,draw=blue,->]
+\tikzstyle{mu}=[very thick,draw=red,->]
+
 \begin{document}
 
 \author{
@@ -150,14 +155,14 @@ Explicit isogenies in quadratic time in any characteristic}
 \includegraphics[scale=0.03]{Images/Anssi.png}\hfill
 \includegraphics[scale=0.18]{Images/UniversityOfWaterloo_logo_horiz_pms.eps}\hfill
 \includegraphics[height=10mm]{Images/uvsq-logo-cmjn.jpg}
-\end{frame}%>>>
+\end{frame}
 %\maketitle
 %faire un plan
 %faire un rappel sur les courbes elliptiques
 \begin{frame}
 \frametitle{Summary}
 \tableofcontents
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,7 +206,7 @@ P &\mapsto \ell\cdot P
 \end{align*}
 is an isogeny of degree $\ell^2$.
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -236,7 +241,7 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 \end{itemize}
 }
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -263,7 +268,7 @@ Applications:
 \item Post quantum cryptography: [Rotostev,~Stolbunov~'06], [De~Feo,~Jao,~Pl\^ut~'11].
 \end{itemize}
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -287,7 +292,7 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \item[$\rightarrow$] We want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
 
 \end{itemize}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -322,7 +327,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{itemize}
 
 }
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -338,9 +343,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \item Fix the least $k$ such that $p^k>4r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
-\item Compute ~$T=\prod(X-x_i)$ of degree $\frac{p^k-1}{2}$ with $x_i$
-  the $x$-coordinates of $\langle P\rangle$;
-
+\item Compute $T=\prod(X-x(uP))$ with $1\le u \le \frac{p^k-1}{2}$;
 \item For each $a \in \left( \mathbb{Z}/p^k\mathbb{Z}\right)^{\times}$:\hfill $O(r)$
  \begin{enumerate}
   \item Compute the interpolation polynomial
@@ -358,7 +361,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{enumerate}
 %Complexity polynomial in $p$. 
 \bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -416,7 +419,7 @@ $\Rightarrow O(r^2)$ possibilities.
     Ouch! Can we restrict the choices for $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$?
 \end{center}
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -439,10 +442,10 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 \item Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
 \[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
 \end{itemize}
-\end{prop}%>>>
+\end{prop}
 
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -530,7 +533,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}%>>>
+\end{tikzpicture}
 \end{center}		
 \end{figure}}
 
@@ -612,7 +615,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}%>>>
+\end{tikzpicture}
 \end{center}		
 \end{figure}}
 
@@ -695,7 +698,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}%>>>
+\end{tikzpicture}
 \end{center}		
 \end{figure}}
 
@@ -711,14 +714,14 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 \pause 
 \item \textbf<3>{horizontal} if $\mathcal{O}=\mathcal{O}'$.
 \end{enumerate}
-\end{lem}%>>>
+\end{lem}
 %\begin{defi}
 %The index $f=[\mathcal{O}_K : \mathcal{O}]$ is called the conductor of $\mathcal{O}$.
 %\end{defi}
 \end{column}
 
 \end{columns}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -731,7 +734,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
             \href{http://xkcd.com/1714/}{xkcd.com/1714}
         \end{column}
     \end{columns}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -811,19 +814,19 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 			\draw (A)--(C);
 			\end{scope}
 		\end{scope}
-		\end{tikzpicture}%>>>
+		\end{tikzpicture}
 		%\end{center}
 		\caption{The three shapes of volcanoes of $2$-isogenies }
 		
 		\end{center} 
-		\end{figure}%>>>
+		\end{figure}
 In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' case).
 %\begin{figure}[hbtp]
 %\centering
 %\includegraphics[scale=0.4]{Images/duo-volcan-wo-label.png}
 %\caption{Volcano with one point on the crater, and two points}
 %\end{figure}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -878,12 +881,12 @@ i.e. its minimal polynomial factors as
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	%>>>
+	\end{tikzpicture}	
 	\end{center}
-\end{figure}%>>>
+\end{figure}
 
 
-\end{frame}%>>>
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -926,9 +929,9 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	%>>>
+	\end{tikzpicture}	
 	\end{center}
-\end{figure}%>>>
+\end{figure}
 
 \begin{uncoverenv}<3->
   \begin{itemize}
@@ -938,7 +941,7 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
   \end{itemize}
 \end{uncoverenv}
 
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -971,7 +974,7 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
     stop.
   \end{enumerate}
 \end{enumerate}
-\end{frame}%>>>
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
@@ -1168,146 +1171,69 @@ Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	%>>>
+	\end{tikzpicture}	
 	\end{center}
-\end{figure}%>>>
+\end{figure}
 }
 \end{column}
 \begin{column}{5cm}
-\bluebox{Volcano with height $h=2$}{
-\begin{figure}[h]
-		\begin{center}
+\bluebox{Volcano with height $h=2$}{\begin{center}
+\tikzstyle{lambda1}=[lambda,draw=blue!60!green]
 \begin{tikzpicture}[scale=0.40]
-\begin{scope}[yshift=10cm]
-	\begin{scope}[xshift=4.3cm]
-		\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
-		\node[fill=pacificcream] (B) at (3,0) {$E_1$};
-		\node[fill=pacificcream] (C) at (270:1.2) {$E$};
-		\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
-		%\draw[-] (A.center) to[bend right=25] (C.center);			
-			\begin{scope}[xshift=-3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\coordinate (A2) at (0.15,0);
-			\coordinate (C2) at (271.95:4.5);
-			\draw [line width=1.5pt,color=red,->] (C)--(CB);
-			\draw (C)--(CA);
-%			\only<2>{
-%			\draw (C)--(CB);
-%			\draw [line width=1.5pt,color=red!30,->] (C)--(CA);			
-%			}
-			\draw [line width=1.5pt,color=red,->] (A)--(C);
-%			\draw (A) node[fill=white]{$30$};
-%			\draw (C) node[fill=white]{$98$};
-%			\draw (CA) node[fill=white]{$22$};
-%			\draw (CB) node[fill=white]{$74$};
-%			\draw (A) node[fill=pacificcream]{$E_2$};
-			\draw (C) node[fill=pacificcream]{$\bullet$};
-			\draw (CA) node[fill=pacificcream]{$\bullet$};
-			\draw (CB) node[fill=pacificcream]{$\bullet$};
-			\end{scope}
-			\begin{scope}[xshift=3cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-%			\draw [line width=1.5pt,color=blue,->] (C)--(CA);
-%			\draw [line width=1.5pt,color=blue,->] (A)--(C);
-			\draw (C)--(CA);
-			\draw (A)--(C);
-%			\only<2-2>{
-%			\draw (C)--(CA);
-%			\draw (A)--(C);			
-%			}
-			\draw (C)--(CB);
-%			\draw (A) node[fill=white]{$65$};
-%			\draw (C) node[fill=white]{$60$};
-%			\draw (CA) node[fill=white]{$39$};
-%			\draw (CB) node[fill=white]{$62$};
-%			\draw (A) node[fill=pacificcream]{$E_1$};
-			\draw (C) node[fill=pacificcream]{$\bullet$};
-			\draw (CA) node[fill=pacificcream]{$\bullet$};
-			\draw (CB) node[fill=pacificcream]{$\bullet$};
-			\end{scope}
-			\begin{scope}[yshift=-1.2cm]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw (C)--(CA);
-			\draw (C)--(CB);
-			\draw (A)--(C);
-%			\draw (A) node[fill=white]{$28$};
-%			\draw (C) node[fill=white]{$27$};
-%			\draw (CA) node[fill=white]{$45$};
-%			\draw (CB) node[fill=white]{$68$};
-%			\draw (A) node[fill=pacificcream]{$E$};
-			\draw (C) node[fill=pacificcream]{$\bullet$};
-			\draw (CA) node[fill=pacificcream]{$\bullet$};
-			\draw (CB) node[fill=pacificcream]{$\bullet$};
-			\end{scope}
-			\begin{scope}[shift={(D)}]
-			\coordinate (A) at (0,0);
-			\coordinate (C) at (270:4.2);
-			\coordinate (CA) at (265:7.5);
-			\coordinate (CB) at (275:7.5);
-			\draw [dashed] (C)--(CA);
-			\draw [dashed] (C)--(CB);
-			\draw [dashed] (A)--(C);
-%			\only<2>{\draw [dashed] (A)--(C);}
-			\draw (C) node[fill=pacificcream,]{$\bullet$};
-			\draw (CA) node[color=black!90]{$\bullet$};
-			\draw (CB) node[color=black!90]{$\bullet$};
-			\end{scope}
-	\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
-	\node[fill=pacificcream] (B) at (3,0) {$E_1$};
-	\node[fill=pacificcream] (C) at (270:1.2) {$E$};
-	\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
-	\draw[-] (A.center) to[bend left=40] (B.center);
-%	\only<2>{
-%	\draw[-,line width=1.5pt,color=blue] (D.center) to[bend left=30] (B.center);
-%	\draw[-,line width=1.5pt,color=blue] (D.center) to[bend right=30] (A.center);
-%	}
-	%\draw[-] (B.center) to[bend left=25] (C.center);
-	%\draw[-,dashed] (B.center) to[bend right] (D.center);
-	\draw[line width=1.5pt,blue,->] (C.center) to[bend right=20] (B.center);
-	\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-	\draw[line width=1.5pt,blue,->] (A.center) to[bend left=40] (B.center);		
-	\node[fill=pacificcream] (A) at (-3,0) {$E_3$};;
-	\node[fill=pacificcream] (B) at (3,0) {$E_1$};
-	\node[fill=pacificcream] (C) at (270:1.2) {$E$};
-	\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
-	\end{scope}
-\end{scope}
-\end{tikzpicture}%>>>
-		%\end{center}
-		%\caption{Volcano of $2$-isogenies with height $h=2$}
-		
-		\end{center} 
-		\end{figure}%>>>
+% \coordinate (A) at (0,-1.2);
+% \coordinate (B) at (-3,0);
+% \coordinate (C) at (-1.2,.7);
+% \coordinate (D) at (1.2,.7);
+% \coordinate (E) at (3,0);
+\coordinate (A) at (2,-1);
+\coordinate (B) at (-2,-1);
+\coordinate (C) at (-4,0);
+\coordinate (D) at (-2,1);
+\coordinate (E) at (2,1);
+\coordinate (F) at (4,0);
+\draw (F)--(A)--(B)--(C)--(D)--(E); \draw[dashed] (E)--(F);
+
+\coordinate[position=-90:.8 from A] (AA);
+\coordinate[position=-60:.6 from AA] (AA0);
+\coordinate[position=-120:.6 from AA] (AA1);
+\draw (A)--(AA)--(AA0); \draw (AA)--(AA1);
+\coordinate[position=-90:.8 from B] (BB);
+\coordinate[position=-60:.6 from BB] (BB0);
+\coordinate[position=-120:.6 from BB] (BB1);
+\draw (B)--(BB)--(BB0); \draw (BB)--(BB1);
+\coordinate[position=-90:.8 from C] (CC);
+\coordinate[position=-60:.6 from CC] (CC0);
+\coordinate[position=-120:.6 from CC] (CC1);
+\draw (C)--(CC)--(CC0); \draw (CC)--(CC1);
+\coordinate[position=-90:.8 from F] (FF);
+\coordinate[position=-60:.6 from FF] (FF0);
+\coordinate[position=-120:.6 from FF] (FF1);
+\draw (F)--(FF)--(FF0); \draw (FF)--(FF1);
+\draw<2>[lambda] (A)--(B); \draw<2>[lambda] (B)--(BB);
+\draw<2>[lambda] (BB)--(BB0);
+\draw<3>[lambda] (A)--(B); \draw<3>[lambda] (B)--(C);
+\draw<3>[lambda] (C)--(D);
+\node[fill=pacificcream] at (A) {$E$};
+\end{tikzpicture}
+\end{center}
 }
 \end{column}
 \end{columns}
 
 \textbf{Problem:} if height $> 0$ then $\ker(\pi-\lambda)$ is not a cyclic group.
 Thus we have to use all different subgroups of $\ker(\pi-\lambda)$, which is of size $\ell^{h+k}$ compare to $\ell^{k}$ in the other cases.
-\end{frame}%>>>
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-We want to compute 
-Our aim is to compute an horizontal decomposition: $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$ of $E[\ell^k]$ (aka isogeny cycle in the SEA litterature).
+%\begin{frame}
+%Our aim is to compute an horizontal decomposition: $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$ of $E[\ell^k]$ (aka isogeny cycle in the SEA litterature).
 
-We will proceed step by step since with diagonalisation of $\ker (\pi -\lambda), \ker (\pi -\mu)  \bmod \ell^{h+1}$ we get an horizontal decomposition $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$.
+%We will proceed step by step since with diagonalisation of $\ker (\pi -\lambda), \ker (\pi -\mu)  \bmod \ell^{h+1}$ we get an horizontal decomposition $E[\ell^k]_{\lambda} \oplus E[\ell^k]_{\mu}$.
 
 
-Dessin de step by step...  
-As seen before 
-\end{frame}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1340,7 +1266,7 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 %\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
 %${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 %}
-\end{frame}%>>>
+\end{frame}
 
 
 
@@ -1619,12 +1545,12 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 			\end{scope}
 	\end{scope}
 \end{scope}
-\end{tikzpicture}%>>>
+\end{tikzpicture}
 \end{center}
-\end{figure}%>>>
+\end{figure}
 %\end{column}
 %\end{columns}
-\end{frame}%>>>
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1788,7 +1714,7 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 
   \bluebox{Finding an Elkies prime $\ell$}{
   }
-\end{frame}%>>>
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -1799,8 +1725,8 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.8]{Images/graphe-101-149-269.pdf}
-\end{figure}%>>>
-\end{frame}%>>>
+\end{figure}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1825,7 +1751,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \end{itemize}}
 
 %Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
-\end{frame}%>>>
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1840,7 +1766,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \begin{center}
 \includegraphics[width=.9\hsize]{Images/volcan}
 \end{center}
-\end{frame}%>>>
+\end{frame}
 
 \end{document}
 
