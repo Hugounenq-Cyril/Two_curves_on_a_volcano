@@ -129,12 +129,15 @@ Explicit isogenies in quadratic time in any characteristic}
 \item $E$ and $E'$ two elliptic curves, an isogeny is  a surjective morphism $\phi: E \rightarrow E'$ such that $\phi(0_{E})=0_{E'}$. Isogenies are
 \begin{itemize}
  \item group morphisms (with finite kernel),
- \item rational maps (of finite degree).
+ \item algebraic maps (of finite degree).
 \end{itemize}
  
 \item  If the isogeny has degree $\ell$, we call it an \emph{$\ell$-isogeny},
 
 \item We say that $E$ and $E'$ are \emph{$\ell$-isogenous} if there exist an $\ell$-isogeny between them.
+
+\item In this talk: only \emph{rational} isogenies (i.e.\ Galois-equivariant maps).
+
 %\item We say that $E$ and $E'$ are isogenous if there exist an isogeny $\phi$ between the two curves.
 
 %\item Moreover if the isogeny $\phi$ is $\textbf{separable}$ then we have $\deg \phi = | \ker(\phi) |$ and if $\ell= \deg \phi $ then we say that the curves $E$ and $E'$ are $\ell$-isogenous.
@@ -797,7 +800,7 @@ In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' 
 
 
 \pause
-Assume that $\pi$ splits $\bmod \ell$:
+Assume that $\pi$ splits modulo $\ell$:
 i.e. its minimal polynomial factors as
 \[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \textit{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
 \begin{center}
@@ -845,7 +848,7 @@ i.e. its minimal polynomial factors as
 
 \begin{frame}
 \bluebox{Fact}{
-Let $\phi$ be an $r$-isogeny, with $\ell \nmid r$, then  $\phi$ preserves the directions $\lambda, \mu $ of $\ell$-isogenies.}
+Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
 
 To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenies of direction $\lambda, \mu $. 
 
