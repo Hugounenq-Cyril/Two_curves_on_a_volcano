@@ -805,7 +805,7 @@ i.e. its minimal polynomial factors as
 \[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \textit{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
 \begin{center}
   \begin{tabular}{p{13em}p{2em}p{13em}}
-    Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces \\ 
+    Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces in $E[\ell]$\\ 
     of direction $\red \lambda, \blu \mu $ & & $\ker( \pi- \red \lambda), \ker( \pi- \blu \mu) $ \\
   \end{tabular}
 \end{center}
@@ -870,7 +870,7 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 	    \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
 	    \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
 	}
-	\only<3>{
+	\only<3->{
 		\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
     	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
     }
@@ -887,6 +887,14 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 	\end{tikzpicture}	
 	\end{center}
 \end{figure}
+
+\begin{uncoverenv}<3->
+  \begin{itemize}
+  \item We call $\red{E[\ell^k]_\lambda}\oplus\blue{E[\ell^k]_\mu}$ a
+    \emph{horizontal} decomposition;
+  \item SEA literature calls this an \emph{isogeny cycle}.
+  \end{itemize}
+\end{uncoverenv}
 
 \end{frame}
 
@@ -1600,7 +1608,6 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusion}
 
 %\begin{frame}
 %\frametitle{Improving interpolation with the Frobenius}
@@ -1722,6 +1729,19 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
+  \frametitle{Technical details}
+
+  \bluebox{Computing in towers of field extensions}{
+  }
+
+  \bluebox{Finding an Elkies' prime $\ell$}{
+  }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\begin{frame}
 \frametitle{Experiments}
 The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, the code is available on github: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
 \begin{figure}[hbtp]
@@ -1744,6 +1764,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 }
 \bluebox{Future work}{
 \begin{itemize}
+\item Compare implementation to other algorithms (esp. Lercier-Sirvent).
 \item Directly generalize to curves not on the crater.
 \item Give an analogous algorithm for Atkin primes.
 \item Analyze our techniques to navigate the volcano in other
