@@ -2,34 +2,34 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{hyperref}
+% \usepackage{hyperref}
 \usepackage{amssymb,amsthm,amsmath,amsfonts}
 \usepackage{lmodern}
-\usepackage{units}
-\usepackage{hyperref}
+% \usepackage{units}
+% \usepackage{hyperref}
 \usepackage{tikz}
-\usepackage{tikzsymbols}
+% \usepackage{tikzsymbols}
 \usetikzlibrary{calc}
 \usetikzlibrary{fixedpointarithmetic}
 \usepackage{fp}
 \usepackage{graphicx}
-\bibliographystyle{plain}
+% \bibliographystyle{plain}
 \usepackage{epsfig}
 \usepackage{epstopdf}
-\usepackage{makeidx}
-\usepackage{gloss}
+% \usepackage{makeidx}
+% \usepackage{gloss}
 \usepackage{algorithmic}
-\usepackage{algorithm}
+% \usepackage{algorithm}
 
-\usepackage{xkeyval} 
+% \usepackage{xkeyval} 
 
 \def\glossname{Glossaire}
 %\bibliographystyle{alpha} % plain-fr si rapport en français
 
-\usepackage[usenames,dvipsnames]{pstricks}
-\usepackage{epsfig}
-\usepackage{pst-grad} % For gradients
-\usepackage{pst-plot}
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients}}
+% \usepackage{pst-plot}
 
 
 
@@ -53,6 +53,45 @@
 \usecolortheme{whale}
 \usecolortheme{orchid}
 \usecolortheme[named=blue]{structure}
+\makeatletter
+
+\setbeamertemplate{headline}{%
+  \leavevmode \@tempdimb=2.4375ex%
+  \ifnum\beamer@subsectionmax<\beamer@sectionmax%
+    \multiply\@tempdimb by\beamer@sectionmax%
+  \else%
+    \multiply\@tempdimb by\beamer@subsectionmax%
+  \fi%
+  \ifdim\@tempdimb>0pt%
+    \advance\@tempdimb by 1.825ex%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{section in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertsectionnavigation{.5\paperwidth}\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{logo in head}%
+    \vbox to\@tempdimb{\vfil \hbox to .5\paperwidth{\hfil
+  \includegraphics[height=8mm]{Images/uvsq-logo-cmjn.jpg}\hskip 8mm}\vfil}%
+    \end{beamercolorbox}%
+  \fi%
+}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle \hfill
+    \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+\definecolor{uvsqvert}{RGB}{91,172,41}
+\definecolor{uvsqbleu}{RGB}{15,152,209}
+% \setbeamercolor{section in head/foot}{fg=black,bg=uvsqvert}
+% \setbeamercolor{subsection in head/foot}{fg=black,bg=uvsqvert!80}
+\setbeamercolor{logo in head}{fg=black,bg=white}
+% \def\insertsubsectionnavigation#1{\hbox to #1{%
+%   \hfill \includegraphics[height=8mm]{Images/uvsq-logo-cmjn.jpg}}}
 \definecolor{pacificcream}{cmyk}{.05,.05,.15,0}
 
 
@@ -80,8 +119,8 @@
 \newenvironment{blackitemize}{\setbeamertemplate{itemize item}{\textcolor{black}{$\bullet$}} \begin{itemize}}{\end{itemize}}
 
 
-\logo{\includegraphics[height=8mm]{Images/uvsq-logo-cmjn.jpg}} 
-\addtobeamertemplate{footline}{\hfill\insertframenumber/ \inserttotalframenumber \hspace{2em}\null}
+% \logo{\includegraphics[height=8mm]{Images/uvsq-logo-cmjn.jpg}} 
+% \addtobeamertemplate{footline}{\hfill\insertframenumber/ \inserttotalframenumber \hspace{2em}\null}
 
 \def\algorithmicrequire{\textbf{Input:}}
 \def\algorithmicensure{\textbf{Output:}}
@@ -105,17 +144,20 @@ Explicit isogenies in quadratic time in any characteristic}
 
 \begin{frame}
 \titlepage
-\includegraphics[scale=0.1]{Images/digiteo.jpg} 
-\includegraphics[scale=0.03]{Images/Anssi.png} 
-\includegraphics[scale=0.18]{Images/UniversityOfWaterloo_logo_horiz_pms.eps}
-\end{frame}
+
+\hfill
+\includegraphics[scale=0.1]{Images/digiteo.jpg}\hfill
+\includegraphics[scale=0.03]{Images/Anssi.png}\hfill
+\includegraphics[scale=0.18]{Images/UniversityOfWaterloo_logo_horiz_pms.eps}\hfill
+\includegraphics[height=10mm]{Images/uvsq-logo-cmjn.jpg}
+\end{frame}%>>>
 %\maketitle
 %faire un plan
 %faire un rappel sur les courbes elliptiques
 \begin{frame}
 \frametitle{Summary}
 \tableofcontents
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,7 +201,7 @@ P &\mapsto \ell\cdot P
 \end{align*}
 is an isogeny of degree $\ell^2$.
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -194,7 +236,7 @@ From the knowledge of its kernel we can explicitly write down the isogeny:
 \end{itemize}
 }
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -221,7 +263,7 @@ Applications:
 \item Post quantum cryptography: [Rotostev,~Stolbunov~'06], [De~Feo,~Jao,~Pl\^ut~'11].
 \end{itemize}
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -245,7 +287,7 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \item[$\rightarrow$] We want to modify Couveignes' algorithm to obtain an algorithm with complexity $\tilde{O}(r^2)$ but with no exponential dependency in $\log(p)$.
 
 \end{itemize}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -280,7 +322,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{itemize}
 
 }
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -316,7 +358,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{enumerate}
 %Complexity polynomial in $p$. 
 \bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -374,7 +416,7 @@ $\Rightarrow O(r^2)$ possibilities.
     Ouch! Can we restrict the choices for $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$?
 \end{center}
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -397,10 +439,10 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 \item Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
 \[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
 \end{itemize}
-\end{prop}
+\end{prop}%>>>
 
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -488,7 +530,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 \end{center}		
 \end{figure}}
 
@@ -570,7 +612,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 \end{center}		
 \end{figure}}
 
@@ -653,7 +695,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 %faire des fleches courbees avec les indices \ell et \ell^2
 
 
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 \end{center}		
 \end{figure}}
 
@@ -669,14 +711,14 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 \pause 
 \item \textbf<3>{horizontal} if $\mathcal{O}=\mathcal{O}'$.
 \end{enumerate}
-\end{lem}
+\end{lem}%>>>
 %\begin{defi}
 %The index $f=[\mathcal{O}_K : \mathcal{O}]$ is called the conductor of $\mathcal{O}$.
 %\end{defi}
 \end{column}
 
 \end{columns}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -689,7 +731,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
             \href{http://xkcd.com/1714/}{xkcd.com/1714}
         \end{column}
     \end{columns}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -769,19 +811,19 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 			\draw (A)--(C);
 			\end{scope}
 		\end{scope}
-		\end{tikzpicture}
+		\end{tikzpicture}%>>>
 		%\end{center}
 		\caption{The three shapes of volcanoes of $2$-isogenies }
 		
 		\end{center} 
-		\end{figure}
+		\end{figure}%>>>
 In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' case).
 %\begin{figure}[hbtp]
 %\centering
 %\includegraphics[scale=0.4]{Images/duo-volcan-wo-label.png}
 %\caption{Volcano with one point on the crater, and two points}
 %\end{figure}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -836,12 +878,12 @@ i.e. its minimal polynomial factors as
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
+	\end{tikzpicture}	%>>>
 	\end{center}
-\end{figure}
+\end{figure}%>>>
 
 
-\end{frame}
+\end{frame}%>>>
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -884,9 +926,9 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
+	\end{tikzpicture}	%>>>
 	\end{center}
-\end{figure}
+\end{figure}%>>>
 
 \begin{uncoverenv}<3->
   \begin{itemize}
@@ -896,7 +938,7 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
   \end{itemize}
 \end{uncoverenv}
 
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -929,7 +971,7 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
     stop.
   \end{enumerate}
 \end{enumerate}
-\end{frame}
+\end{frame}%>>>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -975,9 +1017,9 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 	\draw (F) node{$\bullet$};
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
+	\end{tikzpicture}	%>>>
 	\end{center}
-\end{figure}
+\end{figure}%>>>
 }
 \end{column}
 \begin{column}{5cm}
@@ -1088,16 +1130,16 @@ Assume we have \emph{diagonalized} $\pi$, i.e.\ we have $\langle\red P,\blu Q\ra
 	\node[fill=pacificcream] (D) at (125:1.2) {$E_2$};
 	\end{scope}
 \end{scope}
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 		%\end{center}
 		%\caption{Volcano of $2$-isogenies with height $h=2$}
 		
 		\end{center} 
-		\end{figure}
+		\end{figure}%>>>
 }
 \end{column}
 \end{columns}
-\end{frame}
+\end{frame}%>>>
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1133,8 +1175,8 @@ c & d
     \qquad {\color{red}\lambda} \neq {\color{blue}\mu}.
     \]
    % Hence $\pi|T_\ell(E)$ has two eigenvalues ${\color{red}\lambda},{\color{blue}\mu}$ over $\mathbb{Q}_\ell$.
-\end{prop}
-\end{frame}
+\end{prop}%>>>
+\end{frame}%>>>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -1148,11 +1190,11 @@ c & d
 %\end{smallmatrix}\right )$.
 % where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
 In the Elkies case the action of the Frobenius endomorphism $\pi$ on $E[\ell^{h+1}]$~is conjugate, over~$\mathbb{Z}/\ell^{h+1}\mathbb{Z}$,
-to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
+to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ) \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$ and $a = 0$ if~$E$ lies on the crater.
 
 %Moreover $a = 0$ if~$E$ lies on the crater.
 %and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
-\end{prop}
+\end{prop}%>>>
 
 \begin{figure}
 \begin{center}
@@ -1251,10 +1293,10 @@ to a matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}
 
 %faire des fleches courbees avec les indices \ell et \ell^2
 
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 \end{center}
-\end{figure}
-\end{frame}
+\end{figure}%>>>
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1287,7 +1329,7 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 %\bluebox{}{\textbf{Fact:} $\phi$ maps ${\color{red}T_{\lambda}(E)\mapsto T_\lambda(E')}$ and 
 %${\color{blue} T_{\mu}(E) \mapsto T_\mu(E')}$.
 %}
-\end{frame}
+\end{frame}%>>>
 
 
 
@@ -1413,7 +1455,7 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{How to compute an "isogeny cycle"}
+\frametitle{How to compute an ``isogeny cycle''}
 %\only<2-2>{
 %\transdissolve
 %}
@@ -1566,12 +1608,12 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 			\end{scope}
 	\end{scope}
 \end{scope}
-\end{tikzpicture}
+\end{tikzpicture}%>>>
 \end{center}
-\end{figure}
+\end{figure}%>>>
 %\end{column}
 %\end{columns}
-\end{frame}
+\end{frame}%>>>
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1607,7 +1649,6 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %\begin{frame}
 %\frametitle{Improving interpolation with the Frobenius}
@@ -1736,7 +1777,7 @@ $\color{red}{E[\ell]_{{\lambda}}} \color{black}{,} \color{blue}{E[\ell]_{{\mu}}}
 
   \bluebox{Finding an Elkies prime $\ell$}{
   }
-\end{frame}
+\end{frame}%>>>
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -1747,8 +1788,8 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=0.8]{Images/graphe-101-149-269.pdf}
-\end{figure}
-\end{frame}
+\end{figure}%>>>
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1773,7 +1814,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \end{itemize}}
 
 %Code available on GitHub: \url{https://github.com/Hugounenq-Cyril/Two_curves_on_a_volcano}
-\end{frame}
+\end{frame}%>>>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1781,6 +1822,14 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 
 % \bibliography{Biblio}
 % \end{frame}
+
+\setbeamertemplate{headline}{\relax}
+\setbeamertemplate{footline}{\relax}
+\begin{frame}
+\begin{center}
+\includegraphics[width=.9\hsize]{Images/volcan}
+\end{center}
+\end{frame}%>>>
 
 \end{document}
 
