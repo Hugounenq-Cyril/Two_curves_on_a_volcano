@@ -56,6 +56,9 @@
 \makeatletter
 
 \setbeamertemplate{headline}{%
+%  \begin{beamercolorbox}[wd=\paperwidth,ht=3pt]{logo in head}%
+%    This is cut by Uni-KL projector
+%  \end{beamercolorbox}
   \leavevmode \@tempdimb=2.4375ex%
   \ifnum\beamer@subsectionmax<\beamer@sectionmax%
     \multiply\@tempdimb by\beamer@sectionmax%
@@ -280,9 +283,11 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \begin{itemize}
 \item{} [Elkies~'92/'98],  %[Charlap, Colay, Robbins '91], 
 [Bostan,~Morain,~Salvy,~Schost~'08] use $\tilde{O}(r)$ operations in $\mathbb{F}_q$, work only for $r < 2p$. Specific to the SEA case.
-\item{} [Couveignes~'94] any characteristic, $\tilde{O}(r^3)$ operations, exponential in $\log(p)$.
+\item{} [Couveignes~'94] any characteristic, $\tilde{O}(r^3
+p^{\Omega(1)})$ operations.
 \item{} [Lercier~'97] only $p=2$.
-\item{} [Couveignes~'96], [De Feo~'10] any characteristic, $\tilde{O}(r^2)$ operations, exponential in $\log(p)$.
+\item{} [Couveignes~'96], [De Feo~'10] any characteristic, $\tilde{O}(r^2
+p^{\Omega(1)})$ operations.
 \item{} [Lercier,~Sirvent~'08], [Lairez,~Vaccon~'16] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$. Specific to the SEA case.
 \end{itemize}
 \begin{itemize}
@@ -340,7 +345,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{algorithmic}}
 
 \begin{enumerate}
-\item Select the least $k$ such that $p^k>4r$;
+\item Select the least $k$ such that $p^k \approx r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
 \item Compute $T=\prod(X-x(uP))$ with $1\le u \le \frac{p^k-1}{2}$;
@@ -376,8 +381,11 @@ instead of $E[p^k]$ to remove the polynomial dependency in $p$.
 \begin{itemize}
 
 %\item[$\Rightarrow$] main drawback: $E[\ell^{\frac{k}{2}}]=\left(\mathbb{Z}/\ell^{\frac{k}{2}} \mathbb{Z} \right)^2$ thus for two basis $\langle P,Q \rangle=E[\ell^{\frac{k}{2}}]$, $\langle P',Q' \rangle=E'[\ell^{\frac{k}{2}}]$ we have to test $O(\ell^{\frac{4k}{2}})=O(r^2)$ mapping candidates before finding the good one for the interpolation.
-\item $E[p^k] = \langle P\rangle\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z} \right)$ \hfill with $p^{k}>4r$
-\item $E[\ell^k] = \langle P,Q\rangle\simeq\left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$ \hfill with $\ell^{2k}>4r$
+\item $E[p^k] = \langle P\rangle\simeq\left(\mathbb{Z}/p^{k} \mathbb{Z}
+\right)$ \hfill with $p^{k} \approx r$
+\item $E[\ell^k] = \langle P,Q\rangle\simeq\left(\mathbb{Z}/\ell^{k}
+\mathbb{Z} \right) \times \left(\mathbb{Z}/\ell^{k} \mathbb{Z} \right)$
+\hfill with $\ell^{2k} \approx r$
 \end{itemize}}
 \pause
 \begin{columns}
@@ -430,7 +438,9 @@ $\Rightarrow O(r^2)$ possibilities.
 \begin{frame}
 
 \begin{defi}[Frobenius Endomorphism]
-$E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It satisfies a quadratic equation \[ \pi^2 - t_\pi \pi + q.\]
+$E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function
+\[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It
+satisfies a quadratic equation \[ \pi^2 - t_\pi \pi + q = 0.\]
 \end{defi}
 
 \begin{prop} \label{prop:p-tor}
@@ -752,7 +762,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 		\draw (B) node[fill=white]{$\bullet$};
 		\draw (C) node[fill=white]{$\bullet$};
 		\draw (D) node[fill=white]{$\bullet$};
-		\node at (0,-6.7) {$(d_K/\ell) = -1$};
+		\node at (0,-6.7) {Inert prime $\ell$};
 		\draw (A)--(B);
 		\draw (A)--(C);
 		\draw (A)--(D);		
@@ -765,7 +775,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 		\draw (B) node[fill=white]{$\bullet$};
 		\draw (C) node[fill=white]{$\bullet$};
 		\draw (D) node[fill=white]{$\bullet$};
-		\node at (2.8,-6.7) {$(d_K/\ell) = 0$};
+		\node at (2.8,-6.7) {Ramified prime $\ell$};
 		\draw (A)--(B);
 		\draw (A)--(C);
 		\draw (A)--(D);
@@ -787,7 +797,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 		\node (B) at (3,0) {$\bullet$};
 		\node (C) at (270:1.2) {$\bullet$};
 		\node (D) at (90:1.5) {};
-		\node at (0,-6.7) {$(d_K/\ell) = +1$};
+		\node at (0,-6.7) {Split prime $\ell$};
 		%\draw[-] (A.center) to[bend right=25] (C.center);
 		\draw[-,dashed] (A.center) to[bend left=40] (B.center);
 		%\draw[-] (B.center) to[bend left=25] (C.center);
@@ -896,7 +906,8 @@ i.e. its minimal polynomial factors as
 \bluebox{Fact}{
 Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
 
-To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenies of direction $\lambda, \mu $. 
+To interpolate $\phi$ over $E[\ell^k]$, we want to compute two cyclic
+$\ell^k$-subgroups of direction $\lambda, \mu $. 
 
 \begin{figure}[h]
 	\begin{center}
@@ -955,14 +966,16 @@ To interpolate $\phi$ over $E[\ell^k]$, we want to compute two $\ell^k$-isogenie
 \end{algorithmic}}
 
 \bluebox{}{\textbf{Fact:} $\phi$ maps 
-$\color{red}{E[\ell^k]_{{\lambda}}} \color{black}{\mapsto} \color{red}{E'[\ell^k]_{{\lambda}}}$ and 
-$\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_{{\mu}}}$.
+$\color{red}{E[\ell^k]_{{\lambda}}} \color{black}{\rightarrow} \color{red}{E'[\ell^k]_{{\lambda}}}$ and 
+$\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\rightarrow} \color{blue}{E'[\ell^k]_{{\mu}}}$.
  }
 
 \begin{enumerate}
-\item Select least $k$ such that  $\ell^{2k}>4r$
+\item Select least $k$ such that  $\ell^{2k}>4r$.
+\medskip
 \item Compute $\langle \red P , \blu Q \rangle = \color{red}{E[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E[\ell^k]_{{\mu}}} $ and $\langle \red P' , \blu Q' \rangle = \color{red}{E'[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E'[\ell^k]_{{\mu}}} $
 %\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\medskip
 \item For each \textbf{invertible diagonal} matrix
   $\left ( \begin{smallmatrix}a & 0\\ 0 & b
 \end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
@@ -971,6 +984,7 @@ $\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\mapsto} \color{blue}{E'[\ell^k]_
   \item Compute the interpolation polynomial
     $L$ sending\\
     $\color{red}P\mapsto aP'$ and $\color{blue}Q\mapsto bQ'$;
+\hfill\only<2>{$O(r)$}
   \item If $L$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
@@ -989,11 +1003,15 @@ Since for any $P \in  E[\ell^h]$ we have:
 \[
 \pi(P)=\red \lambda P = \blu \mu P
 \]
-we cannot immediately distinguish kernels of isogenies of direction $\red \lambda$ from direction $\blu \mu$.
+we cannot immediately distinguish kernels of isogenies of direction $\red
+\lambda$ from those with direction $\blu \mu$.
+
+\medskip
 Thus we have to work with $E[\ell^{h+1}]$ to get $P \in \red{ E[\ell^{h+1}]_{ \lambda}}$ such that:
 \[
 \pi(P)=\red \lambda P \neq \blu \mu P
 \]
+We must therefore now assume that $k \geqslant h+1$.
 
 \end{frame}
 
@@ -1023,7 +1041,9 @@ Thus we have to work with $E[\ell^{h+1}]$ to get $P \in \red{ E[\ell^{h+1}]_{ \l
 %\end{smallmatrix}\right )$.
 % where $a ∈ ℤ$, $0 ≤ a ≤ ℓ^{h} - 1$,
 In the Elkies case the action of the Frobenius endomorphism $\pi$ on $E[\ell^{h+1}]$~is conjugate, over~$\mathbb{Z}_{\ell}$,
-to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\color{blue}\mu} \end{matrix}\right ), \]  with $a \in \{ 0,1,\ell, \dots, \ell^{h-1}  \}$, and $a = 0$ iff~$E$ lies on the crater.
+to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 &
+{\color{blue}\mu} \end{matrix}\right ), \]  with $a \in \{ 1,\ell, \dots,
+\ell^{h-1}, 0  \}$, and $a = 0$ iff~$E$ lies on the crater.
 
 %Moreover $a = 0$ if~$E$ lies on the crater.
 %and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
@@ -1685,18 +1705,19 @@ We proceed step by step by walking along the volcano crater according to the dir
 
   \bluebox{Computing in towers of field extensions}{
   \begin{itemize}
-  \item We work on $\mathbb{F}_q$ such that $E[\ell] \subset E(\mathbb{F}_q)$,
- 	
-	\item then we use $\ell$-adic extensions using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Schost '15] where in particular we have a fast computation of the Frobenius.
+%   \item We work on $\mathbb{F}_q$ such that $E[\ell] \subset E(\mathbb{F}_q)$,
+	\item We work in $\ell$-adic extensions of $\mathbb F_q$
+        using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Schost '15] where in particular we have a fast computation of the Frobenius.
   \end{itemize}
  	
   }
 
   \bluebox{Finding an Elkies prime $\ell$}{
   \begin{itemize}
+  \item The complexity depends polynomially on the auxiliary prime $\ell$.
   \item Ideally we would like to work with $\ell=2$.
-  \item In practice one half of all $\ell$ are expected to be Elkies primes.
-  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski, Sutherland '14].
+  \item In practice half of all $\ell$ are expected to be Elkies primes.
+  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski, Sutherland~'14].
   \end{itemize}
   }
 \end{frame}
@@ -1728,7 +1749,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \bluebox{Future work}{
 \begin{itemize}
 \item Compare implementation to other algorithms (esp. Lercier-Sirvent).
-\item Directly generalize to curves not on the crater.
+% \item Directly generalize to curves not on the crater.
 \item Give an analogous algorithm for Atkin primes.
 \item Analyze our techniques to navigate the volcano in other
   settings: point counting, computation of endomorphism rings, Hilbert
