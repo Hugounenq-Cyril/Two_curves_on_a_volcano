@@ -520,8 +520,8 @@ i.e. its minimal polynomial factors as
 	\draw (G) node{$\bullet$};
 	\draw (H) node{$\bullet$};
 	
-	\draw[line width=1.5pt,red,->] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue,->] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+	\draw[line width=1.5pt,red,-latex] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue,-latex] (A)--(H) node[midway,right]{$\color{blue} \mu$};
 		\end{tikzpicture}	
 	\end{center}
 \end{figure}
@@ -533,55 +533,64 @@ i.e. its minimal polynomial factors as
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\bluebox{Fact}{
-Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
+  \bluebox{Fact}{
+    Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
 
-To interpolate $\phi$ over $E[\ell^k]$, we want to compute two cyclic
-$\ell^k$-subgroups of direction $\lambda, \mu $. 
+  To interpolate $\phi$ over $E[\ell^k]$, we want to compute two cyclic
+  $\ell^k$-subgroups of direction $\lambda, \mu $. 
 
-\begin{figure}[h]
-	\begin{center}
-	\begin{tikzpicture}[scale=0.4]
-	\coordinate (A) at (0:5);
-	\coordinate (B) at (45:5);
-	\coordinate (C) at (90:5);
-	\coordinate (D) at (135:5);
-	\coordinate (E) at (180:5);
-	\coordinate (F) at (225:5);
-	\coordinate (G) at (270:5);
-	\coordinate (H) at (315:5);
-	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
-	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-	\only<2->{
-	    \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
-	    \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
-	}
-	\only<3->{
-		\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
-    	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
-    }
-    
-	\draw (A) node{$\bullet$};
-	\draw (A) node[right]{$E$};
-	\draw (B) node{$\bullet$};
-	\draw (C) node{$\bullet$};
-	\draw (D) node{$\bullet$};
-	\draw (E) node{$\bullet$};
-	\draw (F) node{$\bullet$};
-	\draw (G) node{$\bullet$};
-	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
-	\end{center}
-\end{figure}
+  \begin{figure}[h]
+    \begin{center}
+      \begin{tikzpicture}[scale=0.4]
+        \foreach \s/\e in {0/E,15cm/E'} {
+          \begin{scope}[xshift=\s,black!60]
+            \coordinate (A) at (0:5);
+            \coordinate (B) at (45:5);
+            \coordinate (C) at (90:5);
+            \coordinate (D) at (135:5);
+            \coordinate (E) at (180:5);
+            \coordinate (F) at (225:5);
+            \coordinate (G) at (270:5);
+            \coordinate (H) at (315:5);
 
-\begin{uncoverenv}<3->
-  \begin{itemize}
-  \item We call $\red{E[\ell^k]_\lambda}\oplus\blu{E[\ell^k]_\mu}$ a
-    \emph{horizontal} decomposition;
-  \item SEA literature calls this an \emph{isogeny cycle} [Couveignes, Morain '94].
-  \end{itemize}
-\end{uncoverenv}
+            \draw (A) node{$\bullet$};
+            \draw (A) node[right]{$\e$};
+            \draw (B) node{$\bullet$};
+            \draw (C) node{$\bullet$};
+            \draw (D) node{$\bullet$};
+            \draw (E) node{$\bullet$};
+            \draw (F) node{$\bullet$};
+            \draw (G) node{$\bullet$};
+            \draw (H) node{$\bullet$};
+
+            \draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
+            \begin{scope}[-latex]
+              \draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+              \draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+              \uncover<2->{
+                \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
+                \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
+              }
+              \uncover<3->{
+                \draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
+                \draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
+              }
+            \end{scope}
+          \end{scope}
+
+          \draw[dashed,thick,-latex,shorten >=5pt] (0:5) to[bend left=40] node[below left] {$\phi$} (0:20);
+        }
+      \end{tikzpicture}	
+    \end{center}
+  \end{figure}
+
+  \begin{uncoverenv}<3->
+    \begin{itemize}
+    \item We call $\red{E[\ell^k]_\lambda}\oplus\blu{E[\ell^k]_\mu}$ a
+      \emph{horizontal} decomposition;
+    \item SEA literature calls this an \emph{isogeny cycle} [Couveignes, Morain '94].
+    \end{itemize}
+  \end{uncoverenv}
 
 \end{frame}
 
