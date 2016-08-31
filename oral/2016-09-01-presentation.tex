@@ -1319,13 +1319,6 @@ We proceed step by step by walking along the volcano crater according to the dir
 %		\draw[line width=1.5pt,red,<-] (C.center) to[bend right=20] (B.center); 
 %		\node (F) at (1.5,-0.5) {$\color{red} \lambda$};		
 %		}
-		\only<1-1>{
-		\draw [line width=1.5pt,red,<-] (A.center) to[bend right=20] (C.center);
-		\node (E) at (-1.5,-0.5) {$\color{red} \lambda$};
-		}
-		\only<2->{
-		\draw (A.center) to[bend right=20] (C.center);
-		}
 		
 			\begin{scope}[xshift=-3cm]
 			\coordinate (A) at (0,0);
@@ -1333,7 +1326,7 @@ We proceed step by step by walking along the volcano crater according to the dir
 			\coordinate (CA) at (265:7.5);
 			\coordinate (CB) at (275:7.5);
 			\draw (C)--(CA);
-			\only<1-1>{
+			\only<1>{
 			\draw (C)--(CB);}
 			\only<2->{
 			\draw (C)--(CB);}
@@ -1341,6 +1334,10 @@ We proceed step by step by walking along the volcano crater according to the dir
 			\draw (A)--(C);}
 			\only<4->{
 			\draw (A)--(C);}
+			\only<5>{
+			\draw [line width=1.5pt,blue] (C)--(A);
+			\draw [line width=1.5pt,blue] (C)--(CA);
+			}
 %			\draw (A) node[fill=white]{$30$};
 %			\draw (C) node[fill=white]{$98$};
 %			\draw (CA) node[fill=white]{$22$};
@@ -1358,6 +1355,10 @@ We proceed step by step by walking along the volcano crater according to the dir
 			\draw (C)--(CA);
 			\draw (C)--(CB);
 			\draw (A)--(C);
+			\only<1>{
+			\draw [line width=1.5pt,blue] (C)--(CB);
+			\draw [line width=1.5pt,blue] (A)--(C);
+			}
 %			\draw (A) node[fill=white]{$65$};
 %			\draw (C) node[fill=white]{$60$};
 %			\draw (CA) node[fill=white]{$39$};
@@ -1395,11 +1396,28 @@ We proceed step by step by walking along the volcano crater according to the dir
 			\draw (C) node[color=black!90]{$\bullet$};
 			\draw (CA) node[color=black!90]{$\bullet$};
 			\draw (CB) node[color=black!90]{$\bullet$};
+			\only<3>{
+			\draw [line width=1.5pt,blue] (C)--(A);
+			\draw [line width=1.5pt,blue] (C)--(CA);
+			}
 			\only<1-3>{\draw (A) node[fill=white]{$E_2$};}			
 			\only<4->{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
 			\end{scope}
+	\coordinate (A) at (-3,0);
+	\coordinate (C) at (270:1.2);
+	\only<1->{
+	\draw (A.center) to[bend right=20] (C.center);
+	}
+	\draw (A) node[fill=white]{$E_3$};
+	\only<1>{
+	\draw (C) node[fill=yellow!50!white,shape=circle]{$E$};
+	}	
+	\only<2->{
+	\draw (C) node[fill=white]{$E$};
+	}
 	\end{scope}
 \end{scope}
+
 \end{tikzpicture}
 \end{center}
 \end{frame}
