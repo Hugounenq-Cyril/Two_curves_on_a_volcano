@@ -146,7 +146,7 @@
 %\title[Structure of $\ell$-isogeny volcanoes applied to Couveignes' algorithm]{Structure of $\ell$-isogeny volcanoes applied to Couveignes' algorithm}
 \title[Explicit isogenies in quadratic time in any characteristic]{
 Explicit isogenies in quadratic time in any characteristic}
-\institute{Universit\'e Versailles Saint-Quentin-en-Yvelines, Paris-Saclay}
+\institute{ANTS XII -- Kaiserslautern}
 \date{September 1, 2016}
 
 
@@ -284,10 +284,10 @@ Let $p$ be the characteristic of $\mathbb{F}_q$.
 \item{} [Elkies~'92/'98],  %[Charlap, Colay, Robbins '91], 
 [Bostan,~Morain,~Salvy,~Schost~'08] use $\tilde{O}(r)$ operations in $\mathbb{F}_q$, work only for $r < 2p$. Specific to the SEA case.
 \item{} [Couveignes~'94] any characteristic, $\tilde{O}(r^3
-p^{\Omega(1)})$ operations.
+p^{O(1)})$ operations.
 \item{} [Lercier~'97] only $p=2$.
 \item{} [Couveignes~'96], [De Feo~'10] any characteristic, $\tilde{O}(r^2
-p^{\Omega(1)})$ operations.
+p^{O(1)})$ operations.
 \item{} [Lercier,~Sirvent~'08], [Lairez,~Vaccon~'16] works for every $p$ using $\tilde{O}(r^2)$ operations in $\mathbb{F}_q$. Specific to the SEA case.
 \end{itemize}
 \begin{itemize}
@@ -345,7 +345,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
 \end{algorithmic}}
 
 \begin{enumerate}
-\item Select the least $k$ such that $p^k \approx r$;
+\item Select the least $k$ such that $p^k >  4r$;
 \item Compute generators $P$ of
   $E[p^k]$ and $P'$ of $E'[p^k]$;
 \item Compute $T=\prod(X-x(uP))$ with $1\le u \le \frac{p^k-1}{2}$;
@@ -355,7 +355,7 @@ Compute $\phi$ by interpolation over $E[p^k]$:
     $L$ such that
     $L (x (u P)) = x(a\, u\,P' )$ for all
     $u \in \mathbb{Z}/p^k \mathbb{Z}$;
-    \hfill $\tilde{O}(r)$
+    \hfill $\tilde{O}(r p^{O(1)})$
   \item Use a  rational reconstruction  algorithm 
     to compute a rational
     fraction $F=L\bmod{T}$ of degrees~$(r, r-1)$;
@@ -434,36 +434,209 @@ $\Rightarrow O(r^2)$ possibilities.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Volcanoes of $\ell$-isogenies and Frobenius endomorphism}
-
 \begin{frame}
-
+\frametitle{Frobenius vs isogenies}
 \begin{defi}[Frobenius Endomorphism]
 $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function
 \[ \pi:(x,y) \mapsto (x^q,y^q)\] is called Frobenius endomorphism. It
 satisfies a quadratic equation \[ \pi^2 - t_\pi \pi + q = 0.\]
 \end{defi}
 
-\begin{prop} \label{prop:p-tor}
-$E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
-\begin{itemize}
-\item  $\mathsf{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
-
-%From now we will only work with ordinary elliptic curves.
-
-\item Let $\mathcal{O}_K$ denote the algebraic integers of $K$, we have:
-\[ \mathbb{Z}[\pi] \subset \mathcal{O} \subset \mathcal{O}_K \]
-\end{itemize}
-\end{prop}
+We are only working with rational isogenies $\psi:E \to E'$, i.e.
+\[
+\pi_{E'} \circ \psi =\psi \circ \pi_{E}.
+ \]
 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%\begin{frame}
+%    \begin{columns}
+%        \begin{column}{0.8\textwidth}
+%            \includegraphics[height=\textheight]{Images/xkcd.png}
+%        \end{column}
+%        \begin{column}{0.2\textwidth}
+%            \href{http://xkcd.com/1714/}{xkcd.com/1714}
+%        \end{column}
+%    \end{columns}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{An $\ell$-adic Couveignes algorithm (special case)}
+
 \begin{frame}
-\frametitle{The link between isogenies and endomorphism rings}
-\vspace{-5mm}
+\vspace{-4mm}
+  \begin{center}
+    \begin{tabular}{p{13em}p{2em}p{13em}}
+Subgroup of size $\ell$  & $\Leftrightarrow$ &     $\ell$-isogeny \pause \\[2mm]
+      
+    Subgroup of size $\ell$ stable by $\pi$   & $\Leftrightarrow$ & Rational $\ell$-isogeny 
+    \end{tabular}
+  \end{center}
+
+
+\pause
+Assume that $\pi$ splits modulo $\ell$:
+i.e. its minimal polynomial factors as
+\[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \text{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
+
+
+\pause
+\begin{center}
+  \begin{tabular}{p{13em}p{2em}p{13em}}
+     \raggedright Two eigenspaces in $E[\ell]$
+     \mbox{$\ker(\pi-\red \lambda), \ker( \pi- \blu \mu)$}
+     & $\Rightarrow$  
+     & \raggedright Two rational $\ell$-isogenies
+    \mbox{of direction $\red \lambda, \blu \mu $}
+  \end{tabular}
+\end{center}
+%
+\bluebox{Isogeny graph}{
+\begin{figure}[h]
+	\begin{center}
+	\begin{tikzpicture}[scale=0.3]
+	\coordinate (A) at (0:5);
+	\coordinate (B) at (45:5);
+	\coordinate (C) at (90:5);
+	\coordinate (D) at (135:5);
+	\coordinate (E) at (180:5);
+	\coordinate (F) at (225:5);
+	\coordinate (G) at (270:5);
+	\coordinate (H) at (315:5);
+	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);	
+		
+	\draw (A) node[right]{$E$};
+	\draw (A) node{$\bullet$};
+	\draw (B) node{$\bullet$};
+	\draw (C) node{$\bullet$};
+	\draw (D) node{$\bullet$};
+	\draw (E) node{$\bullet$};
+	\draw (F) node{$\bullet$};
+	\draw (G) node{$\bullet$};
+	\draw (H) node{$\bullet$};
+	
+	\draw[line width=1.5pt,red,->] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue,->] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+		\end{tikzpicture}	
+	\end{center}
+\end{figure}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\bluebox{Fact}{
+Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
+
+To interpolate $\phi$ over $E[\ell^k]$, we want to compute two cyclic
+$\ell^k$-subgroups of direction $\lambda, \mu $. 
+
+\begin{figure}[h]
+	\begin{center}
+	\begin{tikzpicture}[scale=0.4]
+	\coordinate (A) at (0:5);
+	\coordinate (B) at (45:5);
+	\coordinate (C) at (90:5);
+	\coordinate (D) at (135:5);
+	\coordinate (E) at (180:5);
+	\coordinate (F) at (225:5);
+	\coordinate (G) at (270:5);
+	\coordinate (H) at (315:5);
+	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
+	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
+	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
+	\only<2->{
+	    \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
+	    \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
+	}
+	\only<3->{
+		\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
+    	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
+    }
+    
+	\draw (A) node{$\bullet$};
+	\draw (A) node[right]{$E$};
+	\draw (B) node{$\bullet$};
+	\draw (C) node{$\bullet$};
+	\draw (D) node{$\bullet$};
+	\draw (E) node{$\bullet$};
+	\draw (F) node{$\bullet$};
+	\draw (G) node{$\bullet$};
+	\draw (H) node{$\bullet$};
+	\end{tikzpicture}	
+	\end{center}
+\end{figure}
+
+\begin{uncoverenv}<3->
+  \begin{itemize}
+  \item We call $\red{E[\ell^k]_\lambda}\oplus\blu{E[\ell^k]_\mu}$ a
+    \emph{horizontal} decomposition;
+  \item SEA literature calls this an \emph{isogeny cycle} [Couveignes, Morain '94].
+  \end{itemize}
+\end{uncoverenv}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\bluebox{Towards an $\ell$-adic Couveignes' algorithm ($\pi$ splits modulo $\ell$)}{
+\begin{algorithmic}[1]
+\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
+\ENSURE $\phi: E \rightarrow E'$ of degree $r$
+\end{algorithmic}}
+
+\bluebox{}{\textbf{Fact:} $\phi$ maps 
+$\color{red}{E[\ell^k]_{{\lambda}}} \color{black}{\rightarrow} \color{red}{E'[\ell^k]_{{\lambda}}}$  
+and 
+$\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\rightarrow} \color{blue}{E'[\ell^k]_{{\mu}}}$.
+ }
+
+\begin{enumerate}
+\item Select the least $k$ such that  $\ell^{2k}>4r$.
+\medskip
+\item Compute $\langle \red P , \blu Q \rangle = \color{red}{E[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E[\ell^k]_{{\mu}}} $\\
+ and $\langle \red P' , \blu Q' \rangle = \color{red}{E'[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E'[\ell^k]_{{\mu}}} $
+%\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
+\medskip
+\item For each \textbf{invertible diagonal} matrix
+  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
+\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
+\hfill\only<2>{$O(r)$}
+  \begin{enumerate}
+
+  \item Compute the interpolation polynomial
+    $L$ sending\\
+    $\color{red}P\mapsto aP'$ and $\color{blue}Q\mapsto bQ'$;
+\hfill\only<2>{$\tilde{O}(r \ell^{O(1)})$}
+	\item Use a  rational reconstruction  algorithm 
+    to compute a rational
+    fraction $F$ of degrees~$(r, r-1)$;
+\hfill\only<2>{$\tilde{O}(r)$}
+  \item If $F$ defines an isogeny of degree $r$, return it and
+    stop.
+  \end{enumerate}
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{An $\ell$-adic Couveignes algorithm}
+
+\begin{frame}
+\frametitle{The general case}
+
+Denote by $\mathcal{O}$ (resp. $\mathcal{O}'$) the endomorphism of $E$ (resp. $E'$)
+\vspace{-4mm}
 \begin{columns}
 \begin{column}{6cm}
 %\includegraphics[scale=.66]{Images/ordres-l.eps}
@@ -717,13 +890,12 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 
 \end{column}
 \begin{column}{4cm}
+
 \begin{lem}[Kohel 1996]
 $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarrow E'$ an $\ell$-isogeny. Then we say that $\psi$ is
 \begin{enumerate}
 \item  \textbf<1>{descending} if $\ell=[\mathcal{O} : \mathcal{O}']$
-\pause
 \item \textbf<2>{ascending} if $\ell=[\mathcal{O}':\mathcal{O}]$,
-\pause 
 \item \textbf<3>{horizontal} if $\mathcal{O}=\mathcal{O}'$.
 \end{enumerate}
 \end{lem}
@@ -735,18 +907,6 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 \end{columns}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\begin{frame}
-%    \begin{columns}
-%        \begin{column}{0.8\textwidth}
-%            \includegraphics[height=\textheight]{Images/xkcd.png}
-%        \end{column}
-%        \begin{column}{0.2\textwidth}
-%            \href{http://xkcd.com/1714/}{xkcd.com/1714}
-%        \end{column}
-%    \end{columns}
-%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -841,157 +1001,6 @@ In the rest of this talk we consider only volcanoes with cyclic crater (Elkies c
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{An $\ell$-adic Couveignes algorithm}
-
-\begin{frame}
-
-  \begin{center}
-    \begin{tabular}{p{13em}p{2em}p{13em}}
-      $\ell$-isogeny & $\Leftrightarrow$ &  Subgroup of size $\ell$  \pause \\[2mm]
-      
-      Rational $\ell$-isogeny & $\Leftrightarrow$ & Subgroup of size $\ell$ stable by $\pi$ 
-    \end{tabular}
-  \end{center}
-
-
-\pause
-Assume that $\pi$ splits modulo $\ell$:
-i.e. its minimal polynomial factors as
-\[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \text{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
-\begin{center}
-  \begin{tabular}{p{13em}p{2em}p{13em}}
-    Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces in $E[\ell]$\\ 
-    of direction $\red \lambda, \blu \mu $ & & $\ker( \pi- \red \lambda), \ker( \pi- \blu \mu) $ \\
-  \end{tabular}
-\end{center}
-
-\pause
-
-\begin{figure}[h]
-	\begin{center}
-	\begin{tikzpicture}[scale=0.3]
-	\coordinate (A) at (0:5);
-	\coordinate (B) at (45:5);
-	\coordinate (C) at (90:5);
-	\coordinate (D) at (135:5);
-	\coordinate (E) at (180:5);
-	\coordinate (F) at (225:5);
-	\coordinate (G) at (270:5);
-	\coordinate (H) at (315:5);
-	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
-	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-		
-	\draw (A) node[right]{$E$};
-	\draw (A) node{$\bullet$};
-	\draw (B) node{$\bullet$};
-	\draw (C) node{$\bullet$};
-	\draw (D) node{$\bullet$};
-	\draw (E) node{$\bullet$};
-	\draw (F) node{$\bullet$};
-	\draw (G) node{$\bullet$};
-	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
-	\end{center}
-\end{figure}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\bluebox{Fact}{
-Let $\phi$ be an $r$-isogeny with $\ell \nmid r$, then $\phi$ preserves the kernels of the $\ell$-isogenies of direction $\lambda, \mu $.}
-
-To interpolate $\phi$ over $E[\ell^k]$, we want to compute two cyclic
-$\ell^k$-subgroups of direction $\lambda, \mu $. 
-
-\begin{figure}[h]
-	\begin{center}
-	\begin{tikzpicture}[scale=0.4]
-	\coordinate (A) at (0:5);
-	\coordinate (B) at (45:5);
-	\coordinate (C) at (90:5);
-	\coordinate (D) at (135:5);
-	\coordinate (E) at (180:5);
-	\coordinate (F) at (225:5);
-	\coordinate (G) at (270:5);
-	\coordinate (H) at (315:5);
-	\draw (A)--(B)--(C)--(D)--(E)--(F)--(G)--(H)--(A);		
-	\draw[line width=1.5pt,red] (A)--(B) node[midway,right]{$\color{red} \lambda$};
-	\draw[line width=1.5pt,blue] (A)--(H) node[midway,right]{$\color{blue} \mu$};
-	\only<2->{
-	    \draw[line width=1.5pt,red] (B)--(C) node[midway,above]{$\color{red} \lambda$};
-	    \draw[line width=1.5pt,blue] (H)--(G) node[midway,below]{$\color{blue} \mu$};
-	}
-	\only<3->{
-		\draw[line width=1.5pt,red] (C)--(D) node[midway,above]{$\color{red} \lambda$};
-    	\draw[line width=1.5pt,blue] (G)--(F) node[midway,below]{$\color{blue} \mu$};
-    }
-    
-	\draw (A) node{$\bullet$};
-	\draw (A) node[right]{$E$};
-	\draw (B) node{$\bullet$};
-	\draw (C) node{$\bullet$};
-	\draw (D) node{$\bullet$};
-	\draw (E) node{$\bullet$};
-	\draw (F) node{$\bullet$};
-	\draw (G) node{$\bullet$};
-	\draw (H) node{$\bullet$};
-	\end{tikzpicture}	
-	\end{center}
-\end{figure}
-
-\begin{uncoverenv}<3->
-  \begin{itemize}
-  \item We call $\red{E[\ell^k]_\lambda}\oplus\blu{E[\ell^k]_\mu}$ a
-    \emph{horizontal} decomposition;
-  \item SEA literature calls this an \emph{isogeny cycle} [Couveignes, Morain '94].
-  \end{itemize}
-\end{uncoverenv}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-
-\bluebox{Towards an $\ell$-adic Couveignes' algorithm ($\pi$ splits modulo $\ell$)}{
-\begin{algorithmic}[1]
-\REQUIRE $E, E'$ two $r$-isogenous curves on $\mathbb{F}_{q}$ 
-\ENSURE $\phi: E \rightarrow E'$ of degree $r$
-\end{algorithmic}}
-
-\bluebox{}{\textbf{Fact:} $\phi$ maps 
-$\color{red}{E[\ell^k]_{{\lambda}}} \color{black}{\rightarrow} \color{red}{E'[\ell^k]_{{\lambda}}}$ and 
-$\color{blue}{E[\ell^k]_{{\mu}}} \color{black}{\rightarrow} \color{blue}{E'[\ell^k]_{{\mu}}}$.
- }
-
-\begin{enumerate}
-\item Select least $k$ such that  $\ell^{2k}>4r$.
-\medskip
-\item Compute $\langle \red P , \blu Q \rangle = \color{red}{E[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E[\ell^k]_{{\mu}}} $ and $\langle \red P' , \blu Q' \rangle = \color{red}{E'[\ell^k]_{{\lambda}}} \color{black} \oplus \color{blue}{E'[\ell^k]_{{\mu}}} $
-%\item Deduce $\to$ $\langle{\color{red}P},{\color{blue}Q}\rangle=E[\ell^k]$ and $\langle{\color{red}P'},{\color{blue}Q'}\rangle=E'[\ell^k]$;
-\medskip
-\item For each \textbf{invertible diagonal} matrix
-  $\left ( \begin{smallmatrix}a & 0\\ 0 & b
-\end{smallmatrix}\right )$ in $(\mathbb{Z}/\ell^k \mathbb{Z})^{2 \times 2}$:
-\hfill\only<2>{$O(r)$}
-  \begin{enumerate}
-  \item Compute the interpolation polynomial
-    $L$ sending\\
-    $\color{red}P\mapsto aP'$ and $\color{blue}Q\mapsto bQ'$;
-\hfill\only<2>{$O(r)$}
-  \item If $L$ defines an isogeny of degree $r$, return it and
-    stop.
-  \end{enumerate}
-\end{enumerate}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 
 \bluebox{Elkies prime}{We say that $\ell$ is an \emph{Elkies prime} if the characteristic polynomial of $\pi$ factors over $\mathbb{Z}_{\ell}$ as
@@ -1004,7 +1013,7 @@ Since for any $P \in  E[\ell^h]$ we have:
 \[
 \pi(P)=\red \lambda P = \blu \mu P
 \]
-we cannot immediately distinguish kernels of isogenies of direction $\red
+we cannot immediately distinguish kernels of isogenies with direction $\red
 \lambda$ from those with direction $\blu \mu$.
 
 \medskip
@@ -1158,10 +1167,10 @@ to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 &
 \begin{frame}
 %Does it work the same with general volcanoes of $\ell$-isogenies?
 %\pause
-We assume that $E$ lies on the crater.
+We assume that $E$ lies on the crater (we can reduce to this case easily).
  
 %Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
-We compute $\ell^k$-isogenies of kernel $\ker(\pi-\blu \mu)$.
+%We compute $\ell^k$-isogenies of kernel $\ker(\pi-\blu \mu)$.
 \begin{columns}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=0$}{
@@ -1197,9 +1206,9 @@ We compute $\ell^k$-isogenies of kernel $\ker(\pi-\blu \mu)$.
 	\end{center}
 \end{figure}
 }
-$\ker(\pi- \blu \mu | E[\ell^k])$ is a cyclic group of size $\ell^k$.
+$\ker(\pi- \blu \mu\; | \; E[\ell^k])$ is a cyclic group of size $\ell^k$.
 \end{column}
-\begin{column}{5cm}
+\begin{column}{5.5cm}
 \bluebox{Volcano with height $h=2$}{\begin{center}
 \tikzstyle{lambda1}=[lambda,draw=blue!60!green]
 \begin{tikzpicture}[scale=0.40]
@@ -1241,7 +1250,7 @@ $\ker(\pi- \blu \mu | E[\ell^k])$ is a cyclic group of size $\ell^k$.
 \end{center}
 }
 \textbf{Problem:} if $h \geqslant 1$
-then $\ker(\pi- \blu \mu | E[\ell^k])
+then $\ker(\pi- \blu \mu  \;| \; E[\ell^k])
 \simeq (\mathbb Z/\ell^k) \!\times\! (\mathbb Z/\ell^h)$ is not cyclic,
 and contains $\ell^h$ cyclic subgroups of order $\ell^k$.
 
@@ -1264,7 +1273,7 @@ and contains $\ell^h$ cyclic subgroups of order $\ell^k$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Finding cyclic subgroups of $E[\ell^k]$}
+\frametitle{Walking on the crater}
 \textbf{Goal:} compute the kernel of horizontal $\ell^k$-isogenies (codomain curves lying on the crater).
 
 
@@ -1718,7 +1727,7 @@ We proceed step by step by walking along the volcano crater according to the dir
   \item The complexity depends polynomially on the auxiliary prime $\ell$.
   \item Ideally we would like to work with $\ell=2$.
   \item In practice half of all $\ell$ are expected to be Elkies primes.
-  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski, Sutherland~'14].
+  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski,~Sutherland~'14].
   \end{itemize}
   }
 \end{frame}
