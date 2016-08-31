@@ -408,7 +408,7 @@ c & d
 P'\\Q'
 \end{pmatrix}
 \\[1ex]
-\text{with $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in \mathrm{GL}_2(\mathbb{Z}/\ell^k\mathbb{Z})$ invertible}.
+\text{with $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\in \mathsf{GL}_2(\mathbb{Z}/\ell^k\mathbb{Z})$ invertible}.
 \end{gather*}
 $\Rightarrow O(r^2)$ possibilities.
 }
@@ -436,7 +436,7 @@ $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$. The function \[ \pi:
 \begin{prop} \label{prop:p-tor}
 $E$ an ordinary elliptic curve defined over $\mathbb{F}_q$ satisfies:
 \begin{itemize}
-\item  $\mathrm{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
+\item  $\mathsf{End}(E)$ is isomorphic to an order $\mathcal{O}$ in a quadratic imaginary number field $K=\mathbb{Q}[\sqrt{t_{\pi}^2-4q}]$.
 
 %From now we will only work with ordinary elliptic curves.
 
@@ -848,7 +848,7 @@ In the rest of this talk we consider only volcanoes with cyclic crater (Elkies c
 \pause
 Assume that $\pi$ splits modulo $\ell$:
 i.e. its minimal polynomial factors as
-\[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \textit{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
+\[ (\pi-\red \lambda)(\pi- \blu \mu ) \quad \text{with} \quad \red \lambda \neq \blu \mu \bmod \ell \]
 \begin{center}
   \begin{tabular}{p{13em}p{2em}p{13em}}
     Two rational $\ell$-isogenies   & $\Leftarrow$  & Two eigenspaces in $E[\ell]$\\ 
@@ -1027,7 +1027,7 @@ to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\colo
 
 %Moreover $a = 0$ if~$E$ lies on the crater.
 %and else $h - v_{\ell}(a)$~is the depth of~$E$ in the volcano.
-\end{prop}%>>>
+\end{prop}
 
 \begin{figure}
 \begin{center}
@@ -1126,10 +1126,10 @@ to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\colo
 
 %faire des fleches courbees avec les indices \ell et \ell^2
 
-\end{tikzpicture}%>>>
+\end{tikzpicture}
 \end{center}
-\end{figure}%>>>
-\end{frame}%>>>
+\end{figure}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1140,7 +1140,7 @@ to a unique matrix \[\left ( \begin{matrix}{\color{red}\lambda} & a\\ 0 & {\colo
 We assume that $E$ lies on the crater.
  
 %Let $P \in E[\ell^{h+1}]$ such that  $\pi(P)=\red \lambda(P)$
-We compute $\ell^3$-isogenies of kernel $\ker(\pi-\blu \mu)$
+We compute $\ell^k$-isogenies of kernel $\ker(\pi-\blu \mu)$.
 \begin{columns}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=0$}{
@@ -1176,7 +1176,7 @@ We compute $\ell^3$-isogenies of kernel $\ker(\pi-\blu \mu)$
 	\end{center}
 \end{figure}
 }
-$\ker(\pi- \blu \mu)$ is a cyclic group of size $\ell^3$.
+$\ker(\pi- \blu \mu | E[\ell^k])$ is a cyclic group of size $\ell^k$.
 \end{column}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=2$}{\begin{center}
@@ -1219,8 +1219,10 @@ $\ker(\pi- \blu \mu)$ is a cyclic group of size $\ell^3$.
 \end{tikzpicture}
 \end{center}
 }
-\textbf{Problem:} if height $> 0$ then $\ker(\pi- \blu \mu)$ of size $\ell^{3+h}$ is not a cyclic group.
-Thus we have to use all different subgroups of $\ker(\pi-\blu \mu)$ of size $\ell^k$.
+\textbf{Problem:} if $h \leqslant 1$
+then $\ker(\pi- \blu \mu | E[\ell^k])
+\simeq (\mathbb Z/\ell^k) \!\times\! (\mathbb Z/\ell^h)$ is not cyclic,
+and contains $\ell^h$ cyclic subgroups of order $\ell^k$.
 
 \end{column}
 \end{columns}
@@ -1242,7 +1244,7 @@ Thus we have to use all different subgroups of $\ker(\pi-\blu \mu)$ of size $\el
 
 \begin{frame}
 \frametitle{Finding cyclic subgroups of $E[\ell^k]$}
-\textbf{Goal:} compute the kernel of $\ell^k$-horizontal isogenies (codomain curves lying on the crater).
+\textbf{Goal:} compute the kernel of horizontal $\ell^k$-isogenies (codomain curves lying on the crater).
 
 
 We proceed step by step by walking along the volcano crater according to the directions $\red \lambda, \blu \mu$.
@@ -1685,16 +1687,16 @@ We proceed step by step by walking along the volcano crater according to the dir
   \begin{itemize}
   \item We work on $\mathbb{F}_q$ such that $E[\ell] \subset E(\mathbb{F}_q)$,
  	
-	\item Then we use $\ell$-adic extensions using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Shcost '15] where in particular we have a fast computation of the Frobenius.
+	\item then we use $\ell$-adic extensions using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Schost '15] where in particular we have a fast computation of the Frobenius.
   \end{itemize}
  	
   }
 
   \bluebox{Finding an Elkies prime $\ell$}{
   \begin{itemize}
-  \item Ideally we would like to work with $\ell=2$,
-  \item In practice $\frac{1}{2}$ $\ell$ are expected to be "Elkies prime",
-  \item In theory we have a bound $O(\log(q))$ [Shparlinski, Sutherland '14].
+  \item Ideally we would like to work with $\ell=2$.
+  \item In practice one half of all $\ell$ are expected to be Elkies primes.
+  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski, Sutherland '14].
   \end{itemize}
   }
 \end{frame}
@@ -1749,7 +1751,7 @@ The algorithm has been implemented on SageMath v7.1 for the case of $\ell=2$, th
 \begin{center}
 \includegraphics[width=.9\hsize]{Images/volcan}
 \end{center}
-Modified from  \href{http://xkcd.com/1714/}{xkcd.com/1714}
+\tiny Modified from  \href{http://xkcd.com/1714/}{xkcd.com/1714}
 \end{frame}
 
 \end{document}
@@ -2002,7 +2004,7 @@ Modified from  \href{http://xkcd.com/1714/}{xkcd.com/1714}
 %
 %\begin{exe}[Volcano of height=0]
 %
-%%The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathrm{Cl}(K)$ act on the crater:
+%%The ideals $\red{(\lambda,\ell)}$ and $\blu{(\mu,\ell)}$ of the class group $\mathsf{Cl}(K)$ act on the crater:
 %
 %%\begin{enumerate}
 %Our goal: compute an isogeny cycle, differently from [Couveignes,~ Morain~ '94].
