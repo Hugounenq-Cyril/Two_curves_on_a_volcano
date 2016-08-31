@@ -326,7 +326,7 @@ E[p^k]&\simeq\mathbb{Z}/p^k\mathbb{Z}
 Compute $\phi$ by interpolation over $E[p^k]$:
 \begin{itemize}
 \item Compute generators $P,P'$ of $E[p^k],E'[p^k]$;
-\item Interpolate $\phi$, assuming it maps $uP\mapsto uP'$ for all $u$;
+\item Interpolate $\phi$, assuming it maps $uP\mapsto uP'$ for all $u \in \mathbb{Z}/p^k\mathbb{Z}$;
 \item Test whether $\phi$ is an isogeny.\\
     In case it is not, replace $P'$ with a multiple $aP'$ and start again.
 \end{itemize}
@@ -433,6 +433,8 @@ $\Rightarrow O(r^2)$ possibilities.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{An $\ell$-adic Couveignes algorithm (special case)}
+
 
 \begin{frame}
 \frametitle{Frobenius vs isogenies}
@@ -466,7 +468,6 @@ We are only working with rational isogenies $\psi:E \to E'$, i.e.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{An $\ell$-adic Couveignes algorithm (special case)}
 
 \begin{frame}
 \vspace{-4mm}
