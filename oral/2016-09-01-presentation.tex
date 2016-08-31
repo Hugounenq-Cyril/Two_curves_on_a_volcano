@@ -235,8 +235,8 @@ with $n(x)$ a polynomial of degree $\ell$ and $d(x)$ a polynomial of degree $\el
 \bluebox{V\'elu's formulas}{
 From the knowledge of its kernel we can explicitly write down the isogeny:
 \begin{itemize}
-    \item Let $G=\ker\phi$, then $\displaystyle d(x)=\prod_{x_i \in G\setminus\{0_E\}}(X-x_i)$;
-    \item V\'elu's formulas: from $d(x)$ we deduce $n(x)/d(x)$;
+    \item Let $G=\ker\phi$, then $\displaystyle d(X)=\prod_{P \in G\setminus\{0_E\}}(X-x(P))$;
+    \item V\'elu's formulas: from $d(X)$ we deduce $n(X)/d(X)$;
     %\item Complexity quasi-linear in $\ell = \#G$.
 \end{itemize}
 }
@@ -355,13 +355,13 @@ Compute $\phi$ by interpolation over $E[p^k]$:
     to compute a rational
     fraction $F=L\bmod{T}$ of degrees~$(r, r-1)$;
     \hfill $\tilde{O}(r)$
-  \item If $F_{a}$ defines an isogeny of degree $r$, return it and
+  \item If $F$ defines an isogeny of degree $r$, return it and
     stop.
   \end{enumerate}
 \end{enumerate}
 %Complexity polynomial in $p$. 
 \pause
-\bluebox{Goal:} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
+\bluebox{Goal} {Replace $E[p^k]$ by \boldmath $E[\ell^k]$ \unboldmath for a small $\ell$.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -740,7 +740,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{The \textbf{real} guide to volcano types}
+\frametitle{A guide to volcano types}
 \begin{figure}[h]
 		\begin{center}
         \begin{tikzpicture}[scale=0.35]
@@ -821,7 +821,7 @@ $E$ and $E'$ two elliptic curves defined over $\mathbb{F}_q$, $\psi :E \rightarr
 		
 		\end{center} 
 		\end{figure}
-In the rest of this talk we consider only volcanoes with cyclic crater (Elikes' case).
+In the rest of this talk we consider only volcanoes with cyclic crater (Elkies case).
 %\begin{figure}[hbtp]
 %\centering
 %\includegraphics[scale=0.4]{Images/duo-volcan-wo-label.png}
@@ -1015,7 +1015,7 @@ Thus we have to work with $E[\ell^{h+1}]$ to get $P \in \red{ E[\ell^{h+1}]_{ \l
 
 \begin{frame}
 
-\begin{prop}\label{prop:matrice-Frobenius}
+\begin{prop}[De Feo, H., Pl\^ut, Schost]\label{prop:matrice-Frobenius}
 %Let $E$ be a curve on a crater of an $\ell$-isogeny volcano.
 %Then there exists a unique $a \in \{ 0,\ell, \dots, \ell^{h-1}  \}$
 %such that $\pi|T_\ell(E)$~is conjugate, over~$\mathbb{Z}_\ell$,
@@ -1176,7 +1176,7 @@ We compute $\ell^3$-isogenies of kernel $\ker(\pi-\blu \mu)$
 	\end{center}
 \end{figure}
 }
-$\ker(\pi- \blu \mu)$ of size $\ell^3$ is a cyclic group.
+$\ker(\pi- \blu \mu)$ is a cyclic group of size $\ell^3$.
 \end{column}
 \begin{column}{5cm}
 \bluebox{Volcano with height $h=2$}{\begin{center}
@@ -1242,10 +1242,10 @@ Thus we have to use all different subgroups of $\ker(\pi-\blu \mu)$ of size $\el
 
 \begin{frame}
 \frametitle{Finding cyclic subgroups of $E[\ell^k]$}
-\textbf{Goal:} compute the kernel of $\ell^k$ horizontal isogenies (codomain curves lying on the crater).
+\textbf{Goal:} compute the kernel of $\ell^k$-horizontal isogenies (codomain curves lying on the crater).
 
 
-To this aim we proceed step by step by walking along the volcano crater according to the directions $\red \lambda, \blu \mu$.
+We proceed step by step by walking along the volcano crater according to the directions $\red \lambda, \blu \mu$.
 \begin{center}
 \begin{tikzpicture}[scale=0.50]
 \begin{scope}[yshift=10cm]
