@@ -1415,8 +1415,8 @@ We proceed step by step by walking along the volcano crater according to the dir
 			\draw [line width=1.5pt,blue] (C)--(A);
 			\draw [line width=1.5pt,blue] (C)--(CA);
 			}
-			\only<1-3>{\draw (A) node[fill=white]{$E_2$};}			
-			\only<4->{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
+			\only<1-3,5->{\draw (A) node[fill=white]{$E_2$};}			
+			\only<4>{\draw (A) node[fill=yellow!50!white,shape=circle]{$E_2$};}
 			\end{scope}
 	\coordinate (A) at (-3,0);
 	\coordinate (C) at (270:1.2);
@@ -1748,7 +1748,7 @@ We proceed step by step by walking along the volcano crater according to the dir
 
   \bluebox{Computing in towers of field extensions}{
   \begin{itemize}
-%   \item We work on $\mathbb{F}_q$ such that $E[\ell] \subset E(\mathbb{F}_q)$,
+	\item Torsion points are not defined in $\mathbb{F}_q$, in general.
 	\item We work in $\ell$-adic extensions of $\mathbb F_q$
         using constructions from [De~Feo,~Doliskani, Schost '13], [Doliskani,~Schost '15] where in particular we have a fast computation of the Frobenius.
   \end{itemize}
@@ -1760,7 +1760,8 @@ We proceed step by step by walking along the volcano crater according to the dir
   \item The complexity depends polynomially on the auxiliary prime $\ell$.
   \item Ideally we would like to work with $\ell=2$.
   \item In practice half of all $\ell$ are expected to be Elkies primes.
-  \item In theory we have a bound $\ell \leq O(\log(q))$ [Shparlinski,~Sutherland~'14].
+  \item In theory we can only prove $\ell \leq O(\log(q))$ for almost
+    all $q$ and curves $E,E'$ (see [Shparlinski,~Sutherland~'14]).
   \end{itemize}
   }
 \end{frame}
