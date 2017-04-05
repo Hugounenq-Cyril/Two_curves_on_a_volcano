@@ -2,9 +2,9 @@
 # ../Code/test-Fp-30bits/script-test-30bits-end.py
 #This test has been run on a curve of with the following j-invariant j=16 
 #and defined on the Finite Field of cardinality p=1073742493, 
-#we took the curve of cardinality 256, 
-#with beta=2 and the height of the volcano: h=3. 						
-#p=1073742493 j=16 cardinality=1073722368 beta=2 h=3						
+#we took the curve of cardinality 1073722368, 
+#with beta=2 and the height of the volcano: h=2. 						
+#p=1073742493 j=16 cardinality=1073722368 beta=2 h=2						
 #timing is in s, k represents the valuation of the 2 torsion 
 #we had to compute for the algorithm.			
 #The timing has been decomposed in 3 steps 

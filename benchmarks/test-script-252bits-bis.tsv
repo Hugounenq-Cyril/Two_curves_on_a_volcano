@@ -3,8 +3,8 @@
 #This test has been run on a curve of with the following j-invariant j=72 
 #and defined on the Finite Field of cardinality p=2**252+421, 
 #we took the curve of cardinality 7237005577332262213973186563042994240736408655068204765837505660044652071200, 
-#with beta=2 and the height of the volcano: h=3. 						
-#p=2**252+421 j=72 cardinality=7237005577332262213973186563042994240736408655068204765837505660044652071200 beta=2 h=3						
+#with beta=2 and the height of the volcano: h=2. 						
+#p=2**252+421 j=72 cardinality=7237005577332262213973186563042994240736408655068204765837505660044652071200 beta=2 h=2						
 #timing is in s, k represents the valuation of the 2 torsion 
 #we had to compute for the algorithm.			
 #The timing has been decomposed in 3 steps 
