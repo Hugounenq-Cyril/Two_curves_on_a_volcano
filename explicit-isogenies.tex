@@ -202,7 +202,7 @@ the computation of the modular polynomial $\Phi_r$, which is an object
 of bit size $O(r^3\log(r))$. Later Bröker, Lauter and
 Sutherland~\cite{sutherland10:modpol} optimized the modular polynomial
 computation in the context of the SEA
-algorithm~\cite{sutherland2013evaluation}. Finally Lercier and Sirvent~\cite{lercier+sirvent08,1602.00244}
+algorithm~\cite{sutherland2013evaluation}. Finally Lercier and Sirvent~\cite{lercier+sirvent08,lairez-vaccon}
 generalized Elkies' algorithm to work in any characteristic. Despite
 these advances, the overall cost of Elkies' algorithm and its
 variants is still at least cubic in $r$.
@@ -274,7 +274,7 @@ divisible by $p$, and returns, if it exists, an
 $r$-isogeny $ψ:E\to E'$, with $j(E)=j$ and $j(E')=j'$. It is based on the observation that the
 isogeny $ψ$ must put $E[p^k]$ in bijection with $E'[p^k]$, in a way
 that is compatible with their structure as cyclic groups.
-It proceeds in three steps:
+It proceeds in three steps
 \begin{enumerate}
 \item\label{alg:orig-couveignes:tower} Compute generators $P,P'$ of
   $E[p^k]$ and $E'[p^k]$ respectively, for $k$ large enough;
@@ -495,6 +495,8 @@ if it is the composite of $k$~horizontal $ℓ$-isogenies.
 The \emph{depth} of a curve is its distance from the crater.
 It is also the $ℓ$-adic valuation of the conductor
 of~$\mathcal O = \mathrm{End}(E)$.
+We illustrate the three possible shapes for a volcano in
+Figure~\ref{fig:volcanology}.
 
 		\begin{figure}[h]
 		\begin{center}
@@ -574,6 +576,7 @@ of~$\mathcal O = \mathrm{End}(E)$.
 		\end{tikzpicture}
 		%\end{center}
 		\caption{The three shapes of volcanoes of $2$-isogenies }
+                \label{fig:volcanology}
 		\end{center} 
 		\end{figure}
 \kern -2ex
@@ -1505,21 +1508,25 @@ LMV -- UVSQ\\
 45 avenue des États-Unis\\
 78035 Versailles\\
 France\\
-ORCiD: \href{http://orcid.org/0000-0002-9321-0773}{0000-0002-9321-0773}}
+ORCiD: \href{http://orcid.org/0000-0002-9321-0773}{0000-0002-9321-0773}\\
+\href{mailto:luca.de-feo@uvsq.fr}{luca.de-feo@uvsq.fr}}
 \affiliationtwo{Jérôme Plût\\
 ANSSI\\
 51, boulevard de La Tour-Maubourg\\
 75007 Paris\\
-France}
+France\\
+\href{mailto:jerome.plut@ssi.gouv.fr}{jerome.plut@ssi.gouv.fr}}
 \affiliationthree{Cyril Hugounenq\\
 LMV -- UVSQ\\
 45 avenue des États-Unis\\
 78035 Versailles\\
-France}
+France\\
+\href{mailto:hugounenq@msn.com}{hugounenq@msn.com}}
 \affiliationfour{Éric Schost\\
 Cheriton School of Computer Science\\
 University of Waterloo\\
-Canada}
+Canada\\
+\href{mailto:eschost@uwaterloo.ca}{eschost@uwaterloo.ca}}
 \end{document}
 %  LocalWords:  isogeny morphisms Isogenies isogenies isogenous
 %  LocalWords:  cardinality bijection Couveignes automorphism

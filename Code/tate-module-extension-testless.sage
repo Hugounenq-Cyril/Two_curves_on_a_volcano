@@ -695,6 +695,10 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 	sage: print P,P.order(),Q,Q.order(), Q.xy()[0]^101==(5*Q).xy()[0]
 	(67 : 53 : 1) 8 (41*a + 33 : 46*a + 68 : 1) 8 True
 	'''
+
+	### Improvements possible, ideas to take from dual_isogeny
+
+
 	#we compute an l-torsion point which will allow us to compute later 
 	#horizontal l-iosgeny
 	Q2=l**(k-1)*Q
@@ -713,7 +717,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		Q=E(Q0,Q1)
 		Q2=phi(Q2)
 		#here we compute the dual isogeny of phi
-		psi=E.isogeny(R([-Q2[0],1]),degree=2)
+		psi=E.isogeny(kernel=R([-Q2[0],1]),degree=2)	
 		K=Tower._base
 		#we compute also the weierstrass isomorphism to make all those
 		#isogeny constructed compatible
@@ -736,7 +740,7 @@ def straightening_step(E,P,Q,l,k,Tower,Lambda_1,h,stair=None):
 		P=centering_frob(E,P,Q,Tower,l,k,Lambda_1,h,stair) 
 	return E,P,L
 
-def way_back(P,L):
+def way_back(P,L,isomorphism=None):
 	'''
 	Returns the image of the point P by the successive isogenies contained 
 	in the list L
@@ -770,16 +774,30 @@ def way_back(P,L):
 	nite Field in a of size 101^2 True	
 	'''
 	n=len(L)
-	for i in range(n):
-		phi,Pl=L[-i-1]
-		E=phi.codomain()
-		f=phi.rational_maps()[0]
-		g=phi.rational_maps()[1]
-		P0=f(P[0],P[1])
-		P1=g(P[0],P[1])
-		P=E(P0,P1)#or P=phi(P) but this don t work with sage
-		P=Pl(P)
-	return P
+	if isomorphism==None:
+		for i in range(n):
+			phi,Pl=L[-i-1]
+			E=phi.codomain()
+			f=phi.rational_maps()[0]
+			g=phi.rational_maps()[1]
+			P0=f(P[0],P[1])
+			P1=g(P[0],P[1])
+			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+			P=Pl(P)
+		return P
+	else:
+		for i in range(n):
+			phi=L[i]
+			R=PolynomialRing(P.curve().base_field(),'x')
+			S=phi.kernel_polynomial()[0]
+			phi=P.curve().isogeny(R([S,1]),degree=2)
+			E=phi.codomain()
+			f=phi.rational_maps()[0]
+			g=phi.rational_maps()[1]	
+			P0=f(P[0],P[1])
+			P1=g(P[0],P[1])
+			P=E(P0,P1)#or P=phi(P) but this don t work with sage
+		return P
 
 def tate_module(E,b,Tower,l,conservation=None):
 	'''
@@ -962,6 +980,135 @@ def tate_module(E,b,Tower,l,conservation=None):
 		return E2,P,Q,k2,Lambda_1,Lambda_2
 	else:	
 		return E2,P,Q,k2,Lambda_1,Lambda_2,Tower
+
+
+def patch_not_on_crater(E,b,Tower,l,path,conservation=None,ascending=True):
+	'''
+	Return a basis (P,Q) of E with P,Q of order l**k such that
+	P and Q generates asending isogenies until they reach the crater, where
+	they generate two horizontal isogenies of distincts directions. We have 
+	also l**{2k}>b. 
+	
+	INPUTS:
+	-E an ellptic curve defined over a finite field K and such that E is 
+	on a volcano of l-isogeny with cyclic crater
+	-b an integer bound 
+	-Tower a 2-adic tower over a prime field
+	-l a prime number
+	-conservation a boolean variable to know if the algorithm outputs the 
+	2-adic tower under the algorithm has worked, useful to have compatible
+	representations of elements of a same finite field
+	-path is a series 
+
+	OUTPUTS:
+	The same elliptic curve as the input curve E with an horizontal basis 
+	(P,Q) of E with P,Q of order l**k such that l**{2k}>b.  and if 
+	conservation is true it returns the tower under which are defined 
+	points of the elliptic curve E.
+
+	Examples:
+	Ascending one:
+	sage: E=EllipticCurve(j=FiniteField(101)(39))
+	sage: if E.cardinality()!=96:
+	....:           E=E.quadratic_twist();
+	....: 
+	sage: L2=E(0).division_points(2);
+	sage: for l in L2:
+	....:         if E.isogeny_codomain(l).j_invariant()==60:
+	....:           phi=E.isogeny(l);
+	....:         
+	sage: d1=phi;
+	sage: E1=d1.codomain();
+	sage: L12=E1(0).division_points(2); 
+	sage: for l in L12:
+	....:         if E1.isogeny_codomain(l).j_invariant()==65:
+	....:           phi=E1.isogeny(l);
+	....:         
+	sage: d2=phi;
+	sage: E2=d2.codomain();
+	sage: L=[d1,d2]
+	sage: K=Tower_two(FiniteField(101),1)
+	sage: M=patch_not_on_crater(E,12,K,2,L,conservation=None,ascending=True)
+	P (94 : 86 : 1) Q (80*x1 + 49 : 65*x1 + 34 : 1)
+	sage: M
+	(Elliptic Curve defined by y^2 = x^3 + 94*x + 50 over Finite Field of size 101,
+	 (94 : 86 : 1),
+	 (80*x1 + 49 : 65*x1 + 34 : 1),
+	 3,
+	 1,
+	 5)
+	sage: E
+	Elliptic Curve defined by y^2 = x^3 + 94*x + 50 over Finite Field of size 101
+
+	--------------------------------------------------------------------------
+	Descending one:
+	sage: E=EllipticCurve(j=FiniteField(101)(65))
+	sage: if E.cardinality()!=96:
+	....:           E=E.quadratic_twist();
+	....:     
+	sage: L2=E(0).division_points(2);
+	sage: for l in L2:
+	....:         if E.isogeny_codomain(l).j_invariant()==60:
+	....:           phi=E.isogeny(l);
+	....:         
+	sage: d1=phi;
+	sage: E1=d1.codomain();
+	sage: L12=E1(0).division_points(2); 
+	sage: for l in L12:
+	....:         if E1.isogeny_codomain(l).j_invariant()==39:
+	....:           phi=E1.isogeny(l);
+	....:         
+	sage: d2=phi;
+	sage: E2=d2.codomain();
+	sage: L=[d1,d2]
+	sage: K=Tower_two(FiniteField(101),1)
+	sage: M=patch_not_on_crater(E2,12,K,2,L,conservation=None,ascending=False)
+	P (61 : 32 : 1) Q (3*x1 + 73 : 46*x1 + 16 : 1)
+	sage: M
+	(Elliptic Curve defined by y^2 = x^3 + 34*x + 27 over Finite Field of size 101,
+ 	(61 : 32 : 1),
+	 (3*x1 + 73 : 46*x1 + 16 : 1),
+	 3,
+	 1,
+	 5)
+	sage: E2
+	Elliptic Curve defined by y^2 = x^3 + 34*x + 27 over Finite Field of size 101
+	'''
+	L=[]
+	if ascending:
+		for phi in path:
+			E2=phi.codomain();
+			phi=dual_isogeny(phi)
+			L.append(phi)
+		L.reverse()
+		if conservation==None:
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
+		else:
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
+		P=way_back(P,L,isomorphism=False)
+		Q=way_back(Q,L,isomorphism=False)
+	elif(ascending==False):
+		L=[]
+		E2=path[0].domain()
+		for r in range(len(path)):
+			phi=path[r]	
+			L.append(phi)
+		if conservation==None:
+			E2,P,Q,k2,Lambda_1,Lambda_2=tate_module(E2,b,Tower,l,conservation=None)
+		else:
+			E2,P,Q,k2,Lambda_1,Lambda_2,Tower=tate_module(E2,b,Tower,l,conservation)
+		P=way_back(P,L,isomorphism=False)
+		Q=way_back(Q,L,isomorphism=False)
+	else:
+		print "definissez l'ascendance du chemin True or False"
+		return 0
+	print 'P',P,'Q',Q
+	if conservation==None:	
+		return   E,P,Q,k2,Lambda_1,Lambda_2
+	else:
+		return 	 E,P,Q,k2,Lambda_1,Lambda_2,Tower
+
+
 '''
 ----------------------------------------------------------------
 The rest of the functions were designed for l!=2 but not implemented yet 
@@ -1033,6 +1180,77 @@ def division_point_q(l,P,E):
 		return P
         return ans[0]
 
+def transform_path(L,E):
+	'''
+	Input:
+	L a list of j-invariants of curve 2-isogenous
+	E the starting curve of the list L
+	
+	Output:
+	LP a list of isogenies that link the curves with j-invariants from the list
+
+	Example:
+	sage: E=EllipticCurve(j=FiniteField(101)(39))
+	sage: if E.cardinality()!=96:
+	....:     E=E.quadratic_twist()
+	....:
+	sage: if E.cardinality()!=96:
+	....:     E=E.quadratic_twist()
+	....:     
+	sage: LP=transform_path(L,E) 
+	[Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 66*x + 39 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 + 80*x + 20 over Finite Field of size 101,
+ Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 80*x + 20 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 + 12*x + 92 over Finite Field of size 101]
+	sage: LP[1].codomain().j_invariant()
+	65
+	'''
+	LP=[]
+	for j in L:
+		L2=E(0).division_points(2)
+		for l in L2:
+			if E.isogeny(kernel=l,degree=2).codomain().j_invariant()==j:
+				phi2=E.isogeny(kernel=l,degree=2)
+				LP.append(phi2)
+				E=phi2.codomain()
+	return LP		
+
+
+def dual_isogeny(phi):
+	'''
+	Returns the dual isogeny of the 2-isogeny in input
+
+	Input:
+	-phi a 2-isogeny
+
+	Output:
+	-phi2 a 2-isogeny which is dual to phi
+
+	Example:
+	sage: E=EllipticCurve(j=FiniteField(101)(65))
+	sage: if E.cardinality()%2!=0:
+	....:     E=E.quadratic_twist()
+	sage: L2=E(0).division_points(2)
+	sage: len(L2)
+	4
+	sage: phi=E.isogeny(L2[2]); phi
+	Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 75*x +
+	 74 over Finite Field of size 101 to Elliptic Curve defined by y^2 	
+	= x^3 + 21*x + 2 over Finite Field of size 101
+	sage: dual_isogeny(phi)
+	Isogeny of degree 2 from Elliptic Curve defined by y^2 = x^3 + 21*x + 2
+	 over Finite Field of size 101 to Elliptic Curve defined by y^2 = x^3 +
+	 75*x + 74 over Finite Field of size 101
+	'''
+	E_1=phi.domain()
+	E_2=phi.codomain()
+	L2=E_2(0).division_points(2)
+	for l in L2:
+		if E_2.isogeny(kernel=l,degree=2).codomain().j_invariant()==E_1.j_invariant():
+			phi2=E_2.isogeny(kernel=l,codomain=E_1,degree=2)
+	E2bis=phi2.codomain()
+	#Pm=wm.isomorphisms(E2bis,E_1,True) 
+	#Pl=wm.WeierstrassIsomorphism(E2bis, Pm ,E_1)
+	return phi2
+
 
 def fonction_test_point_redresse(P,l,k):
 	'''
@@ -1061,3 +1279,4 @@ def fonction_test_point_redresse(P,l,k):
 		E=phi.codomain()
 		print E.j_invariant()
 	return E.j_invariant()
+
